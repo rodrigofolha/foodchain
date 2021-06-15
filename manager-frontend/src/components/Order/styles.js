@@ -17,6 +17,20 @@ export const Order = styled.div`
    }
   }
 
+  .status-info {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #292828;
+    color: white;
+
+    p {
+      margin-top: 5px;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+
   .customer-info {
     padding: 10px;
     margin-top: 10px;
@@ -44,7 +58,7 @@ export const Button = styled.button`
   color: black;
 
   &:hover {
-    background-color: ${props => props.warning ? "#db1a3a" : "#06C167"};
+    background-color: ${props => props.warning ? "#db1a3a" : props.attention ? "#999900" : "#06C167"};
     color: white;
   }
 

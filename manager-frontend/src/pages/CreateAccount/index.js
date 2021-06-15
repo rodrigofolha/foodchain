@@ -17,7 +17,8 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   email: Yup.string().email('Put a valid email').required('Email is required'),
   password: Yup.string().required('Password is required'),
-  culinary: Yup.string().required('Cuisine is required')
+  culinary: Yup.string().required('Cuisine is required'),
+  digital_address: Yup.string().required('Digital address is required')
 });
 
 export default function CreateAccount({ history }) {
@@ -44,8 +45,8 @@ export default function CreateAccount({ history }) {
       <Container>
         <div className="home-container">
             <ItemContainer>
-              <h2>Partner with Uber Eats and do more for your restaurant</h2>
-              <p>Uber Eats is a technology platform helping businesses worldwide expand their reach, delight customers, and boost their bottom line. Partner with us today</p>
+              <h2>Get you independance today. Be the owner of your own business</h2>
+              <p>Pack food is a plataform to connect clients, restaurants and drivers with no comission. Be part of revolution!</p>
             </ItemContainer>
 
             <FormContainer className="item-container  form-container">
@@ -59,7 +60,8 @@ export default function CreateAccount({ history }) {
                   name: "",
                   email: "",
                   password: "",
-                  culinary: ""
+                  culinary: "",
+                  digital_address: ""
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit} 
@@ -138,6 +140,28 @@ export default function CreateAccount({ history }) {
                       values={values.culinary}
                     /> 
                     {errors.culinary && touched.culinary && <ErrorText>{errors.culinary}</ErrorText>}
+                  </InputBox>
+
+                  <InputBox>
+                    <Input 
+                      type="text" 
+                      name="digital_address"
+                      placeholder="Digital address"
+                      onChange={handleChange}
+                      values={values.digital_address}
+                    /> 
+                    {errors.digital_address && touched.digital_address && <ErrorText>{errors.digital_address}</ErrorText>}
+                  </InputBox>
+
+                  <InputBox>
+                    <Input 
+                      type="text" 
+                      name="public_key"
+                      placeholder="Public key"
+                      onChange={handleChange}
+                      values={values.public_key}
+                    /> 
+                    {errors.public_key && touched.public_key && <ErrorText>{errors.public_key}</ErrorText>}
                   </InputBox>
 
                   <Button type="submit" disabled={isSubmitting}>Submit</Button>

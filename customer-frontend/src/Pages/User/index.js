@@ -2,32 +2,53 @@ import React, { useEffect, useState } from 'react';
 
 import Header from '../../Components/Header';
 import PastOrder from '../../Components/PastOrder';
-
+import {CircularProgress} from '@material-ui/core';
 import {
   Container,
   Customer
 } from './styles';
 
 import api from '../../services/api';
+import { useWeb3 } from '../../services/getWeb3';
+import { CHAIN_ADDRESS } from '../../services/config';
+import { decrypt } from '../../utils/crypto';
 
 export default function Orders() {
   const [customer, setCustomer] = useState({});
-  const [orders, setOrders] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [ordersBlock, setOrdersBlock] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { web3, view} = useWeb3();
+
 
   useEffect(() => {
     async function fetchData() {
-      const response = await api.get('/informations', {
-        headers: {
-          authorization: localStorage.getItem('authorization')
-        }
-      });
+      const response = await api.get('/informations');
 
-      setCustomer(response.data.customer);
-      setOrders(response.data.pastOrders);
+      // setCustomer(response.data.customer);
+      setRestaurants(response.data.restaurants);
+    }
+      
+    async function readOrders () {
+      if (view) {
+        setLoading(true);
+        if (window.ethereum){
+          const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+          let block_information =await view.methods.relatedTo(CHAIN_ADDRESS).call({from: accounts[0]});
+          //block_information.split(',')
+          setOrdersBlock(block_information);
+        }
+        else {
+          console.log('Connect to metamask!')
+        }
+        setLoading(false);
+      }
+
     }
     
     fetchData();
-  }, []);
+    readOrders();
+  }, [view]);
   
   return (
     <>
@@ -36,7 +57,7 @@ export default function Orders() {
 
       <Customer id="profile">
 
-        <div className="basic-section">
+        {/* <div className="basic-section">
           <div className="user-picture"></div>
           <div>
             <h2>{customer.name}</h2>
@@ -45,10 +66,6 @@ export default function Orders() {
         </div>
 
         <div className="customer-info">
-          <div className="modify-profile">
-            <h3>To modify your profile, please visit:</h3>
-            <a href="https://partners.uber.com" target="_blank" rel="noopener noreferrer">https://partners.uber.com</a>
-          </div>
 
           <div className="info-container">
             <div>
@@ -57,13 +74,8 @@ export default function Orders() {
             </div>
 
             <div>
-              <label>Invite code</label>
-              <h4>qieg9j</h4>
-            </div>
-
-            <div>
               <label>Address</label>
-              <h4>{customer.address}</h4>
+              <h4>{customer.address}, {customer.address_number}</h4>
             </div>
 
             <div>
@@ -71,14 +83,18 @@ export default function Orders() {
               <h4>{customer.district}</h4>
             </div>
           </div>
-        </div>
+        </div> */}
       </Customer>
 
       <div id="orders">
         <h2>Past orders</h2>
 
-        {orders.map(order => (
-          <PastOrder order={order} key={order.id} />
+        {loading ?
+        <CircularProgress />
+        :
+        ordersBlock.filter(orderBlock => orderBlock[4] != 0).map(orderBlock => (
+          <PastOrder restaurant={restaurants.find(restaurant => restaurant.digital_address==orderBlock[4])} 
+          orderBlock={orderBlock} key={orderBlock[0]} address={customer.address+', '+customer.address_number+'. '+customer.district} />
         ))}
       </div>
       

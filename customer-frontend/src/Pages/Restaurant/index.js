@@ -45,7 +45,9 @@ export default function Restaurant(props) {
   const response = {
     id: restaurant.id, 
     name: restaurant.restaurant_name, 
-    delivery: restaurant.delivery_price
+    delivery: restaurant.delivery_price,
+    digital_address: restaurant.digital_address,
+    public_key: restaurant.public_key,
   }
 
   return (

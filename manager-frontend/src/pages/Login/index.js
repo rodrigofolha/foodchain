@@ -2,7 +2,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import Logo from '../../assets/uber-eats-logo.png';
+import Logo from '../../assets/BlockFood.jpg';
 
 import { Footer, Container } from './styles';
 import { Button, Input, ErrorText } from '../../global-styles';
@@ -82,10 +82,10 @@ export default function Login({ history }) {
     </Container>
 
     <Footer>
-      <span>© 2020 by <a target="_blank" rel="noopener noreferrer" href="https://github.com/joaovitorzv">João vitor oliveira</a></span>
+      <span>© 2021 by <a target="_blank" rel="noopener noreferrer" href="https://github.com/rodrigofolha">Rodrigo Folha</a></span>
+      <span>My sincere thanks to <a target="_blank" rel="noopener noreferrer" href="https://github.com/joaovitorzv">João vitor oliveira</a> for template</span>
       <span>
-        <a href="/session">this site has no official relationship with uber, and was made for study purposes only.</a> | 
-        <a target="_blank" rel="noopener noreferrer" href="https://www.ubereats.com/restaurant/en-BR/signup"> Uber oficial site</a>
+        <a href="/session">this site was made for study purposes only.</a>
       </span>
     </Footer>
     </>

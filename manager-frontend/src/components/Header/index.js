@@ -6,6 +6,8 @@ import { WhiteButton } from '../../global-styles';
 
 import { isAuthenticated, signOut } from '../../utils/auth';
 
+import Logo from '../../assets/BlockFood.jpg';
+
 export default function Header() {
   const HandleLogout = () => {
     signOut();
@@ -14,7 +16,7 @@ export default function Header() {
   return (
   <HeaderStyle>
     <a href="/">
-      <img src="https://www.ubereats.com/restaurant/_static/d388e65de8662293c3a262f4c2c7d93a.svg" alt=""/>
+      <img src={Logo} height="76" width="214" />
     </a>
     <div> { isAuthenticated() ? <WhiteButton onClick={HandleLogout}>Logout</WhiteButton> :
       <>

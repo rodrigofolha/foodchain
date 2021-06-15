@@ -7,7 +7,7 @@ const menuController = require('../app/controllers/customer/menuController');
 const orderController = require('../app/controllers/customer/orderController');
 const customerController = require('../app/controllers/customer/customerController');
 
-const authMiddleware = require('../app/middlewares/auth');
+//const authMiddleware = require('../app/middlewares/auth');
 
 /*
 * Public routes
@@ -19,7 +19,7 @@ routes.post('/session', sessionController.store);
 routes.get('/restaurants', restaurantsController.index);
 routes.get('/restaurants/:id/menu', menuController.index);
 
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 
 routes.post('/restaurants/:id/order', orderController.store);
 routes.get('/informations', customerController.index)

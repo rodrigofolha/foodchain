@@ -10,7 +10,8 @@ class Customers extends Model {
       password: DataTypes.VIRTUAL,
       password_hash: DataTypes.STRING,
       address: DataTypes.STRING,
-      district: DataTypes.STRING
+      district: DataTypes.STRING,
+      address_number: DataTypes.STRING,
     },{
       sequelize
     });
@@ -26,6 +27,12 @@ class Customers extends Model {
 
   checkPassword(password) {
     return bcrypt.compareSync(password, this.password_hash)  
+  }
+
+  static associate(models) {
+    this.hasMany(models.Order, {
+      foreignKey: 'customer_id',
+    });
   }
 }
 

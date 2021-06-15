@@ -16,6 +16,8 @@ class Restaurant extends Model {
       culinary: DataTypes.STRING,
       description: DataTypes.STRING,
       delivery_price: DataTypes.FLOAT,
+      digital_address: DataTypes.STRING,
+      public_key: DataTypes.STRING,
       logo_path: DataTypes.STRING,
       banner_path: DataTypes.STRING,
     }, {

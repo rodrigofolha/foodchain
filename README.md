@@ -1,7 +1,7 @@
-
+<!-- 
 <h4 align="center">
 <img src="https://wearesocial-net.s3.amazonaws.com/us/wp-content/uploads/sites/7/2019/05/WAS_NYC_WEB_LOGOSUber-Eats.png" width="250px"/><br>
- <b>Food delivery baseada no UberEats</b>
+ <b>Food delivery baseada em blockchain</b>
 </h4>
 <p align="center">
    <a href="https://github.com/joaovitorzv"><img alt="Made by Joao vitor" src="https://img.shields.io/badge/made%20by-joao-red"></a>
@@ -22,7 +22,7 @@
 <p float="left">
  <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
-</p>
+</p> -->
 
 
 
@@ -56,6 +56,10 @@ A ideia principal é criar uma aplicação baseada nas principais funcionalidade
 	- Visualizar todos restaurantes e cardapios
 	- Realizar o pagamento de um pedido
 	- Resposta do restaurante (real time)
+- <b>Versão (Apenas para entregadores)</b>
+	- Cadastro/Login
+	- Visualizar todos os pedidos disponíveis para entrega
+	- Pegar um pedido (real time)
 
 ### 🎯 Objetivo
 O objetivo deste projeto, é aprender coisas que serão utilizadas em um ambiente real de trabalho. me desafiei a criar este projeto para enxergar o meu nivel de conhecimento e colocar como projeto no meu portfolio.
@@ -66,7 +70,7 @@ O objetivo deste projeto, é aprender coisas que serão utilizadas em um ambient
 
 Create postgre docker container
 ```sh
-$ docker run --name ubereats -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+$ docker run --name packfood_db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
 ```
 Install the packages run migrations and start API
 
@@ -84,15 +88,6 @@ $ yarn install
 $ yarn start
 ```
 
-***To run Mobile***
-
-> **Note:** The mobile has been discontinued, but if you want to run it, just follow the following commands
-
-
-```sh
-$ yarn install
-$ react-native run-android (or run-ios)
-```
 
 ### :memo: Licença
 

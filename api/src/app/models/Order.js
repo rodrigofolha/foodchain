@@ -9,7 +9,9 @@ class Order extends Model {
       subtotal: DataTypes.FLOAT,
       fees: DataTypes.FLOAT,
       delivery_price: DataTypes.FLOAT,
+      digital_address: DataTypes.STRING,
       total: DataTypes.FLOAT,
+      state: DataTypes.STRING
     },{ 
       sequelize
     });

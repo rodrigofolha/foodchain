@@ -56,7 +56,7 @@ export default function Item({ restaurantId, id, title, description, price, thum
           <h2>{title}</h2>
           <p>{description}</p>
 
-          <h2 className="price">R${price}</h2>
+          <h2 className="price">U${price}</h2>
         </Description>
         <Thumbnail thumbnail={thumbnail}>
           <BasketQuantity>

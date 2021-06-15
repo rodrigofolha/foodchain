@@ -69,7 +69,7 @@ export default function Basket({ restaurant, history }) {
       {basket.length > 0  ? 
       <>
       <Title size="28px">Your order</Title>
-      <p>From restaurant <a href="/restaurant/name">The house</a></p>
+      <p>From restaurant <a href={"/restaurant/"+(restaurantOrdered ? restaurantOrdered.id : 1)}>{ restaurantOrdered ? restaurantOrdered.name : null}</a></p>
 
       <div className="items-container">
         {basket.map(item => ( 
@@ -79,13 +79,13 @@ export default function Basket({ restaurant, history }) {
             {item.name}
             <button onClick={() => removeItem(item.id)}>Remove</button>
           </h3>
-          <h3 className="item-price">R${item.price}</h3>
+          <h3 className="item-price">U${item.price}</h3>
          </BasketItem> 
         ))}
       </div>
 
       <PaymentOrder onClick={() => checkout()}>
-        Next: Payment R${
+        Next: Payment U${
         basket
           .map( item => parseFloat(item.price))
           .reduce((acc, curr) => acc + curr, 0)

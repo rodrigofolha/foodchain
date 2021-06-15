@@ -36,9 +36,10 @@ export default function Header() {
   let firstname;
   let fullname;
   const getFirstName = () => {
-    customer = JSON.parse(localStorage.getItem('customer'));
-    fullname = (customer.name).split(' ')
-    firstname = fullname[0] + ' ' + fullname[1];
+  //   customer = JSON.parse(localStorage.getItem('customer'));
+  //   fullname = (customer.name).split(' ')
+    // firstname = fullname[0] + ' ' + fullname[1];
+    firstname = 'Customer'
 
     return firstname;
   }
@@ -53,12 +54,12 @@ export default function Header() {
 
         <LocationInput>
           <FaMapMarkerAlt size={20} />
-          <Title >Avenida Brigadeiro Faria Lima</Title>
+          <Title >Recife</Title>
         </LocationInput>
 
         <DeliverTime>
           <FaClock size={20} />
-          <Title >Deliver Now</Title>
+          <Title >Delivery Now</Title>
         </DeliverTime>
       </LocationOptions>
 

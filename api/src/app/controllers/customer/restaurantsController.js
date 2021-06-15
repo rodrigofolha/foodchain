@@ -8,6 +8,8 @@ module.exports = {
         'restaurant_name',
         'culinary',
         'delivery_price',
+        'digital_address',
+        'public_key',
         'banner_path',
       ]
     });

@@ -56,13 +56,19 @@ export default function Home({ history }) {
           <SmallText>Your favorites food without delivery fee</SmallText>
         </SubTitleItem>
 
+        <RestaurantsGrid>
+          {restaurants.filter(restaurant => restaurant.delivery_price == 0).map(restaurant => (
+            <RestaurantItem restaurant={restaurant} key={restaurant.id} />
+          ))}
+        </RestaurantsGrid>
+
         <SubTitleItem>
           <Title size="28px">When You're Hungry Now</Title>
           <SmallText>The fastest food to your door</SmallText>
         </SubTitleItem>
 
         <RestaurantsGrid>
-          {restaurants.map(restaurant => (
+          {restaurants.filter(restaurant => restaurant.delivery_price > 0).map(restaurant => (
             <RestaurantItem restaurant={restaurant} key={restaurant.id} />
           ))}
         </RestaurantsGrid>

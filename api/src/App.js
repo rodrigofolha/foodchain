@@ -5,6 +5,7 @@ const { resolve } = require("path")
 
 const managerRoutes =  require('./Routes/Manager');
 const customerRoutes = require('./Routes/Customer');
+const deliverymanRoutes = require('./Routes/Deliveryman');
 
 require("./database");
 
@@ -28,6 +29,7 @@ class App {
   routes() {
     this.server.use('/manager', managerRoutes);
     this.server.use('/customer', customerRoutes);
+    this.server.use('/deliveryman', deliverymanRoutes);
   }
 }
 

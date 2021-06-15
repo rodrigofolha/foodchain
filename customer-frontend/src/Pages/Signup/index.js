@@ -58,7 +58,7 @@ export default function Signup({ history }) {
             address: "",
             address_number: "",
             city: "",
-            district: ""
+            district: "",
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
@@ -167,18 +167,17 @@ export default function Signup({ history }) {
         </Formik>
 
         <div className="new-user">
-          <p>Already a uber user? <SecondaryLink to="/login">Login</SecondaryLink></p>
+          <p>Already an user? <SecondaryLink to="/login">Login</SecondaryLink></p>
         </div>
       </FormContainer>
 
       <Footer>
-        <span>© 2020 by <a target="_blank" rel="noopener noreferrer" href="https://github.com/joaovitorzv">João vitor oliveira</a></span>
-
-        <span>
-            <a href="/signup">This site has no official relationship with uber, and was made for study purposes only </a> |  
-            <a target="_blank" rel="noopener noreferrer" href="https://www.ubereats.com/restaurant/en-BR/signup"> Uber oficial site</a>
-        </span>
-      </Footer>
+      <span>© 2021 by <a target="_blank" rel="noopener noreferrer" href="https://github.com/rodrigofolha">Rodrigo Folha</a></span>
+      <span>My sincere thanks to <a target="_blank" rel="noopener noreferrer" href="https://github.com/joaovitorzv">João vitor oliveira</a> for template</span>
+      <span>
+        <a href="/session">this site was made for study purposes only.</a>
+      </span>
+    </Footer>
     </Container>
   )
 }

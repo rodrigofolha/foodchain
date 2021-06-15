@@ -9,11 +9,14 @@ const Dashboard = require('../app/models/Dashboard');
 // Customer Models
 const Customer = require('../app/models/Customer');
 
+// Deliveryman Models
+const Deliveryman = require('../app/models/Deliveryman');
+
 
 // Core models
 const Order = require('../app/models/Order');
 
-const models = [Restaurant, Item, Dashboard, Customer, Order];
+const models = [Restaurant, Item, Dashboard, Customer, Order, Deliveryman];
 
 class Database {
   constructor() {

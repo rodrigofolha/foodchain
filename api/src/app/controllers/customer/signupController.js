@@ -9,6 +9,7 @@ module.exports = {
       email: Yup.string().email().required(),
       password: Yup.string().min(6).required(),
       address: Yup.string().required(),
+      address_number: Yup.string().required(),
       district: Yup.string().required(),
     });
 
@@ -21,7 +22,8 @@ module.exports = {
       name,
       password,
       address,
-      district 
+      address_number,
+      district
     } = req.body;
 
     if (await Customer.findOne({ where: { email }})) {
@@ -33,7 +35,8 @@ module.exports = {
       email,
       password,
       address,
-      district,
+      address_number,
+      district
     });
 
     return res.json(customer);
