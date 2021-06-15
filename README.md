@@ -24,42 +24,46 @@
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
 </p> -->
 
+<!--*Delivery worker*
+
+<p float="left">
+ <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
+ <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
+</p> -->
 
 
 
 ### :rocket: Techs
-Este projeto está sendo desenvolvido com as seguintes tecnologias:
+This project was developed using the following technologies:
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
 - [Socket.io](https://socket.io/)
 - [JWT](https://jwt.io/)
--  [Formik](https://github.com/jaredpalmer/formik)
+- [Formik](https://github.com/jaredpalmer/formik)
 - [Yup](https://github.com/jquense/yup)
 - [React](https://github.com/facebook/react)
 - [React Native](https://github.com/facebook/react-native)
 - [Styled Components](https://styled-components.com/)
+- [Web3.js](https://github.com/ChainSafe/web3.js)
 
 ### :muscle: The project
 
-A ideia principal é criar uma aplicação baseada nas principais funcionalidades das tech foods, o design/layout do projeto é baseado no UberEats. 
+The main idea is to democratize the food delivery service, connecting several restaurants, delivery people and customers without the need to charge fees.
 
 ### 💡 Main features
 <hr> 
 
-- <b>Versão Web (Apenas para restaurantes)</b>
-	- Cadastro de restaurantes
-	- Cadastro de Items  no cardapio
-	- Aceitar Pedidos em real time
-	- Analytics com pagamentos, taxas etc
-- <b>Versão (Apenas para clientes)</b>
-	- Cadastro/Login
-	- Visualizar todos restaurantes e cardapios
-	- Realizar o pagamento de um pedido
-	- Resposta do restaurante (real time)
-- <b>Versão (Apenas para entregadores)</b>
-	- Cadastro/Login
-	- Visualizar todos os pedidos disponíveis para entrega
-	- Pegar um pedido (real time)
+- <b>Web version (For restaurants)</b>
+	- Register user
+	- Register menu
+	- Accept orders in real time
+- <b>Web version (For customers)</b>
+	- See all restaurants and menu
+	- Make and pay for an order
+	- Monitor the order status (real time)
+- <b>Web version (For delivery workers)</b>
+	- See the available orders for delivery
+	- Pick an order (real time)
 
 ### 🎯 Goals
 O objetivo deste projeto, é aprender coisas que serão utilizadas em um ambiente real de trabalho. me desafiei a criar este projeto para enxergar o meu nivel de conhecimento e colocar como projeto no meu portfolio.
@@ -68,11 +72,15 @@ O objetivo deste projeto, é aprender coisas que serão utilizadas em um ambient
 ### 🔥 How to run this project
 ***To run API***
 
-Create postgre docker container or run the docker-compose of root folder.
+You must create a postgres docker container or run the docker-compose in root folder.
 ```sh
-docker-compose run --name packfood_db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
-$ docker-compose up -d
+$ docker run --name packfood_db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
 ```
+OR
+```sh
+$ docker-compose -f ./docker-compose.yml up -d
+```
+
 Install the packages run migrations and start API
 
 ```sh
