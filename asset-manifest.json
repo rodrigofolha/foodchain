@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/manager-fronted/static/js/main.ef403f3d.chunk.js",
-    "main.js.map": "/manager-fronted/static/js/main.ef403f3d.chunk.js.map",
-    "runtime-main.js": "/manager-fronted/static/js/runtime-main.ef8ccfff.js",
-    "runtime-main.js.map": "/manager-fronted/static/js/runtime-main.ef8ccfff.js.map",
-    "static/js/2.791a2aeb.chunk.js": "/manager-fronted/static/js/2.791a2aeb.chunk.js",
-    "static/js/2.791a2aeb.chunk.js.map": "/manager-fronted/static/js/2.791a2aeb.chunk.js.map",
-    "index.html": "/manager-fronted/index.html",
-    "precache-manifest.b39e38473edbd70af984e0cc59f68a12.js": "/manager-fronted/precache-manifest.b39e38473edbd70af984e0cc59f68a12.js",
-    "service-worker.js": "/manager-fronted/service-worker.js",
-    "static/js/2.791a2aeb.chunk.js.LICENSE.txt": "/manager-fronted/static/js/2.791a2aeb.chunk.js.LICENSE.txt",
-    "static/media/BlockFood.jpg": "/manager-fronted/static/media/BlockFood.62a8fc13.jpg",
-    "static/media/oval.svg": "/manager-fronted/static/media/oval.fd8a5e78.svg",
-    "static/media/thumbnail.jpeg": "/manager-fronted/static/media/thumbnail.a50c0547.jpeg"
+    "main.js": "/pack-food/static/js/main.ef403f3d.chunk.js",
+    "main.js.map": "/pack-food/static/js/main.ef403f3d.chunk.js.map",
+    "runtime-main.js": "/pack-food/static/js/runtime-main.677424d1.js",
+    "runtime-main.js.map": "/pack-food/static/js/runtime-main.677424d1.js.map",
+    "static/js/2.bf33348a.chunk.js": "/pack-food/static/js/2.bf33348a.chunk.js",
+    "static/js/2.bf33348a.chunk.js.map": "/pack-food/static/js/2.bf33348a.chunk.js.map",
+    "index.html": "/pack-food/index.html",
+    "precache-manifest.b47f9fc665f04c278d303cb318742446.js": "/pack-food/precache-manifest.b47f9fc665f04c278d303cb318742446.js",
+    "service-worker.js": "/pack-food/service-worker.js",
+    "static/js/2.bf33348a.chunk.js.LICENSE.txt": "/pack-food/static/js/2.bf33348a.chunk.js.LICENSE.txt",
+    "static/media/BlockFood.jpg": "/pack-food/static/media/BlockFood.62a8fc13.jpg",
+    "static/media/oval.svg": "/pack-food/static/media/oval.fd8a5e78.svg",
+    "static/media/thumbnail.jpeg": "/pack-food/static/media/thumbnail.a50c0547.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ef8ccfff.js",
-    "static/js/2.791a2aeb.chunk.js",
+    "static/js/runtime-main.677424d1.js",
+    "static/js/2.bf33348a.chunk.js",
     "static/js/main.ef403f3d.chunk.js"
   ]
 }
