@@ -55,7 +55,7 @@ The main idea is to democratize the food delivery service, connecting several re
 
 - <b>Web version (For restaurants)</b>
 	- Register user
-	- Register menu
+	- Register menu items
 	- Accept orders in real time
 - <b>Web version (For customers)</b>
 	- See all restaurants and menu
@@ -66,7 +66,10 @@ The main idea is to democratize the food delivery service, connecting several re
 	- Pick an order (real time)
 
 ### 🎯 Goals
-O objetivo deste projeto, é aprender coisas que serão utilizadas em um ambiente real de trabalho. me desafiei a criar este projeto para enxergar o meu nivel de conhecimento e colocar como projeto no meu portfolio.
+The main goal of this project is connecting directly the actors giving them autonomy. Moreover, all process must be transparent but all sensitive data must not be exposed.
+No comission fees
+No sensitive data storage
+Every information can be tracked on blockchain network
 
 
 ### 🔥 How to run this project
