@@ -1,7 +1,7 @@
 <!-- 
 <h4 align="center">
 <img src="https://wearesocial-net.s3.amazonaws.com/us/wp-content/uploads/sites/7/2019/05/WAS_NYC_WEB_LOGOSUber-Eats.png" width="250px"/><br>
- <b>Food delivery baseada em blockchain</b>
+ <b>Food delivery system based on blockchain</b>
 </h4>
 <p align="center">
    <a href="https://github.com/joaovitorzv"><img alt="Made by Joao vitor" src="https://img.shields.io/badge/made%20by-joao-red"></a>
@@ -27,7 +27,7 @@
 
 
 
-### :rocket: Tecnologias usadas
+### :rocket: Techs
 Este projeto está sendo desenvolvido com as seguintes tecnologias:
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
@@ -39,11 +39,11 @@ Este projeto está sendo desenvolvido com as seguintes tecnologias:
 - [React Native](https://github.com/facebook/react-native)
 - [Styled Components](https://styled-components.com/)
 
-### :muscle: O Projeto 
+### :muscle: The project
 
 A ideia principal é criar uma aplicação baseada nas principais funcionalidades das tech foods, o design/layout do projeto é baseado no UberEats. 
 
-### 💡 Principais Funcionalidades 
+### 💡 Main features
 <hr> 
 
 - <b>Versão Web (Apenas para restaurantes)</b>
@@ -61,16 +61,17 @@ A ideia principal é criar uma aplicação baseada nas principais funcionalidade
 	- Visualizar todos os pedidos disponíveis para entrega
 	- Pegar um pedido (real time)
 
-### 🎯 Objetivo
+### 🎯 Goals
 O objetivo deste projeto, é aprender coisas que serão utilizadas em um ambiente real de trabalho. me desafiei a criar este projeto para enxergar o meu nivel de conhecimento e colocar como projeto no meu portfolio.
 
 
-### 🔥 Como rodar esse projeto (How to run this project)
+### 🔥 How to run this project
 ***To run API***
 
-Create postgre docker container
+Create postgre docker container or run the docker-compose of root folder.
 ```sh
-$ docker run --name packfood_db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+docker-compose run --name packfood_db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+$ docker-compose up -d
 ```
 Install the packages run migrations and start API
 
@@ -89,8 +90,8 @@ $ yarn start
 ```
 
 
-### :memo: Licença
+### :memo: License
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+This project is unde MIT license. See the file [LICENSE](https://github.com/rodrigofolha/pack-food/blob/develop/LICENSE) to more details.
 
-<p align="center">Feito com ❤️ por <strong>João vitor oliveira 👋</p>
+<p align="center">Thanks to <strong>João vitor oliveira </strong> for template 👋</p>
