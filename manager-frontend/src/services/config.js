@@ -1,5 +1,5 @@
 //ropsten deployed contract
-export const CHAIN_ADDRESS = '0xCb4Ec7Dc81be67bF784a9561cd5369a1b54957DF'; 
+export const CHAIN_ADDRESS = '0x8A47416ac51F30EE5121287626aeacba5D57417F'; 
 
 export const CHAIN_ABI =
 [
@@ -267,7 +267,7 @@ export const VIEW_ABI =
 ]
 
 //ropsten deployed contract
-export const INTERACT_ADDRESS = '0x5cFB847c3f0487D1bc5cD242E964Df71195c9207'; 
+export const INTERACT_ADDRESS = '0x4a128557750c6ec155aB84c9A594eD2ac04c4C6f'; 
 
 export const INTERACT_ABI =
 [
@@ -287,7 +287,7 @@ export const INTERACT_ABI =
 				"type": "bool"
 			}
 		],
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -90,7 +90,7 @@ export default function Home({ history }) {
         {
           (order.length != 0 && order[0] != "0") ? 
         <RestaurantsGrid>
-          <OrderItem order={order} restaurant={restaurant} total={13} //total={parseInt(order[2])}
+          <OrderItem order={order} restaurant={restaurant} total={parsetInt(order[5])} //total={parseInt(order[2])}
           chain={chain} web3={web3} interact={interact} key={order[0]} history={history}/>
           
         </RestaurantsGrid>

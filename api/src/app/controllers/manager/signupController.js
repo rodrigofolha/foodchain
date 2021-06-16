@@ -12,7 +12,8 @@ module.exports = {
       restaurant_address: Yup.string().required(),
       restaurant_city: Yup.string().required(),
       culinary: Yup.string().required(),
-      digital_address: Yup.string().required()
+      digital_address: Yup.string().required(),
+      public_key: Yup.string().required()
     });
 
     if(!(await schema.isValid(req.body))) {
@@ -32,7 +33,8 @@ module.exports = {
       restaurant_address, 
       restaurant_city,
       culinary,
-      digital_address
+      digital_address,
+      public_key
     } = req.body;
 
     const restaurant = await Restaurant.create({
@@ -43,7 +45,8 @@ module.exports = {
       restaurant_address,
       restaurant_city,
       culinary,
-      digital_address
+      digital_address,
+      public_key
     });
 
     await Dashboard.create({
