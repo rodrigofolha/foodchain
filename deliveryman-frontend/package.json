@@ -1,5 +1,6 @@
 {
-  "name": "deliveryman-frontend",
+  "homepage": "./",
+  "name": "deliveryworker-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

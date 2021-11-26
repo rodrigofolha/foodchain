@@ -43,8 +43,8 @@ export default function Dashboard() {
       if (response.data.restaurant) {
         setRestaurant(response.data.restaurant);
         setMenu(response.data);       
-        setLogo(`http://localhost:3333/files/${response.data.logo_path}`);
-        setBanner(`http://localhost:3333/files/${response.data.banner_path}`);
+        setLogo(`https://api.arthurcarvalho.info/food/files/${response.data.logo_path}`);
+        setBanner(`https://api.arthurcarvalho.info/food/files/${response.data.banner_path}`);
       } else {
         setRestaurant(response.data);
       }

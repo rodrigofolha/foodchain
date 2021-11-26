@@ -61,7 +61,7 @@ export const RestaurantThumbnail = styled.div`
 width: 330px;
 height: 150px;
 
-background: url(${props => `http://localhost:3333/files/${props.banner}`}) no-repeat center center;
+background: url(${props => `https://api.arthurcarvalho.info/food/files/${props.banner}`}) no-repeat center center;
 background-size: cover;
 overflow: hidden;
 `;

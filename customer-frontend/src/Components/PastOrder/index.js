@@ -29,6 +29,8 @@ export default function Orders({ address, restaurant, orderBlock }) {
   const [items, setItems] = useState([]);
   const [customer_information, setCustomerInformation] = useState(null);
   
+  console.log('restaurant'+restaurant);
+  
   if (orderBlock[3] === 'ORDERED'){
     button_accept = null;
     button_cancel = <Button warning onClick={() => cancelOrder(orderBlock[0])}>Cancel my order by time (free of charge)</Button>;
@@ -84,7 +86,7 @@ export default function Orders({ address, restaurant, orderBlock }) {
   }
 
   const addAddress = async function (order_id, publicKey) {
-    if (window.ethereum && customer_information && readMore){
+    if (window.ethereum && customer_information && !readMore){
       setLoading(true);
       const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
       let gas_estimated = await web3.eth.getGasPrice();

@@ -8,7 +8,7 @@ export const HeaderContainer = styled.div`
 
 export const BannerContainer = styled.div`
   height: 380px;
-  background: url(${props => `http://localhost:3333/files/${props.banner}`}) no-repeat center center;
+  background: url(${props => `https://api.arthurcarvalho.info/food/files/${props.banner}`}) no-repeat center center;
   background-size: cover;
   
   display: flex;

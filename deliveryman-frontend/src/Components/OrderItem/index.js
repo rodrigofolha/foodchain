@@ -44,7 +44,7 @@ export default function OrderItem({ interact, order, total, restaurant, chain, h
     <Container>
       <LinkToRestaurant to={`/`}>
         <Thumbnail>
-          <Image src={`http://localhost:3333/files/${restaurant.banner_path}`} />
+          <Image src={`https://api.arthurcarvalho.info/food/files/${restaurant.banner_path}`} />
         </Thumbnail>
 
         <div className="title-container">

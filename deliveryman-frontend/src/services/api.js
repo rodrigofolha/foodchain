@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3333/deliveryman'
+  baseURL: 'https://api.arthurcarvalho.info/food/deliveryman'
 })
 
 export default api;

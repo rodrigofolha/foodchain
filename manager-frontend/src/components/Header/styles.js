@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Link } from "react-router-dom";
 export const HeaderStyle = styled.header`
   background-color: black;
   color: white;
@@ -15,7 +15,7 @@ export const HeaderStyle = styled.header`
   }
 `;
 
-export const LinkBtn = styled.a`
+export const LinkBtn = styled(Link)`
   background-color: ${props => props.white ? "black" : "#f8f8f9"};
   color: ${props => props.white ? "white" : "black" };
   padding: 7px 15px;

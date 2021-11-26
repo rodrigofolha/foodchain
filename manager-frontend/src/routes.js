@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { HashRouter, Switch } from 'react-router-dom';
 
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
@@ -12,7 +12,7 @@ import Orders from './pages/Orders';
 
 export default function Routes() {
   return (  
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <PublicRoute restricted={true} path="/" exact component={CreateAccount} />
         <PublicRoute restricted={true} path="/session" component={Login} />
@@ -21,6 +21,6 @@ export default function Routes() {
         <PrivateRoute path="/dashboard/menu" component={Menu} />
         <PrivateRoute path="/dashboard/orders" component={Orders} />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   )
 }

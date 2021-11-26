@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 
 import Logo from '../../assets/BlockFood.jpg';
 
+import { Link } from 'react-router-dom';
 import { Footer, Container } from './styles';
 import { Button, Input, ErrorText } from '../../global-styles';
 
@@ -77,7 +78,7 @@ export default function Login({ history }) {
               </form>
             )}
           </Formik>
-          <a href="/">Create an account</a>
+          <Link to="/">Create an account</Link>
         </div>  
     </Container>
 
@@ -85,7 +86,7 @@ export default function Login({ history }) {
       <span>© 2021 by <a target="_blank" rel="noopener noreferrer" href="https://github.com/rodrigofolha">Rodrigo Folha</a></span>
       <span>My sincere thanks to <a target="_blank" rel="noopener noreferrer" href="https://github.com/joaovitorzv">João vitor oliveira</a> for template</span>
       <span>
-        <a href="/session">this site was made for study purposes only.</a>
+        <Link to="/session">this site was made for study purposes only.</Link>
       </span>
     </Footer>
     </>

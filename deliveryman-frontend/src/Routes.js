@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { HashRouter, Switch } from 'react-router-dom';
 
 import PublicRoute from './Components/PublicRoute';
 import PrivateRoute from './Components/PrivateRoute';
@@ -12,7 +12,7 @@ import User from './Pages/User';
 
 export default function Routes() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <PublicRoute restricted={false} path="/" exact component={Home} />
         {/* <PublicRoute restricted={true} path="/signup" component={Signup} />
@@ -20,6 +20,6 @@ export default function Routes() {
 
         <PublicRoute path="/user" component={User} />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   )
 }

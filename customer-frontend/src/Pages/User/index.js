@@ -26,7 +26,11 @@ export default function Orders() {
       const response = await api.get('/informations');
 
       // setCustomer(response.data.customer);
-      setRestaurants(response.data.restaurants);
+      console.log(response)
+      console.log(response.data)
+      console.log(response.data.restaurants  )
+      await setRestaurants(response.data.restaurants);
+      console.log(restaurants)
     }
       
     async function readOrders () {
@@ -35,6 +39,7 @@ export default function Orders() {
         if (window.ethereum){
           const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
           let block_information =await view.methods.relatedTo(CHAIN_ADDRESS).call({from: accounts[0]});
+          console.log(block_information)
           //block_information.split(',')
           setOrdersBlock(block_information);
         }
@@ -93,7 +98,7 @@ export default function Orders() {
         <CircularProgress />
         :
         ordersBlock.filter(orderBlock => orderBlock[4] != 0).map(orderBlock => (
-          <PastOrder restaurant={restaurants.find(restaurant => restaurant.digital_address==orderBlock[4])} 
+          <PastOrder restaurant={restaurants.find(restaurant => restaurant.digital_address===orderBlock[4])} 
           orderBlock={orderBlock} key={orderBlock[0]} address={customer.address+', '+customer.address_number+'. '+customer.district} />
         ))}
       </div>

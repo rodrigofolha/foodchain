@@ -1,5 +1,5 @@
 //ropsten deployed contract
-export const CHAIN_ADDRESS = '0x8A47416ac51F30EE5121287626aeacba5D57417F'; 
+export const CHAIN_ADDRESS = '0xb7798dFB1847df92d87F8E9405e62374DC3DeADB'; 
 
 export const CHAIN_ABI =
 [
@@ -76,7 +76,7 @@ export const CHAIN_ABI =
 	}
 ]
 
-export const VIEW_ADDRESS = '0xc516Dd6d2c11E00EB4fc91E56Ef73Ba0951b06d2'; 
+export const VIEW_ADDRESS = '0xF66cfC4755F496C14ef29e39BC70DD5f18758B8E'; 
 
 export const VIEW_ABI = 
 [
@@ -267,7 +267,7 @@ export const VIEW_ABI =
 ]
 
 //ropsten deployed contract
-export const INTERACT_ADDRESS = '0x4a128557750c6ec155aB84c9A594eD2ac04c4C6f'; 
+export const INTERACT_ADDRESS = '0xED72cba2dEF8F8e5c823c17C54F72852637dedd6'; 
 
 export const INTERACT_ABI =
 [
@@ -431,7 +431,7 @@ export const INTERACT_ABI =
 ]
 
 //ropsten deployed contract
-export const STORAGE_ADDRESS = '0xdfbB0CbF1ABa32B40E36ebfB9A6aD50A170b3939'; 
+export const STORAGE_ADDRESS = '0x4E9125c4222d1D0ad69DF0AbB3bBc9Ade11B8bD2'; 
 
 export const STORAGE_ABI =
 [

@@ -16,7 +16,7 @@ export default function RestaurantItem({ restaurant }) {
     <Container>
       <LinkToRestaurant to={`/restaurant/${restaurant.id}`}>
         <Thumbnail>
-          <Image src={`http://localhost:3333/files/${restaurant.banner_path}`} />
+          <Image src={`https://api.arthurcarvalho.info/food/files/${restaurant.banner_path}`} />
         </Thumbnail>
 
         <div className="title-container">

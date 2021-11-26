@@ -45,7 +45,7 @@ export default function Orders() {
     }
     
     fetchData();
-    readOrders();
+    //readOrders();
   }, [view]);
   
   return (
