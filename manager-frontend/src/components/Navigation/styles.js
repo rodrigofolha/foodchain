@@ -48,3 +48,7 @@ export const UserLogged = styled.div`
     }
   }
 `;
+
+export const Menu = styled.ul`
+  overflow-x: auto;
+`
