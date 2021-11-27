@@ -30,6 +30,7 @@ import { AiTwotoneTag } from 'react-icons/ai';
 import HorizontalBrand from '../../assets/ue_logo_horizontal.png';
 
 import { isAuthenticated, SignOut } from '../../utils/auth';
+import { Hidden } from '../Hidden';
 
 export default function Header() {
   let customer;
@@ -67,14 +68,21 @@ export default function Header() {
       <SearchOptions>
         <Search>
           <FaSearch size={20} />
-          <Title>Search</Title>
+          <Hidden maxWidth='800px'>
+            <Title>Search</Title>
+          </Hidden>
         </Search>
       
       {isAuthenticated() ?
       <ToggleMenuContainer>
        
         <Title onClick={() => toggleMenu === 'none' ? setToggleMenu('block') : setToggleMenu('none')}>
-          <CustomerButton><FaUser size={20} />{getFirstName()}</CustomerButton>
+          <CustomerButton>
+            <FaUser size={20} />
+            <Hidden maxWidth='800px'>
+              {getFirstName()}
+            </Hidden>
+          </CustomerButton>
         </Title>
         <ToggleMenu toggleMenu={toggleMenu}>
            <ul>
