@@ -5,6 +5,9 @@ import userImg from '../../assets/user.jpeg';
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 1250px;
+  padding: 15px;
+  padding-top: 75px;
+
   @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500&display=swap');
   font-family: 'Hind Siliguri', sans-serif;
 `;
@@ -12,7 +15,7 @@ export const Container = styled.div`
 
 export const Customer = styled.div`
   display: flex;
-  padding: 7% 2% 5% 2%;
+  /* padding: 15px; */
   border-bottom: 2px solid #f0f0f0;
   margin-bottom: 20px;
 
@@ -76,3 +79,6 @@ export const Customer = styled.div`
     }
   }
 `;
+
+export const OrdersContainer = styled.div`
+`

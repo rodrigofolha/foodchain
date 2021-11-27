@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const OrdersContainer = styled.div`
 display: flex;
 flex-direction: column;
-margin-top: 1%;
 
 border-bottom: 1px solid #e0e0e0;
 `;
@@ -11,13 +10,15 @@ border-bottom: 1px solid #e0e0e0;
 export const Order = styled.div`
 display: flex;
 justify-content: space-between;
+margin: 15px 0;
 `;
 
 export const OrderDetails = styled.div`
 display: flex;
 
 .details {
-  padding: 0 20px;
+  flex: 2;
+  padding: 0 10px;
   
   h2 {
     font-size: 22px;
@@ -33,7 +34,6 @@ display: flex;
 
 .items {
   display: flex;
-  max-width: 560px;
 }  
 .quantity {
   padding: 4px 7px;
@@ -58,12 +58,14 @@ display: flex;
 `;
 
 export const RestaurantThumbnail = styled.div`
-width: 330px;
-height: 150px;
+flex: 1;
+max-width: 330px;
+height: 100%;
 
 background: url(${props => `https://api.arthurcarvalho.info/food/files/${props.banner}`}) no-repeat center center;
 background-size: cover;
 overflow: hidden;
+
 `;
 
 export const OrderAgain = styled.div`
@@ -84,13 +86,18 @@ button {
 `;
 
 export const Button = styled.button`
+  position: relative;
   border: none;
-  padding: 10px 25px;
+  padding: 10px;
   color: black;
 
   &:hover {
     background-color: ${props => props.warning ? "#db1a3a" : "#06C167"};
     color: white;
   }
-
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  margin-top: 15px;
+`

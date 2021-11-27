@@ -8,7 +8,8 @@ import {
   Order,
   OrderDetails,
   RestaurantThumbnail,
-  OrderAgain
+  OrderAgain,
+  ButtonsContainer
 } from './styles';
 import { decrypt } from '../../utils/crypto';
 
@@ -140,6 +141,7 @@ export default function Orders({ address, restaurant, orderBlock }) {
         <p>Status: {orderBlock[3]} </p>
         <p>Delivery fee: {orderBlock[2]}</p>
         {console.log('componente: '+items[0])}
+
           { readMore ? 
         <div>
         <p> {items.length} {(items.length > 1) ? "items" : "item"} for U$ {items.reduce(
@@ -156,17 +158,16 @@ export default function Orders({ address, restaurant, orderBlock }) {
               </div>
             ))}
           </div> : <button onClick={decryptDetails}>More details</button>
-
           }
 
-        </div>
-
-
+        <ButtonsContainer>
+          {button_cancel}
+          {button_accept}
+          {information_text}
+        </ButtonsContainer>
       
+        </div>
       </OrderDetails>
-        {button_cancel}
-        {button_accept}
-        {information_text}
     </Order>}
   </OrdersContainer>
   )
