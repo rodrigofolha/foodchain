@@ -14,6 +14,8 @@ import {
 } from './styles';
 import { Anchor, Title } from '../../GlobalStyles'; 
 
+import {Hidden} from '../Hidden'
+
 import { 
   FaMapMarkerAlt, 
   FaSearch, 
@@ -66,14 +68,21 @@ export default function Header() {
       <SearchOptions>
         <Search>
           <FaSearch size={20} />
-          <Title>Search</Title>
+          <Hidden maxWidth='800px'>
+            <Title>Search</Title>
+          </Hidden>
         </Search>
       
       {isAuthenticated() ?
       <ToggleMenuContainer>
        
         <Title onClick={() => toggleMenu === 'none' ? setToggleMenu('block') : setToggleMenu('none')}>
-          <CustomerButton><FaUser size={20} />{getFirstName()}</CustomerButton>
+          <CustomerButton>
+            <FaUser size={20} />
+            <Hidden maxWidth='800px'>
+              {getFirstName()}
+            </Hidden>
+          </CustomerButton>
         </Title>
         <ToggleMenu toggleMenu={toggleMenu}>
            <ul>

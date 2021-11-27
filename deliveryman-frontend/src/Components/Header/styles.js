@@ -12,12 +12,18 @@ export const HeaderContainer = styled.header`
 
 export const Logo = styled.img`
   width: 200px;
+  @media (max-width: 800px) {
+    width: 100px;
+  }
 `;
 
 export const LocationOptions = styled.div`
   display: flex; 
   flex-direction: row;
   align-items: center;
+  @media (max-width: 800px) {
+    margin-left: 20px;
+  }
 `;
 export const LocationInput = styled.div`
   display: flex;
@@ -31,13 +37,18 @@ export const DeliverTime = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 50px;
-
+  @media (max-width: 800px) {
+    margin-left: 20px;
+  }
 `;
 
 export const SearchOptions = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media (max-width: 800px) {
+    margin-right: 20px;
+  }
 `;
 
 export const Search = styled.button`
