@@ -13,6 +13,10 @@ export const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    @media(max-width: 800px){
+      padding: 0 20px;
+      flex-direction: column;
+    }
   }
 `;
 
@@ -21,6 +25,9 @@ export const ItemContainer = styled.div`
   max-width: 550px;
   h2 {
     font-size: 3em;
+    @media(max-width: 800px){
+      font-size: 2em;
+    }
   }
 `;
 
@@ -34,6 +41,10 @@ export const FormContainer = styled.div`
 
   h2 {
     padding-bottom: 25px;
+  }
+
+  @media(max-width: 800px){
+    width: unset;
   }
 `;
 
