@@ -5,6 +5,8 @@ export const HeaderContainer = styled.div``;
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 1250px;
+  width: 100%;
+  padding: 15px;
 `;
 
 export const Filter = styled.div`
@@ -40,4 +42,9 @@ export const RestaurantsGrid = styled.div`
   grid-template-rows: auto;
   column-gap: 15px;
   row-gap: 35px;
+
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
