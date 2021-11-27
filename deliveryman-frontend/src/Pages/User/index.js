@@ -84,10 +84,16 @@ export default function Orders() {
         { loading ?
         <CircularProgress />
         :
-        ordersBlock.filter(orderBlock => orderBlock[0] != 0).map((orderBlock, index) => (
-          <PastOrder restaurant={restaurants.find(restaurant => restaurant.digital_address==orderBlock[4])} 
-          orderBlock={orderBlock} key={orderBlock[0]} />
-        ))}
+        ordersBlock.filter(orderBlock => orderBlock[0] != 0).map(orderBlock => {
+          const restaurant = restaurants.find(restaurant => restaurant.digital_address===orderBlock[4])
+          if (restaurant){
+            return (
+              <PastOrder 
+              restaurant={restaurant} 
+              orderBlock={orderBlock} key={orderBlock[0]} />
+            )
+          }
+        })}
       </div>
       
     </Container>
