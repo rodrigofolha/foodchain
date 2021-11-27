@@ -54,6 +54,11 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media (max-width: 800px) {
+    width: 100%;
+    right: 0;
+  }
 `;
 
 export const CloseButton = styled.button`
