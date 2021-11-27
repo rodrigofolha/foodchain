@@ -61,7 +61,7 @@ export default function Checkout({ history }) {
 }
 
   
-  useEffect(() => {
+  // useEffect(() => {
     // async function fetchData() {
     //   const response = await api.get('/informations', {
     //     headers: {
@@ -73,7 +73,7 @@ export default function Checkout({ history }) {
     // }
     // fetchData();
     //checkAccount();
-  }, []); 
+  // }, []); 
 
   async function makeOrder(content) {
     setLoading(true);

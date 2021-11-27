@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin: 0 auto;
+  padding-top: 70px;
   max-width: 1250px;
 
   @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap');
@@ -12,7 +13,16 @@ export const Details = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 1%;
+  padding: 15px;
+  
+  @media (max-width: 1030px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  & > * {
+    margin: 15px;
+  }
 
   h2 {
     font-weight: 400;
@@ -34,7 +44,7 @@ export const Details = styled.div`
 
 
 export const Delivery = styled.div`
-  width: 600px;
+  width: 500px;
 
   .address {
     padding: 3% 0;
