@@ -118,7 +118,7 @@ export default function Dashboard() {
           enableReinitialize
         >
           {({ handleSubmit, handleChange, values, setFieldValue, touched, isSubmitting, errors }) => (
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <form onSubmit={handleSubmit} encType="multipart/form-data" className='form-appearence'>
             <div className="input-group">
               <h3>Appearance</h3>
               <label htmlFor="description">Description</label>

@@ -7,6 +7,7 @@ export const ItemContainer = styled.button`
   height: 140px;
   display: grid;
   grid-template-columns: 2fr 1.4fr;
+  margin: 7.5px;
 
   &:hover {
     border-color: rgb(0, 0, 0);
@@ -46,10 +47,7 @@ export const ItemContainer = styled.button`
 
   .thumbnail {
     overflow: hidden;
-
-    img {
-      height: 100%;
-    }
+    height: 100%;
   }
 `;
 

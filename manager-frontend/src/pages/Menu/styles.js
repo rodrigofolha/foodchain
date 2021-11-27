@@ -40,7 +40,19 @@ export const MenuContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
+    flex-wrap: wrap;
     margin-top: 20px;
+
+    @media (max-width: 1219px) {
+      padding: 2% 10%;
+      flex-direction: column;
+    }
+
+    .form-appearence {
+      @media (max-width: 1219px) {
+        margin-top: 30px;
+      }
+    }
     
     .input-group {
       justify-content: center;
@@ -60,6 +72,9 @@ export const MenuContainer = styled.div`
 
       input {
         width: 600px;
+        @media (max-width: 1219px) {
+          width: unset;
+        }
         border: 2px solid transparent;
         background-color: #faf5f5;
         padding: 15px 20px;
@@ -93,15 +108,14 @@ export const MenuContainer = styled.div`
       }
 
     }
+
+    
   }
 
   .menu-items {
     padding-top: 20px;
-    display: grid;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
   }
 `;
 
