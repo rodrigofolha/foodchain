@@ -5,6 +5,8 @@ import userImg from '../../assets/user.jpeg';
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 1250px;
+  padding: 15px;
+  padding-top: 30px;
   @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500&display=swap');
   font-family: 'Hind Siliguri', sans-serif;
 `;
@@ -15,7 +17,12 @@ export const Customer = styled.div`
   padding: 7% 2% 5% 2%;
   border-bottom: 2px solid #f0f0f0;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
+  
   .user-picture {
     width: 80px;
     height: 80px;
@@ -49,9 +56,6 @@ export const Customer = styled.div`
 
   .info-container {
     margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
 
     div {
       display: flex;

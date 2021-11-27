@@ -8,6 +8,7 @@ import {
   Order,
   OrderDetails,
   RestaurantThumbnail,
+  ButtonsContainer,
 } from './styles';
 
 import {useWeb3} from '../../services/getWeb3';
@@ -106,48 +107,46 @@ export default function Orders({ restaurant, orderBlock }) {
 
 
   return (
-  <OrdersContainer>
-
-  {loading ? <CircularProgress/> :
-    <Order>
-      <OrderDetails>
-        <RestaurantThumbnail banner={restaurant.banner_path} />
-        <div className="details">
-          <h2>{restaurant.restaurant_name}</h2>
-
-    
-        <p><b>Restaurant:</b> {orderBlock[4]}</p>
-        <p><b> Created at:</b> <Moment unix>{orderBlock[6]}</Moment> &middot; <b>Last updated at:</b> <Moment unix>{orderBlock[7]}</Moment></p>
-        <p><b>Secret code:</b>  {orderBlock[5]}</p>
-        <p><b>Client's name and address:</b>  {address}</p>
-        <p><b>Status:</b>  {orderBlock[3]} </p>
-        <p><b>Delivery fee:</b>  {orderBlock[2]}</p>
-          { readMore ? 
-        <div>
-        <p> {items.length} {(items.length > 1) ? "items" : "item"} for U$ {items.reduce(
-          (sum, item) => sum+item.quantity*item.price, 0)} </p>
-          {items.map((item, index) => (
-              <div className="items" key={index}>
-                <div className="items-quantity">
-                  <div className="quantity">{item.quantity}</div>
+    <OrdersContainer>
+    {loading?<CircularProgress />:
+      <Order>
+        <OrderDetails>
+          <RestaurantThumbnail banner={restaurant.banner_path} />
+          <div className="details">
+            <h2>{restaurant.restaurant_name}</h2>
+            <p><b>Restaurant:</b> {orderBlock[4]}</p>
+            <p><b> Created at:</b> <Moment unix>{orderBlock[6]}</Moment> &middot; <b>Last updated at:</b> <Moment unix>{orderBlock[7]}</Moment></p>
+            <p><b>Secret code:</b>  {orderBlock[5]}</p>
+            <p><b>Client's name and address:</b>  {address}</p>
+            <p><b>Status:</b>  {orderBlock[3]} </p>
+            <p><b>Delivery fee:</b>  {orderBlock[2]}</p>
+            { readMore ? 
+          <div>
+          <p> {items.length} {(items.length > 1) ? "items" : "item"} for U$ {items.reduce(
+            (sum, item) => sum+item.quantity*item.price, 0)} </p>
+            {items.map((item, index) => (
+                <div className="items" key={index}>
+                  <div className="items-quantity">
+                    <div className="quantity">{item.quantity}</div>
+                  </div>
+  
+                  <div className="item-detail">
+                    <h3>{item.name}</h3>
+                  </div>
                 </div>
-
-                <div className="item-detail">
-                  <h3>{item.name}</h3>
-                </div>
-              </div>
-            ))}
-          </div> : <button onClick={decryptDetails}>More details</button>
-
-          }
-
-
-        </div>
-      </OrderDetails>
-        {button_cancel_time}
-        {button_cancel}
-        {button_accept}
-    </Order> }
-  </OrdersContainer>
+              ))}
+            </div> : <button onClick={decryptDetails}>More details</button>
+            }
+  
+          <ButtonsContainer>
+            {button_cancel_time}
+            {button_cancel}
+            {button_accept}
+          </ButtonsContainer>
+        
+          </div>
+        </OrderDetails>
+      </Order>}
+    </OrdersContainer>
   )
 }

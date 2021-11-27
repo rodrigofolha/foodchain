@@ -63,30 +63,19 @@ export default function Orders() {
           </div> */}
         </div>
 
-        <div className="customer-info">
-
           <div className="info-container">
             <div>
               <label>Location</label>
               <h4>Brazil</h4>
             </div>
+          </div>
 
-            {/* <div>
-              <label>City</label>
-              <h4>{customer.city}</h4>
-            </div> */}
-
-            {/* <div>
-              <label>Transportation</label>
-              <h4>{user.transport}</h4>
-            </div> */}
-
+          <div className="info-container">
             <div>
               <label>District</label>
               <h4>PE</h4>
             </div>
           </div>
-        </div>
       </Customer>
 
       <div id="orders">
