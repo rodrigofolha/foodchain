@@ -73,12 +73,9 @@ export default function Restaurant(props) {
       </BannerContainer>
 
       <MenuContainer>
-        <SubTitleItem>
+        {/* <SubTitleItem>
           <Title size="24px"><AiFillTag size={20} color="#734bda" />Special Offers</Title>
-        </SubTitleItem>
-
-        <GridItems>
-        </GridItems>
+        </SubTitleItem> */}
 
         <SubTitleItem>
           <Title size="24px">Items</Title>
