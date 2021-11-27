@@ -39,7 +39,11 @@ export const RestaurantInfo = styled.div`
 
 export const MenuContainer = styled.div`
   max-width: 1250px;
-  margin: 0 auto; 
+  margin: 0 auto;
+  width: 100%; 
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const GridItems = styled.div`
@@ -48,4 +52,15 @@ export const GridItems = styled.div`
   grid-template-rows: auto;
   grid-column-gap: 20px;
   grid-row-gap: 40px;
+
+  @media (min-width: 861px) and (max-width: 1333px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 861px) {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;
