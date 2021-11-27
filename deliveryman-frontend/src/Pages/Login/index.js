@@ -84,7 +84,7 @@ export default function Signup({ history }) {
         </Formik>
 
         <div className="new-user">
-          <p>New to pack food? <SecondaryLink to="/signup">Create an account</SecondaryLink></p>
+          <p>New to FoodChain? <SecondaryLink to="/signup">Create an account</SecondaryLink></p>
         </div>
       </FormContainer>
 

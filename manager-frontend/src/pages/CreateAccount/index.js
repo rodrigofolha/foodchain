@@ -46,7 +46,7 @@ export default function CreateAccount({ history }) {
         <div className="home-container">
             <ItemContainer>
               <h2>Get you independance today. Be the owner of your own business</h2>
-              <p>Pack food is a plataform to connect clients, restaurants and drivers with no comission. Be part of revolution!</p>
+              <p>FoodChain is a plataform to connect clients, restaurants and drivers with no comission. Be part of revolution!</p>
             </ItemContainer>
 
             <FormContainer className="item-container  form-container">
