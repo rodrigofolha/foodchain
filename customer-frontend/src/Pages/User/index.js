@@ -5,7 +5,8 @@ import PastOrder from '../../Components/PastOrder';
 import {CircularProgress} from '@material-ui/core';
 import {
   Container,
-  Customer
+  Customer,
+  OrdersContainer
 } from './styles';
 
 import api from '../../services/api';
@@ -60,7 +61,7 @@ export default function Orders() {
     <Header />
     <Container>
 
-      <Customer id="profile">
+      {/* <Customer id="profile"> */}
 
         {/* <div className="basic-section">
           <div className="user-picture"></div>
@@ -89,19 +90,28 @@ export default function Orders() {
             </div>
           </div>
         </div> */}
-      </Customer>
+      {/* </Customer> */}
 
-      <div id="orders">
+      <OrdersContainer>
         <h2>Past orders</h2>
 
         {loading ?
         <CircularProgress />
         :
-        ordersBlock.filter(orderBlock => orderBlock[4] != 0).map(orderBlock => (
-          <PastOrder restaurant={restaurants.find(restaurant => restaurant.digital_address===orderBlock[4])} 
-          orderBlock={orderBlock} key={orderBlock[0]} address={customer.address+', '+customer.address_number+'. '+customer.district} />
-        ))}
-      </div>
+        ordersBlock.filter(orderBlock => orderBlock[4] != 0).map(orderBlock => {
+          const restaurant = restaurants.find(restaurant => restaurant.digital_address===orderBlock[4])
+
+          if(restaurant){
+            return (
+              <PastOrder 
+              restaurant={restaurant} 
+              orderBlock={orderBlock} 
+              key={orderBlock[0]} 
+              address={customer.address+', '+customer.address_number+'. '+customer.district} />
+              )
+            }
+        })}
+      </OrdersContainer>
       
     </Container>
     </>
