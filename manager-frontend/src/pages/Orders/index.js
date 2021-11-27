@@ -103,8 +103,7 @@ export default function Orders() {
 
     <OrdersContainer>
       {loading ? <CircularProgress /> : 
-      <div className="order-container">
-      {ordersBlock.filter(orderBlock => orderBlock[0] != 0).map(orderBlock => (
+      ordersBlock.filter(orderBlock => orderBlock[0] != 0).map(orderBlock => (
         <OrderCard 
           key={orderBlock[0]}
           account={account}
@@ -116,7 +115,6 @@ export default function Orders() {
             
         />
         ))}
-      </div>}
     </OrdersContainer>
     </>
   )
