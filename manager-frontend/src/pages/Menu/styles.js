@@ -6,14 +6,26 @@ export const MenuContainer = styled.div`
   
   .settings-container {
 
+    h4 {
+      padding: 0 15px;
+    }
+
     h2 {
       color: rgb(67, 164, 34);
+
+      @media (max-width: 800px) {
+        font-size: 20px;
+      }
     }
   
     .form-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      h2 {
+        padding: 0 20px;
+      }
     }
 
     .about-manager  {
@@ -44,9 +56,9 @@ export const MenuContainer = styled.div`
     margin-top: 20px;
 
     @media (max-width: 1219px) {
-      padding: 2% 10%;
-      flex-direction: column;
-    }
+        padding: 2% 10%;
+        flex-direction: column;
+      }
 
     .form-appearence {
       @media (max-width: 1219px) {
@@ -58,6 +70,11 @@ export const MenuContainer = styled.div`
       justify-content: center;
       display: flex;
       flex-direction: column;
+
+      width: 600px;
+      @media (max-width: 1219px) {
+        width: unset;
+      }
 
       &:not(:first-child) {
           margin-top: 15px;
@@ -71,10 +88,7 @@ export const MenuContainer = styled.div`
       }
 
       input {
-        width: 600px;
-        @media (max-width: 1219px) {
-          width: unset;
-        }
+        width: 100%;
         border: 2px solid transparent;
         background-color: #faf5f5;
         padding: 15px 20px;
@@ -123,6 +137,9 @@ export const AlertFill = styled.p`
   padding: 4px 20px;
   background-color: ${props => props.filled ? "#06C167" : "red"};
   color: white;
+  @media (max-width: 800px) {
+    font-size: 14px;
+  }
 `;
 
 export const ImgPreview = styled.img`
