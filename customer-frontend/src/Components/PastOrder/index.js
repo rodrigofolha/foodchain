@@ -86,8 +86,8 @@ export default function Orders({ address, restaurant, orderBlock }) {
     }
   }
 
-  const addAddress = async function (order_id, publicKey) {
-    if (window.ethereum && customer_information && !readMore){
+  const addAddress = async function (order_id) {
+    if (window.ethereum && customer_information && readMore){
       setLoading(true);
       const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
       let gas_estimated = await web3.eth.getGasPrice();
@@ -121,7 +121,10 @@ export default function Orders({ address, restaurant, orderBlock }) {
   
       setLoading(false);
       window.location.reload();
-    } else {
+    } else if (!readMore) {
+      console.log('YOU MUST GET MORE DETAILS!');
+    }
+    else {
       console.log('Connect to MetaMask!');
     }
   }

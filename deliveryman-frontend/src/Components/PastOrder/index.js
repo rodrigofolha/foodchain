@@ -98,8 +98,9 @@ export default function Orders({ restaurant, orderBlock }) {
     let orderAddress = await storage.methods.readInformation(orderBlock[0]).call({from: accounts[0]});
     console.log(orderAddress);
     const unecryptedItems = await decrypt(accounts[0], orderAddress[1]);
-    const unecryptedAddress = await decrypt(accounts[0], orderAddress[0]);
     const json_items = JSON.parse(unecryptedItems);
+    console.log(json_items);
+    const unecryptedAddress = await decrypt(accounts[0], orderAddress[0]);
     setItems(json_items);
     setAddress(unecryptedAddress);
     setReadMore(true);

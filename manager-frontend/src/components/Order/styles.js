@@ -48,7 +48,11 @@ export const Order = styled.div`
   .accept-btn {
     padding: 10px;
     display: flex;
-    justify-content: space-evenly;
+    margin: 2% auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 `;
 

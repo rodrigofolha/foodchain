@@ -24,11 +24,9 @@ export default function Checkout({ history }) {
 
   const setUserAccount = async () => {
     if (window.ethereum){
-      await window.ethereum.enable();
-      web3.eth.getAccounts().then(accounts => {
-        setAccount(accounts[0])
-        setUserBalance(accounts[0])
-      })
+      const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+      setAccount(accounts[0])
+      setUserBalance(accounts[0])
     }
   }
 
@@ -60,24 +58,12 @@ export default function Checkout({ history }) {
     }
 }
 
-  
-  // useEffect(() => {
-    // async function fetchData() {
-    //   const response = await api.get('/informations', {
-    //     headers: {
-    //       authorization: localStorage.getItem('authorization')
-    //     }
-    //   });
-
-    //   setCustomer(response.data.customer);
-    // }
-    // fetchData();
-    //checkAccount();
-  // }, []); 
 
   async function makeOrder(content) {
     setLoading(true);
     console.log(content)
+    const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+    setAccount(accounts[0])
     console.log('customer: '+account)
     let preparedItem = items.map(item => {return {'name': item.name, 'quantity': 1, 'price': parseInt(item.price)}})
     let restaurant_items = encrypt(restaurant.public_key, preparedItem);
