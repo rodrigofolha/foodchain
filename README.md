@@ -7,7 +7,7 @@
    <a href="https://github.com/joaovitorzv"><img alt="Made by Joao vitor" src="https://img.shields.io/badge/made%20by-joao-red"></a>
    <a href="https://github.com/joaovitorzv/UberEats/blob/develop/LICENSE"><img alt="License" src="https://img.shields.io/github/license/joaovitorzv/UberEats?style=flat-square"></a>
    <a href="https://github.com/joaovitorzv/UberEats"><img alt="Stars" src="https://img.shields.io/github/stars/joaovitorzv/ubereats?style=social">
-</p></a> <br>
+</p></a> <br>-->
 
 ### Screenshots  📷
 
@@ -22,14 +22,14 @@
 <p float="left">
  <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
-</p> -->
+</p>
 
-<!--*Delivery worker*
+*Delivery worker*
 
 <p float="left">
- <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
- <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
-</p> -->
+ <img src="/screenshots/delivery-orders-screen.png" align="middle" width="380px"/>
+ <img src="/screenshots/past-orders-delivery.png" align="middle" width="380px"/>
+</p>
 
 
 
@@ -99,6 +99,17 @@ Dont forgot to configure the ``.env`` environment you can found the example of t
 $ yarn install
 $ yarn start
 ```
+
+***To configure Metamask to conncet to Fantom testnet***
+
+1. Install metamask extension to your chrome compatible browser (Chrome, Opera, Brave, Firefox, Kiwi).
+2. After you must add Fantom testnet connection to your Metamask
+3. Network Name: Fantom testnet
+4. New RPC Url: https://rpc.testnet.fantom.network/
+5. ChainID: 0xfa2
+6. Symbol: FTM
+7. Block Explorer URL: https://testnet.ftmscan.com/
+8. Finnaly, access the testnet faucet at https://faucet.fantom.network/ to request some testnet FTM.
 
 
 ### :memo: License
