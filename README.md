@@ -22,13 +22,13 @@
 <p float="left">
  <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
-</p> -->
+</p>
 
 *Delivery worker*
 
 <p float="left">
- <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
- <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
+ <img src="/screenshots/delivery-orders-screen.png" align="middle" width="380px"/>
+ <img src="/screenshots/past-orders-delivery.png" align="middle" width="380px"/>
 </p>
 
 
