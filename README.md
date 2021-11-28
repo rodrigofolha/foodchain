@@ -7,7 +7,7 @@
    <a href="https://github.com/joaovitorzv"><img alt="Made by Joao vitor" src="https://img.shields.io/badge/made%20by-joao-red"></a>
    <a href="https://github.com/joaovitorzv/UberEats/blob/develop/LICENSE"><img alt="License" src="https://img.shields.io/github/license/joaovitorzv/UberEats?style=flat-square"></a>
    <a href="https://github.com/joaovitorzv/UberEats"><img alt="Stars" src="https://img.shields.io/github/stars/joaovitorzv/ubereats?style=social">
-</p></a> <br>
+</p></a> <br>-->
 
 ### Screenshots  📷
 
@@ -24,12 +24,12 @@
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
 </p> -->
 
-<!--*Delivery worker*
+*Delivery worker*
 
 <p float="left">
  <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
-</p> -->
+</p>
 
 
 
