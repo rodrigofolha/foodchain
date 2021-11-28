@@ -100,6 +100,17 @@ $ yarn install
 $ yarn start
 ```
 
+***To configure Metamask to conncet to Fantom testnet***
+
+1. Install metamask extension to your chrome compatible browser (Chrome, Opera, Brave, Firefox, Kiwi).
+2. After you must add Fantom testnet connection to your Metamask
+3. Network Name: Fantom testnet
+4. New RPC Url: https://rpc.testnet.fantom.network/
+5. ChainID: 0xfa2
+6. Symbol: FTM
+7. Block Explorer URL: https://testnet.ftmscan.com/
+8. Finnaly, access the testnet faucet at https://faucet.fantom.network/ to request some testnet FTM.
+
 
 ### :memo: License
 
