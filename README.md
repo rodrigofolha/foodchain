@@ -9,9 +9,9 @@
    <a href="https://github.com/joaovitorzv/UberEats"><img alt="Stars" src="https://img.shields.io/github/stars/joaovitorzv/ubereats?style=social">
 </p></a> <br>-->
 
-### Screenshots  📷
+### Apps  📷
 
-*Restaurant manager*
+<a href="https://arthurcarvalho.info/apps/foodchain/manager/#/">*Restaurant manager*</a>
 <p float="left">
  <img src="/screenshots/signup-page.png" align="middle" width="380px"/>
  <img src="/screenshots/menu-manager-page.png" align="middle" width="380px"/>
