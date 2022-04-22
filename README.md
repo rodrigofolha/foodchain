@@ -9,7 +9,7 @@
    <a href="https://github.com/joaovitorzv/UberEats"><img alt="Stars" src="https://img.shields.io/github/stars/joaovitorzv/ubereats?style=social">
 </p></a> <br>-->
 
-### Apps  📷
+### Apps and links!  📷
 
 <a href="https://arthurcarvalho.info/apps/foodchain/manager/#/">*Restaurant manager*</a>
 <p float="left">
