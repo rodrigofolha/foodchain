@@ -17,14 +17,14 @@
  <img src="/screenshots/menu-manager-page.png" align="middle" width="380px"/>
 </p>
 
-*Customer*
+<a href="https://arthurcarvalho.info/apps/foodchain/customer/#/">*Customer*</a>
 
 <p float="left">
  <img src="/screenshots/home-customer-page.png" align="middle" width="380px"/>
  <img src="/screenshots/restaurant-customer-page.png" align="middle" width="380px"/>
 </p>
 
-*Delivery worker*
+<a href="https://arthurcarvalho.info/apps/foodchain/delivery/#/">*Delivery worker*</a>
 
 <p float="left">
  <img src="/screenshots/delivery-orders-screen.png" align="middle" width="380px"/>
