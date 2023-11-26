@@ -9,6 +9,10 @@
    <a href="https://github.com/joaovitorzv/UberEats"><img alt="Stars" src="https://img.shields.io/github/stars/joaovitorzv/ubereats?style=social">
 </p></a> <br>-->
 
+## Published papers
+- <a href="https://link.springer.com/chapter/10.1007/978-3-031-00129-1_43">**FoodChain: A food delivery platform based on blockchain for keeping data privacy** (2022). International Conference on Database Systems for Advanced Applications Proceedings 2022. 500-504.</a>
+- <a href="https://aisel.aisnet.org/amcis2022/sig_green/sig_green/5/">**Towards a Novel Business Process Model for Food Delivery Services Using Blockchain Technology** (2022). AMCIS 2022 Proceedings. 5.</a>
+
 ### Apps and links!  📷
 
 <a href="https://arthurcarvalho.info/apps/foodchain/manager/#/">*Restaurant manager*</a>
