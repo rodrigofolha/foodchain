@@ -85,7 +85,7 @@ library Util {
 
 contract Order {
     enum OrderStep {ORDERED, PREPARATION, WAITING, DISPATCHED, CONCLUDED, CANCELEDBYCLIENT, CANCELEDBYRESTAURANT, CANCELEDBYFIRSTDELIVERYMAN, CANCELEDBYSECONDDELIVERYMAN}
-
+    event OrderActors(address indexed client, address indexed establishment, address indexed deliveryworker, address orderAddress);
     uint256 private id;
     address  private client;
     address  private restaurant;
@@ -159,6 +159,7 @@ contract Order {
         clientCode = Util.random(block.timestamp+1000, block.difficulty);
         deliverymenCode[0] = Util.random(block.timestamp, block.difficulty);
         deliverymenCode[1] = Util.random(block.timestamp-33949, block.difficulty);
+        emit OrderActors (_client, address(0), address(0), address(this));
     }
     
     
@@ -171,15 +172,17 @@ contract Order {
         payment[_restaurant] += msg.value;
         step = OrderStep.PREPARATION;
         timestamp[OrderStep.PREPARATION] = block.timestamp;
+        emit OrderActors (client, _restaurant, address(0), address(this));
         return true;
     }    
     
     function confirmIntention (address _deliveryman) atStep(OrderStep.PREPARATION)  external payable returns (bool) {
-        require(msg.value >= total);
+        //require(msg.value >= total);
         deliverymen.push(_deliveryman);
         payment[_deliveryman] += msg.value;
         step = OrderStep.WAITING;
         timestamp[OrderStep.WAITING] = block.timestamp;
+        emit OrderActors (client, restaurant, _deliveryman, address(this));
         return true;
     }    
     
