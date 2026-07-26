@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "rpc": "https://sepolia.infura.io/v3/2c5086ea325e479396bd99289cbb5268",
+    "kValues": [
+      1,
+      5,
+      10
+    ],
+    "bursts": 2,
+    "gasPriceGwei": 2,
+    "fundEth": "0.08",
+    "walletsProvisioned": 10,
+    "funderAddress": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+    "startedAt": "2026-05-30T14:36:04.422Z",
+    "nodeVersion": "v20.19.6",
+    "platform": "linux x64"
+  },
+  "summaries": [
+    {
+      "k": 1,
+      "bursts": 2,
+      "totalTxAttempted": 2,
+      "totalTxOk": 2,
+      "totalTxFailed": 0,
+      "revertRate": 0,
+      "latencyMs": {
+        "n": 2,
+        "mean": 10477.503291500005,
+        "median": 10477.503291500005,
+        "stddev": 1062.5800234999988,
+        "min": 9414.923268000006,
+        "max": 11540.083315000003,
+        "p95": 11540.083315000003
+      },
+      "gasUsed": {
+        "n": 2,
+        "mean": 3070789,
+        "median": 3070789,
+        "stddev": 0,
+        "min": 3070789,
+        "max": 3070789,
+        "p95": 3070789
+      },
+      "burstWallclockMs": {
+        "n": 2,
+        "mean": 10636.247314,
+        "median": 10636.247314,
+        "stddev": 1221.2852830000047,
+        "min": 9414.962030999995,
+        "max": 11857.532597000005,
+        "p95": 11857.532597000005
+      },
+      "effectiveTps": {
+        "n": 2,
+        "mean": 0.09527424740312794,
+        "median": 0.09527424740312794,
+        "stddev": 0.010939670051596698,
+        "min": 0.08433457735153124,
+        "max": 0.10621391745472464,
+        "p95": 0.10621391745472464
+      },
+      "blocksSpanned": 2,
+      "blockRangePerBurst": [
+        {
+          "count": 1,
+          "first": 10954851,
+          "last": 10954851
+        },
+        {
+          "count": 1,
+          "first": 10954853,
+          "last": 10954853
+        }
+      ],
+      "sampleFailures": []
+    },
+    {
+      "k": 5,
+      "bursts": 2,
+      "totalTxAttempted": 10,
+      "totalTxOk": 10,
+      "totalTxFailed": 0,
+      "revertRate": 0,
+      "latencyMs": {
+        "n": 10,
+        "mean": 10644.084438100002,
+        "median": 10613.898985499996,
+        "stddev": 1385.4197749810967,
+        "min": 8944.666884000006,
+        "max": 12355.365119999988,
+        "p95": 12355.365119999988
+      },
+      "gasUsed": {
+        "n": 10,
+        "mean": 3070787.8,
+        "median": 3070789,
+        "stddev": 3.5999999999999996,
+        "min": 3070777,
+        "max": 3070789,
+        "p95": 3070789
+      },
+      "burstWallclockMs": {
+        "n": 2,
+        "mean": 11360.897331499997,
+        "median": 11360.897331499997,
+        "stddev": 995.0085035000011,
+        "min": 10365.888827999996,
+        "max": 12355.905834999998,
+        "p95": 12355.905834999998
+      },
+      "effectiveTps": {
+        "n": 2,
+        "mean": 0.4435080457050906,
+        "median": 0.4435080457050906,
+        "stddev": 0.03884325894079421,
+        "min": 0.4046647867642964,
+        "max": 0.4823513046458848,
+        "p95": 0.4823513046458848
+      },
+      "blocksSpanned": 2,
+      "blockRangePerBurst": [
+        {
+          "count": 1,
+          "first": 10954854,
+          "last": 10954854
+        },
+        {
+          "count": 1,
+          "first": 10954856,
+          "last": 10954856
+        }
+      ],
+      "sampleFailures": []
+    },
+    {
+      "k": 10,
+      "bursts": 2,
+      "totalTxAttempted": 20,
+      "totalTxOk": 19,
+      "totalTxFailed": 1,
+      "revertRate": 0.05,
+      "latencyMs": {
+        "n": 19,
+        "mean": 10055.917084473685,
+        "median": 10045.531166,
+        "stddev": 531.1021660079699,
+        "min": 9057.742635000002,
+        "max": 11037.696849999978,
+        "p95": 11037.696849999978
+      },
+      "gasUsed": {
+        "n": 19,
+        "mean": 3070789,
+        "median": 3070789,
+        "stddev": 0,
+        "min": 3070789,
+        "max": 3070789,
+        "p95": 3070789
+      },
+      "burstWallclockMs": {
+        "n": 2,
+        "mean": 10774.427626500008,
+        "median": 10774.427626500008,
+        "stddev": 263.6238185000111,
+        "min": 10510.803807999997,
+        "max": 11038.05144500002,
+        "p95": 11038.05144500002
+      },
+      "effectiveTps": {
+        "n": 2,
+        "mean": 0.8833816623033672,
+        "median": 0.8833816623033672,
+        "stddev": 0.06802036009845763,
+        "min": 0.8153613022049097,
+        "max": 0.9514020224018249,
+        "p95": 0.9514020224018249
+      },
+      "blocksSpanned": 2,
+      "blockRangePerBurst": [
+        {
+          "count": 1,
+          "first": 10954857,
+          "last": 10954857
+        },
+        {
+          "count": 1,
+          "first": 10954859,
+          "last": 10954859
+        }
+      ],
+      "sampleFailures": [
+        "insufficient funds for intrinsic transaction cost"
+      ]
+    }
+  ]
+}

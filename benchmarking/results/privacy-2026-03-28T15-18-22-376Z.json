@@ -1,0 +1,169 @@
+{
+  "version": "privacy-v2-stealth-pool",
+  "network": "sepolia",
+  "contracts": {
+    "chain": "0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E",
+    "storage": "0x980a3d791D53E0F46b91F231B32310f29A04936c",
+    "reputation": "0xDE47a86DF2dD18C3EB97b0F39869550D8Cbce228",
+    "stealth": "0x8df6546df4dEbE357E3d46EcD3179c788CE66Ce9"
+  },
+  "config": {
+    "treeDepth": 25,
+    "weiPerDollar": "1000000000000000",
+    "deployBlock": 10493562
+  },
+  "iterations": 1,
+  "timestamp": "2026-03-28T15:18:22.376Z",
+  "results": [
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 5.159824999999955,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 2118.328125,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0x5F77DA08Ea1564ad54Eaa810Fb7a865bd792f3f7",
+        "stealthPrivateKey": "dba420f5adcf4bcc2e7781ecfd2cb68575347cacd6c56fad25894dc58be5b753",
+        "ephemeralPubKey": "0x0275b4e6bd00e0a25a59237c730b98b1da3fadf48229e574d12360a8587ca2e857",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26221,
+      "latencyMs": 9373.295997,
+      "sendTimeMs": 690.5173770000001,
+      "costETH": 2.6221445757e-8,
+      "memDeltaKB": -4412.3046875,
+      "txHash": "0xec8c41940a378aaed8a4aef453f06dd04d3d5f2941cb72b31d99bee68327937a"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3088587,
+      "latencyMs": 9427.619863000002,
+      "sendTimeMs": 771.3915180000004,
+      "costETH": 0.000003088639505979,
+      "memDeltaKB": 547.125,
+      "txHash": "0xdf9cc87f5c15d40ebd3720cfd039dc344d298ba0743f848b0278df333aea437b"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1009367,
+      "latencyMs": 22306.708807000003,
+      "sendTimeMs": 13204.06411,
+      "costETH": 0.000001009384159239,
+      "memDeltaKB": 173.5859375,
+      "txHash": "0x50a50dec0b213089083ae69536144246ed4923a0898d8ea1bc7c7936b3b7e8e2"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1324.7603030000028,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 1303.609375,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1278435,
+      "latencyMs": 9850.152820000003,
+      "sendTimeMs": 777.7079400000002,
+      "costETH": 0.000001278456733395,
+      "memDeltaKB": 8861.265625,
+      "txHash": "0x5bc2ae7dce09b2d25e5537b9647961cbab6534653d69d461aa43bff79967010a"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected ORDERED, got "
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected PREPARATION, got "
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected WAITING, got ORDERED"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected WAITING, got "
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected DISPATCHED, got "
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected CONCLUDED, got ORDERED"
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Cannot read properties of undefined (reading 'workerAddr')"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected CONCLUDED, got "
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Cannot read properties of undefined (reading 'workerAddr')"
+    }
+  ]
+}

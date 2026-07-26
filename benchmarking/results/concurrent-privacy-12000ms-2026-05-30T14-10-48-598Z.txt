@@ -1,0 +1,53 @@
+==================================================================================================
+FoodChain — Concurrent makeOrder Benchmark (privacy, block_time=12000ms)
+==================================================================================================
+
+── Experimental variables (REQUIRED to interpret the numbers below) ─────────────────────────
+  Started at:        2026-05-30T14:10:48.598Z
+  Mode:              privacy    (stealth addr + ZK pool + ZK reputation)
+  Block timing:      12000 ms interval mining (mirrors Sepolia at 12000ms)
+  Block gas limit:   ~30,000,000 gas (Hardhat default — same as Sepolia/mainnet)
+  Theoretical max tx per block: ~9.7 (at observed mean makeOrder gas ≈ 3.09M)
+  k-sweep:           {1, 5, 10, 25, 50, 100}  (number of parallel wallets per burst)
+  Bursts per k:      5  (independent repetitions for variance estimate)
+  Pre-funding:       2 ETH × 100 wallets from deployer
+  Platform:          Hardhat local network (controlled environment, mirrors literature methodology)
+  Node:              v20.19.6 on linux x64
+──────────────────────────────────────────────────────────────────────────────────────────────────
+
+┌────┬───────┬───────┬──────────┬────────────────────────────────┬────────────────────────────────┬─────────────┬─────────┐
+│  k │ tx OK │ fail% │ blocks/  │ Per-tx latency (ms)            │ Per-burst wall-clock (ms)      │ Effective   │ Mean gas│
+│    │       │       │ span     │ mean ± std (median, p95)       │ mean ± std (median)            │ TPS (mean)  │ per tx  │
+├────┼───────┼───────┼──────────┼────────────────────────────────┼────────────────────────────────┼─────────────┼─────────┤
+│  1 │     5 │   0.0 │        5 │  10405 ±   799 (10013, 12003)  │  10405 ±   799 (10013)         │       0.097 │ 3087842 │
+│  5 │    25 │   0.0 │        5 │  10397 ±   807 (10005, 12010)  │  10398 ±   807 (10007)         │       0.483 │ 3084422 │
+│ 10 │    50 │   0.0 │        5 │  10400 ±   797 (10002, 11995)  │  10404 ±   797 (10005)         │       0.966 │ 3084424 │
+│ 25 │   125 │   0.0 │       10 │  13759 ±  5441 (10027, 23970)  │  22394 ±   791 (21999)         │       1.118 │ 3084422 │
+│ 50 │   250 │   0.0 │       15 │  21443 ±  9584 (21994, 36003)  │  34404 ±   802 (34013)         │       1.454 │ 3084422 │
+│ 100 │   500 │   0.0 │       30 │  42562 ± 27106 (34055, 94023)  │  94408 ±   795 (94024)         │       1.059 │ 3084422 │
+└────┴───────┴───────┴──────────┴────────────────────────────────┴────────────────────────────────┴─────────────┴─────────┘
+
+── Variable definitions ─────────────────────────────────────────────────────────────────
+  • k             = number of wallets that fire makeOrder concurrently via Promise.all
+  • blocks/span   = unique block numbers the OK transactions landed in (across all bursts)
+  • per-tx latency = wall-clock from sendTransaction to receipt for that wallet
+  • per-burst wall-clock = max(per-tx) within a burst (time from first send to last receipt)
+  • effective TPS = (OK tx in burst) / (burst wall-clock seconds), averaged across bursts
+
+── Analysis ─────────────────────────────────────────────────────────────────────────────
+  Block time = 12000 ms, mean gas/tx ≈ 3087842, block gas limit ≈ 30,000,000.
+  ⇒ Theoretical capacity ceiling: 9 makeOrders per block
+     = 0.750 tx/sec sustainable.
+
+  Look for the 'cliff' where 'blocks/span' jumps to >1 per burst — that is the point
+  where k exceeds the per-block tx capacity and transactions overflow into the next
+  block (adding +blockTimeMs latency).
+
+  Above the cliff, effective TPS plateaus around (block_capacity / block_time_s).
+  Below the cliff, effective TPS scales linearly with k.
+
+  Reference points from the literature:
+    • Lee 2021 (Caliper on Eth private): ~1000 tps Query, <100 tps on Ropsten testnet
+    • BLOCKBENCH (Dinh 2017): Ethereum ceiling ~80 tps with 8 concurrent YCSB clients
+    • Schäffer 2019: Ethereum mainnet ~15 tps
+    • BCTMark (Saingre 2020): bracketed test at 5 / 50 / 200 tx/s sustained load

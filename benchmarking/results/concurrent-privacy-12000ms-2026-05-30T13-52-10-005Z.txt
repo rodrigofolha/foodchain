@@ -1,0 +1,23 @@
+==================================================================================================
+FoodChain — Concurrent makeOrder Benchmark (privacy, block_time=12000ms)
+==================================================================================================
+Started:        2026-05-30T13:52:10.005Z
+Sweep:          k ∈ {1, 5, 10}, bursts=2
+Pre-funding:    1 ETH/wallet × 10 wallets
+Mode:           privacy
+Block timing:   12000ms interval mining
+
+┌────┬───────┬───────┬──────────┬────────────────────────────────┬────────────────────────────────┬─────────────┬─────────┐
+│  k │ tx OK │ fail% │ blocks/  │ Per-tx latency (ms)            │ Per-burst wall-clock (ms)      │ Effective   │ Mean gas│
+│    │       │       │ span     │ mean ± std (median, p95)       │ mean ± std (median)            │ TPS (mean)  │ per tx  │
+├────┼───────┼───────┼──────────┼────────────────────────────────┼────────────────────────────────┼─────────────┼─────────┤
+│  1 │     2 │   0.0 │        2 │  11509 ±   542 (11509, 12051)  │  11509 ±   542 (11509)         │       0.087 │ 3092974 │
+│  5 │    10 │   0.0 │        2 │  11497 ±   496 (11497, 11994)  │  11499 ±   496 (11499)         │       0.436 │ 3084423 │
+│ 10 │    20 │   0.0 │        2 │  11506 ±   495 (11506, 12003)  │  11509 ±   495 (11509)         │       0.871 │ 3084423 │
+└────┴───────┴───────┴──────────┴────────────────────────────────┴────────────────────────────────┴─────────────┴─────────┘
+
+Notes:
+  • 'blocks/span' = unique blocks the OK transactions across ALL bursts landed in.
+  • 'Effective TPS' = (OK tx in burst) / (burst wallclock seconds), averaged across bursts.
+  • At blockTimeMs=12000, max TPS per block ≤ block_gas_limit / mean_gas_per_tx.
+    Hardhat default block gas limit ≈ 30,000,000.

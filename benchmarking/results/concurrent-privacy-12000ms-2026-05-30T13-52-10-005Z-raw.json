@@ -1,0 +1,413 @@
+{
+  "meta": {
+    "mode": "privacy",
+    "kValues": [
+      1,
+      5,
+      10
+    ],
+    "bursts": 2,
+    "blockTimeMs": 12000,
+    "preFundEth": "1",
+    "walletsProvisioned": 10,
+    "startedAt": "2026-05-30T13:52:10.005Z",
+    "nodeVersion": "v20.19.6",
+    "platform": "linux x64"
+  },
+  "raw": [
+    {
+      "k": 1,
+      "burst": 0,
+      "wallclock": 12051.408003,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "sendMs": 4.316996000000017,
+          "miningMs": 12046.978389,
+          "totalMs": 12051.295385,
+          "gasUsed": 3101524,
+          "blockNumber": 8,
+          "txHash": "0x0a900ec61da0e13414e1de616460283fd602f3a843c9cc1695f9d5a3e3d8cd87"
+        }
+      ]
+    },
+    {
+      "k": 1,
+      "burst": 1,
+      "wallclock": 10966.408728999999,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "sendMs": 2.4120350000011967,
+          "miningMs": 10963.981403999998,
+          "totalMs": 10966.393439,
+          "gasUsed": 3084424,
+          "blockNumber": 9,
+          "txHash": "0x860829b5935af4678edbb369246b8ad8aee86a5126ceac154d65e1e83ebe4e02"
+        }
+      ]
+    },
+    {
+      "k": 5,
+      "burst": 0,
+      "wallclock": 11995.236844,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "sendMs": 11.663705999999365,
+          "miningMs": 11980.504593999998,
+          "totalMs": 11992.168299999998,
+          "gasUsed": 3084424,
+          "blockNumber": 10,
+          "txHash": "0xf5efd30857066e21391c5399bdde987208bf3d10c179ec0131ffc91f4a435c45"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "sendMs": 11.483295999998518,
+          "miningMs": 11981.292841000002,
+          "totalMs": 11992.776137,
+          "gasUsed": 3084424,
+          "blockNumber": 10,
+          "txHash": "0x86d127eeec8b5d2127439a631249f9cf7b09de3429ec802ca315d1c564709c04"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+          "sendMs": 11.306835999999748,
+          "miningMs": 11981.849536999998,
+          "totalMs": 11993.156372999998,
+          "gasUsed": 3084424,
+          "blockNumber": 10,
+          "txHash": "0x7a28a82bebcdc9ac23851ccd24abba6058314c1f2819752b6905442dfd676ab8"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+          "sendMs": 11.22774600000048,
+          "miningMs": 11982.344156000003,
+          "totalMs": 11993.571902000003,
+          "gasUsed": 3084424,
+          "blockNumber": 10,
+          "txHash": "0x18ee3d82a79be4ab026da21ab9d6a46df7b19b90beddce52dbea455fe05b21f3"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+          "sendMs": 11.208472999998776,
+          "miningMs": 11982.998067,
+          "totalMs": 11994.20654,
+          "gasUsed": 3084424,
+          "blockNumber": 10,
+          "txHash": "0x6fe735a7f4b4607475929c6d6d8eb9c7c49972f1d5af3943ede1220560a84df1"
+        }
+      ]
+    },
+    {
+      "k": 5,
+      "burst": 1,
+      "wallclock": 11002.857862000004,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "sendMs": 10.223157000000356,
+          "miningMs": 10990.793014000003,
+          "totalMs": 11001.016171000003,
+          "gasUsed": 3084424,
+          "blockNumber": 11,
+          "txHash": "0x36ac1badcae93647f7ea9bf4d3950f1246e6f2b79b5a95b17e3ed1f64ffa9720"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "sendMs": 9.05431800000224,
+          "miningMs": 10990.452737,
+          "totalMs": 10999.507055000002,
+          "gasUsed": 3084424,
+          "blockNumber": 11,
+          "txHash": "0x5b1313be57fed5eab5ce3983c7b9e33d230cda0f46daffc34dae22dfc5e8f2a8"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+          "sendMs": 9.360923999993247,
+          "miningMs": 10991.142290000003,
+          "totalMs": 11000.503213999997,
+          "gasUsed": 3084424,
+          "blockNumber": 11,
+          "txHash": "0x7eac91327bd451670ca10ed2d26a69a7c4c670d6d116e9b273752a300cf4b6b5"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+          "sendMs": 9.251035999994201,
+          "miningMs": 10991.698702000002,
+          "totalMs": 11000.949737999996,
+          "gasUsed": 3084412,
+          "blockNumber": 11,
+          "txHash": "0xa0099b61747ba6a14dbe3aab28ba882c39fbb5aa68abd75e67ae63be74150dbc"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+          "sendMs": 9.249925000003714,
+          "miningMs": 10992.170300999998,
+          "totalMs": 11001.420226000002,
+          "gasUsed": 3084424,
+          "blockNumber": 11,
+          "txHash": "0x390f8df8c6c53df6ef009fd4700ce92309f6e56a59d2563056d555ccb74b4654"
+        }
+      ]
+    },
+    {
+      "k": 10,
+      "burst": 0,
+      "wallclock": 12004.303219999994,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "sendMs": 14.85869300000195,
+          "miningMs": 11984.860789999999,
+          "totalMs": 11999.719483,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0xe5cb208c44dafffcc89df79a8cfeecefe566aa8684dddd588024c2acd5a228d6"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "sendMs": 14.426582000000053,
+          "miningMs": 11985.274006,
+          "totalMs": 11999.700588,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0xd66aaf7b2c2333b652d006de4a54c24496331bc8cbd5531d751a67dd1a98eb31"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+          "sendMs": 14.335201000001689,
+          "miningMs": 11985.826828999998,
+          "totalMs": 12000.16203,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0x53a712c59013577bd20522b6d2e189adb11a7f98fc23b4cd65e3e67edfd41f20"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+          "sendMs": 14.25938099999621,
+          "miningMs": 11986.345906000002,
+          "totalMs": 12000.605286999998,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0xb2b8ca5c6cccb16103695671e0261da5f165d3ce52ed57482b5f02ea751d4cbd"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+          "sendMs": 14.198506000000634,
+          "miningMs": 11986.683041999997,
+          "totalMs": 12000.881547999998,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0xab63697f8284a85db8a2367779fa3c6ed515437c772f8dd2c31f54f7e55ecae2"
+        },
+        {
+          "idx": 5,
+          "ok": true,
+          "walletAddr": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+          "sendMs": 14.224726000000373,
+          "miningMs": 11987.019119000004,
+          "totalMs": 12001.243845000005,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0x3c0f13171073b04398ab4357c95e4d9064efde9f6b75c58b2d4e3b8f23171c9e"
+        },
+        {
+          "idx": 6,
+          "ok": true,
+          "walletAddr": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+          "sendMs": 14.199232999999367,
+          "miningMs": 11987.473394999994,
+          "totalMs": 12001.672627999993,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0xeb2e04049be78e49cae46935cd4f0b069a1a8daf91757fd5539be3cda63cc043"
+        },
+        {
+          "idx": 7,
+          "ok": true,
+          "walletAddr": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+          "sendMs": 14.165445999999065,
+          "miningMs": 11987.882776999999,
+          "totalMs": 12002.048222999998,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0x252724dc4f6459ba4bd1c5dbef9fda089da3077a2d2dea693403a2f078d2f16c"
+        },
+        {
+          "idx": 8,
+          "ok": true,
+          "walletAddr": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+          "sendMs": 14.096589000000677,
+          "miningMs": 11988.686796000002,
+          "totalMs": 12002.783385000002,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0x9b77062d6ce0a6b25da23e4c96c15b848db7f18d1ed7d53c6f869d4cdc61ee30"
+        },
+        {
+          "idx": 9,
+          "ok": true,
+          "walletAddr": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+          "sendMs": 14.05193799999688,
+          "miningMs": 11988.176105000006,
+          "totalMs": 12002.228043000003,
+          "gasUsed": 3084424,
+          "blockNumber": 12,
+          "txHash": "0x1f42c602a9ff50bc25fb0277c11fa55e0051429d5d9d34955e901a132fba03b3"
+        }
+      ]
+    },
+    {
+      "k": 10,
+      "burst": 1,
+      "wallclock": 11013.630831000002,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "sendMs": 17.606853000004776,
+          "miningMs": 10995.659878999992,
+          "totalMs": 11013.266731999996,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0x7e9a7377427cc3225cc66e6edd13da0f30ae0962ec65085a1d33aa0979cbda01"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "sendMs": 15.702104999996664,
+          "miningMs": 10993.13164,
+          "totalMs": 11008.833744999996,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0xd12d5302a177dc968973695c67b4287ac459ba4524f38417093eea1415dd1846"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+          "sendMs": 15.6543840000013,
+          "miningMs": 10993.638327999994,
+          "totalMs": 11009.292711999995,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0x747fb162e69e446a2094b5d76453f2607321153c8d919013d31d8c31e23e88ea"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+          "sendMs": 15.959085999995295,
+          "miningMs": 10993.716636000005,
+          "totalMs": 11009.675722,
+          "gasUsed": 3084412,
+          "blockNumber": 13,
+          "txHash": "0xb159f80aa4fce1109f1241e51fd438678314412e2c073c82277ae98fa87fd5fc"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+          "sendMs": 15.507865999999922,
+          "miningMs": 10994.027334999999,
+          "totalMs": 11009.535200999999,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0x06bd10ac1f289d7b3bd005262bf195029aeb04ad564a4b7d5e6a0614a136285e"
+        },
+        {
+          "idx": 5,
+          "ok": true,
+          "walletAddr": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+          "sendMs": 15.436584000002767,
+          "miningMs": 10994.306957999994,
+          "totalMs": 11009.743541999997,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0x6a0e1819a5e9d25e9dee665ebe956b3b405e4a1ebc33e8fb4db8a835925ed466"
+        },
+        {
+          "idx": 6,
+          "ok": true,
+          "walletAddr": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+          "sendMs": 15.533322999996017,
+          "miningMs": 10994.566831999997,
+          "totalMs": 11010.100154999993,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0xec87449b6078086eb25fe9566622f8bb069c32581e2c98b907fdd569c294312a"
+        },
+        {
+          "idx": 7,
+          "ok": true,
+          "walletAddr": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+          "sendMs": 15.532399000003352,
+          "miningMs": 10995.157723000004,
+          "totalMs": 11010.690122000007,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0x90647fa827c903c467290ee279da9de1ec9095b8f64ea19f732f8b093c9a8181"
+        },
+        {
+          "idx": 8,
+          "ok": true,
+          "walletAddr": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+          "sendMs": 15.51387600000453,
+          "miningMs": 10995.432638999991,
+          "totalMs": 11010.946514999996,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0x74000474a1cad5f1de18848a91626b3850887c255435b2c5c83d9e07a1173a72"
+        },
+        {
+          "idx": 9,
+          "ok": true,
+          "walletAddr": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+          "sendMs": 15.925389000003634,
+          "miningMs": 10995.602974999994,
+          "totalMs": 11011.528363999998,
+          "gasUsed": 3084424,
+          "blockNumber": 13,
+          "txHash": "0xea654d5cbf22144b1457c50b89f0167c0c76251454e653ddb4ea40f2f430df58"
+        }
+      ]
+    }
+  ]
+}

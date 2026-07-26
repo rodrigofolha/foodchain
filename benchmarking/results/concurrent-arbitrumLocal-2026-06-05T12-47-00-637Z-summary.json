@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "network": "arbitrumLocal",
+    "rpc": "http://127.0.0.1:8547",
+    "kValues": [
+      500,
+      1000
+    ],
+    "bursts": 2,
+    "fundEth": "0.05",
+    "walletsProvisioned": 1000,
+    "funderAddress": "0x3f1Eae7D46d88F08fc2F8ed27FCb2AB183EB2d0E",
+    "startedAt": "2026-06-05T12:47:00.636Z",
+    "nodeVersion": "v20.19.6",
+    "platform": "linux x64"
+  },
+  "summaries": [
+    {
+      "k": 500,
+      "bursts": 2,
+      "totalTxAttempted": 1000,
+      "totalTxOk": 423,
+      "totalTxFailed": 577,
+      "revertRate": 0.577,
+      "latencyMs": {
+        "n": 423,
+        "mean": 24032.394977328608,
+        "median": 25058.534392000176,
+        "stddev": 5142.325780233256,
+        "min": 2747.238231000025,
+        "max": 27615.25423400011,
+        "p95": 27366.965517000062
+      },
+      "gasUsed": {
+        "n": 423,
+        "mean": 3084410.524822695,
+        "median": 3084412,
+        "stddev": 4.428440578970287,
+        "min": 3084376,
+        "max": 3084412,
+        "p95": 3084412
+      },
+      "burstWallclockMs": {
+        "n": 2,
+        "mean": 15329.296649999917,
+        "median": 15329.296649999917,
+        "stddev": 12326.145088999998,
+        "min": 3003.1515609999187,
+        "max": 27655.441738999914,
+        "p95": 27655.441738999914
+      },
+      "effectiveTps": {
+        "n": 2,
+        "mean": 10.912748196209435,
+        "median": 10.912748196209435,
+        "stddev": 3.587110594131518,
+        "min": 7.325637602077918,
+        "max": 14.499858790340953,
+        "p95": 14.499858790340953
+      },
+      "blocksSpanned": 86,
+      "blockRangePerBurst": [
+        {
+          "count": 81,
+          "first": 94037,
+          "last": 94118
+        },
+        {
+          "count": 5,
+          "first": 94137,
+          "last": 94141
+        }
+      ],
+      "sampleFailures": [
+        "could not coalesce error",
+        "could not coalesce error",
+        "could not coalesce error",
+        "could not coalesce error",
+        "could not coalesce error"
+      ]
+    },
+    {
+      "k": 1000,
+      "bursts": 2,
+      "totalTxAttempted": 2000,
+      "totalTxOk": 26,
+      "totalTxFailed": 1974,
+      "revertRate": 0.987,
+      "latencyMs": {
+        "n": 26,
+        "mean": 3648.927473038462,
+        "median": 3648.5194330000086,
+        "stddev": 87.37509314979738,
+        "min": 3504.0736410000827,
+        "max": 3794.999899999937,
+        "p95": 3783.374452000018
+      },
+      "gasUsed": {
+        "n": 26,
+        "mean": 3084410.153846154,
+        "median": 3084412,
+        "stddev": 4.329614547529322,
+        "min": 3084400,
+        "max": 3084412,
+        "p95": 3084412
+      },
+      "burstWallclockMs": {
+        "n": 2,
+        "mean": 3182.8105290000094,
+        "median": 3182.8105290000094,
+        "stddev": 625.0218550000573,
+        "min": 2557.788673999952,
+        "max": 3807.8323840000667,
+        "p95": 3807.8323840000667
+      },
+      "effectiveTps": {
+        "n": 2,
+        "mean": 3.4140158202929376,
+        "median": 3.4140158202929376,
+        "stddev": 3.4140158202929376,
+        "min": 0,
+        "max": 6.828031640585875,
+        "p95": 6.828031640585875
+      },
+      "blocksSpanned": 4,
+      "blockRangePerBurst": [
+        {
+          "count": 0,
+          "first": null,
+          "last": null
+        },
+        {
+          "count": 4,
+          "first": 94156,
+          "last": 94159
+        }
+      ],
+      "sampleFailures": [
+        "could not coalesce error",
+        "could not coalesce error",
+        "could not coalesce error",
+        "could not coalesce error",
+        "could not coalesce error"
+      ]
+    }
+  ]
+}

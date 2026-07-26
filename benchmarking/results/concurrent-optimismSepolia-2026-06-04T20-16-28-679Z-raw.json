@@ -1,0 +1,2110 @@
+{
+  "meta": {
+    "network": "optimismSepolia",
+    "rpc": "https://sepolia.optimism.io",
+    "kValues": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "bursts": 3,
+    "fundEth": "0.003",
+    "walletsProvisioned": 50,
+    "funderAddress": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+    "startedAt": "2026-06-04T20:16:28.678Z",
+    "nodeVersion": "v20.19.6",
+    "platform": "linux x64"
+  },
+  "raw": [
+    {
+      "k": 1,
+      "burst": 0,
+      "wallclock": 5087.645783999993,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "sendMs": 1258.1009119999944,
+          "miningMs": 3084.639234000002,
+          "totalMs": 4342.7401459999965,
+          "gasUsed": 3101524,
+          "blockNumber": 44400792,
+          "txHash": "0x2826d1bd6a77cd737875b2b638785f9cf354f2ff2eb84fdeaeb17a42be398f5f"
+        }
+      ]
+    },
+    {
+      "k": 1,
+      "burst": 1,
+      "wallclock": 3965.2336910000013,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "sendMs": 914.6887940000161,
+          "miningMs": 3050.5103529999906,
+          "totalMs": 3965.1991470000066,
+          "gasUsed": 3084424,
+          "blockNumber": 44400796,
+          "txHash": "0xc232cec39d37c2a027cbb086b98041fbbf06c4f34bab4c4ebc4caf9746a76864"
+        }
+      ]
+    },
+    {
+      "k": 1,
+      "burst": 2,
+      "wallclock": 1736.0666889999993,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "sendMs": 1235.0019310000062,
+          "miningMs": 501.02874099998735,
+          "totalMs": 1736.0306719999935,
+          "gasUsed": 3084424,
+          "blockNumber": 44400800,
+          "txHash": "0xb6787867f8a56e44518073e0b83e7f1c6720d3c33a6cd1eaf76f4f259625ac50"
+        }
+      ]
+    },
+    {
+      "k": 5,
+      "burst": 0,
+      "wallclock": 4000.140706999984,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "sendMs": 1514.011777000007,
+          "miningMs": 714.1370689999894,
+          "totalMs": 2228.1488459999964,
+          "gasUsed": 3084424,
+          "blockNumber": 44400801,
+          "txHash": "0xd899294a77f701500de79b3ed56191a5ee9fcb9c41e6425c8fa2b5192c74e9c4"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "sendMs": 1513.794659999985,
+          "miningMs": 1158.6143800000136,
+          "totalMs": 2672.4090399999986,
+          "gasUsed": 3084424,
+          "blockNumber": 44400801,
+          "txHash": "0x40d4305e86ec2c10da6c62ef7abde65a23ccfa3ab7e1dccd07aa79a755284031"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "sendMs": 1513.7146760000032,
+          "miningMs": 1602.7494230000011,
+          "totalMs": 3116.4640990000044,
+          "gasUsed": 3084424,
+          "blockNumber": 44400801,
+          "txHash": "0x0b29f0d3c102f08675d5211e5e39810c5c377cee88c22aac64ff9e59c610a32e"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "sendMs": 1513.6708610000205,
+          "miningMs": 2044.4541059999901,
+          "totalMs": 3558.1249670000107,
+          "gasUsed": 3084424,
+          "blockNumber": 44400801,
+          "txHash": "0x43eee5d8946f184b03df97159202cc4c19aacec8cf7e9489949490ff95299de0"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "sendMs": 1513.6293549999828,
+          "miningMs": 2486.1046510000015,
+          "totalMs": 3999.734005999984,
+          "gasUsed": 3084424,
+          "blockNumber": 44400801,
+          "txHash": "0x783c063478a68815490ebdb0948ed293e53503bdb7f48cd50ce9c567a90b4c65"
+        }
+      ]
+    },
+    {
+      "k": 5,
+      "burst": 1,
+      "wallclock": 3868.847042999987,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "sendMs": 1372.3534880000225,
+          "miningMs": 777.8920719999878,
+          "totalMs": 2150.2455600000103,
+          "gasUsed": 3084424,
+          "blockNumber": 44400805,
+          "txHash": "0x8f6bd742ae847712b28e768be2d788c4aacecaa41aad0dba27b893478b3b3e98"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "sendMs": 1372.0439999999944,
+          "miningMs": 1230.3917530000035,
+          "totalMs": 2602.435752999998,
+          "gasUsed": 3084424,
+          "blockNumber": 44400805,
+          "txHash": "0x0772a1204986db794541ae4f625a7ff9f6c3d398cb1ed7172229613b7bed96e6"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "sendMs": 1371.979707999999,
+          "miningMs": 1679.0393080000067,
+          "totalMs": 3051.0190160000056,
+          "gasUsed": 3084424,
+          "blockNumber": 44400805,
+          "txHash": "0x52b63ab28cc66a1e86659f6d44617e39f1d5743033ad4f275c2503fec0d9f8a6"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "sendMs": 1371.902792000008,
+          "miningMs": 2208.5737759999756,
+          "totalMs": 3580.4765679999837,
+          "gasUsed": 3084424,
+          "blockNumber": 44400805,
+          "txHash": "0x2599c912a97beef77fca7be0af8d3f23b93a38ada540232e8631fc69d0df22f9"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "sendMs": 1371.8699199999974,
+          "miningMs": 2496.427308000013,
+          "totalMs": 3868.2972280000104,
+          "gasUsed": 3084412,
+          "blockNumber": 44400805,
+          "txHash": "0x502b9ea6a1017a2e1bc2668be01b04d101942fa240fb6e1ff4e8f3d06d911ba6"
+        }
+      ]
+    },
+    {
+      "k": 5,
+      "burst": 2,
+      "wallclock": 4182.440571999992,
+      "results": [
+        {
+          "idx": 0,
+          "ok": true,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "sendMs": 1545.8945620000013,
+          "miningMs": 693.1083370000124,
+          "totalMs": 2239.0028990000137,
+          "gasUsed": 3084424,
+          "blockNumber": 44400809,
+          "txHash": "0xdef39d337906d0cc772486ef6c24e909810f19425285fed27c1b8d3743562c8b"
+        },
+        {
+          "idx": 1,
+          "ok": true,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "sendMs": 1545.7412210000039,
+          "miningMs": 1127.928397999989,
+          "totalMs": 2673.669618999993,
+          "gasUsed": 3084424,
+          "blockNumber": 44400809,
+          "txHash": "0x1b8d60af761a9c976a76db82a5f7e4f2162f8a6570be92bc633c26ad99c0ac44"
+        },
+        {
+          "idx": 2,
+          "ok": true,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "sendMs": 1545.5774990000064,
+          "miningMs": 1686.0700789999973,
+          "totalMs": 3231.6475780000037,
+          "gasUsed": 3084412,
+          "blockNumber": 44400809,
+          "txHash": "0x15b7ff375b08ce8aac2c9f9b452e2165f3c9025558c58c67f33d8d75a41bdf59"
+        },
+        {
+          "idx": 3,
+          "ok": true,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "sendMs": 1545.5231809999968,
+          "miningMs": 2161.986375999986,
+          "totalMs": 3707.509556999983,
+          "gasUsed": 3084412,
+          "blockNumber": 44400809,
+          "txHash": "0xa257961e0278497112d1b41dd23ec29cab14017ed9ccecfd00a161afa03e24ef"
+        },
+        {
+          "idx": 4,
+          "ok": true,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "sendMs": 1545.501215999975,
+          "miningMs": 2636.514321000024,
+          "totalMs": 4182.015536999999,
+          "gasUsed": 3084424,
+          "blockNumber": 44400809,
+          "txHash": "0x633f2f488deea97aa9d9875a538c7d706da527c2605998ce482436e3e4cb5069"
+        }
+      ]
+    },
+    {
+      "k": 10,
+      "burst": 0,
+      "wallclock": 283.4359570000088,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 283.3715000000084
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 283.2778620000172
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 283.2507340000011
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 283.2306600000011
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 283.2527739999932
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 283.24051699999836
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 283.22513700000127
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 283.20842000000994
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 283.1929850000015
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 283.17668299999787
+        }
+      ]
+    },
+    {
+      "k": 10,
+      "burst": 1,
+      "wallclock": 351.77133499999763,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 351.73854399999254
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 351.60945400001947
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 351.5830560000031
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 351.565797999996
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 351.54964199999813
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 351.5133480000077
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 351.49685299998964
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 351.481329000002
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 351.4657270000025
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 351.4501140000066
+        }
+      ]
+    },
+    {
+      "k": 10,
+      "burst": 2,
+      "wallclock": 284.31869899999583,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 284.3029070000048
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 284.16072399998666
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 284.1299880000006
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 284.11246899998514
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 284.09525100002065
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 284.07381600001827
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 284.0589699999837
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 284.0419000000111
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 284.0265559999971
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 284.0108680000121
+        }
+      ]
+    },
+    {
+      "k": 25,
+      "burst": 0,
+      "wallclock": 296.99331800002255,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 296.97531199999503
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 296.8741160000209
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 296.8475899999903
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 296.8279710000206
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 296.80991599999834
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 296.79226000001654
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 296.7743870000122
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 296.7224189999979
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 296.6974120000086
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 296.67637000000104
+        },
+        {
+          "idx": 10,
+          "ok": false,
+          "walletAddr": "0x5dF969cc3CA41360B4b1DC33d742Fa3EaE62285a",
+          "error": "missing response for request",
+          "totalMs": 296.6433249999827
+        },
+        {
+          "idx": 11,
+          "ok": false,
+          "walletAddr": "0xD39F5cA2A025090Bb3B2aDe184D4695ec65cD3cB",
+          "error": "missing response for request",
+          "totalMs": 296.61838400000124
+        },
+        {
+          "idx": 12,
+          "ok": false,
+          "walletAddr": "0x805B28dF942dF385f6506f5cadd9A8A5E9100632",
+          "error": "missing response for request",
+          "totalMs": 296.59661399998004
+        },
+        {
+          "idx": 13,
+          "ok": false,
+          "walletAddr": "0xA03e21DAd208805C9E76cE56305B146A262c15B1",
+          "error": "missing response for request",
+          "totalMs": 296.5779639999964
+        },
+        {
+          "idx": 14,
+          "ok": false,
+          "walletAddr": "0x0e14410a49b01dD86eBAcA35C2598CbCF95790b8",
+          "error": "missing response for request",
+          "totalMs": 296.5574320000014
+        },
+        {
+          "idx": 15,
+          "ok": false,
+          "walletAddr": "0x662443F3deDE2CAA0fb290f94d404C30F2Dd53a4",
+          "error": "missing response for request",
+          "totalMs": 296.53971799998544
+        },
+        {
+          "idx": 16,
+          "ok": false,
+          "walletAddr": "0xD7A181aEEEc9dC343a903fFBd862E281E585731D",
+          "error": "missing response for request",
+          "totalMs": 296.52203999998164
+        },
+        {
+          "idx": 17,
+          "ok": false,
+          "walletAddr": "0x009E899dF388426e2705a4BfC2bB6f33ccBFead3",
+          "error": "missing response for request",
+          "totalMs": 296.5040089999966
+        },
+        {
+          "idx": 18,
+          "ok": false,
+          "walletAddr": "0xFBf3EeEeaDC3831eA2561ab4aD4a95ab4F054A9F",
+          "error": "missing response for request",
+          "totalMs": 296.4866229999752
+        },
+        {
+          "idx": 19,
+          "ok": false,
+          "walletAddr": "0xc44606837d5cf7446B00608Dd80B24b64DC315FF",
+          "error": "missing response for request",
+          "totalMs": 296.46923600000446
+        },
+        {
+          "idx": 20,
+          "ok": false,
+          "walletAddr": "0xf374B7d3DecB3DE7b0f416B5fe08A18bEf71bcD8",
+          "error": "missing response for request",
+          "totalMs": 296.4533019999799
+        },
+        {
+          "idx": 21,
+          "ok": false,
+          "walletAddr": "0x49b84C7cfe077Fe915514045fd7FD5a20a85C359",
+          "error": "missing response for request",
+          "totalMs": 296.43619999999646
+        },
+        {
+          "idx": 22,
+          "ok": false,
+          "walletAddr": "0x0d9B7fB8CB15Be41e4c6E5E9cc4f905AC7112acb",
+          "error": "missing response for request",
+          "totalMs": 296.41901799998595
+        },
+        {
+          "idx": 23,
+          "ok": false,
+          "walletAddr": "0xFE9ea6718d943937D719f7E23cC5F80Aeb644F7d",
+          "error": "missing response for request",
+          "totalMs": 296.401068999985
+        },
+        {
+          "idx": 24,
+          "ok": false,
+          "walletAddr": "0xda2843F06eEc8fFe69F12554c491E8C40dD9bBA8",
+          "error": "missing response for request",
+          "totalMs": 296.38326699999743
+        }
+      ]
+    },
+    {
+      "k": 25,
+      "burst": 1,
+      "wallclock": 294.9615610000037,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 294.9400569999998
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 294.8012259999814
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 294.77602099999785
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 294.7600070000044
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 294.7460050000227
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 294.73104300000705
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 294.7064529999916
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 294.6830839999893
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 294.6685909999942
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 294.6551529999997
+        },
+        {
+          "idx": 10,
+          "ok": false,
+          "walletAddr": "0x5dF969cc3CA41360B4b1DC33d742Fa3EaE62285a",
+          "error": "missing response for request",
+          "totalMs": 294.6400759999815
+        },
+        {
+          "idx": 11,
+          "ok": false,
+          "walletAddr": "0xD39F5cA2A025090Bb3B2aDe184D4695ec65cD3cB",
+          "error": "missing response for request",
+          "totalMs": 294.62576699999045
+        },
+        {
+          "idx": 12,
+          "ok": false,
+          "walletAddr": "0x805B28dF942dF385f6506f5cadd9A8A5E9100632",
+          "error": "missing response for request",
+          "totalMs": 294.604668999993
+        },
+        {
+          "idx": 13,
+          "ok": false,
+          "walletAddr": "0xA03e21DAd208805C9E76cE56305B146A262c15B1",
+          "error": "missing response for request",
+          "totalMs": 294.5903760000074
+        },
+        {
+          "idx": 14,
+          "ok": false,
+          "walletAddr": "0x0e14410a49b01dD86eBAcA35C2598CbCF95790b8",
+          "error": "missing response for request",
+          "totalMs": 294.57586100001936
+        },
+        {
+          "idx": 15,
+          "ok": false,
+          "walletAddr": "0x662443F3deDE2CAA0fb290f94d404C30F2Dd53a4",
+          "error": "missing response for request",
+          "totalMs": 294.5616270000173
+        },
+        {
+          "idx": 16,
+          "ok": false,
+          "walletAddr": "0xD7A181aEEEc9dC343a903fFBd862E281E585731D",
+          "error": "missing response for request",
+          "totalMs": 294.5337499999732
+        },
+        {
+          "idx": 17,
+          "ok": false,
+          "walletAddr": "0x009E899dF388426e2705a4BfC2bB6f33ccBFead3",
+          "error": "missing response for request",
+          "totalMs": 294.51258199999575
+        },
+        {
+          "idx": 18,
+          "ok": false,
+          "walletAddr": "0xFBf3EeEeaDC3831eA2561ab4aD4a95ab4F054A9F",
+          "error": "missing response for request",
+          "totalMs": 294.49566699998104
+        },
+        {
+          "idx": 19,
+          "ok": false,
+          "walletAddr": "0xc44606837d5cf7446B00608Dd80B24b64DC315FF",
+          "error": "missing response for request",
+          "totalMs": 294.4338759999955
+        },
+        {
+          "idx": 20,
+          "ok": false,
+          "walletAddr": "0xf374B7d3DecB3DE7b0f416B5fe08A18bEf71bcD8",
+          "error": "missing response for request",
+          "totalMs": 294.41225900000427
+        },
+        {
+          "idx": 21,
+          "ok": false,
+          "walletAddr": "0x49b84C7cfe077Fe915514045fd7FD5a20a85C359",
+          "error": "missing response for request",
+          "totalMs": 294.3931689999881
+        },
+        {
+          "idx": 22,
+          "ok": false,
+          "walletAddr": "0x0d9B7fB8CB15Be41e4c6E5E9cc4f905AC7112acb",
+          "error": "missing response for request",
+          "totalMs": 294.3779799999902
+        },
+        {
+          "idx": 23,
+          "ok": false,
+          "walletAddr": "0xFE9ea6718d943937D719f7E23cC5F80Aeb644F7d",
+          "error": "missing response for request",
+          "totalMs": 294.3642539999855
+        },
+        {
+          "idx": 24,
+          "ok": false,
+          "walletAddr": "0xda2843F06eEc8fFe69F12554c491E8C40dD9bBA8",
+          "error": "missing response for request",
+          "totalMs": 294.3509699999995
+        }
+      ]
+    },
+    {
+      "k": 25,
+      "burst": 2,
+      "wallclock": 322.0540139999939,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 322.03209999998217
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 321.6495400000131
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 321.5775560000038
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 321.5560429999896
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 321.5406409999996
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 321.4164779999992
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 321.3855390000099
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 321.36675299998024
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 321.3507190000091
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 321.3357130000077
+        },
+        {
+          "idx": 10,
+          "ok": false,
+          "walletAddr": "0x5dF969cc3CA41360B4b1DC33d742Fa3EaE62285a",
+          "error": "missing response for request",
+          "totalMs": 321.31965799999307
+        },
+        {
+          "idx": 11,
+          "ok": false,
+          "walletAddr": "0xD39F5cA2A025090Bb3B2aDe184D4695ec65cD3cB",
+          "error": "missing response for request",
+          "totalMs": 321.30540199999814
+        },
+        {
+          "idx": 12,
+          "ok": false,
+          "walletAddr": "0x805B28dF942dF385f6506f5cadd9A8A5E9100632",
+          "error": "missing response for request",
+          "totalMs": 321.28843699998106
+        },
+        {
+          "idx": 13,
+          "ok": false,
+          "walletAddr": "0xA03e21DAd208805C9E76cE56305B146A262c15B1",
+          "error": "missing response for request",
+          "totalMs": 321.24486599999364
+        },
+        {
+          "idx": 14,
+          "ok": false,
+          "walletAddr": "0x0e14410a49b01dD86eBAcA35C2598CbCF95790b8",
+          "error": "missing response for request",
+          "totalMs": 321.22357899998315
+        },
+        {
+          "idx": 15,
+          "ok": false,
+          "walletAddr": "0x662443F3deDE2CAA0fb290f94d404C30F2Dd53a4",
+          "error": "missing response for request",
+          "totalMs": 321.18140299999504
+        },
+        {
+          "idx": 16,
+          "ok": false,
+          "walletAddr": "0xD7A181aEEEc9dC343a903fFBd862E281E585731D",
+          "error": "missing response for request",
+          "totalMs": 321.15786999999546
+        },
+        {
+          "idx": 17,
+          "ok": false,
+          "walletAddr": "0x009E899dF388426e2705a4BfC2bB6f33ccBFead3",
+          "error": "missing response for request",
+          "totalMs": 321.14158500000485
+        },
+        {
+          "idx": 18,
+          "ok": false,
+          "walletAddr": "0xFBf3EeEeaDC3831eA2561ab4aD4a95ab4F054A9F",
+          "error": "missing response for request",
+          "totalMs": 321.1255330000131
+        },
+        {
+          "idx": 19,
+          "ok": false,
+          "walletAddr": "0xc44606837d5cf7446B00608Dd80B24b64DC315FF",
+          "error": "missing response for request",
+          "totalMs": 321.11134999999194
+        },
+        {
+          "idx": 20,
+          "ok": false,
+          "walletAddr": "0xf374B7d3DecB3DE7b0f416B5fe08A18bEf71bcD8",
+          "error": "missing response for request",
+          "totalMs": 321.09694899999886
+        },
+        {
+          "idx": 21,
+          "ok": false,
+          "walletAddr": "0x49b84C7cfe077Fe915514045fd7FD5a20a85C359",
+          "error": "missing response for request",
+          "totalMs": 321.0816089999862
+        },
+        {
+          "idx": 22,
+          "ok": false,
+          "walletAddr": "0x0d9B7fB8CB15Be41e4c6E5E9cc4f905AC7112acb",
+          "error": "missing response for request",
+          "totalMs": 321.03985800000373
+        },
+        {
+          "idx": 23,
+          "ok": false,
+          "walletAddr": "0xFE9ea6718d943937D719f7E23cC5F80Aeb644F7d",
+          "error": "missing response for request",
+          "totalMs": 321.0179519999947
+        },
+        {
+          "idx": 24,
+          "ok": false,
+          "walletAddr": "0xda2843F06eEc8fFe69F12554c491E8C40dD9bBA8",
+          "error": "missing response for request",
+          "totalMs": 321.00270899999305
+        }
+      ]
+    },
+    {
+      "k": 50,
+      "burst": 0,
+      "wallclock": 411.4912020000047,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 411.46864300000016
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 411.35266199999023
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 411.3271599999862
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 411.288945999986
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 411.26759199998924
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 411.2518550000095
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 411.2359900000156
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 411.22040600000764
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 411.17929100000765
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 411.15929300000425
+        },
+        {
+          "idx": 10,
+          "ok": false,
+          "walletAddr": "0x5dF969cc3CA41360B4b1DC33d742Fa3EaE62285a",
+          "error": "missing response for request",
+          "totalMs": 411.1156769999943
+        },
+        {
+          "idx": 11,
+          "ok": false,
+          "walletAddr": "0xD39F5cA2A025090Bb3B2aDe184D4695ec65cD3cB",
+          "error": "missing response for request",
+          "totalMs": 411.0994650000066
+        },
+        {
+          "idx": 12,
+          "ok": false,
+          "walletAddr": "0x805B28dF942dF385f6506f5cadd9A8A5E9100632",
+          "error": "missing response for request",
+          "totalMs": 411.0842160000175
+        },
+        {
+          "idx": 13,
+          "ok": false,
+          "walletAddr": "0xA03e21DAd208805C9E76cE56305B146A262c15B1",
+          "error": "missing response for request",
+          "totalMs": 411.0663329999952
+        },
+        {
+          "idx": 14,
+          "ok": false,
+          "walletAddr": "0x0e14410a49b01dD86eBAcA35C2598CbCF95790b8",
+          "error": "missing response for request",
+          "totalMs": 411.00133100000676
+        },
+        {
+          "idx": 15,
+          "ok": false,
+          "walletAddr": "0x662443F3deDE2CAA0fb290f94d404C30F2Dd53a4",
+          "error": "missing response for request",
+          "totalMs": 410.97308300001896
+        },
+        {
+          "idx": 16,
+          "ok": false,
+          "walletAddr": "0xD7A181aEEEc9dC343a903fFBd862E281E585731D",
+          "error": "missing response for request",
+          "totalMs": 410.9542530000035
+        },
+        {
+          "idx": 17,
+          "ok": false,
+          "walletAddr": "0x009E899dF388426e2705a4BfC2bB6f33ccBFead3",
+          "error": "missing response for request",
+          "totalMs": 410.9370859999908
+        },
+        {
+          "idx": 18,
+          "ok": false,
+          "walletAddr": "0xFBf3EeEeaDC3831eA2561ab4aD4a95ab4F054A9F",
+          "error": "missing response for request",
+          "totalMs": 410.92123999999603
+        },
+        {
+          "idx": 19,
+          "ok": false,
+          "walletAddr": "0xc44606837d5cf7446B00608Dd80B24b64DC315FF",
+          "error": "missing response for request",
+          "totalMs": 410.90442199999234
+        },
+        {
+          "idx": 20,
+          "ok": false,
+          "walletAddr": "0xf374B7d3DecB3DE7b0f416B5fe08A18bEf71bcD8",
+          "error": "missing response for request",
+          "totalMs": 410.8891740000108
+        },
+        {
+          "idx": 21,
+          "ok": false,
+          "walletAddr": "0x49b84C7cfe077Fe915514045fd7FD5a20a85C359",
+          "error": "missing response for request",
+          "totalMs": 410.8452260000049
+        },
+        {
+          "idx": 22,
+          "ok": false,
+          "walletAddr": "0x0d9B7fB8CB15Be41e4c6E5E9cc4f905AC7112acb",
+          "error": "missing response for request",
+          "totalMs": 410.82271899998887
+        },
+        {
+          "idx": 23,
+          "ok": false,
+          "walletAddr": "0xFE9ea6718d943937D719f7E23cC5F80Aeb644F7d",
+          "error": "missing response for request",
+          "totalMs": 410.805303000001
+        },
+        {
+          "idx": 24,
+          "ok": false,
+          "walletAddr": "0xda2843F06eEc8fFe69F12554c491E8C40dD9bBA8",
+          "error": "missing response for request",
+          "totalMs": 410.7891010000021
+        },
+        {
+          "idx": 25,
+          "ok": false,
+          "walletAddr": "0xF47B9D169d4eC0852D79A12Bf719ab308C5623A3",
+          "error": "missing response for request",
+          "totalMs": 410.678470999992
+        },
+        {
+          "idx": 26,
+          "ok": false,
+          "walletAddr": "0x0885F4673432a1e86873A3C59a36E3202075D913",
+          "error": "missing response for request",
+          "totalMs": 410.648022999987
+        },
+        {
+          "idx": 27,
+          "ok": false,
+          "walletAddr": "0xFC8b9Ea7BFde7510DDb4620d42C774bC21748bFE",
+          "error": "missing response for request",
+          "totalMs": 410.63125800000853
+        },
+        {
+          "idx": 28,
+          "ok": false,
+          "walletAddr": "0x6cE0681271fE1A58A81D7Fd9eaD0492153fdb7a5",
+          "error": "missing response for request",
+          "totalMs": 410.6152540000039
+        },
+        {
+          "idx": 29,
+          "ok": false,
+          "walletAddr": "0x730F41BB90AeFBAD4eFAd916922931Fc53C0DC37",
+          "error": "missing response for request",
+          "totalMs": 410.6007389999868
+        },
+        {
+          "idx": 30,
+          "ok": false,
+          "walletAddr": "0xc228A54a4028286bC6751e7e954f11BF4FE5D589",
+          "error": "missing response for request",
+          "totalMs": 410.5836539999873
+        },
+        {
+          "idx": 31,
+          "ok": false,
+          "walletAddr": "0xF5A4ddc2f152154bA0a3d29A8047f807603BB9cB",
+          "error": "missing response for request",
+          "totalMs": 410.5688690000097
+        },
+        {
+          "idx": 32,
+          "ok": false,
+          "walletAddr": "0x46A204E7f03eDa0Fdeab38A409D0208236cDC211",
+          "error": "missing response for request",
+          "totalMs": 410.5540420000034
+        },
+        {
+          "idx": 33,
+          "ok": false,
+          "walletAddr": "0x6989E03416dc2ae5bc5A5301FC063D7A228c8941",
+          "error": "missing response for request",
+          "totalMs": 410.5388910000038
+        },
+        {
+          "idx": 34,
+          "ok": false,
+          "walletAddr": "0x3eDF08cAE7C7Eb827223564551dEad2515F966d5",
+          "error": "missing response for request",
+          "totalMs": 410.52343299999484
+        },
+        {
+          "idx": 35,
+          "ok": false,
+          "walletAddr": "0xd779c2D837c86a23ee2417799E70923ecec9e652",
+          "error": "missing response for request",
+          "totalMs": 410.50852100001066
+        },
+        {
+          "idx": 36,
+          "ok": false,
+          "walletAddr": "0xC5Bad1885BC15d15c94836645C2B8e834633Ad6c",
+          "error": "missing response for request",
+          "totalMs": 410.49290399998426
+        },
+        {
+          "idx": 37,
+          "ok": false,
+          "walletAddr": "0xc255Fcc327019a119924Cf7a69DA7445cb47F0dC",
+          "error": "missing response for request",
+          "totalMs": 410.47798299998976
+        },
+        {
+          "idx": 38,
+          "ok": false,
+          "walletAddr": "0x5D1f432E48a6078526FfFF6887AE50029fe96825",
+          "error": "missing response for request",
+          "totalMs": 410.4451490000065
+        },
+        {
+          "idx": 39,
+          "ok": false,
+          "walletAddr": "0x57827a7Da04823ec1E016f2F27249ebf6dFfB52c",
+          "error": "missing response for request",
+          "totalMs": 410.42934100001
+        },
+        {
+          "idx": 40,
+          "ok": false,
+          "walletAddr": "0x3666A53503d7cf25D762758DE28F69B28216cA81",
+          "error": "missing response for request",
+          "totalMs": 410.41326999999
+        },
+        {
+          "idx": 41,
+          "ok": false,
+          "walletAddr": "0x4e206f39d4EcB43c6E0786ae68f24cB8Bc5B13A8",
+          "error": "missing response for request",
+          "totalMs": 410.39777300000424
+        },
+        {
+          "idx": 42,
+          "ok": false,
+          "walletAddr": "0x560d3Ee134a48Dc39B78C9A98B2D1F2a90adfC04",
+          "error": "missing response for request",
+          "totalMs": 410.38263099998585
+        },
+        {
+          "idx": 43,
+          "ok": false,
+          "walletAddr": "0x29D78Bc0b79E5a87857B619a66246A9269997494",
+          "error": "missing response for request",
+          "totalMs": 410.3679519999714
+        },
+        {
+          "idx": 44,
+          "ok": false,
+          "walletAddr": "0x6824E5915C0Ac32E93638c9545d891473e39524d",
+          "error": "missing response for request",
+          "totalMs": 410.35307000001194
+        },
+        {
+          "idx": 45,
+          "ok": false,
+          "walletAddr": "0x8b5bFf064050C537cDC679023c2850519Fe4ddbd",
+          "error": "missing response for request",
+          "totalMs": 410.337910000002
+        },
+        {
+          "idx": 46,
+          "ok": false,
+          "walletAddr": "0xEa27E59Be6C9eDd6bd8e8832ea7E358539385363",
+          "error": "missing response for request",
+          "totalMs": 410.3232239999925
+        },
+        {
+          "idx": 47,
+          "ok": false,
+          "walletAddr": "0xec96e023f5FCa28C4e1E23bFFFEAa63CE0c5c716",
+          "error": "missing response for request",
+          "totalMs": 410.2948879999749
+        },
+        {
+          "idx": 48,
+          "ok": false,
+          "walletAddr": "0x4e15b99BfFCc548826DFBcC01dFdCf92D873623E",
+          "error": "missing response for request",
+          "totalMs": 410.27533800000674
+        },
+        {
+          "idx": 49,
+          "ok": false,
+          "walletAddr": "0x491CFEA3CB2AC9Cfa342DA78096cf1E1b6eb2b50",
+          "error": "missing response for request",
+          "totalMs": 410.26052199999685
+        }
+      ]
+    },
+    {
+      "k": 50,
+      "burst": 1,
+      "wallclock": 1181.5329809999967,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 330.9233780000068
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 330.79213399998844
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 330.7661740000185
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 330.74752800000715
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 330.7320569999865
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 330.7176439999894
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 330.70356699998956
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 330.6886550000054
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 330.6735150000022
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 330.659845999995
+        },
+        {
+          "idx": 10,
+          "ok": false,
+          "walletAddr": "0x5dF969cc3CA41360B4b1DC33d742Fa3EaE62285a",
+          "error": "missing response for request",
+          "totalMs": 330.6288159999822
+        },
+        {
+          "idx": 11,
+          "ok": false,
+          "walletAddr": "0xD39F5cA2A025090Bb3B2aDe184D4695ec65cD3cB",
+          "error": "missing response for request",
+          "totalMs": 330.60384100000374
+        },
+        {
+          "idx": 12,
+          "ok": false,
+          "walletAddr": "0x805B28dF942dF385f6506f5cadd9A8A5E9100632",
+          "error": "missing response for request",
+          "totalMs": 330.5864470000088
+        },
+        {
+          "idx": 13,
+          "ok": false,
+          "walletAddr": "0xA03e21DAd208805C9E76cE56305B146A262c15B1",
+          "error": "missing response for request",
+          "totalMs": 330.5710989999934
+        },
+        {
+          "idx": 14,
+          "ok": false,
+          "walletAddr": "0x0e14410a49b01dD86eBAcA35C2598CbCF95790b8",
+          "error": "missing response for request",
+          "totalMs": 330.5550430000003
+        },
+        {
+          "idx": 15,
+          "ok": false,
+          "walletAddr": "0x662443F3deDE2CAA0fb290f94d404C30F2Dd53a4",
+          "error": "missing response for request",
+          "totalMs": 330.537536000018
+        },
+        {
+          "idx": 16,
+          "ok": false,
+          "walletAddr": "0xD7A181aEEEc9dC343a903fFBd862E281E585731D",
+          "error": "missing response for request",
+          "totalMs": 330.52267199999187
+        },
+        {
+          "idx": 17,
+          "ok": false,
+          "walletAddr": "0x009E899dF388426e2705a4BfC2bB6f33ccBFead3",
+          "error": "missing response for request",
+          "totalMs": 330.5089450000087
+        },
+        {
+          "idx": 18,
+          "ok": false,
+          "walletAddr": "0xFBf3EeEeaDC3831eA2561ab4aD4a95ab4F054A9F",
+          "error": "missing response for request",
+          "totalMs": 330.49542200000724
+        },
+        {
+          "idx": 19,
+          "ok": false,
+          "walletAddr": "0xc44606837d5cf7446B00608Dd80B24b64DC315FF",
+          "error": "missing response for request",
+          "totalMs": 330.47994600000675
+        },
+        {
+          "idx": 20,
+          "ok": false,
+          "walletAddr": "0xf374B7d3DecB3DE7b0f416B5fe08A18bEf71bcD8",
+          "error": "missing response for request",
+          "totalMs": 330.4652200000128
+        },
+        {
+          "idx": 21,
+          "ok": false,
+          "walletAddr": "0x49b84C7cfe077Fe915514045fd7FD5a20a85C359",
+          "error": "missing response for request",
+          "totalMs": 330.45117300000857
+        },
+        {
+          "idx": 22,
+          "ok": false,
+          "walletAddr": "0x0d9B7fB8CB15Be41e4c6E5E9cc4f905AC7112acb",
+          "error": "missing response for request",
+          "totalMs": 330.43728000001283
+        },
+        {
+          "idx": 23,
+          "ok": false,
+          "walletAddr": "0xFE9ea6718d943937D719f7E23cC5F80Aeb644F7d",
+          "error": "missing response for request",
+          "totalMs": 330.42352500002016
+        },
+        {
+          "idx": 24,
+          "ok": false,
+          "walletAddr": "0xda2843F06eEc8fFe69F12554c491E8C40dD9bBA8",
+          "error": "missing response for request",
+          "totalMs": 330.4087909999944
+        },
+        {
+          "idx": 25,
+          "ok": false,
+          "walletAddr": "0xF47B9D169d4eC0852D79A12Bf719ab308C5623A3",
+          "error": "missing response for request",
+          "totalMs": 330.3940350000048
+        },
+        {
+          "idx": 26,
+          "ok": false,
+          "walletAddr": "0x0885F4673432a1e86873A3C59a36E3202075D913",
+          "error": "missing response for request",
+          "totalMs": 330.3799899999867
+        },
+        {
+          "idx": 27,
+          "ok": false,
+          "walletAddr": "0xFC8b9Ea7BFde7510DDb4620d42C774bC21748bFE",
+          "error": "missing response for request",
+          "totalMs": 330.3658099999884
+        },
+        {
+          "idx": 28,
+          "ok": false,
+          "walletAddr": "0x6cE0681271fE1A58A81D7Fd9eaD0492153fdb7a5",
+          "error": "missing response for request",
+          "totalMs": 330.35049099999014
+        },
+        {
+          "idx": 29,
+          "ok": false,
+          "walletAddr": "0x730F41BB90AeFBAD4eFAd916922931Fc53C0DC37",
+          "error": "missing response for request",
+          "totalMs": 330.33675700001186
+        },
+        {
+          "idx": 30,
+          "ok": false,
+          "walletAddr": "0xc228A54a4028286bC6751e7e954f11BF4FE5D589",
+          "error": "missing response for request",
+          "totalMs": 330.3216010000033
+        },
+        {
+          "idx": 31,
+          "ok": false,
+          "walletAddr": "0xF5A4ddc2f152154bA0a3d29A8047f807603BB9cB",
+          "error": "missing response for request",
+          "totalMs": 330.30802000002586
+        },
+        {
+          "idx": 32,
+          "ok": false,
+          "walletAddr": "0x46A204E7f03eDa0Fdeab38A409D0208236cDC211",
+          "error": "missing response for request",
+          "totalMs": 330.29354400001466
+        },
+        {
+          "idx": 33,
+          "ok": false,
+          "walletAddr": "0x6989E03416dc2ae5bc5A5301FC063D7A228c8941",
+          "error": "missing response for request",
+          "totalMs": 330.2792249999766
+        },
+        {
+          "idx": 34,
+          "ok": false,
+          "walletAddr": "0x3eDF08cAE7C7Eb827223564551dEad2515F966d5",
+          "error": "missing response for request",
+          "totalMs": 330.26576099998783
+        },
+        {
+          "idx": 35,
+          "ok": false,
+          "walletAddr": "0xd779c2D837c86a23ee2417799E70923ecec9e652",
+          "error": "missing response for request",
+          "totalMs": 330.25179899999057
+        },
+        {
+          "idx": 36,
+          "ok": false,
+          "walletAddr": "0xC5Bad1885BC15d15c94836645C2B8e834633Ad6c",
+          "error": "missing response for request",
+          "totalMs": 330.2359110000252
+        },
+        {
+          "idx": 37,
+          "ok": false,
+          "walletAddr": "0xc255Fcc327019a119924Cf7a69DA7445cb47F0dC",
+          "error": "missing response for request",
+          "totalMs": 330.2220350000134
+        },
+        {
+          "idx": 38,
+          "ok": false,
+          "walletAddr": "0x5D1f432E48a6078526FfFF6887AE50029fe96825",
+          "error": "missing response for request",
+          "totalMs": 330.20910199999344
+        },
+        {
+          "idx": 39,
+          "ok": false,
+          "walletAddr": "0x57827a7Da04823ec1E016f2F27249ebf6dFfB52c",
+          "error": "missing response for request",
+          "totalMs": 330.19442799998797
+        },
+        {
+          "idx": 40,
+          "ok": false,
+          "walletAddr": "0x3666A53503d7cf25D762758DE28F69B28216cA81",
+          "error": "missing response for request",
+          "totalMs": 330.18028499998036
+        },
+        {
+          "idx": 41,
+          "ok": false,
+          "walletAddr": "0x4e206f39d4EcB43c6E0786ae68f24cB8Bc5B13A8",
+          "error": "missing response for request",
+          "totalMs": 330.16650399999344
+        },
+        {
+          "idx": 42,
+          "ok": false,
+          "walletAddr": "0x560d3Ee134a48Dc39B78C9A98B2D1F2a90adfC04",
+          "error": "missing response for request",
+          "totalMs": 330.1519050000061
+        },
+        {
+          "idx": 43,
+          "ok": false,
+          "walletAddr": "0x29D78Bc0b79E5a87857B619a66246A9269997494",
+          "error": "missing response for request",
+          "totalMs": 330.13791599997785
+        },
+        {
+          "idx": 44,
+          "ok": false,
+          "walletAddr": "0x6824E5915C0Ac32E93638c9545d891473e39524d",
+          "error": "missing response for request",
+          "totalMs": 330.12433699998655
+        },
+        {
+          "idx": 45,
+          "ok": false,
+          "walletAddr": "0x8b5bFf064050C537cDC679023c2850519Fe4ddbd",
+          "error": "missing response for request",
+          "totalMs": 330.1103240000084
+        },
+        {
+          "idx": 46,
+          "ok": false,
+          "walletAddr": "0xEa27E59Be6C9eDd6bd8e8832ea7E358539385363",
+          "error": "missing response for request",
+          "totalMs": 330.095089999988
+        },
+        {
+          "idx": 47,
+          "ok": false,
+          "walletAddr": "0xec96e023f5FCa28C4e1E23bFFFEAa63CE0c5c716",
+          "error": "missing response for request",
+          "totalMs": 330.0813180000114
+        },
+        {
+          "idx": 48,
+          "ok": false,
+          "walletAddr": "0x4e15b99BfFCc548826DFBcC01dFdCf92D873623E",
+          "error": "missing response for request",
+          "totalMs": 330.0672729999933
+        },
+        {
+          "idx": 49,
+          "ok": false,
+          "walletAddr": "0x491CFEA3CB2AC9Cfa342DA78096cf1E1b6eb2b50",
+          "error": "missing response for request",
+          "totalMs": 330.0534929999849
+        }
+      ]
+    },
+    {
+      "k": 50,
+      "burst": 2,
+      "wallclock": 323.379734999995,
+      "results": [
+        {
+          "idx": 0,
+          "ok": false,
+          "walletAddr": "0x6FbfB44C200788eCdeF28B64503181cb8E13C32F",
+          "error": "missing response for request",
+          "totalMs": 323.3440089999931
+        },
+        {
+          "idx": 1,
+          "ok": false,
+          "walletAddr": "0x65fb1636154Ce1B6137F92014e2C7C6e23D7E9D6",
+          "error": "missing response for request",
+          "totalMs": 323.14506099998835
+        },
+        {
+          "idx": 2,
+          "ok": false,
+          "walletAddr": "0x16D8C441f68B2F5178E0f5B84C7A868d7711c838",
+          "error": "missing response for request",
+          "totalMs": 323.09719300002325
+        },
+        {
+          "idx": 3,
+          "ok": false,
+          "walletAddr": "0x8764276650016f202F5dC5F3a30Bfdea82bDB4C4",
+          "error": "missing response for request",
+          "totalMs": 323.06341599998996
+        },
+        {
+          "idx": 4,
+          "ok": false,
+          "walletAddr": "0x4D693CB1624511De368B20B98455b9f64B2e1797",
+          "error": "missing response for request",
+          "totalMs": 323.04626400000416
+        },
+        {
+          "idx": 5,
+          "ok": false,
+          "walletAddr": "0x68FE81fdd6B13d1Ae05E6C730c34413B5bC8C3a7",
+          "error": "missing response for request",
+          "totalMs": 322.9666140000045
+        },
+        {
+          "idx": 6,
+          "ok": false,
+          "walletAddr": "0x4d10f4b5868C1A5B88aE3eA7Be1536a3dc837A2C",
+          "error": "missing response for request",
+          "totalMs": 322.9369819999847
+        },
+        {
+          "idx": 7,
+          "ok": false,
+          "walletAddr": "0x8F703AD71A571dE20da8896330c504c62B670401",
+          "error": "missing response for request",
+          "totalMs": 322.9208010000002
+        },
+        {
+          "idx": 8,
+          "ok": false,
+          "walletAddr": "0xf86f70C8d31e1c031360973C63a07e34C87167fA",
+          "error": "missing response for request",
+          "totalMs": 322.9058479999949
+        },
+        {
+          "idx": 9,
+          "ok": false,
+          "walletAddr": "0x8C2094F802a8e0fdCA6c87e55a89A14FC1F09830",
+          "error": "missing response for request",
+          "totalMs": 322.8900480000011
+        },
+        {
+          "idx": 10,
+          "ok": false,
+          "walletAddr": "0x5dF969cc3CA41360B4b1DC33d742Fa3EaE62285a",
+          "error": "missing response for request",
+          "totalMs": 322.8754539999936
+        },
+        {
+          "idx": 11,
+          "ok": false,
+          "walletAddr": "0xD39F5cA2A025090Bb3B2aDe184D4695ec65cD3cB",
+          "error": "missing response for request",
+          "totalMs": 322.84742999999435
+        },
+        {
+          "idx": 12,
+          "ok": false,
+          "walletAddr": "0x805B28dF942dF385f6506f5cadd9A8A5E9100632",
+          "error": "missing response for request",
+          "totalMs": 322.8267479999922
+        },
+        {
+          "idx": 13,
+          "ok": false,
+          "walletAddr": "0xA03e21DAd208805C9E76cE56305B146A262c15B1",
+          "error": "missing response for request",
+          "totalMs": 322.81116200002725
+        },
+        {
+          "idx": 14,
+          "ok": false,
+          "walletAddr": "0x0e14410a49b01dD86eBAcA35C2598CbCF95790b8",
+          "error": "missing response for request",
+          "totalMs": 322.79558000000543
+        },
+        {
+          "idx": 15,
+          "ok": false,
+          "walletAddr": "0x662443F3deDE2CAA0fb290f94d404C30F2Dd53a4",
+          "error": "missing response for request",
+          "totalMs": 322.7802860000229
+        },
+        {
+          "idx": 16,
+          "ok": false,
+          "walletAddr": "0xD7A181aEEEc9dC343a903fFBd862E281E585731D",
+          "error": "missing response for request",
+          "totalMs": 322.7659500000009
+        },
+        {
+          "idx": 17,
+          "ok": false,
+          "walletAddr": "0x009E899dF388426e2705a4BfC2bB6f33ccBFead3",
+          "error": "missing response for request",
+          "totalMs": 322.75161899998784
+        },
+        {
+          "idx": 18,
+          "ok": false,
+          "walletAddr": "0xFBf3EeEeaDC3831eA2561ab4aD4a95ab4F054A9F",
+          "error": "missing response for request",
+          "totalMs": 322.73683299997356
+        },
+        {
+          "idx": 19,
+          "ok": false,
+          "walletAddr": "0xc44606837d5cf7446B00608Dd80B24b64DC315FF",
+          "error": "missing response for request",
+          "totalMs": 322.71849499997916
+        },
+        {
+          "idx": 20,
+          "ok": false,
+          "walletAddr": "0xf374B7d3DecB3DE7b0f416B5fe08A18bEf71bcD8",
+          "error": "missing response for request",
+          "totalMs": 322.7045779999753
+        },
+        {
+          "idx": 21,
+          "ok": false,
+          "walletAddr": "0x49b84C7cfe077Fe915514045fd7FD5a20a85C359",
+          "error": "missing response for request",
+          "totalMs": 322.66687399998773
+        },
+        {
+          "idx": 22,
+          "ok": false,
+          "walletAddr": "0x0d9B7fB8CB15Be41e4c6E5E9cc4f905AC7112acb",
+          "error": "missing response for request",
+          "totalMs": 322.64233500001137
+        },
+        {
+          "idx": 23,
+          "ok": false,
+          "walletAddr": "0xFE9ea6718d943937D719f7E23cC5F80Aeb644F7d",
+          "error": "missing response for request",
+          "totalMs": 322.62652200000593
+        },
+        {
+          "idx": 24,
+          "ok": false,
+          "walletAddr": "0xda2843F06eEc8fFe69F12554c491E8C40dD9bBA8",
+          "error": "missing response for request",
+          "totalMs": 322.6123230000085
+        },
+        {
+          "idx": 25,
+          "ok": false,
+          "walletAddr": "0xF47B9D169d4eC0852D79A12Bf719ab308C5623A3",
+          "error": "missing response for request",
+          "totalMs": 322.5988270000089
+        },
+        {
+          "idx": 26,
+          "ok": false,
+          "walletAddr": "0x0885F4673432a1e86873A3C59a36E3202075D913",
+          "error": "missing response for request",
+          "totalMs": 322.5841969999892
+        },
+        {
+          "idx": 27,
+          "ok": false,
+          "walletAddr": "0xFC8b9Ea7BFde7510DDb4620d42C774bC21748bFE",
+          "error": "missing response for request",
+          "totalMs": 322.5685649999941
+        },
+        {
+          "idx": 28,
+          "ok": false,
+          "walletAddr": "0x6cE0681271fE1A58A81D7Fd9eaD0492153fdb7a5",
+          "error": "missing response for request",
+          "totalMs": 322.5542279999936
+        },
+        {
+          "idx": 29,
+          "ok": false,
+          "walletAddr": "0x730F41BB90AeFBAD4eFAd916922931Fc53C0DC37",
+          "error": "missing response for request",
+          "totalMs": 322.54048900000635
+        },
+        {
+          "idx": 30,
+          "ok": false,
+          "walletAddr": "0xc228A54a4028286bC6751e7e954f11BF4FE5D589",
+          "error": "missing response for request",
+          "totalMs": 322.52529299998423
+        },
+        {
+          "idx": 31,
+          "ok": false,
+          "walletAddr": "0xF5A4ddc2f152154bA0a3d29A8047f807603BB9cB",
+          "error": "missing response for request",
+          "totalMs": 322.51072900000145
+        },
+        {
+          "idx": 32,
+          "ok": false,
+          "walletAddr": "0x46A204E7f03eDa0Fdeab38A409D0208236cDC211",
+          "error": "missing response for request",
+          "totalMs": 322.4966189999832
+        },
+        {
+          "idx": 33,
+          "ok": false,
+          "walletAddr": "0x6989E03416dc2ae5bc5A5301FC063D7A228c8941",
+          "error": "missing response for request",
+          "totalMs": 322.4831460000132
+        },
+        {
+          "idx": 34,
+          "ok": false,
+          "walletAddr": "0x3eDF08cAE7C7Eb827223564551dEad2515F966d5",
+          "error": "missing response for request",
+          "totalMs": 322.44826599999215
+        },
+        {
+          "idx": 35,
+          "ok": false,
+          "walletAddr": "0xd779c2D837c86a23ee2417799E70923ecec9e652",
+          "error": "missing response for request",
+          "totalMs": 322.4312209999771
+        },
+        {
+          "idx": 36,
+          "ok": false,
+          "walletAddr": "0xC5Bad1885BC15d15c94836645C2B8e834633Ad6c",
+          "error": "missing response for request",
+          "totalMs": 322.41547399997944
+        },
+        {
+          "idx": 37,
+          "ok": false,
+          "walletAddr": "0xc255Fcc327019a119924Cf7a69DA7445cb47F0dC",
+          "error": "missing response for request",
+          "totalMs": 322.40030800001114
+        },
+        {
+          "idx": 38,
+          "ok": false,
+          "walletAddr": "0x5D1f432E48a6078526FfFF6887AE50029fe96825",
+          "error": "missing response for request",
+          "totalMs": 322.3865129999758
+        },
+        {
+          "idx": 39,
+          "ok": false,
+          "walletAddr": "0x57827a7Da04823ec1E016f2F27249ebf6dFfB52c",
+          "error": "missing response for request",
+          "totalMs": 322.3678249999939
+        },
+        {
+          "idx": 40,
+          "ok": false,
+          "walletAddr": "0x3666A53503d7cf25D762758DE28F69B28216cA81",
+          "error": "missing response for request",
+          "totalMs": 322.335253999976
+        },
+        {
+          "idx": 41,
+          "ok": false,
+          "walletAddr": "0x4e206f39d4EcB43c6E0786ae68f24cB8Bc5B13A8",
+          "error": "missing response for request",
+          "totalMs": 322.3169679999992
+        },
+        {
+          "idx": 42,
+          "ok": false,
+          "walletAddr": "0x560d3Ee134a48Dc39B78C9A98B2D1F2a90adfC04",
+          "error": "missing response for request",
+          "totalMs": 322.3024359999981
+        },
+        {
+          "idx": 43,
+          "ok": false,
+          "walletAddr": "0x29D78Bc0b79E5a87857B619a66246A9269997494",
+          "error": "missing response for request",
+          "totalMs": 322.2881340000022
+        },
+        {
+          "idx": 44,
+          "ok": false,
+          "walletAddr": "0x6824E5915C0Ac32E93638c9545d891473e39524d",
+          "error": "missing response for request",
+          "totalMs": 322.27380599998287
+        },
+        {
+          "idx": 45,
+          "ok": false,
+          "walletAddr": "0x8b5bFf064050C537cDC679023c2850519Fe4ddbd",
+          "error": "missing response for request",
+          "totalMs": 322.2589449999796
+        },
+        {
+          "idx": 46,
+          "ok": false,
+          "walletAddr": "0xEa27E59Be6C9eDd6bd8e8832ea7E358539385363",
+          "error": "missing response for request",
+          "totalMs": 322.1722449999943
+        },
+        {
+          "idx": 47,
+          "ok": false,
+          "walletAddr": "0xec96e023f5FCa28C4e1E23bFFFEAa63CE0c5c716",
+          "error": "missing response for request",
+          "totalMs": 322.1352950000146
+        },
+        {
+          "idx": 48,
+          "ok": false,
+          "walletAddr": "0x4e15b99BfFCc548826DFBcC01dFdCf92D873623E",
+          "error": "missing response for request",
+          "totalMs": 322.0980620000046
+        },
+        {
+          "idx": 49,
+          "ok": false,
+          "walletAddr": "0x491CFEA3CB2AC9Cfa342DA78096cf1E1b6eb2b50",
+          "error": "missing response for request",
+          "totalMs": 322.0761310000089
+        }
+      ]
+    }
+  ]
+}

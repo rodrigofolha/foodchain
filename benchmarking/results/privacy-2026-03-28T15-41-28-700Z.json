@@ -1,0 +1,162 @@
+{
+  "version": "privacy-v2-stealth-pool",
+  "network": "sepolia",
+  "contracts": {
+    "chain": "0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E",
+    "storage": "0x980a3d791D53E0F46b91F231B32310f29A04936c",
+    "reputation": "0xDE47a86DF2dD18C3EB97b0F39869550D8Cbce228",
+    "stealth": "0x8df6546df4dEbE357E3d46EcD3179c788CE66Ce9"
+  },
+  "config": {
+    "treeDepth": 25,
+    "weiPerDollar": "1000000000000000",
+    "deployBlock": 10493562
+  },
+  "iterations": 1,
+  "timestamp": "2026-03-28T15:41:28.700Z",
+  "results": [
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 5.029475000000048,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 2110.1171875,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0x402E8ff22F2455c852B2a843B53fB192A80B3AfD",
+        "stealthPrivateKey": "17fd4e70c05dd2c8e4e043588c178180465f4d0bb41248e64e6441de1e5511c2",
+        "ephemeralPubKey": "0x03a0f3f18316c3899e6d5a10858adcbd6f16e5dd7824e863c759dd8f2a63288960",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26233,
+      "latencyMs": 13459.812897,
+      "sendTimeMs": 665.3687649999997,
+      "costETH": 2.6233393495e-8,
+      "memDeltaKB": -4261.75,
+      "txHash": "0x6431afa183ba12d27ecc43d09f243c5827ce8afa02eca94af7948a7284d544e4"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3088587,
+      "latencyMs": 9308.294815000001,
+      "sendTimeMs": 784.9527559999988,
+      "costETH": 0.000003088630240218,
+      "memDeltaKB": 287.796875,
+      "txHash": "0x2b2fd786552a5b542c6c35587972d3b6286b7a442ac98a1a075f277ab51df0ee"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1019469,
+      "latencyMs": 22741.959820000004,
+      "sendTimeMs": 13685.534035999997,
+      "costETH": 0.000001019483272566,
+      "memDeltaKB": 10926.5234375,
+      "txHash": "0xc0890c3c61ab417756d387a2c99b5d1e118bfbc4a7a1b103f2ef3236f37d15dd"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1407.6918220000007,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -9623.1640625,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1278411,
+      "latencyMs": 14000.005462000008,
+      "sendTimeMs": 787.1066869999995,
+      "costETH": 0.000001278427619343,
+      "memDeltaKB": 1324.609375,
+      "txHash": "0x1d8fc80cecab3d87d9cf4d17acb64b13e62e0fcfa008d02d64bf8521b57ef696"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 137069,
+      "latencyMs": 9803.522133999999,
+      "sendTimeMs": 768.1936700000078,
+      "costETH": 1.37070781897e-7,
+      "memDeltaKB": 7673.3125,
+      "txHash": "0x66287b37f4dffbb43e9f619ea11eb7e331cb20b073e77d333fc3b3b0117508cb"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 225292,
+      "latencyMs": 9315.62354,
+      "sendTimeMs": 803.4310030000051,
+      "costETH": 2.25294928796e-7,
+      "memDeltaKB": -503.1328125,
+      "txHash": "0x03a4a496117c0b388c6083e7372a1da01c6e9563b36314dfd17b3b5199ebf14e"
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 773542,
+      "latencyMs": 9545.708217000007,
+      "sendTimeMs": 895.6690190000081,
+      "costETH": 7.73552056046e-7,
+      "memDeltaKB": 366.3515625,
+      "txHash": "0x75f6876f22e62790617fb472055357b5706fd9a1392e8dbc4d6d22a2342e0c85"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 59209,
+      "latencyMs": 9547.592994999999,
+      "sendTimeMs": 908.6526219999942,
+      "costETH": 5.9209769717e-8,
+      "memDeltaKB": -162.828125,
+      "txHash": "0x3f07159f1349f913dff78c51ed2adc0d656c4b62c94626b4c05a62b784ae8ff6"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 1922463,
+      "latencyMs": 5410.738388999991,
+      "sendTimeMs": 890.8493870000093,
+      "costETH": 0.000001922487992019,
+      "memDeltaKB": 340.6484375,
+      "txHash": "0x0872ac15e859da36614480bf7dbd7b482984004fd2ff035755f81f7b36cbcf57"
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 697.3390740000177,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -9349.453125,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d\", \"to\": \"0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0x1cf56bb6d9581f77128f8f2a61a7e10cc7185906c44fc317353a14c8bf9e3736\", \"blockNumber\": 10540527, \"contractAddress\": null, \"cumulativeGasUsed\": \"14359691\", \"from\": \"0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d\", \"gasPrice\": \"1000013\", \"gasUsed\": \"264530\", \"hash\": \"0x5108dca3309a6d21672167dbe40d2318a7f92439cde8e643a0e4c06a275e5262\", \"index\": 104, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E\" }, code=CALL_EXCEPTION, version=6.16.0)"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 2695.227786000003,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -169.796875,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0xEd2794006D72C83E42B5B7253144359E0947b9E7\", \"to\": \"0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0xd11fefbe5e1de39626b9a2ef120dcc7fb76cd6778e791a971a6c2b8512acfb34\", \"blockNumber\": 10540528, \"contractAddress\": null, \"cumulativeGasUsed\": \"22832579\", \"from\": \"0xEd2794006D72C83E42B5B7253144359E0947b9E7\", \"gasPrice\": \"1000013\", \"gasUsed\": \"264530\", \"hash\": \"0x79c9868bba220b99bbd2652bd2bd187d81a195a34d3736a4e80352ea2f29ea93\", \"index\": 103, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E\" }, code=CALL_EXCEPTION, version=6.16.0)"
+    }
+  ]
+}

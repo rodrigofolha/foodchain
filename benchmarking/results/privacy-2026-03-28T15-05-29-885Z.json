@@ -1,0 +1,170 @@
+{
+  "version": "privacy-v2-stealth-pool",
+  "network": "sepolia",
+  "contracts": {
+    "chain": "0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E",
+    "storage": "0x980a3d791D53E0F46b91F231B32310f29A04936c",
+    "reputation": "0xDE47a86DF2dD18C3EB97b0F39869550D8Cbce228",
+    "stealth": "0x8df6546df4dEbE357E3d46EcD3179c788CE66Ce9"
+  },
+  "config": {
+    "treeDepth": 25,
+    "weiPerDollar": "1000000000000000",
+    "deployBlock": 10493562
+  },
+  "iterations": 1,
+  "timestamp": "2026-03-28T15:05:29.885Z",
+  "results": [
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 3.601191999999969,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 2080.25,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0xc8e56A18B7e1b97FfFFa908d454e69e60db5bB25",
+        "stealthPrivateKey": "0109bcf61794d55ac92b4d1501063a3971fbb8b0de48305148d6f2ff3cab9b8b",
+        "ephemeralPubKey": "0x032af8183953d5a7e658fcc80a081b6955bd904558d1c38b9077076575d60a956b",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26233,
+      "latencyMs": 9311.308355000001,
+      "sendTimeMs": 653.9696130000002,
+      "costETH": 2.6233393495e-8,
+      "memDeltaKB": -2746.109375,
+      "txHash": "0x3b2e2697b216fada359797511b825a065c55caba91cc156ed3a4e2efb11f16bf"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3088587,
+      "latencyMs": 13549.1719,
+      "sendTimeMs": 771.2128599999996,
+      "costETH": 0.000003088633328805,
+      "memDeltaKB": 1088.4296875,
+      "txHash": "0xf24fcedfb50ae6cc3c0b6728eae5fb895dcd96ab20eedb7bcbadcb62132cc83f"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1014418,
+      "latencyMs": 21181.382862,
+      "sendTimeMs": 7950.8994509999975,
+      "costETH": 0.00000101443321627,
+      "memDeltaKB": -44.6484375,
+      "txHash": "0x5489543e5c73f3654a57112e41759e84082c5fe0c7eb75c1be93ac22c4764755"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1104.4512450000038,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 1000.53125,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0xEd2794006D72C83E42B5B7253144359E0947b9E7\", \"to\": \"0xDE47a86DF2dD18C3EB97b0F39869550D8Cbce228\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0xc8639b8d46991753d29d729c9cc252a159f9fc68c2150b43b51d4de35e7b6eba\", \"blockNumber\": 10540351, \"contractAddress\": null, \"cumulativeGasUsed\": \"22701052\", \"from\": \"0xEd2794006D72C83E42B5B7253144359E0947b9E7\", \"gasPrice\": \"1000015\", \"gasUsed\": \"263195\", \"hash\": \"0x12d155c2cca6618db7f94545cd200ad57d983a58870983fdb15e646c2fdf99f5\", \"index\": 103, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0xDE47a86DF2dD18C3EB97b0F39869550D8Cbce228\" }, code=CALL_EXCEPTION, version=6.16.0)"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected ORDERED, got "
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected PREPARATION, got "
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected WAITING, got ORDERED"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected WAITING, got "
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected DISPATCHED, got "
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected CONCLUDED, got ORDERED"
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Cannot read properties of undefined (reading 'workerAddr')"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Expected CONCLUDED, got "
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "Cannot read properties of undefined (reading 'workerAddr')"
+    }
+  ]
+}

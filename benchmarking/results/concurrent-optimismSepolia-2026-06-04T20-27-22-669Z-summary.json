@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "network": "optimismSepolia",
+    "rpc": "https://sepolia.optimism.io",
+    "kValues": [
+      10,
+      25,
+      50
+    ],
+    "bursts": 3,
+    "fundEth": "0.003",
+    "walletsProvisioned": 50,
+    "funderAddress": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+    "startedAt": "2026-06-04T20:27:22.669Z",
+    "nodeVersion": "v20.19.6",
+    "platform": "linux x64"
+  },
+  "summaries": [
+    {
+      "k": 10,
+      "bursts": 3,
+      "totalTxAttempted": 30,
+      "totalTxOk": 30,
+      "totalTxFailed": 0,
+      "revertRate": 0,
+      "latencyMs": {
+        "n": 30,
+        "mean": 4911.934995066665,
+        "median": 4863.479338999998,
+        "stddev": 528.705782437056,
+        "min": 3982.7917749999906,
+        "max": 5794.136767999997,
+        "p95": 5791.826777999988
+      },
+      "gasUsed": {
+        "n": 30,
+        "mean": 3084423.6,
+        "median": 3084424,
+        "stddev": 2.1540659228538037,
+        "min": 3084412,
+        "max": 3084424,
+        "p95": 3084424
+      },
+      "burstWallclockMs": {
+        "n": 3,
+        "mean": 8313.77772766667,
+        "median": 8494.577874999988,
+        "stddev": 537.292578066279,
+        "min": 7584.23099500002,
+        "max": 8862.524313000002,
+        "p95": 8862.524313000002
+      },
+      "effectiveTps": {
+        "n": 3,
+        "mean": 1.2080311561009667,
+        "median": 1.1772215343896666,
+        "stddev": 0.080638678141053,
+        "min": 1.1283466929767958,
+        "max": 1.3185252409364376,
+        "p95": 1.3185252409364376
+      },
+      "blocksSpanned": 6,
+      "blockRangePerBurst": [
+        {
+          "count": 2,
+          "first": 44401036,
+          "last": 44401037
+        },
+        {
+          "count": 2,
+          "first": 44401044,
+          "last": 44401045
+        },
+        {
+          "count": 2,
+          "first": 44401052,
+          "last": 44401053
+        }
+      ],
+      "sampleFailures": []
+    },
+    {
+      "k": 25,
+      "bursts": 3,
+      "totalTxAttempted": 75,
+      "totalTxOk": 62,
+      "totalTxFailed": 13,
+      "revertRate": 0.17333333333333334,
+      "latencyMs": {
+        "n": 62,
+        "mean": 10094.535284709676,
+        "median": 10075.56377400001,
+        "stddev": 987.000974815482,
+        "min": 8532.176517999993,
+        "max": 12125.527512,
+        "p95": 11972.060843999992
+      },
+      "gasUsed": {
+        "n": 62,
+        "mean": 3084422.2580645164,
+        "median": 3084424,
+        "stddev": 4.227160580872564,
+        "min": 3084412,
+        "max": 3084424,
+        "p95": 3084424
+      },
+      "burstWallclockMs": {
+        "n": 3,
+        "mean": 18804.47525566666,
+        "median": 18718.867866999994,
+        "stddev": 395.5755015843117,
+        "min": 18368.506041999994,
+        "max": 19326.05185799999,
+        "p95": 19326.05185799999
+      },
+      "effectiveTps": {
+        "n": 3,
+        "mean": 1.094144537605773,
+        "median": 1.2935906507800912,
+        "stddev": 0.31220005808950146,
+        "min": 0.6532921062040503,
+        "max": 1.3355508558331772,
+        "p95": 1.3355508558331772
+      },
+      "blocksSpanned": 11,
+      "blockRangePerBurst": [
+        {
+          "count": 4,
+          "first": 44401056,
+          "last": 44401059
+        },
+        {
+          "count": 2,
+          "first": 44401070,
+          "last": 44401071
+        },
+        {
+          "count": 5,
+          "first": 44401082,
+          "last": 44401086
+        }
+      ],
+      "sampleFailures": [
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 724, \"j",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 726, \"j",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 728, \"j",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 730, \"j",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 732, \"j"
+      ]
+    },
+    {
+      "k": 50,
+      "bursts": 3,
+      "totalTxAttempted": 150,
+      "totalTxOk": 67,
+      "totalTxFailed": 83,
+      "revertRate": 0.5533333333333333,
+      "latencyMs": {
+        "n": 67,
+        "mean": 21628.537295597016,
+        "median": 19832.80648900004,
+        "stddev": 5091.233274065145,
+        "min": 16126.150391000003,
+        "max": 32312.230796999997,
+        "p95": 32016.890851000033
+      },
+      "gasUsed": {
+        "n": 67,
+        "mean": 3084422.2089552237,
+        "median": 3084424,
+        "stddev": 4.276060795097299,
+        "min": 3084412,
+        "max": 3084424,
+        "p95": 3084424
+      },
+      "burstWallclockMs": {
+        "n": 3,
+        "mean": 34969.42431900001,
+        "median": 36404.44332100003,
+        "stddev": 3046.2016997814885,
+        "min": 30734.16588700001,
+        "max": 37769.663749,
+        "p95": 37769.663749
+      },
+      "effectiveTps": {
+        "n": 3,
+        "mean": 0.6036871096854802,
+        "median": 0.35709926630030087,
+        "stddev": 0.5175670397515122,
+        "min": 0.13014831815207736,
+        "max": 1.3238137446040623,
+        "p95": 1.3238137446040623
+      },
+      "blocksSpanned": 15,
+      "blockRangePerBurst": [
+        {
+          "count": 1,
+          "first": 44401092,
+          "last": 44401092
+        },
+        {
+          "count": 8,
+          "first": 44401112,
+          "last": 44401119
+        },
+        {
+          "count": 6,
+          "first": 44401134,
+          "last": 44401149
+        }
+      ],
+      "sampleFailures": [
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 1050, \"",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 1052, \"",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 1054, \"",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 1056, \"",
+        "could not coalesce error (error={ \"code\": -32016, \"message\": \"Your IP has exceeded its requests per second capacity. Please consider using a dedicated API provider: https://community.optimism.io/docs/useful-tools/providers\" }, payload={ \"id\": 1058, \""
+      ]
+    }
+  ]
+}

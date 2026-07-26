@@ -1,0 +1,31 @@
+==================================================================================================
+FoodChain — Concurrent makeOrder VALIDATION on Sepolia (PoS testnet)
+==================================================================================================
+
+── Experimental variables ──────────────────────────────────────────────────────────────────
+  Started at:        2026-05-30T14:36:04.422Z
+  Network:           Sepolia (Ethereum PoS testnet, real network)
+  Chain RPC:         https://sepolia.infura.io/v3/<redacted>
+  Chain contract:    0x13f03363b35AA2ff42EEb8Ce1DAE7Cc251a8987E
+  Reputation:        0xDE47a86DF2dD18C3EB97b0F39869550D8Cbce228
+  Mode:              privacy (stealth disabled for this test; identical to Hardhat run)
+  Gas price hint:    2 gwei
+  k-sweep:           {1, 5, 10}
+  Bursts per k:      2
+  Pre-funding:       0.08 ETH × 10 wallets from PRIVATE_KEY
+  Funder address:    0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d
+──────────────────────────────────────────────────────────────────────────────────────────────────
+
+┌────┬───────┬───────┬──────────┬────────────────────────────────┬────────────────────────────────┬─────────────┬─────────┐
+│  k │ tx OK │ fail% │ blocks/  │ Per-tx latency (ms)            │ Per-burst wall-clock (ms)      │ Effective   │ Mean gas│
+│    │       │       │ span     │ mean ± std (median, p95)       │ mean ± std (median)            │ TPS (mean)  │ per tx  │
+├────┼───────┼───────┼──────────┼────────────────────────────────┼────────────────────────────────┼─────────────┼─────────┤
+│  1 │     2 │   0.0 │        2 │  10478 ±  1063 (10478, 11540)  │  10636 ±  1221 (10636)         │       0.095 │ 3070789 │
+│  5 │    10 │   0.0 │        2 │  10644 ±  1385 (10614, 12355)  │  11361 ±   995 (11361)         │       0.444 │ 3070788 │
+│ 10 │    19 │   5.0 │        2 │  10056 ±   531 (10046, 11038)  │  10774 ±   264 (10774)         │       0.883 │ 3070789 │
+└────┴───────┴───────┴──────────┴────────────────────────────────┴────────────────────────────────┴─────────────┴─────────┘
+
+Compare to Hardhat result at same k-values (concurrent-privacy-12000ms-<latest>.txt):
+  • If 'blocks/span per burst' matches → Hardhat's block packing is faithful proxy
+  • If 'mean gas/tx' matches → contract execution is identical
+  • If 'effective TPS' matches → 12s block cadence assumption holds
