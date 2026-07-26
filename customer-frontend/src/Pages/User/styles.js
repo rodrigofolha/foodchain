@@ -5,8 +5,7 @@ import userImg from '../../assets/user.jpeg';
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 1250px;
-  padding: 15px;
-  padding-top: 75px;
+  padding: 80px 15px 100px;
 
   @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500&display=swap');
   font-family: 'Hind Siliguri', sans-serif;
@@ -15,7 +14,7 @@ export const Container = styled.div`
 
 export const Customer = styled.div`
   display: flex;
-  /* padding: 15px; */
+  flex-wrap: wrap;
   border-bottom: 2px solid #f0f0f0;
   margin-bottom: 20px;
 
@@ -73,10 +72,33 @@ export const Customer = styled.div`
         color: #5e5e5e;
         font-weight: 400;
         padding: 10px;
-        min-width: 300px;
+        min-width: 150px;
+        max-width: 100%;
         margin-left: 20px;
       }
     }
+  }
+`;
+
+export const FilterTabs = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+`;
+
+export const FilterTab = styled.button`
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: ${props => props.active ? 'black' : '#f0f0f0'};
+  color: ${props => props.active ? 'white' : '#555'};
+  transition: background-color 150ms;
+
+  &:hover {
+    background-color: ${props => props.active ? 'black' : '#ddd'};
   }
 `;
 

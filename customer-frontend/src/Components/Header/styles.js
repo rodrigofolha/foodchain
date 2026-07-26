@@ -2,12 +2,22 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  padding: 2px 40px;
-  display: flex;  
+  height: 65px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   position: fixed;
+  top: 0;
   background-color: white;
   border-bottom: 3px solid #f0f0f0;
+  z-index: 100;
+  box-sizing: border-box;
+
+  @media (max-width: 600px) {
+    padding: 0 12px;
+    height: 58px;
+  }
 `;
 
 export const Logo = styled.img`
@@ -19,9 +29,11 @@ export const Logo = styled.img`
 `;
 
 export const LocationOptions = styled.div`
-  display: flex; 
+  display: flex;
   flex-direction: row;
   align-items: center;
+  min-width: 0;
+  overflow: hidden;
 `;
 export const LocationInput = styled.div`
   display: flex;
@@ -30,6 +42,9 @@ export const LocationInput = styled.div`
   margin-left: 50px;
   @media (max-width: 800px) {
     margin-left: 20px;
+  }
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -41,12 +56,16 @@ export const DeliverTime = styled.div`
   @media (max-width: 800px) {
     margin-left: 20px;
   }
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const SearchOptions = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-shrink: 0;
 `;
 
 export const Search = styled.button`
@@ -69,6 +88,10 @@ export const CustomerButton = styled.button`
   display: flex;
   align-items: center;
   margin-right: 30px;
+
+  @media (max-width: 500px) {
+    margin-right: 0;
+  }
 `;
 
 export const ToggleMenuContainer = styled.div`
@@ -80,6 +103,7 @@ export const ToggleMenu = styled.div`
   margin-top: 2%;
   display: ${props => props.toggleMenu};
   position: fixed;
+  right: 12px;
   background-color: white;
   -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.17);
   -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.17);

@@ -44,7 +44,8 @@ export const Details = styled.div`
 
 
 export const Delivery = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
 
   .address {
     padding: 3% 0;
@@ -78,7 +79,8 @@ export const Delivery = styled.div`
 `;
 
 export const Order = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
 
   .order-detail {
     display: flex;

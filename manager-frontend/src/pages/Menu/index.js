@@ -1,3 +1,4 @@
+/* global BigInt */
 import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +13,10 @@ import CreateItem from '../../components/CreateItem'
 import UpdateInformations from '../../components/UpdateInformations';
 
 import api from '../../services/api';
+import { useWeb3 } from '../../services/getWeb3';
+import { REPUTATION_ADDRESS, REPUTATION_ABI } from '../../services/config';
+import { generateNoteSecrets, computePaymentCommitment, storePaymentNote, getUnspentBalance } from '../../utils/zkWithdraw';
+import { poseidon2 } from '../../utils/poseidon';
 
 const validationAppearance = Yup.object().shape({
   description: Yup.string().required('Description is required'),
@@ -30,6 +35,61 @@ export default function Dashboard() {
   const [menu, setMenu] = useState('');
   const [logo, setLogo] = useState('');
   const [banner, setBanner] = useState('');
+  const [depositAmount, setDepositAmount] = useState('');
+  const [depositing, setDepositing] = useState(false);
+  const [poolBalance, setPoolBalance] = useState('0');
+  const { web3 } = useWeb3();
+
+  // Update pool balance display
+  useEffect(function() {
+    try {
+      var bal = getUnspentBalance();
+      setPoolBalance(bal.toString());
+    } catch(_) {}
+  }, [depositing]);
+
+  var depositToPool = async function() {
+    if (!window.ethereum || !depositAmount || !web3) return;
+    setDepositing(true);
+    try {
+      var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      var amountWei = web3.utils.toWei(depositAmount, 'ether');
+
+      // Generate note secrets
+      var secrets = generateNoteSecrets();
+      var commitment = computePaymentCommitment(secrets.nullifier, secrets.trapdoor);
+
+      // Call Reputation.depositPayment(commitment) with msg.value
+      var reputationContract = new web3.eth.Contract(REPUTATION_ABI, REPUTATION_ADDRESS);
+      var receipt = await reputationContract.methods.depositPayment(commitment.toString())
+        .send({ from: accounts[0], gas: 2000000, value: amountWei });
+
+      // Extract leafIndex from TicketAdded event
+      var leafIndex = 0;
+      if (receipt.events && receipt.events.TicketAdded) {
+        leafIndex = parseInt(receipt.events.TicketAdded.returnValues.leafIndex);
+      }
+
+      // Compute the leaf as the contract does: poseidon(commitment, amount)
+      var leaf = poseidon2([BigInt(commitment.toString()), BigInt(amountWei)]);
+
+      // Store note in localStorage
+      storePaymentNote({
+        nullifier: secrets.nullifier,
+        trapdoor: secrets.trapdoor,
+        amount: amountWei,
+        leafIndex: leafIndex,
+        commitment: commitment.toString(),
+      });
+
+      setDepositAmount('');
+      alert('Deposited ' + depositAmount + ' ETH into privacy pool!');
+    } catch(err) {
+      console.error('Pool deposit error:', err);
+      alert('Deposit failed: ' + (err.message || err));
+    }
+    setDepositing(false);
+  };
   
   useEffect(() => {
     async function fetchData() {
@@ -107,6 +167,33 @@ export default function Dashboard() {
         <div className="form-container">
 
         <UpdateInformations response={restaurant} />
+
+        <div className="input-group" style={{marginTop: '20px', padding: '20px', background: '#f0f4ff', borderRadius: '8px'}}>
+          <h3>Privacy Pool</h3>
+          <p style={{fontSize: '14px', color: '#555', marginBottom: '10px'}}>
+            Deposit ETH to fund stealth addresses privately. This balance is used to accept orders without revealing your identity.
+          </p>
+          <p style={{marginBottom: '10px'}}><strong>Pool balance:</strong> {web3 ? web3.utils.fromWei(poolBalance, 'ether') : '0'} ETH</p>
+          <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
+            <input
+              type="number"
+              step="0.001"
+              min="0"
+              placeholder="Amount in ETH"
+              value={depositAmount}
+              onChange={function(e) { setDepositAmount(e.target.value); }}
+              style={{flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid #ccc'}}
+            />
+            <button
+              type="button"
+              onClick={depositToPool}
+              disabled={depositing || !depositAmount}
+              style={{padding: '8px 20px', cursor: 'pointer', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '4px'}}
+            >
+              {depositing ? 'Depositing...' : 'Deposit'}
+            </button>
+          </div>
+        </div>
 
         <Formik
           validationSchema={restaurant.active ? validationUpdateAppeareance : validationAppearance}

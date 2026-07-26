@@ -8,10 +8,18 @@ export const HeaderStyle = styled.header`
   justify-content: space-between;
   align-items: center;
   font-weight: 400;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  @media (max-width: 600px) {
+    padding: 8px 12px;
+  }
 
   div {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
   }
 `;
 

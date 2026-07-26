@@ -5,12 +5,32 @@ import userImg from '../../assets/user.jpeg';
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 1250px;
-  padding: 15px;
+  padding: 15px 15px 100px;
   padding-top: 30px;
   @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500&display=swap');
   font-family: 'Hind Siliguri', sans-serif;
 `;
 
+
+export const FilterTabs = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+`;
+
+export const FilterTab = styled.button`
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: ${props => props.active ? 'black' : '#f0f0f0'};
+  color: ${props => props.active ? 'white' : '#555'};
+  transition: background-color 150ms;
+
+  &:hover { background-color: ${props => props.active ? '#222' : '#e0e0e0'}; }
+`;
 
 export const Customer = styled.div`
   display: flex;
@@ -74,7 +94,8 @@ export const Customer = styled.div`
         color: #5e5e5e;
         font-weight: 400;
         padding: 10px;
-        min-width: 300px;
+        min-width: 150px;
+        max-width: 100%;
         margin-left: 20px;
       }
     }

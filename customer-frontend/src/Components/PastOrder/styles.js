@@ -11,13 +11,17 @@ export const Order = styled.div`
 display: flex;
 justify-content: space-between;
 margin: 15px 0;
+flex-wrap: wrap;
 `;
 
 export const OrderDetails = styled.div`
 display: flex;
+flex-wrap: wrap;
+width: 100%;
 
 .details {
   flex: 2;
+  min-width: 200px;
   padding: 0 10px;
   
   h2 {
@@ -59,13 +63,20 @@ display: flex;
 
 export const RestaurantThumbnail = styled.div`
 flex: 1;
+min-width: 160px;
 max-width: 330px;
-height: 100%;
+min-height: 160px;
 
 background: url(${props => `https://api.arthurcarvalho.info/food/files/${props.banner}`}) no-repeat center center;
 background-size: cover;
 overflow: hidden;
 
+@media (max-width: 500px) {
+  width: 100%;
+  max-width: 100%;
+  min-height: 180px;
+  flex: none;
+}
 `;
 
 export const OrderAgain = styled.div`

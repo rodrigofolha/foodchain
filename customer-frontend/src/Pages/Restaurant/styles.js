@@ -10,17 +10,25 @@ export const BannerContainer = styled.div`
   height: 380px;
   background: url(${props => `https://api.arthurcarvalho.info/food/files/${props.banner}`}) no-repeat center center;
   background-size: cover;
-  
+
   display: flex;
   align-items: center;
   margin-top: 3%;
 
+  @media (max-width: 600px) {
+    height: 220px;
+    margin-top: 60px;
+  }
 `;
 
 export const RestaurantInfo = styled.div`
   background-color: white;
   padding: 20px 70px;
   max-width: 680px;
+
+  @media (max-width: 600px) {
+    padding: 15px 20px;
+  }
 
   p {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

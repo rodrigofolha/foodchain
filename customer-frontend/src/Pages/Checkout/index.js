@@ -1,3 +1,4 @@
+/* global BigInt */
 import React, { useEffect, useState } from 'react';
 
 import Header from '../../Components/Header';
@@ -12,15 +13,41 @@ import Cash from '../../assets/cash.png';
 import api from '../../services/api';
 import { useWeb3 } from '../../services/getWeb3';
 import { Button, CircularProgress } from '@material-ui/core';
-import { ThemeConsumer } from 'styled-components';
-import { encrypt } from '../../utils/crypto';
+import { encrypt, getEncryptionPublicKey } from '../../utils/crypto';
+import { REPUTATION_ADDRESS, STEALTH_ADDRESS, STEALTH_ABI } from '../../services/config';
+import { poseidon2 } from '../../utils/poseidon';
+import { parseContractError } from '../../utils/contractErrors';
+import { deriveStealthAddress, estimateGasStipend } from '../../utils/stealth';
+var deliveryFeeUtils = require('../../utils/deliveryFee');
+var priceUtils = require('../../utils/priceUtils');
 
 export default function Checkout({ history }) {
   const [customer, setCustomer] = useState({});
   const [account, setAccount] = useState(null);
   const [balance, setBalance] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [customerLat, setCustomerLat] = useState(null);
+  const [customerLng, setCustomerLng] = useState(null);
   const {web3, chain} = useWeb3();
+
+  const [geoFailed, setGeoFailed] = useState(false);
+
+  useEffect(function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          setCustomerLat(pos.coords.latitude);
+          setCustomerLng(pos.coords.longitude);
+        },
+        function() {
+          console.warn('Geolocation denied, using manual input');
+          setGeoFailed(true);
+        }
+      );
+    } else {
+      setGeoFailed(true);
+    }
+  }, []);
 
   const setUserAccount = async () => {
     if (window.ethereum){
@@ -60,33 +87,107 @@ export default function Checkout({ history }) {
 
 
   async function makeOrder(content) {
-    setLoading(true);
-    console.log(content)
-    const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
-    setAccount(accounts[0])
-    console.log('customer: '+account)
-    let preparedItem = items.map(item => {return {'name': item.name, 'quantity': 1, 'price': parseInt(item.price)}})
-    let restaurant_items = encrypt(restaurant.public_key, preparedItem);
+    try {
+      const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+      setAccount(accounts[0]);
 
-    let encryptPublicKey = await window.ethereum.request({method: 'eth_getEncryptionPublicKey', params: [account]});
-    let client_items = encrypt(encryptPublicKey, preparedItem);
-    let index = await chain.methods.getIndex().call();
-    let gas_estimated = await web3.eth.getGasPrice();
-    console.log('client key: '+encryptPublicKey);
-    console.log('client encrypted message: '+client_items)
-    console.log('restaurant: '+restaurant.digital_address);
-    console.log('restaurant key: '+restaurant.public_key);
-    console.log('encrypted message: '+restaurant_items);
-    await chain.methods.makeOrder(restaurant.digital_address,parseInt(restaurant.delivery), parseInt(total-restaurant.delivery) , restaurant_items, client_items)
-    .send({ from: account, gasPrice: gas_estimated, gas: 5000000, value: parseInt(total)});
-    console.log("new: "+index+1);
-    let order = await chain.methods.findAddress(index+1).call();
-    console.log(order);
-    await handleSubmit(order);
-    setLoading(false);
-    history.push('/user')
+      // Get encryption key BEFORE showing spinner (triggers MetaMask popup)
+      let encryptPublicKey = await getEncryptionPublicKey(accounts[0]);
 
-    
+      setLoading(true);
+
+      let preparedItem = items.map(item => {return {'name': item.name, 'quantity': 1, 'price': parseInt(item.price)}});
+      let restaurant_items = encrypt(restaurant.public_key, preparedItem);
+      let client_items = encrypt(encryptPublicKey, preparedItem);
+
+      // Generate anonymous rating secrets for ZK proof later
+      const nullifier = BigInt('0x' + Array.from(window.crypto.getRandomValues(new Uint8Array(31))).map(b => b.toString(16).padStart(2,'0')).join(''));
+      const trapdoor = BigInt('0x' + Array.from(window.crypto.getRandomValues(new Uint8Array(31))).map(b => b.toString(16).padStart(2,'0')).join(''));
+      const clientCommitment = poseidon2([nullifier, trapdoor]).toString();
+
+      console.log('[Checkout] Chain contract:', chain.options.address);
+      console.log('[Checkout] REPUTATION_ADDRESS:', REPUTATION_ADDRESS);
+      let index = await chain.methods.getIndex().call();
+      console.log('[Checkout] Current order index:', index);
+
+      // Derive stealth address — mandatory for all orders
+      if (!restaurant.spend_public_key) {
+        throw new Error('Restaurant does not support privacy (missing spend key). Cannot place order.');
+      }
+
+      console.log('[Checkout] Deriving stealth address for restaurant...');
+      const stealth = deriveStealthAddress(restaurant.spend_public_key, restaurant.view_public_key);
+      var stealthAddr = stealth.stealthAddress;
+
+      // Announce stealth address so restaurant can discover it
+      const stealthContract = new web3.eth.Contract(STEALTH_ABI, STEALTH_ADDRESS);
+      await stealthContract.methods.announce(
+        1, // schemeId: secp256k1 ECDH
+        stealthAddr,
+        stealth.ephemeralPubKey,
+        stealth.viewTag
+      ).send({ from: accounts[0], gas: 200000 });
+
+      // Estimate gas stipend for stealth address operations
+      var gasStipend = Number(await estimateGasStipend(web3));
+      console.log('[Checkout] Stealth address:', stealthAddr, 'Gas stipend:', gasStipend);
+
+      // Scale prices: 1 U$ = 10^15 wei (0.001 ETH)
+      var scaledDeliveryFee = priceUtils.dollarsToWei(deliveryFee);
+      var scaledTotal = priceUtils.dollarsToWei(parseFloat(total) - deliveryFee);
+      var orderTotal = (BigInt(scaledDeliveryFee) + BigInt(scaledTotal) + BigInt(gasStipend)).toString();
+
+      // Wait for receipt, but fall back to a timeout if MetaMask doesn't fire the event
+      await new Promise((resolve, reject) => {
+        let resolved = false;
+        const done = () => { if (!resolved) { resolved = true; resolve(); } };
+
+        chain.methods.makeOrder(
+          stealthAddr,
+          scaledDeliveryFee,
+          scaledTotal,
+          restaurant_items,
+          client_items,
+          clientCommitment,
+          REPUTATION_ADDRESS,
+          stealthAddr,
+          gasStipend,
+          zone
+        ).send({ from: accounts[0], gas: 5000000, value: orderTotal})
+          .on('receipt', done)
+          .on('error', (err) => { if (!resolved) { resolved = true; reject(err); } });
+
+        // Fallback: if receipt doesn't fire within 30s, proceed anyway
+        setTimeout(done, 30000);
+      });
+
+      // Persist secrets so the rating proof can be generated later
+      const orderId = parseInt(index) + 1;
+      const orderSecrets = JSON.parse(localStorage.getItem('orderSecrets') || '{}');
+      orderSecrets[orderId] = { nullifier: nullifier.toString(), trapdoor: trapdoor.toString() };
+      localStorage.setItem('orderSecrets', JSON.stringify(orderSecrets));
+
+      // Persist restaurant info per-order for two-phase revelation to deliveryman
+      const orderRestaurantInfo = JSON.parse(localStorage.getItem('orderRestaurantInfo') || '{}');
+      orderRestaurantInfo[orderId] = {
+        id: restaurant.id,
+        name: restaurant.restaurant_name || restaurant.name || '',
+        address: restaurant.restaurant_address || restaurant.address || '',
+      };
+      localStorage.setItem('orderRestaurantInfo', JSON.stringify(orderRestaurantInfo));
+
+      setLoading(false);
+      history.push('/user');
+
+      // Notify API in background (non-blocking — order is already on-chain)
+      chain.methods.findAddress(parseInt(index) + 1).call()
+        .then(order => handleSubmit(order))
+        .catch(err => console.log('API notification failed (order is on-chain):', err));
+    } catch(err) {
+      console.error(err);
+      alert(parseContractError(err));
+      setLoading(false);
+    }
   }
 
   const restaurant = JSON.parse(localStorage.getItem('restaurantInfo'));
@@ -100,8 +201,15 @@ export default function Checkout({ history }) {
   // subtotal < 15.00 ? smallorder = false : smallorder = true;  
 
   // const serviceFee = ((subtotal * 5) / 100).toFixed(2);
-  const serviceFee = 0;
-  let total = (parseFloat(serviceFee) + parseFloat(subtotal) + restaurant.delivery).toFixed(2);
+  var serviceFee = 0;
+  var deliveryFee = restaurant.delivery; // fallback to static
+  var zone = restaurant.city || '';
+  var distanceKm = null;
+  if (customerLat && customerLng && restaurant.latitude && restaurant.longitude) {
+    distanceKm = deliveryFeeUtils.haversineDistance(restaurant.latitude, restaurant.longitude, customerLat, customerLng);
+    deliveryFee = deliveryFeeUtils.calculateDeliveryFee(distanceKm);
+  }
+  var total = (parseFloat(serviceFee) + parseFloat(subtotal) + deliveryFee).toFixed(2);
   // if (smallorder === true) {
   //   total += 3.00;
   // }
@@ -127,6 +235,18 @@ export default function Checkout({ history }) {
                 <p>Estimated arrival</p>
               </div>
             </div>
+
+            {geoFailed && (
+              <div style={{marginTop: '10px', padding: '10px', background: '#fff3cd', borderRadius: '8px'}}>
+                <p style={{fontSize: '14px', marginBottom: '8px'}}>Location unavailable. Enter your coordinates for delivery fee calculation:</p>
+                <div style={{display: 'flex', gap: '10px'}}>
+                  <input type="number" step="any" placeholder="Latitude" style={{flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid #ccc'}}
+                    onChange={function(e) { setCustomerLat(parseFloat(e.target.value) || null); }} />
+                  <input type="number" step="any" placeholder="Longitude" style={{flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid #ccc'}}
+                    onChange={function(e) { setCustomerLng(parseFloat(e.target.value) || null); }} />
+                </div>
+              </div>
+            )}
 
             <h2>Payment</h2>
             
@@ -181,8 +301,8 @@ export default function Checkout({ history }) {
                 </div>
 
                 <div className="receipt-item">
-                  <p>Delivery</p>
-                  <h3>U${restaurant.delivery}</h3>
+                  <p>Delivery{distanceKm !== null ? ' (' + distanceKm.toFixed(1) + ' km)' : ''}</p>
+                  <h3>U${deliveryFee}</h3>
                 </div>
                 
                 <div className="total">

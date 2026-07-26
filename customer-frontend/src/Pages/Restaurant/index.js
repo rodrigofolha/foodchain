@@ -43,11 +43,16 @@ export default function Restaurant(props) {
   }, []);
 
   const response = {
-    id: restaurant.id, 
-    name: restaurant.restaurant_name, 
+    id: restaurant.id,
+    name: restaurant.restaurant_name,
     delivery: restaurant.delivery_price,
     digital_address: restaurant.digital_address,
     public_key: restaurant.public_key,
+    spend_public_key: restaurant.spend_public_key,
+    view_public_key: restaurant.view_public_key,
+    latitude: restaurant.latitude,
+    longitude: restaurant.longitude,
+    city: restaurant.restaurant_city,
   }
 
   return (

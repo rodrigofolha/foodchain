@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const BasketButton = styled.button`
   background-color: white;
-  
   border: none;
   font-weight: bold;
   display: flex;
@@ -10,7 +9,12 @@ export const BasketButton = styled.button`
   align-items: center;
   cursor: pointer;
   right: 15px;
-  top: 28px;
+  top: 20px;
+  z-index: 101;
+
+  @media (max-width: 600px) {
+    top: 17px;
+  }
 
   p {
     font-size: 17px;

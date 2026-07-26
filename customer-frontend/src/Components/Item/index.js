@@ -19,16 +19,19 @@ export default function Item({ restaurantId, id, title, description, price, thum
   const addToBasket = () => {
     setShowBasket('block')
 
-    const itemsOnBasket = JSON.parse(localStorage.getItem('basket') || '[]');
+    let itemsOnBasket = JSON.parse(localStorage.getItem('basket') || '[]');
 
     const alreadyHaveOrder = JSON.parse(localStorage.getItem('restaurantInfo')) || '';
 
     if (itemsOnBasket.length > 0 && alreadyHaveOrder.id !== restaurantId) {
-      if (!(window.confirm('You already have items on basket, you want to delete all items and create a new basket?'))) {
-        history.push('/')
+      if (!window.confirm('You already have items in your basket from another restaurant. Do you want to clear it and start a new order?')) {
+        return;
       }
-      setBasket('');
-    } 
+      localStorage.removeItem('basket');
+      localStorage.removeItem('restaurantInfo');
+      itemsOnBasket = [];
+      setBasket([]);
+    }
 
     const alreadyHaveItem = itemsOnBasket.find(basketItem => basketItem.id === item.id);
     if (alreadyHaveItem) {

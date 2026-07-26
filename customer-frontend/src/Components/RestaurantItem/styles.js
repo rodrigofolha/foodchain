@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
-  
+  flex-direction: column;
+  width: 100%;
+
   a {
     text-decoration: none;
   }
@@ -49,7 +51,8 @@ export const Container = styled.div`
 export const Thumbnail = styled.div`
   overflow: hidden;
   height: 270px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   border: none;
   background-color: white;
 `;

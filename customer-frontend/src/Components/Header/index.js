@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 
-import { 
-  HeaderContainer, 
-  Logo, 
+import {
+  HeaderContainer,
+  Logo,
   LocationOptions,
-  DeliverTime, 
-  SearchOptions, 
+  DeliverTime,
+  SearchOptions,
   LocationInput,
-  Search,
   CustomerButton,
   ToggleMenuContainer,
   ToggleMenu
 } from './styles';
 import { Anchor, Title } from '../../GlobalStyles'; 
 
-import { 
-  FaMapMarkerAlt, 
-  FaSearch, 
-  FaClock, 
+import {
+  FaMapMarkerAlt,
+  FaClock,
   FaReceipt, 
   FaHeart,
   FaWallet,
@@ -66,13 +64,6 @@ export default function Header() {
 
 
       <SearchOptions>
-        <Search>
-          <FaSearch size={20} />
-          <Hidden maxWidth='800px'>
-            <Title>Search</Title>
-          </Hidden>
-        </Search>
-      
       {isAuthenticated() ?
       <ToggleMenuContainer>
        
