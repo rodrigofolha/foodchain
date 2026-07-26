@@ -1,0 +1,110 @@
+# =============================================================================
+# FoodChain — .gitignore
+# =============================================================================
+
+# ---- Secrets & environment ----
+.env
+.env.local
+.env.*.local
+**/.env
+!**/.env.example
+
+# ---- Node.js ----
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# ---- Hardhat / Solidity build ----
+artifacts/
+cache/
+typechain/
+typechain-types/
+coverage/
+coverage.json
+
+# ---- Circom / snarkjs artifacts (regeneratable) ----
+circuits/*.r1cs
+circuits/*.sym
+circuits/*_js/
+circuits/*_0000.zkey
+# keep circuits/*.circom, ptau files, and the final _0001.zkey (needed by frontends)
+
+# ---- React / CRA build output ----
+**/build/
+**/dist/
+
+# ---- LaTeX intermediates (keep .tex and .pdf) ----
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.blg
+*.bbl
+*.brf
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.idx
+*.ilg
+*.ind
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*.bcf
+
+# ---- Python (used by benchmarking / thesis helper scripts) ----
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+
+# ---- Operating system junk ----
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.claude/
+
+# ---- Logs and temp files ----
+*.log
+logs/
+tmp/
+temp/
+
+# ---- Deployment / secrets ----
+.deploy/
+deploy_*.log
+
+# ---- Local override / scratch ----
+scratch/
+scratchpad/
+notes.local.md
+
+# ---- Documents (thesis, paper, diagrams) — kept out of the code repo ----
+thesis/
+paper-blockchain/
+paper/
+diagrams/
+
+# ---- Meta files for AI assistants (kept local) ----
+CLAUDE.md
