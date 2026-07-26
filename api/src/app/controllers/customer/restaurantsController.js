@@ -10,6 +10,10 @@ module.exports = {
         'delivery_price',
         'digital_address',
         'public_key',
+        'spend_public_key',
+        'view_public_key',
+        'latitude',
+        'longitude',
         'banner_path',
       ]
     });

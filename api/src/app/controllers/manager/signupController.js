@@ -12,8 +12,12 @@ module.exports = {
       restaurant_address: Yup.string().required(),
       restaurant_city: Yup.string().required(),
       culinary: Yup.string().required(),
+      latitude: Yup.number().required(),
+      longitude: Yup.number().required(),
       digital_address: Yup.string().required(),
-      public_key: Yup.string().required()
+      public_key: Yup.string().required(),
+      spend_public_key: Yup.string().required(),
+      view_public_key: Yup.string().required()
     });
 
     if(!(await schema.isValid(req.body))) {
@@ -26,15 +30,19 @@ module.exports = {
       return res.status(400).json({ error: 'This email is already registered'})
     }
 
-    const { 
+    const {
       name,
-      password, 
-      restaurant_name, 
-      restaurant_address, 
+      password,
+      restaurant_name,
+      restaurant_address,
       restaurant_city,
       culinary,
+      latitude,
+      longitude,
       digital_address,
-      public_key
+      public_key,
+      spend_public_key,
+      view_public_key
     } = req.body;
 
     const restaurant = await Restaurant.create({
@@ -45,8 +53,12 @@ module.exports = {
       restaurant_address,
       restaurant_city,
       culinary,
+      latitude,
+      longitude,
       digital_address,
-      public_key
+      public_key,
+      spend_public_key,
+      view_public_key
     });
 
     await Dashboard.create({

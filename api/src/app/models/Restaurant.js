@@ -18,6 +18,10 @@ class Restaurant extends Model {
       delivery_price: DataTypes.FLOAT,
       digital_address: DataTypes.STRING,
       public_key: DataTypes.STRING,
+      spend_public_key: DataTypes.STRING,
+      view_public_key: DataTypes.STRING,
+      latitude: DataTypes.FLOAT,
+      longitude: DataTypes.FLOAT,
       logo_path: DataTypes.STRING,
       banner_path: DataTypes.STRING,
     }, {

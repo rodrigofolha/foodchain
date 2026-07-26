@@ -26,20 +26,28 @@ module.exports = {
       restaurant_address: Yup.string(),
       restaurant_city: Yup.string(),
       culinary: Yup.string(),
+      latitude: Yup.number(),
+      longitude: Yup.number(),
+      spend_public_key: Yup.string(),
+      view_public_key: Yup.string(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.json({ error: 'Form validation failed'});
     }
 
-    const { 
+    const {
       name,
       email,
-      password, 
-      restaurant_name, 
-      restaurant_address, 
+      password,
+      restaurant_name,
+      restaurant_address,
       restaurant_city,
-      culinary
+      culinary,
+      latitude,
+      longitude,
+      spend_public_key,
+      view_public_key
     } = req.body;
 
 
@@ -55,6 +63,10 @@ module.exports = {
       restaurant_address,
       restaurant_city,
       culinary,
+      latitude,
+      longitude,
+      spend_public_key,
+      view_public_key,
     });
     
     return res.json(updateRestaurant);
