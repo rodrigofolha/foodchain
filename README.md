@@ -210,6 +210,44 @@ With the three dApps open and connected to Sepolia:
 - **Proof generation fails silently in the browser**: check the console — usually the `.wasm` or `.zkey` file is not being served by the dApp (missing from `public/circuits/`).
 - **Contract call reverts with "Root is not known"**: the Groth16 proof was generated against a Merkle root that has since aged out of the on-chain ring buffer (100 most recent roots). Regenerate the proof and resubmit.
 
+## 📊 Benchmarking data
+
+The `benchmarking/results/` folder contains raw and processed data from the empirical evaluation reported in the journal paper and PhD thesis. **Only the data is committed** — benchmark scripts and ephemeral test wallets are kept local so that private keys and one-off tooling do not leak into the public repository.
+
+### File naming
+
+Filenames follow the pattern:
+```
+<prefix>[-<network|mode>][-<blocktime>]-<YYYY-MM-DDTHH-mm-ss-SSSZ>[-<suffix>].<ext>
+```
+
+Examples:
+- `concurrent-arbitrumSepolia-2026-06-04T20-12-24-614Z.csv` — concurrent-throughput test on Arbitrum Sepolia
+- `concurrent-privacy-12000ms-2026-05-30T14-10-48-598Z-summary.json` — privacy-enabled throughput at 12 s block times, aggregated summary
+- `comparison-report-2026-03-29T16-06-03-423Z.txt` — human-readable privacy-vs-no-privacy comparison
+
+### File types
+
+| Extension | Content |
+|---|---|
+| `.csv` | Per-transaction timing, gas, and success indicators (spreadsheet-ready) |
+| `-raw.json` | Every individual transaction receipt (largest files, one entry per tx) |
+| `-summary.json` | Aggregated metrics per experiment (means, medians, tail percentiles) |
+| `.txt` | Console-friendly reports (includes formatted privacy-vs-baseline tables) |
+| `.md` | Narrative analysis with methodology and interpretation |
+
+### Which files support which claims
+
+| Paper / thesis claim | Files |
+|---|---|
+| Gas per operation (privacy vs no-privacy) | `comparison-report-*.txt`, `comparison-data-*.csv` |
+| Full-cycle gas budget (9,094,803 gas) | `comparison-report-*.txt` |
+| Cross-network cost (Sepolia, Arbitrum, Optimism) | `concurrent-<network>-*` files |
+| Throughput and saturation per network | `concurrent-<network>-*-summary.json` and `-raw.json` |
+| Concurrent makeOrder analysis (Hardhat vs Sepolia) | `concurrent-makeOrder-analysis.md` (methodology + interpretation) |
+
+The scripts that produced these files are not part of the repository. To reproduce the numbers, please contact the corresponding author or refer to the methodology sections of the thesis and paper.
+
 ## 📚 Citation
 
 If you use FoodChain in academic work, please cite the AMCIS paper:

@@ -108,3 +108,9 @@ diagrams/
 
 # ---- Meta files for AI assistants (kept local) ----
 CLAUDE.md
+
+# ---- Benchmarking: only publish collected results, not scripts or test wallets ----
+# The ephemeral-wallets-*.json files contain private keys and MUST NOT be committed.
+benchmarking/*
+!benchmarking/results/
+!benchmarking/results/**
