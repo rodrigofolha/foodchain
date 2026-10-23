@@ -1,0 +1,25 @@
+Pool cash-out on Hoodi (chain 560048, https://ethereum-hoodi-rpc.publicnode.com)
+  deployment record <repository>/deployments/hoodi-2026-10-13/deployment.json
+  pool (GlobalReputation) 0x2785120d91f169F7d6B196a35730206Bf7fa681f, deploy block 3807607
+  secrets file ephemeral-wallets-hoodi-2026-10-13T10-36-02-836Z.json
+  recipient: the funder 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d; sender (pays the gas): the funder 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d
+  note tree at block 3810281: 195 leaves, root equal to the contract's
+
+Notes of the file: 74
+  deposit  spent                      25 notes  0.1491859717882 ETH
+  change   spent                      17 notes  0.0 ETH
+  change   unspent, zero value         8 notes  0.0 ETH
+  revenue  unspent, can be proved     24 notes  0.1077065462976 ETH
+Unspent notes that can be proved: 24, 0.1077065462976 ETH (107706546297600000 wei); the pool holds 0.2851343373808 ETH (285134337380800000 wei)
+
+Plan: 1 withdrawal(s) of 12 (--max 1), two notes each; 0.0087304645448 ETH (8730464544800000 wei) to the funder
+
+Sending 1 withdrawal(s) from the funder, nonces 199 to 199; result file <repository>/benchmarking/results/hoodi-2026-10-13/pool-cashout-hoodi-2026-10-13T19-33-42-752Z.json
+   1/1  leaves 33 + 36                 0.0087304645448      ETH  0xe939fa61f070449726ac04e286c6c0eac1efdf0fbc859d98ed0c99c8fcf20821  block 3810286  gas 1123301 (limit 1360060)  1.233807611 gwei  fee 0.001385937323243911 ETH  change note at leaf 195  proof 993 ms
+
+Withdrawals mined: 1 of 1 in 17 s; gas 1,123,301; fees 0.001385937323243911 ETH = 3.4752 USD paid by the funder; paid out 0.0087304645448 ETH (8730464544800000 wei) to the funder
+Balances before and at block 3810286:
+  pool                             285134337380800000 ->     276403872836000000 wei  (-8730464544800000)
+  funder (sends and receives)     6901693901508347591 ->    6909038428729903680 wei  (+7344527221556089)
+  the pool is down by exactly what was paid out: yes; the accounts moved by exactly the payouts and the fees: yes
+Result written to <repository>/benchmarking/results/hoodi-2026-10-13/pool-cashout-hoodi-2026-10-13T19-33-42-752Z.json

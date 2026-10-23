@@ -1,0 +1,145 @@
+Startup complete. Network: unknown (chainId 43113)
+Mode: fuji (https://api.avax-test.network; actors' keys from benchmarking/.env)
+No-Privacy contract: 0x69eAF6D03FeA2DE7661b129F281E1DbD26760E98 from <repository>/deployments/fuji-2026-10-14/deployment-no-privacy.json (NO_PRIVACY_DEPLOYMENT_RECORD)
+Gas limits: eth_estimateGas x 1.25 (customer, worker), x 1.2 (establishment)
+No_Chain ABI: <repository>/artifacts/contracts/contracts_no_privacy/No_Chain.sol/No_Chain.json
+Order: total 0.001 ETH + fee 0.001 ETH (rule: ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH)
+Fees: tip at least 0.00000015 gwei, maximum fee 0.001 gwei | receipt timeout: 300 s | stop at the first failed step: yes
+Accounts: customer 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d | establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7 | worker 0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2
+Balances against the need of 10 cycles (gas table of the main schedule, gas at 1.25 x eth_gasPrice 160 wei, fee cap 1000000 wei; income during the run not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 1.128000 ETH, needs at most 0.022000 ETH (per cycle: value 0.002000 + gas 0.000000; one upfront 0.002000): 51.27x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.192000 ETH, needs at most 0.011000 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001000): 108.36x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 1.403000 ETH, needs at most 0.000000 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000000): 10496775.64x
+Network at the start: block 59473272, eth_gasPrice 160 wei, base fee 10 wei, fork id not answered (eth_config)
+
+=== NO-PRIVACY BENCHMARK — 10 iterations ===
+
+--- Iteration 1/10 ---
+  makeOrder: gas=393206 (limit 502229) | latency=6497ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6572ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6270ms | cost=0.000000000 ETH
+  pickupOrder: gas=68434 (limit 84173) | latency=6544ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103730 (limit 135199) | latency=6609ms | cost=0.000000000 ETH
+  rateOrder_client: gas=92152 (limit 116377) | latency=6223ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6026ms | cost=0.000000000 ETH
+  TOTAL: gas=932078 | latency=44740ms
+
+--- Iteration 2/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6178ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6391ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6331ms | cost=0.000000000 ETH
+  pickupOrder: gas=68439 (limit 84179) | latency=6502ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103747 (limit 135220) | latency=6540ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6350ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6110ms | cost=0.000000000 ETH
+  TOTAL: gas=897900 | latency=44402ms
+
+--- Iteration 3/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6249ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6371ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6404ms | cost=0.000000000 ETH
+  pickupOrder: gas=68422 (limit 84159) | latency=6559ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103730 (limit 135199) | latency=6567ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6719ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6313ms | cost=0.000000000 ETH
+  TOTAL: gas=897866 | latency=45183ms
+
+--- Iteration 4/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6165ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6359ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6275ms | cost=0.000000000 ETH
+  pickupOrder: gas=68434 (limit 84173) | latency=6504ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103730 (limit 135199) | latency=6659ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6395ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6118ms | cost=0.000000000 ETH
+  TOTAL: gas=897878 | latency=44474ms
+
+--- Iteration 5/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6291ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6531ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6638ms | cost=0.000000000 ETH
+  pickupOrder: gas=68439 (limit 84179) | latency=6812ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103747 (limit 135220) | latency=7023ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6932ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6577ms | cost=0.000000000 ETH
+  TOTAL: gas=897900 | latency=46804ms
+
+--- Iteration 6/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6318ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6834ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=7025ms | cost=0.000000000 ETH
+  pickupOrder: gas=68439 (limit 84179) | latency=6868ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103730 (limit 135199) | latency=6687ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6750ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6171ms | cost=0.000000000 ETH
+  TOTAL: gas=897883 | latency=46653ms
+
+--- Iteration 7/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6218ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6455ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6359ms | cost=0.000000000 ETH
+  pickupOrder: gas=68451 (limit 84195) | latency=6783ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103747 (limit 135220) | latency=6554ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6444ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6234ms | cost=0.000000000 ETH
+  TOTAL: gas=897912 | latency=45047ms
+
+--- Iteration 8/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6112ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6355ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6357ms | cost=0.000000000 ETH
+  pickupOrder: gas=68451 (limit 84195) | latency=6557ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103735 (limit 135205) | latency=6571ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6503ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6306ms | cost=0.000000000 ETH
+  TOTAL: gas=897900 | latency=44760ms
+
+--- Iteration 9/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6253ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6555ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6337ms | cost=0.000000000 ETH
+  pickupOrder: gas=68451 (limit 84195) | latency=6604ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103730 (limit 135199) | latency=6452ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6279ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6069ms | cost=0.000000000 ETH
+  TOTAL: gas=897895 | latency=44549ms
+
+--- Iteration 10/10 ---
+  makeOrder: gas=376106 (limit 484269) | latency=6165ms | cost=0.000000000 ETH
+  prepareOrder: gas=109991 (limit 135663) | latency=6271ms | cost=0.000000000 ETH
+  confirmIntention: gas=106599 (limit 137024) | latency=6316ms | cost=0.000000000 ETH
+  pickupOrder: gas=68434 (limit 84173) | latency=6531ms | cost=0.000000000 ETH
+  deliveryOrder: gas=103747 (limit 135220) | latency=6762ms | cost=0.000000000 ETH
+  rateOrder_client: gas=75052 (limit 94917) | latency=6697ms | cost=0.000000000 ETH
+  rateOrder_restaurant: gas=57966 (limit 70535) | latency=6194ms | cost=0.000000000 ETH
+  TOTAL: gas=897895 | latency=44937ms
+
+
+=== NO-PRIVACY RESULTS SUMMARY ===
+
+Operation          | Avg Gas     | Avg Latency (ms) | Avg Cost (ETH)
+-------------------+-------------+------------------+----------------
+makeOrder          |      377816 |          6244.65 | 0.000000000
+prepareOrder       |      109991 |          6469.37 | 0.000000000
+confirmIntention   |      106599 |          6431.15 | 0.000000000
+pickupOrder        |       68439 |          6626.46 | 0.000000000
+deliveryOrder      |      103737 |          6642.27 | 0.000000000
+rateOrder_client   |       76762 |          6529.24 | 0.000000000
+rateOrder_restaurant|       57966 |          6211.75 | 0.000000000
+-------------------+-------------+------------------+----------------
+Completed cycles: 10
+Failed or skipped steps: 0
+Total gas: 9013107
+Total time: 451.55 sec
+Throughput: 0.0221 cycles/sec
+
+Cost of a cycle (mean of 10 complete cycles; gas used x effective gas price of each transaction, summed; x the ETH/USD rate)
+  customer                                454,578 gas  0.000000000 ETH = 0.0000 USD
+  establishment (own wallet)              236,396 gas  0.000000000 ETH = 0.0000 USD
+  worker                                  210,336 gas  0.000000000 ETH = 0.0000 USD
+  all parties                             901,311 gas  0.000000000 ETH = 0.0000 USD
+  rate: 10.0265 USD per ETH (AVAX-USD rate (the native token of Avalanche; the field usdPerEth carries it): Coinbase spot price API, api.coinbase.com/v2/prices/AVAX-USD/spot, 2026-10-14T23:33:05Z)
+Network at the end: block 59473585, eth_gasPrice 160 wei, base fee 10 wei
+
+Raw data saved to: results/fuji-2026-10-14/no-privacy-2026-10-15T00-03-44-811Z.json
+exit=0

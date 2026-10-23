@@ -1,0 +1,40 @@
+Pool cash-out on optimism-sepolia (chain 11155420, https://optimism-sepolia-rpc.publicnode.com)  DRY RUN: nothing is sent, no key is read
+  deployment record <repository>/deployments/optimismSepolia-2026-10-14/deployment.json
+  pool (GlobalReputation) 0x92e6965698E8A95d9cb535073d591D042083cEcA, deploy block 50109169
+  secrets file ephemeral-wallets-privacy-run-optimism-sepolia-2026-10-14T23-36-55-693Z.json
+  recipient: the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7; sender (pays the gas): the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7
+(node:3777510) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 50110078: 31 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.0100472618125 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  unspent, can be proved     10 notes  0.019975994 ETH
+Unspent notes that can be proved: 10, 0.019975994 ETH (19975994000000000 wei); the pool holds 0.019975994 ETH (19975994000000000 wei)
+
+Plan: 5 withdrawal(s), two notes each; 0.019975994 ETH (19975994000000000 wei) to the establishment
+
+Proving 5 withdrawal(s) against the tree at block 50110078 (real proofs; nothing is sent)
+  eth_simulateV1 on the state of block 50110088: the 5 withdrawal(s) in order, as calls of the sender
+
+  #   notes                          amount ETH           change leaf   rule gas   node gas    zero bytes  prove ms
+   1  leaves 3 + 6                   0.0039951988               31     1142480    1142468      40/452    1097
+   2  leaves 9 + 12                  0.0039951988               32     1117064    1117016      43/452     751
+   3  leaves 15 + 18                 0.0039951988               33     1119143    1119107      42/452     721
+   4  leaves 21 + 24                 0.0039951988               34     1119143    1119107      42/452     728
+   5  leaves 27 + 30                 0.0039951988               35     1121222    1121174      43/452     781
+
+Gas of the 5 withdrawal(s): 5,618,872 (simulated gas used); by the leaf rule 5,619,052
+  the first one alone: eth_estimateGas 1,152,702, gas limit x 1.2 = 1,383,243
+Price now (block 50110085): base fee 0.00000025 gwei + tip 0.001 gwei = 0.00100025 gwei; maximum fee 0.01 gwei (tip at least 0.001 gwei, maximum fee 0.01 gwei)
+Fees at that price: 0.000005620276718 ETH, paid by the establishment; at the maximum fee 0.00005618872 ETH
+The establishment holds 0.747881224518551822 ETH; one withdrawal locks at most 0.00001370962 ETH (gas limit x maximum fee)
+Paid out to the establishment: 0.019975994 ETH (19975994000000000 wei); net of the fees: 0.019970373723282 ETH
+Left in the pool afterwards: 0.0 ETH (0 wei)
+
+Nothing was sent. Run again with --yes to send the 5 withdrawal(s).
+exit=0

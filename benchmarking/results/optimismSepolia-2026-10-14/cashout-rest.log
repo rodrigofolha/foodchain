@@ -1,0 +1,34 @@
+Pool cash-out on optimism-sepolia (chain 11155420, https://optimism-sepolia-rpc.publicnode.com)
+  deployment record <repository>/deployments/optimismSepolia-2026-10-14/deployment.json
+  pool (GlobalReputation) 0x92e6965698E8A95d9cb535073d591D042083cEcA, deploy block 50109169
+  secrets file ephemeral-wallets-privacy-run-optimism-sepolia-2026-10-14T23-36-55-693Z.json
+  recipient: the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7; sender (pays the gas): the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7
+(node:3779767) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 50110288: 32 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.0100472618125 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  spent                       2 notes  0.0039951988 ETH
+  revenue  unspent, can be proved      8 notes  0.0159807952 ETH
+Unspent notes that can be proved: 8, 0.0159807952 ETH (15980795200000000 wei); the pool holds 0.0159807952 ETH (15980795200000000 wei)
+
+Plan: 4 withdrawal(s), two notes each; 0.0159807952 ETH (15980795200000000 wei) to the establishment
+
+Sending 4 withdrawal(s) from the establishment, nonces 133 to 136; result file <repository>/benchmarking/results/optimismSepolia-2026-10-14/pool-cashout-optimism-sepolia-2026-10-15T00-12-27-101Z.json
+   1/4  leaves 9 + 12                  0.0039951988         ETH  0xab20cad1db65eb7f563b309e2a194240db563aa6ccc9e93e68f84338e59022fa  block 50110303  gas 1117028 (limit 1352474)  0.00100025 gwei  fee 0.000001117307257 ETH  change note at leaf 32  proof 1071 ms
+   2/4  leaves 15 + 18                 0.0039951988         ETH  0xf68afaf8be40bfe13f5bd4f4f70595d6c0ee42c6b13b63402f1777acac4c8782  block 50110308  gas 1119143 (limit 1355031)  0.00100025 gwei  fee 0.00000111942278575 ETH  change note at leaf 33  proof 754 ms
+   3/4  leaves 21 + 24                 0.0039951988         ETH  0x55dab3049a6f2cb729bb916fdca15afb2564a67e01542df180bd6cc4578feea7  block 50110313  gas 1119119 (limit 1355002)  0.00100025 gwei  fee 0.00000111939877975 ETH  change note at leaf 34  proof 746 ms
+   4/4  leaves 27 + 30                 0.0039951988         ETH  0xb051db7adac0646b29fc238224deec4506048950752e038ca076c87023e924e4  block 50110318  gas 1121210 (limit 1357532)  0.00100025 gwei  fee 0.0000011214903025 ETH  change note at leaf 35  proof 726 ms
+
+Withdrawals mined: 4 of 4 in 41 s; gas 4,476,500; fees 0.000004477619125 ETH paid by the establishment; paid out 0.0159807952 ETH (15980795200000000 wei) to the establishment
+Balances before and at block 50110319:
+  pool                              15980795200000000 ->                      0 wei  (-15980795200000000)
+  establishment (sends and receives)     751932424158239465 ->     767908741739109909 wei  (+15976317580870444)
+  the pool is down by exactly what was paid out: yes; the accounts moved by exactly the payouts and the fees: NO (another transaction touched them, or the endpoint is behind)
+Result written to <repository>/benchmarking/results/optimismSepolia-2026-10-14/pool-cashout-optimism-sepolia-2026-10-15T00-12-27-101Z.json
+exit=0

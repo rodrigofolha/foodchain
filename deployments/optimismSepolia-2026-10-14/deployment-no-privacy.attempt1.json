@@ -1,0 +1,43 @@
+{
+  "kind": "no-privacy",
+  "network": "optimismSepolia",
+  "chainId": 11155420,
+  "deployer": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+  "startedAt": "2026-10-14T23:34:51.419Z",
+  "completedAt": null,
+  "atStart": {
+    "block": 50109170,
+    "gasPrice": "1000250",
+    "baseFeePerGas": "250",
+    "maxPriorityFeePerGas": "1000000"
+  },
+  "feeSettings": {
+    "maxFeePerGas": "10000000",
+    "maxPriorityFeePerGas": "1000000"
+  },
+  "deployBlock": null,
+  "contracts": {
+    "No_Util": "0xf69ed344783bCf71B56e4002c1b4095eBB9dF25d",
+    "No_Chain": "0x590C1521eA1bFaC464eCBFCf491fC0dee29a6ef8"
+  },
+  "transactions": [
+    {
+      "name": "No_Util",
+      "hash": "0xa25b0335cc1577bc6d6efc4612a12eff85f21700627fa7f30da362b82cb45d32",
+      "blockNumber": 50109173,
+      "gasUsed": 882183,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0xf69ed344783bCf71B56e4002c1b4095eBB9dF25d"
+    },
+    {
+      "name": "No_Chain",
+      "hash": "0x651727c4adfe30fbd337774621398836a0383441d688dab3fe2f1527340846d8",
+      "blockNumber": 50109174,
+      "gasUsed": 3660265,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0x590C1521eA1bFaC464eCBFCf491fC0dee29a6ef8"
+    }
+  ],
+  "totalGasUsed": 4542448,
+  "totalFeeWei": "4543583612000"
+}

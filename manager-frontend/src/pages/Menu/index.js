@@ -1,5 +1,5 @@
 /* global BigInt */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -11,12 +11,14 @@ import Navigation from '../../components/Navigation';
 import Item from '../../components/Item';
 import CreateItem from '../../components/CreateItem'
 import UpdateInformations from '../../components/UpdateInformations';
+import PoolCashout from '../../components/PoolCashout';
 
 import api from '../../services/api';
 import { useWeb3 } from '../../services/getWeb3';
-import { REPUTATION_ADDRESS, REPUTATION_ABI } from '../../services/config';
-import { generateNoteSecrets, computePaymentCommitment, storePaymentNote, getUnspentBalance } from '../../utils/zkWithdraw';
-import { poseidon2 } from '../../utils/poseidon';
+import { REPUTATION_ADDRESS, REPUTATION_ABI, DEPLOY_BLOCK } from '../../services/config';
+import { getUnspentBalance, fetchTreeState } from '../../utils/zkWithdraw';
+import { sendErrorText } from '../../utils/oneTimeSend';
+import { sendPoolDeposit, hasPendingPoolDeposits, reconcilePoolDeposits } from '../../utils/poolDeposit';
 
 const validationAppearance = Yup.object().shape({
   description: Yup.string().required('Description is required'),
@@ -38,15 +40,39 @@ export default function Dashboard() {
   const [depositAmount, setDepositAmount] = useState('');
   const [depositing, setDepositing] = useState(false);
   const [poolBalance, setPoolBalance] = useState('0');
-  const { web3 } = useWeb3();
+  // counts the notes of earlier deposits found in the pool by this page
+  const [foundDeposits, setFoundDeposits] = useState(0);
+  const { web3, logWeb3 } = useWeb3();
 
-  // Update pool balance display
-  useEffect(function() {
+  var readPoolBalance = useCallback(function() {
     try {
       var bal = getUnspentBalance();
       setPoolBalance(bal.toString());
     } catch(_) {}
-  }, [depositing]);
+  }, []);
+
+  // Update pool balance display
+  useEffect(readPoolBalance, [depositing, readPoolBalance]);
+
+  // A deposit whose receipt never reached this page (it was closed, or the wallet replaced
+  // the transaction): its note is stored when it is found in the pool. Only reads.
+  useEffect(() => {
+    if (!logWeb3 || !hasPendingPoolDeposits()) return undefined;
+    let stale = false;
+    (async () => {
+      try {
+        const treeState = await fetchTreeState(logWeb3, REPUTATION_ADDRESS, DEPLOY_BLOCK || 0);
+        const found = reconcilePoolDeposits(treeState);
+        if (found > 0 && !stale) {
+          readPoolBalance();
+          setFoundDeposits(count => count + found);
+        }
+      } catch (err) {
+        console.warn('[Menu] Could not look for the earlier deposit yet:', (err && err.message) || 'unknown error');
+      }
+    })();
+    return () => { stale = true; };
+  }, [logWeb3, readPoolBalance]);
 
   var depositToPool = async function() {
     if (!window.ethereum || !depositAmount || !web3) return;
@@ -55,38 +81,18 @@ export default function Dashboard() {
       var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       var amountWei = web3.utils.toWei(depositAmount, 'ether');
 
-      // Generate note secrets
-      var secrets = generateNoteSecrets();
-      var commitment = computePaymentCommitment(secrets.nullifier, secrets.trapdoor);
-
-      // Call Reputation.depositPayment(commitment) with msg.value
+      // The note's secrets are saved before the wallet is asked to send (poolDeposit.js);
+      // the gas limit is the node's estimate with a margin (oneTimeSend.js)
       var reputationContract = new web3.eth.Contract(REPUTATION_ABI, REPUTATION_ADDRESS);
-      var receipt = await reputationContract.methods.depositPayment(commitment.toString())
-        .send({ from: accounts[0], gas: 2000000, value: amountWei });
-
-      // Extract leafIndex from TicketAdded event
-      var leafIndex = 0;
-      if (receipt.events && receipt.events.TicketAdded) {
-        leafIndex = parseInt(receipt.events.TicketAdded.returnValues.leafIndex);
-      }
-
-      // Compute the leaf as the contract does: poseidon(commitment, amount)
-      var leaf = poseidon2([BigInt(commitment.toString()), BigInt(amountWei)]);
-
-      // Store note in localStorage
-      storePaymentNote({
-        nullifier: secrets.nullifier,
-        trapdoor: secrets.trapdoor,
-        amount: amountWei,
-        leafIndex: leafIndex,
-        commitment: commitment.toString(),
-      });
+      await sendPoolDeposit({ reputationContract: reputationContract, from: accounts[0], amountWei: amountWei });
 
       setDepositAmount('');
       alert('Deposited ' + depositAmount + ' ETH into privacy pool!');
     } catch(err) {
-      console.error('Pool deposit error:', err);
-      alert('Deposit failed: ' + (err.message || err));
+      console.error('Pool deposit error:', (err && err.message) || 'unknown error');
+      alert('Deposit failed: ' + sendErrorText(err) + ((err && err.kept)
+        ? " If the transaction left your wallet, the deposit is not lost: its note's secrets are kept in this browser, and the note is recorded when this page or the Orders page finds it in the pool."
+        : ''));
     }
     setDepositing(false);
   };
@@ -193,6 +199,8 @@ export default function Dashboard() {
               {depositing ? 'Depositing...' : 'Deposit'}
             </button>
           </div>
+
+          <PoolCashout web3={web3} logWeb3={logWeb3} refreshKey={String(depositing) + foundDeposits} onChange={readPoolBalance} />
         </div>
 
         <Formik

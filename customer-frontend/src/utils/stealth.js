@@ -18,6 +18,7 @@
  */
 
 import { ethers } from 'ethers';
+import { withEstimatedGas } from './txGas';
 
 var EC = require('elliptic').ec;
 var ec = new EC('secp256k1');
@@ -125,18 +126,25 @@ export function deriveStealthAddress(restaurantSpendPubKey, restaurantViewPubKey
  */
 export async function announceStealthAddress(stealthContract, stealthAddress, ephemeralPubKey, viewTag, fromAddress) {
   var schemeId = 1; // secp256k1 ECDH
-  return stealthContract.methods.announce(schemeId, stealthAddress, ephemeralPubKey, viewTag)
-    .send({ from: fromAddress, gas: 200000 });
+  var tx = stealthContract.methods.announce(schemeId, stealthAddress, ephemeralPubKey, viewTag);
+  return tx.send(await withEstimatedGas(tx, { from: fromAddress }));
 }
 
 /**
  * Estimate gas stipend needed for a stealth address to perform restaurant operations.
+ * The stealth address must pay for its own pool withdrawal, so the funding never comes
+ * from the establishment's main wallet. The stipend is 1.6M gas at 1.5 times the gas
+ * price of now: 2.4M gas of money. The establishment's dApp sends the withdrawal with
+ * 1.2 times the node's estimate as its limit: about 1.36M gas on the main network's
+ * schedule and 1.80M to 1.86M on Sepolia's (simulated on Sepolia's state
+ * of 2026-10-12). The price may then rise about 1.77 times between the order and the
+ * withdrawal on the main network, and about 1.29 times on Sepolia.
  *
  * @param {Object} web3 - web3 instance
  * @returns {Promise<string>} Estimated gas stipend in wei (as string)
  */
 export async function estimateGasStipend(web3) {
   var gasPrice = await web3.eth.getGasPrice();
-  var gasNeeded = BigInt(1050000);
-  return (gasNeeded * BigInt(gasPrice)).toString();
+  var gasNeeded = BigInt(1600000);
+  return (gasNeeded * BigInt(gasPrice) * BigInt(3) / BigInt(2)).toString();
 }

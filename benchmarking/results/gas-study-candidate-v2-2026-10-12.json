@@ -1,0 +1,3257 @@
+{
+  "generatedAt": "2026-10-12T19:46:49.022Z",
+  "script": "benchmarking/gas-study.cjs",
+  "env": {
+    "date": "2026-10-12T19:46:49.022Z",
+    "hardhat": "2.28.6",
+    "hardfork": "osaka",
+    "solc": "0.8.20",
+    "optimizer": "on, 200 runs",
+    "circom": "circom compiler 2.2.3",
+    "snarkjs": "0.7.6",
+    "node": "v20.20.2",
+    "platform": "linux x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "threads": 16
+  },
+  "settings": {
+    "insertDepths": [
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      25
+    ],
+    "proveDepths": [
+      12,
+      16,
+      20,
+      25
+    ],
+    "prefill": 1024,
+    "window": 32,
+    "proveRuns": 5,
+    "lowBits": 11
+  },
+  "rule": {
+    "perOneBit": 2079,
+    "firstWrite": 17100,
+    "text": "gas(i) = base + perOneBit * (ones(i) - 1) + firstWrite if i = 2^k - 1 (k < 25); the last leaf 2^25 - 1 writes no filledSubtrees slot"
+  },
+  "note": {
+    "contract": "NoteTreeDepthHarness",
+    "rows": [
+      {
+        "depth": 12,
+        "cold": {
+          "gasUsed": 479707,
+          "inContract": 458131
+        },
+        "young": {
+          "raw": {
+            "mean": 436340.21875,
+            "stddev": 7084.598309619915,
+            "min": 430486,
+            "max": 455902,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 414765.34375,
+            "stddev": 7084.091985930234,
+            "min": 408910,
+            "max": 434326,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 435682.375,
+            "stddev": 2361.4175861395274,
+            "min": 430486,
+            "max": 440881,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 414107.5,
+            "stddev": 2361.5853067992953,
+            "min": 408910,
+            "max": 419305,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 574.875,
+            "stddev": 3.5537349729635883,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 437760.25,
+            "stddev": 2363.295334635449,
+            "min": 432553,
+            "max": 442960,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 416186.5,
+            "stddev": 2361.5853067992953,
+            "min": 410989,
+            "max": 421384,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 14,
+        "cold": {
+          "gasUsed": 540102,
+          "inContract": 518526
+        },
+        "young": {
+          "raw": {
+            "mean": 496734.46875,
+            "stddev": 7084.897872937879,
+            "min": 490869,
+            "max": 516297,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 475160.34375,
+            "stddev": 7084.091985930234,
+            "min": 469305,
+            "max": 494721,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 496077.375,
+            "stddev": 2361.4175861395274,
+            "min": 490881,
+            "max": 501276,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 474502.5,
+            "stddev": 2361.5853067992953,
+            "min": 469305,
+            "max": 479700,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 574.875,
+            "stddev": 3.5537349729635883,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 502314.375,
+            "stddev": 2362.099090407349,
+            "min": 497118,
+            "max": 507513,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 480739.5,
+            "stddev": 2361.5853067992953,
+            "min": 475542,
+            "max": 485937,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 16,
+        "cold": {
+          "gasUsed": 600498,
+          "inContract": 578922
+        },
+        "young": {
+          "raw": {
+            "mean": 557130.84375,
+            "stddev": 7083.416093626263,
+            "min": 551265,
+            "max": 576681,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 535556.34375,
+            "stddev": 7084.091985930234,
+            "min": 529701,
+            "max": 555117,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 556472.25,
+            "stddev": 2362.2715557754586,
+            "min": 551277,
+            "max": 561672,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 534898.5,
+            "stddev": 2361.5853067992953,
+            "min": 529701,
+            "max": 540096,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 573.75,
+            "stddev": 4.758693233475192,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 566867.25,
+            "stddev": 2362.6122093168196,
+            "min": 561660,
+            "max": 572067,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 545293.5,
+            "stddev": 2361.5853067992953,
+            "min": 540096,
+            "max": 550491,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 18,
+        "cold": {
+          "gasUsed": 660894,
+          "inContract": 639318
+        },
+        "young": {
+          "raw": {
+            "mean": 617527.59375,
+            "stddev": 7084.391693599866,
+            "min": 611673,
+            "max": 637089,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 595952.34375,
+            "stddev": 7084.091985930234,
+            "min": 590097,
+            "max": 615513,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 616867.5,
+            "stddev": 2362.2746282671787,
+            "min": 611661,
+            "max": 622068,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 595294.5,
+            "stddev": 2361.5853067992953,
+            "min": 590097,
+            "max": 600492,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 573,
+            "stddev": 6.096006096009144,
+            "min": 552,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 631420.5,
+            "stddev": 2361.25237410014,
+            "min": 626226,
+            "max": 636621,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 609847.5,
+            "stddev": 2361.5853067992953,
+            "min": 604650,
+            "max": 615045,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 20,
+        "cold": {
+          "gasUsed": 721290,
+          "inContract": 699714
+        },
+        "young": {
+          "raw": {
+            "mean": 677922.84375,
+            "stddev": 7085.032078646049,
+            "min": 672057,
+            "max": 697485,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 656348.34375,
+            "stddev": 7084.091985930234,
+            "min": 650493,
+            "max": 675909,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 677265,
+            "stddev": 2360.907097405708,
+            "min": 672069,
+            "max": 682464,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 655690.5,
+            "stddev": 2361.5853067992953,
+            "min": 650493,
+            "max": 660888,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 574.5,
+            "stddev": 4.032129030193483,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 695974.125,
+            "stddev": 2360.7415421922533,
+            "min": 690780,
+            "max": 701175,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 674401.5,
+            "stddev": 2361.5853067992953,
+            "min": 669204,
+            "max": 679599,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 22,
+        "cold": {
+          "gasUsed": 781686,
+          "inContract": 760110
+        },
+        "young": {
+          "raw": {
+            "mean": 738317.71875,
+            "stddev": 7082.874772814993,
+            "min": 732453,
+            "max": 757881,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 716744.34375,
+            "stddev": 7084.091985930234,
+            "min": 710889,
+            "max": 736305,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 737658.75,
+            "stddev": 2362.6161415384568,
+            "min": 732453,
+            "max": 742860,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 716086.5,
+            "stddev": 2361.5853067992953,
+            "min": 710889,
+            "max": 721284,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 572.25,
+            "stddev": 6.420732547896144,
+            "min": 552,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 760530.75,
+            "stddev": 2361.246349405467,
+            "min": 755334,
+            "max": 765729,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 738955.5,
+            "stddev": 2361.5853067992953,
+            "min": 733758,
+            "max": 744153,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 24,
+        "cold": {
+          "gasUsed": 842083,
+          "inContract": 820507
+        },
+        "young": {
+          "raw": {
+            "mean": 798716.21875,
+            "stddev": 7083.20946361489,
+            "min": 792862,
+            "max": 818266,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 777141.34375,
+            "stddev": 7084.091985930234,
+            "min": 771286,
+            "max": 796702,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 798055.75,
+            "stddev": 2361.25126752472,
+            "min": 792862,
+            "max": 803257,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 776483.5,
+            "stddev": 2361.5853067992953,
+            "min": 771286,
+            "max": 781681,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 572.25,
+            "stddev": 5.651148898318619,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 825085,
+            "stddev": 2361.247947795348,
+            "min": 819889,
+            "max": 830284,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 803510.5,
+            "stddev": 2361.5853067992953,
+            "min": 798313,
+            "max": 808708,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 25,
+        "cold": {
+          "gasUsed": 872269,
+          "inContract": 850705
+        },
+        "young": {
+          "raw": {
+            "mean": 828912.71875,
+            "stddev": 7083.808613079116,
+            "min": 823060,
+            "max": 848464,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 807339.34375,
+            "stddev": 7084.091985930234,
+            "min": 801484,
+            "max": 826900,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 828257.5,
+            "stddev": 2361.5853067992953,
+            "min": 823060,
+            "max": 833455,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 806681.5,
+            "stddev": 2361.5853067992953,
+            "min": 801484,
+            "max": 811879,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 576,
+            "stddev": 0,
+            "min": 576,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 857361.25,
+            "stddev": 2361.5901012774452,
+            "min": 852166,
+            "max": 862561,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 835787.5,
+            "stddev": 2361.5853067992953,
+            "min": 830590,
+            "max": 840985,
+            "n": 32
+          }
+        }
+      }
+    ],
+    "fits": {
+      "cold": {
+        "a": 117337.29943502822,
+        "b": 30197.553672316386,
+        "r2": 0.999999999419224,
+        "maxResidual": 7.141242937883362
+      },
+      "young": {
+        "a": 73963.75032788538,
+        "b": 30197.9643866021,
+        "r2": 0.9999999999636789,
+        "maxResidual": 1.3231436642818153
+      },
+      "warm": {
+        "a": 73305.53611783695,
+        "b": 30197.961662631154,
+        "r2": 0.9999999998781457,
+        "maxResidual": 2.9223163841525093
+      },
+      "warmInContract": {
+        "a": 51730.34180790954,
+        "b": 30198.028248587572,
+        "r2": 0.9999999999875991,
+        "maxResidual": 0.8192090395605192
+      },
+      "lateInContract": {
+        "a": 28861.341807909543,
+        "b": 32277.028248587572,
+        "r2": 0.9999999999891452,
+        "maxResidual": 0.8192090395605192
+      }
+    }
+  },
+  "earlier": {
+    "contract": "TreeDepthHarness",
+    "rows": [
+      {
+        "depth": 12,
+        "cold": {
+          "gasUsed": 750449,
+          "inContract": 728873
+        },
+        "young": {
+          "raw": {
+            "mean": 498262.53125,
+            "stddev": 5440.543088310774,
+            "min": 485794,
+            "max": 505998,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 476687.65625,
+            "stddev": 5440.755305780534,
+            "min": 464218,
+            "max": 484422,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 493369.375,
+            "stddev": 5737.721936110971,
+            "min": 480743,
+            "max": 505998,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 471794.5,
+            "stddev": 5737.550449563849,
+            "min": 459167,
+            "max": 484422,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 574.875,
+            "stddev": 3.5537349729635883,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 488317.25,
+            "stddev": 5735.849094834145,
+            "min": 475692,
+            "max": 500935,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 466743.5,
+            "stddev": 5737.550449563849,
+            "min": 454116,
+            "max": 479371,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 14,
+        "cold": {
+          "gasUsed": 859550,
+          "inContract": 837974
+        },
+        "young": {
+          "raw": {
+            "mean": 573162.78125,
+            "stddev": 5440.521267331123,
+            "min": 560695,
+            "max": 580899,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 551588.65625,
+            "stddev": 5440.755305780534,
+            "min": 539119,
+            "max": 559323,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 568270.375,
+            "stddev": 5737.721936110971,
+            "min": 555644,
+            "max": 580899,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 546695.5,
+            "stddev": 5737.550449563849,
+            "min": 534068,
+            "max": 559323,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 574.875,
+            "stddev": 3.5537349729635883,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 553117.375,
+            "stddev": 5737.04036179834,
+            "min": 540491,
+            "max": 565746,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 531542.5,
+            "stddev": 5737.550449563849,
+            "min": 518915,
+            "max": 544170,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 16,
+        "cold": {
+          "gasUsed": 968651,
+          "inContract": 947075
+        },
+        "young": {
+          "raw": {
+            "mean": 648064.15625,
+            "stddev": 5441.789880529259,
+            "min": 635584,
+            "max": 655800,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 626489.65625,
+            "stddev": 5440.755305780534,
+            "min": 614020,
+            "max": 634224,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 643170.25,
+            "stddev": 5736.870828528895,
+            "min": 630545,
+            "max": 655800,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 621596.5,
+            "stddev": 5737.550449563849,
+            "min": 608969,
+            "max": 634224,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 573.75,
+            "stddev": 4.758693233475192,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 617915.25,
+            "stddev": 5736.530000933744,
+            "min": 605290,
+            "max": 630533,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 596341.5,
+            "stddev": 5737.550449563849,
+            "min": 583714,
+            "max": 608969,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 18,
+        "cold": {
+          "gasUsed": 1077753,
+          "inContract": 1056177
+        },
+        "young": {
+          "raw": {
+            "mean": 722966.90625,
+            "stddev": 5440.7336457347965,
+            "min": 710498,
+            "max": 730702,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 701391.65625,
+            "stddev": 5440.755305780534,
+            "min": 688922,
+            "max": 709126,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 718071.5,
+            "stddev": 5736.87209368963,
+            "min": 705447,
+            "max": 730690,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 696498.5,
+            "stddev": 5737.550449563849,
+            "min": 683871,
+            "max": 709126,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 573,
+            "stddev": 6.096006096009144,
+            "min": 552,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 682714.5,
+            "stddev": 5737.894454779867,
+            "min": 670090,
+            "max": 695345,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 661141.5,
+            "stddev": 5737.550449563849,
+            "min": 648514,
+            "max": 673769,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 20,
+        "cold": {
+          "gasUsed": 1186854,
+          "inContract": 1165278
+        },
+        "young": {
+          "raw": {
+            "mean": 797867.15625,
+            "stddev": 5439.633663598425,
+            "min": 785399,
+            "max": 805603,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 776292.65625,
+            "stddev": 5440.755305780534,
+            "min": 763823,
+            "max": 784027,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 792974,
+            "stddev": 5738.233379933292,
+            "min": 780348,
+            "max": 805603,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 771399.5,
+            "stddev": 5737.550449563849,
+            "min": 758772,
+            "max": 784027,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 574.5,
+            "stddev": 4.032129030193483,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 747513.125,
+            "stddev": 5738.405756743963,
+            "min": 734889,
+            "max": 760144,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 725940.5,
+            "stddev": 5737.550449563849,
+            "min": 713313,
+            "max": 738568,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 22,
+        "cold": {
+          "gasUsed": 1295956,
+          "inContract": 1274380
+        },
+        "young": {
+          "raw": {
+            "mean": 872768.03125,
+            "stddev": 5441.937537337438,
+            "min": 860301,
+            "max": 880505,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 851194.65625,
+            "stddev": 5440.755305780534,
+            "min": 838725,
+            "max": 858929,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 867873.75,
+            "stddev": 5736.5316204356495,
+            "min": 855250,
+            "max": 880493,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 846301.5,
+            "stddev": 5737.550449563849,
+            "min": 833674,
+            "max": 858929,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 572.25,
+            "stddev": 6.420732547896144,
+            "min": 552,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 812315.75,
+            "stddev": 5737.891975506392,
+            "min": 799689,
+            "max": 824944,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 790740.5,
+            "stddev": 5737.550449563849,
+            "min": 778113,
+            "max": 803368,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 24,
+        "cold": {
+          "gasUsed": 1405057,
+          "inContract": 1383481
+        },
+        "young": {
+          "raw": {
+            "mean": 947670.53125,
+            "stddev": 5441.980420969718,
+            "min": 935190,
+            "max": 955406,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 926095.65625,
+            "stddev": 5440.755305780534,
+            "min": 913626,
+            "max": 933830,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 942774.75,
+            "stddev": 5737.893999403186,
+            "min": 930151,
+            "max": 955406,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 921202.5,
+            "stddev": 5737.550449563849,
+            "min": 908575,
+            "max": 933830,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 572.25,
+            "stddev": 5.651148898318619,
+            "min": 564,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 877114,
+            "stddev": 5737.892633272929,
+            "min": 864488,
+            "max": 889743,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 855539.5,
+            "stddev": 5737.550449563849,
+            "min": 842912,
+            "max": 868167,
+            "n": 32
+          }
+        }
+      },
+      {
+        "depth": 25,
+        "cold": {
+          "gasUsed": 1459596,
+          "inContract": 1438032
+        },
+        "young": {
+          "raw": {
+            "mean": 985120.03125,
+            "stddev": 5441.936683751445,
+            "min": 972641,
+            "max": 992857,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 963546.65625,
+            "stddev": 5440.755305780534,
+            "min": 951077,
+            "max": 971281,
+            "n": 32
+          }
+        },
+        "warm": {
+          "raw": {
+            "mean": 980229.5,
+            "stddev": 5737.550449563849,
+            "min": 967602,
+            "max": 992857,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 958653.5,
+            "stddev": 5737.550449563849,
+            "min": 946026,
+            "max": 971281,
+            "n": 32
+          },
+          "calldata": {
+            "mean": 576,
+            "stddev": 0,
+            "min": 576,
+            "max": 576,
+            "n": 32
+          }
+        },
+        "late": {
+          "raw": {
+            "mean": 909513.25,
+            "stddev": 5737.552422980692,
+            "min": 896888,
+            "max": 922143,
+            "n": 32
+          },
+          "inContract": {
+            "mean": 887939.5,
+            "stddev": 5737.550449563849,
+            "min": 875312,
+            "max": 900567,
+            "n": 32
+          }
+        }
+      }
+    ],
+    "fits": {
+      "cold": {
+        "a": 95847.61259079899,
+        "b": 54550.23244552058,
+        "r2": 0.9999999998098537,
+        "maxResidual": 7.423728813417256
+      },
+      "young": {
+        "a": 48854.37598365627,
+        "b": 37450.64315980629,
+        "r2": 0.999999999987719,
+        "maxResidual": 0.9533898305380717
+      },
+      "warm": {
+        "a": 43960.84927360772,
+        "b": 37450.640435835354,
+        "r2": 0.9999999999393966,
+        "maxResidual": 2.639830508385785
+      },
+      "warmInContract": {
+        "a": 22385.654963680427,
+        "b": 37450.707021791764,
+        "r2": 0.9999999999973248,
+        "maxResidual": 0.46731234865728766
+      },
+      "lateInContract": {
+        "a": 77946.65496368043,
+        "b": 32399.707021791768,
+        "r2": 0.9999999999964256,
+        "maxResidual": 0.467312348773703
+      }
+    }
+  },
+  "harnessIndex": {
+    "label": "`NoteTreeDepthHarness.insert`, depth 25",
+    "base": 823060,
+    "baseInContract": 801484,
+    "rows": [
+      {
+        "index": 1,
+        "ones": 1,
+        "allOnes": true,
+        "gasUsed": 840160,
+        "inContract": 818584,
+        "rule": 840160,
+        "residual": 0
+      },
+      {
+        "index": 2,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 3,
+        "ones": 2,
+        "allOnes": true,
+        "gasUsed": 842239,
+        "inContract": 820663,
+        "rule": 842239,
+        "residual": 0
+      },
+      {
+        "index": 4,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 5,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 825139,
+        "inContract": 803563,
+        "rule": 825139,
+        "residual": 0
+      },
+      {
+        "index": 6,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 825139,
+        "inContract": 803563,
+        "rule": 825139,
+        "residual": 0
+      },
+      {
+        "index": 7,
+        "ones": 3,
+        "allOnes": true,
+        "gasUsed": 844318,
+        "inContract": 822742,
+        "rule": 844318,
+        "residual": 0
+      },
+      {
+        "index": 8,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 15,
+        "ones": 4,
+        "allOnes": true,
+        "gasUsed": 846397,
+        "inContract": 824821,
+        "rule": 846397,
+        "residual": 0
+      },
+      {
+        "index": 16,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 31,
+        "ones": 5,
+        "allOnes": true,
+        "gasUsed": 848476,
+        "inContract": 826900,
+        "rule": 848476,
+        "residual": 0
+      },
+      {
+        "index": 32,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 63,
+        "ones": 6,
+        "allOnes": true,
+        "gasUsed": 850555,
+        "inContract": 828979,
+        "rule": 850555,
+        "residual": 0
+      },
+      {
+        "index": 64,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 127,
+        "ones": 7,
+        "allOnes": true,
+        "gasUsed": 852634,
+        "inContract": 831058,
+        "rule": 852634,
+        "residual": 0
+      },
+      {
+        "index": 128,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 255,
+        "ones": 8,
+        "allOnes": true,
+        "gasUsed": 854713,
+        "inContract": 833137,
+        "rule": 854713,
+        "residual": 0
+      },
+      {
+        "index": 256,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 464,
+        "ones": 4,
+        "allOnes": false,
+        "gasUsed": 829297,
+        "inContract": 807721,
+        "rule": 829297,
+        "residual": 0
+      },
+      {
+        "index": 511,
+        "ones": 9,
+        "allOnes": true,
+        "gasUsed": 856792,
+        "inContract": 835216,
+        "rule": 856792,
+        "residual": 0
+      },
+      {
+        "index": 512,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 1000,
+        "ones": 6,
+        "allOnes": false,
+        "gasUsed": 833455,
+        "inContract": 811879,
+        "rule": 833455,
+        "residual": 0
+      },
+      {
+        "index": 1001,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 835534,
+        "inContract": 813958,
+        "rule": 835534,
+        "residual": 0
+      },
+      {
+        "index": 1023,
+        "ones": 10,
+        "allOnes": true,
+        "gasUsed": 858871,
+        "inContract": 837295,
+        "rule": 858871,
+        "residual": 0
+      },
+      {
+        "index": 1024,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 2047,
+        "ones": 11,
+        "allOnes": true,
+        "gasUsed": 860950,
+        "inContract": 839374,
+        "rule": 860950,
+        "residual": 0
+      },
+      {
+        "index": 2048,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 4095,
+        "ones": 12,
+        "allOnes": true,
+        "gasUsed": 863029,
+        "inContract": 841453,
+        "rule": 863029,
+        "residual": 0
+      },
+      {
+        "index": 4096,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 8191,
+        "ones": 13,
+        "allOnes": true,
+        "gasUsed": 865108,
+        "inContract": 843532,
+        "rule": 865108,
+        "residual": 0
+      },
+      {
+        "index": 8192,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 16383,
+        "ones": 14,
+        "allOnes": true,
+        "gasUsed": 867187,
+        "inContract": 845611,
+        "rule": 867187,
+        "residual": 0
+      },
+      {
+        "index": 16384,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 32767,
+        "ones": 15,
+        "allOnes": true,
+        "gasUsed": 869266,
+        "inContract": 847690,
+        "rule": 869266,
+        "residual": 0
+      },
+      {
+        "index": 32768,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 65535,
+        "ones": 16,
+        "allOnes": true,
+        "gasUsed": 871345,
+        "inContract": 849769,
+        "rule": 871345,
+        "residual": 0
+      },
+      {
+        "index": 65536,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 100000,
+        "ones": 6,
+        "allOnes": false,
+        "gasUsed": 833455,
+        "inContract": 811879,
+        "rule": 833455,
+        "residual": 0
+      },
+      {
+        "index": 100001,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 835534,
+        "inContract": 813958,
+        "rule": 835534,
+        "residual": 0
+      },
+      {
+        "index": 131071,
+        "ones": 17,
+        "allOnes": true,
+        "gasUsed": 873424,
+        "inContract": 851848,
+        "rule": 873424,
+        "residual": 0
+      },
+      {
+        "index": 131072,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 262143,
+        "ones": 18,
+        "allOnes": true,
+        "gasUsed": 875503,
+        "inContract": 853927,
+        "rule": 875503,
+        "residual": 0
+      },
+      {
+        "index": 262144,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 524287,
+        "ones": 19,
+        "allOnes": true,
+        "gasUsed": 877582,
+        "inContract": 856006,
+        "rule": 877582,
+        "residual": 0
+      },
+      {
+        "index": 524288,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 589825,
+        "ones": 3,
+        "allOnes": false,
+        "gasUsed": 827218,
+        "inContract": 805642,
+        "rule": 827218,
+        "residual": 0
+      },
+      {
+        "index": 1000000,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 835534,
+        "inContract": 813958,
+        "rule": 835534,
+        "residual": 0
+      },
+      {
+        "index": 1000001,
+        "ones": 8,
+        "allOnes": false,
+        "gasUsed": 837613,
+        "inContract": 816037,
+        "rule": 837613,
+        "residual": 0
+      },
+      {
+        "index": 1048575,
+        "ones": 20,
+        "allOnes": true,
+        "gasUsed": 879661,
+        "inContract": 858085,
+        "rule": 879661,
+        "residual": 0
+      },
+      {
+        "index": 1048576,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 2097151,
+        "ones": 21,
+        "allOnes": true,
+        "gasUsed": 881740,
+        "inContract": 860164,
+        "rule": 881740,
+        "residual": 0
+      },
+      {
+        "index": 2097152,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 2327072,
+        "ones": 6,
+        "allOnes": false,
+        "gasUsed": 833455,
+        "inContract": 811879,
+        "rule": 833455,
+        "residual": 0
+      },
+      {
+        "index": 3422913,
+        "ones": 10,
+        "allOnes": false,
+        "gasUsed": 841771,
+        "inContract": 820195,
+        "rule": 841771,
+        "residual": 0
+      },
+      {
+        "index": 4194303,
+        "ones": 22,
+        "allOnes": true,
+        "gasUsed": 883819,
+        "inContract": 862243,
+        "rule": 883819,
+        "residual": 0
+      },
+      {
+        "index": 4194304,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 5321290,
+        "ones": 9,
+        "allOnes": false,
+        "gasUsed": 839692,
+        "inContract": 818116,
+        "rule": 839692,
+        "residual": 0
+      },
+      {
+        "index": 5720199,
+        "ones": 11,
+        "allOnes": false,
+        "gasUsed": 843850,
+        "inContract": 822274,
+        "rule": 843850,
+        "residual": 0
+      },
+      {
+        "index": 8388607,
+        "ones": 23,
+        "allOnes": true,
+        "gasUsed": 885898,
+        "inContract": 864322,
+        "rule": 885898,
+        "residual": 0
+      },
+      {
+        "index": 8388608,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 8950291,
+        "ones": 8,
+        "allOnes": false,
+        "gasUsed": 837613,
+        "inContract": 816037,
+        "rule": 837613,
+        "residual": 0
+      },
+      {
+        "index": 9060416,
+        "ones": 5,
+        "allOnes": false,
+        "gasUsed": 831376,
+        "inContract": 809800,
+        "rule": 831376,
+        "residual": 0
+      },
+      {
+        "index": 12315551,
+        "ones": 18,
+        "allOnes": false,
+        "gasUsed": 858403,
+        "inContract": 836827,
+        "rule": 858403,
+        "residual": 0
+      },
+      {
+        "index": 15440056,
+        "ones": 13,
+        "allOnes": false,
+        "gasUsed": 848008,
+        "inContract": 826432,
+        "rule": 848008,
+        "residual": 0
+      },
+      {
+        "index": 16777213,
+        "ones": 23,
+        "allOnes": false,
+        "gasUsed": 868798,
+        "inContract": 847222,
+        "rule": 868798,
+        "residual": 0
+      },
+      {
+        "index": 16777214,
+        "ones": 23,
+        "allOnes": false,
+        "gasUsed": 868798,
+        "inContract": 847222,
+        "rule": 868798,
+        "residual": 0
+      },
+      {
+        "index": 16777215,
+        "ones": 24,
+        "allOnes": true,
+        "gasUsed": 887977,
+        "inContract": 866401,
+        "rule": 887977,
+        "residual": 0
+      },
+      {
+        "index": 16777216,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 823060,
+        "inContract": 801484,
+        "rule": 823060,
+        "residual": 0
+      },
+      {
+        "index": 16777217,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 825139,
+        "inContract": 803563,
+        "rule": 825139,
+        "residual": 0
+      },
+      {
+        "index": 17336314,
+        "ones": 12,
+        "allOnes": false,
+        "gasUsed": 845929,
+        "inContract": 824353,
+        "rule": 845929,
+        "residual": 0
+      },
+      {
+        "index": 19909999,
+        "ones": 17,
+        "allOnes": false,
+        "gasUsed": 856324,
+        "inContract": 834748,
+        "rule": 856324,
+        "residual": 0
+      },
+      {
+        "index": 20971520,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 825139,
+        "inContract": 803563,
+        "rule": 825139,
+        "residual": 0
+      },
+      {
+        "index": 21627584,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 835534,
+        "inContract": 813958,
+        "rule": 835534,
+        "residual": 0
+      },
+      {
+        "index": 24733548,
+        "ones": 15,
+        "allOnes": false,
+        "gasUsed": 852166,
+        "inContract": 830590,
+        "rule": 852166,
+        "residual": 0
+      },
+      {
+        "index": 29244146,
+        "ones": 16,
+        "allOnes": false,
+        "gasUsed": 854245,
+        "inContract": 832669,
+        "rule": 854245,
+        "residual": 0
+      },
+      {
+        "index": 29347647,
+        "ones": 20,
+        "allOnes": false,
+        "gasUsed": 862561,
+        "inContract": 840985,
+        "rule": 862561,
+        "residual": 0
+      },
+      {
+        "index": 29750364,
+        "ones": 14,
+        "allOnes": false,
+        "gasUsed": 850087,
+        "inContract": 828511,
+        "rule": 850087,
+        "residual": 0
+      },
+      {
+        "index": 32472830,
+        "ones": 21,
+        "allOnes": false,
+        "gasUsed": 864640,
+        "inContract": 843064,
+        "rule": 864640,
+        "residual": 0
+      },
+      {
+        "index": 33021951,
+        "ones": 23,
+        "allOnes": false,
+        "gasUsed": 868798,
+        "inContract": 847222,
+        "rule": 868798,
+        "residual": 0
+      },
+      {
+        "index": 33280975,
+        "ones": 19,
+        "allOnes": false,
+        "gasUsed": 860482,
+        "inContract": 838906,
+        "rule": 860482,
+        "residual": 0
+      },
+      {
+        "index": 33292287,
+        "ones": 24,
+        "allOnes": false,
+        "gasUsed": 870877,
+        "inContract": 849301,
+        "rule": 870877,
+        "residual": 0
+      },
+      {
+        "index": 33357311,
+        "ones": 22,
+        "allOnes": false,
+        "gasUsed": 866719,
+        "inContract": 845143,
+        "rule": 866719,
+        "residual": 0
+      },
+      {
+        "index": 33554429,
+        "ones": 24,
+        "allOnes": false,
+        "gasUsed": 870877,
+        "inContract": 849301,
+        "rule": 870877,
+        "residual": 0
+      },
+      {
+        "index": 33554430,
+        "ones": 24,
+        "allOnes": false,
+        "gasUsed": 870877,
+        "inContract": 849301,
+        "rule": 870877,
+        "residual": 0
+      },
+      {
+        "index": 33554431,
+        "ones": 25,
+        "allOnes": true,
+        "gasUsed": 867907,
+        "inContract": 846331,
+        "rule": 872956,
+        "residual": -5049
+      }
+    ],
+    "maxAbsResidual": 0,
+    "lastLeafResidual": -5049,
+    "max": {
+      "index": 16777215,
+      "ones": 24,
+      "allOnes": true,
+      "gasUsed": 887977,
+      "inContract": 866401,
+      "rule": 887977,
+      "residual": 0
+    }
+  },
+  "depositIndex": {
+    "label": "`GlobalReputation.depositPayment`",
+    "base": 853303,
+    "baseInContract": 831727,
+    "rows": [
+      {
+        "index": 1,
+        "ones": 1,
+        "allOnes": true,
+        "gasUsed": 870403,
+        "inContract": 848827,
+        "rule": 870403,
+        "residual": 0
+      },
+      {
+        "index": 2,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 3,
+        "ones": 2,
+        "allOnes": true,
+        "gasUsed": 872482,
+        "inContract": 850906,
+        "rule": 872482,
+        "residual": 0
+      },
+      {
+        "index": 4,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 5,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 855382,
+        "inContract": 833806,
+        "rule": 855382,
+        "residual": 0
+      },
+      {
+        "index": 6,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 855382,
+        "inContract": 833806,
+        "rule": 855382,
+        "residual": 0
+      },
+      {
+        "index": 7,
+        "ones": 3,
+        "allOnes": true,
+        "gasUsed": 874561,
+        "inContract": 852985,
+        "rule": 874561,
+        "residual": 0
+      },
+      {
+        "index": 8,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 15,
+        "ones": 4,
+        "allOnes": true,
+        "gasUsed": 876640,
+        "inContract": 855064,
+        "rule": 876640,
+        "residual": 0
+      },
+      {
+        "index": 16,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 31,
+        "ones": 5,
+        "allOnes": true,
+        "gasUsed": 878719,
+        "inContract": 857143,
+        "rule": 878719,
+        "residual": 0
+      },
+      {
+        "index": 32,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 63,
+        "ones": 6,
+        "allOnes": true,
+        "gasUsed": 880798,
+        "inContract": 859222,
+        "rule": 880798,
+        "residual": 0
+      },
+      {
+        "index": 64,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 127,
+        "ones": 7,
+        "allOnes": true,
+        "gasUsed": 882877,
+        "inContract": 861301,
+        "rule": 882877,
+        "residual": 0
+      },
+      {
+        "index": 128,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 255,
+        "ones": 8,
+        "allOnes": true,
+        "gasUsed": 884956,
+        "inContract": 863380,
+        "rule": 884956,
+        "residual": 0
+      },
+      {
+        "index": 256,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 464,
+        "ones": 4,
+        "allOnes": false,
+        "gasUsed": 859540,
+        "inContract": 837964,
+        "rule": 859540,
+        "residual": 0
+      },
+      {
+        "index": 511,
+        "ones": 9,
+        "allOnes": true,
+        "gasUsed": 887035,
+        "inContract": 865459,
+        "rule": 887035,
+        "residual": 0
+      },
+      {
+        "index": 512,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 1000,
+        "ones": 6,
+        "allOnes": false,
+        "gasUsed": 863698,
+        "inContract": 842122,
+        "rule": 863698,
+        "residual": 0
+      },
+      {
+        "index": 1001,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 865777,
+        "inContract": 844201,
+        "rule": 865777,
+        "residual": 0
+      },
+      {
+        "index": 1023,
+        "ones": 10,
+        "allOnes": true,
+        "gasUsed": 889114,
+        "inContract": 867538,
+        "rule": 889114,
+        "residual": 0
+      },
+      {
+        "index": 1024,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 2047,
+        "ones": 11,
+        "allOnes": true,
+        "gasUsed": 891193,
+        "inContract": 869617,
+        "rule": 891193,
+        "residual": 0
+      },
+      {
+        "index": 2048,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 4095,
+        "ones": 12,
+        "allOnes": true,
+        "gasUsed": 893272,
+        "inContract": 871696,
+        "rule": 893272,
+        "residual": 0
+      },
+      {
+        "index": 4096,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 8191,
+        "ones": 13,
+        "allOnes": true,
+        "gasUsed": 895351,
+        "inContract": 873775,
+        "rule": 895351,
+        "residual": 0
+      },
+      {
+        "index": 8192,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 16383,
+        "ones": 14,
+        "allOnes": true,
+        "gasUsed": 897430,
+        "inContract": 875854,
+        "rule": 897430,
+        "residual": 0
+      },
+      {
+        "index": 16384,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 32767,
+        "ones": 15,
+        "allOnes": true,
+        "gasUsed": 899509,
+        "inContract": 877933,
+        "rule": 899509,
+        "residual": 0
+      },
+      {
+        "index": 32768,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 65535,
+        "ones": 16,
+        "allOnes": true,
+        "gasUsed": 901588,
+        "inContract": 880012,
+        "rule": 901588,
+        "residual": 0
+      },
+      {
+        "index": 65536,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 100000,
+        "ones": 6,
+        "allOnes": false,
+        "gasUsed": 863698,
+        "inContract": 842122,
+        "rule": 863698,
+        "residual": 0
+      },
+      {
+        "index": 100001,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 865777,
+        "inContract": 844201,
+        "rule": 865777,
+        "residual": 0
+      },
+      {
+        "index": 131071,
+        "ones": 17,
+        "allOnes": true,
+        "gasUsed": 903667,
+        "inContract": 882091,
+        "rule": 903667,
+        "residual": 0
+      },
+      {
+        "index": 131072,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 262143,
+        "ones": 18,
+        "allOnes": true,
+        "gasUsed": 905746,
+        "inContract": 884170,
+        "rule": 905746,
+        "residual": 0
+      },
+      {
+        "index": 262144,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 524287,
+        "ones": 19,
+        "allOnes": true,
+        "gasUsed": 907825,
+        "inContract": 886249,
+        "rule": 907825,
+        "residual": 0
+      },
+      {
+        "index": 524288,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 589825,
+        "ones": 3,
+        "allOnes": false,
+        "gasUsed": 857461,
+        "inContract": 835885,
+        "rule": 857461,
+        "residual": 0
+      },
+      {
+        "index": 1000000,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 865777,
+        "inContract": 844201,
+        "rule": 865777,
+        "residual": 0
+      },
+      {
+        "index": 1000001,
+        "ones": 8,
+        "allOnes": false,
+        "gasUsed": 867856,
+        "inContract": 846280,
+        "rule": 867856,
+        "residual": 0
+      },
+      {
+        "index": 1048575,
+        "ones": 20,
+        "allOnes": true,
+        "gasUsed": 909904,
+        "inContract": 888328,
+        "rule": 909904,
+        "residual": 0
+      },
+      {
+        "index": 1048576,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 2097151,
+        "ones": 21,
+        "allOnes": true,
+        "gasUsed": 911983,
+        "inContract": 890407,
+        "rule": 911983,
+        "residual": 0
+      },
+      {
+        "index": 2097152,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 2327072,
+        "ones": 6,
+        "allOnes": false,
+        "gasUsed": 863698,
+        "inContract": 842122,
+        "rule": 863698,
+        "residual": 0
+      },
+      {
+        "index": 3422913,
+        "ones": 10,
+        "allOnes": false,
+        "gasUsed": 872014,
+        "inContract": 850438,
+        "rule": 872014,
+        "residual": 0
+      },
+      {
+        "index": 4194303,
+        "ones": 22,
+        "allOnes": true,
+        "gasUsed": 914062,
+        "inContract": 892486,
+        "rule": 914062,
+        "residual": 0
+      },
+      {
+        "index": 4194304,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 5321290,
+        "ones": 9,
+        "allOnes": false,
+        "gasUsed": 869935,
+        "inContract": 848359,
+        "rule": 869935,
+        "residual": 0
+      },
+      {
+        "index": 5720199,
+        "ones": 11,
+        "allOnes": false,
+        "gasUsed": 874093,
+        "inContract": 852517,
+        "rule": 874093,
+        "residual": 0
+      },
+      {
+        "index": 8388607,
+        "ones": 23,
+        "allOnes": true,
+        "gasUsed": 916141,
+        "inContract": 894565,
+        "rule": 916141,
+        "residual": 0
+      },
+      {
+        "index": 8388608,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 8950291,
+        "ones": 8,
+        "allOnes": false,
+        "gasUsed": 867856,
+        "inContract": 846280,
+        "rule": 867856,
+        "residual": 0
+      },
+      {
+        "index": 9060416,
+        "ones": 5,
+        "allOnes": false,
+        "gasUsed": 861619,
+        "inContract": 840043,
+        "rule": 861619,
+        "residual": 0
+      },
+      {
+        "index": 12315551,
+        "ones": 18,
+        "allOnes": false,
+        "gasUsed": 888646,
+        "inContract": 867070,
+        "rule": 888646,
+        "residual": 0
+      },
+      {
+        "index": 15440056,
+        "ones": 13,
+        "allOnes": false,
+        "gasUsed": 878251,
+        "inContract": 856675,
+        "rule": 878251,
+        "residual": 0
+      },
+      {
+        "index": 16777213,
+        "ones": 23,
+        "allOnes": false,
+        "gasUsed": 899041,
+        "inContract": 877465,
+        "rule": 899041,
+        "residual": 0
+      },
+      {
+        "index": 16777214,
+        "ones": 23,
+        "allOnes": false,
+        "gasUsed": 899041,
+        "inContract": 877465,
+        "rule": 899041,
+        "residual": 0
+      },
+      {
+        "index": 16777215,
+        "ones": 24,
+        "allOnes": true,
+        "gasUsed": 918220,
+        "inContract": 896644,
+        "rule": 918220,
+        "residual": 0
+      },
+      {
+        "index": 16777216,
+        "ones": 1,
+        "allOnes": false,
+        "gasUsed": 853303,
+        "inContract": 831727,
+        "rule": 853303,
+        "residual": 0
+      },
+      {
+        "index": 16777217,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 855382,
+        "inContract": 833806,
+        "rule": 855382,
+        "residual": 0
+      },
+      {
+        "index": 17336314,
+        "ones": 12,
+        "allOnes": false,
+        "gasUsed": 876172,
+        "inContract": 854596,
+        "rule": 876172,
+        "residual": 0
+      },
+      {
+        "index": 19909999,
+        "ones": 17,
+        "allOnes": false,
+        "gasUsed": 886567,
+        "inContract": 864991,
+        "rule": 886567,
+        "residual": 0
+      },
+      {
+        "index": 20971520,
+        "ones": 2,
+        "allOnes": false,
+        "gasUsed": 855382,
+        "inContract": 833806,
+        "rule": 855382,
+        "residual": 0
+      },
+      {
+        "index": 21627584,
+        "ones": 7,
+        "allOnes": false,
+        "gasUsed": 865777,
+        "inContract": 844201,
+        "rule": 865777,
+        "residual": 0
+      },
+      {
+        "index": 24733548,
+        "ones": 15,
+        "allOnes": false,
+        "gasUsed": 882409,
+        "inContract": 860833,
+        "rule": 882409,
+        "residual": 0
+      },
+      {
+        "index": 29244146,
+        "ones": 16,
+        "allOnes": false,
+        "gasUsed": 884488,
+        "inContract": 862912,
+        "rule": 884488,
+        "residual": 0
+      },
+      {
+        "index": 29347647,
+        "ones": 20,
+        "allOnes": false,
+        "gasUsed": 892804,
+        "inContract": 871228,
+        "rule": 892804,
+        "residual": 0
+      },
+      {
+        "index": 29750364,
+        "ones": 14,
+        "allOnes": false,
+        "gasUsed": 880330,
+        "inContract": 858754,
+        "rule": 880330,
+        "residual": 0
+      },
+      {
+        "index": 32472830,
+        "ones": 21,
+        "allOnes": false,
+        "gasUsed": 894883,
+        "inContract": 873307,
+        "rule": 894883,
+        "residual": 0
+      },
+      {
+        "index": 33021951,
+        "ones": 23,
+        "allOnes": false,
+        "gasUsed": 899041,
+        "inContract": 877465,
+        "rule": 899041,
+        "residual": 0
+      },
+      {
+        "index": 33280975,
+        "ones": 19,
+        "allOnes": false,
+        "gasUsed": 890725,
+        "inContract": 869149,
+        "rule": 890725,
+        "residual": 0
+      },
+      {
+        "index": 33292287,
+        "ones": 24,
+        "allOnes": false,
+        "gasUsed": 901120,
+        "inContract": 879544,
+        "rule": 901120,
+        "residual": 0
+      },
+      {
+        "index": 33357311,
+        "ones": 22,
+        "allOnes": false,
+        "gasUsed": 896962,
+        "inContract": 875386,
+        "rule": 896962,
+        "residual": 0
+      },
+      {
+        "index": 33554429,
+        "ones": 24,
+        "allOnes": false,
+        "gasUsed": 901120,
+        "inContract": 879544,
+        "rule": 901120,
+        "residual": 0
+      },
+      {
+        "index": 33554430,
+        "ones": 24,
+        "allOnes": false,
+        "gasUsed": 901120,
+        "inContract": 879544,
+        "rule": 901120,
+        "residual": 0
+      },
+      {
+        "index": 33554431,
+        "ones": 25,
+        "allOnes": true,
+        "gasUsed": 898150,
+        "inContract": 876574,
+        "rule": 903199,
+        "residual": -5049
+      }
+    ],
+    "maxAbsResidual": 0,
+    "lastLeafResidual": -5049,
+    "max": {
+      "index": 16777215,
+      "ones": 24,
+      "allOnes": true,
+      "gasUsed": 918220,
+      "inContract": 896644,
+      "rule": 918220,
+      "residual": 0
+    }
+  },
+  "accesses": [
+    {
+      "index": 4,
+      "ones": 1,
+      "gasUsed": 853303,
+      "hasherCalls": 26,
+      "groups": [
+        {
+          "op": "SLOAD",
+          "slot": "hasher",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteNextIndex",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteNextIndex",
+          "gasEach": 100,
+          "count": 2
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteFilledSubtrees[level]",
+          "gasEach": 5000,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "hasher",
+          "gasEach": 100,
+          "count": 25
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteFilledSubtrees[level]",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteRoot",
+          "gasEach": 5000,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "knownNoteRoots[new root]",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "knownNoteRoots[new root]",
+          "gasEach": 20000,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteNextIndex",
+          "gasEach": 2900,
+          "count": 1
+        }
+      ]
+    },
+    {
+      "index": 1048575,
+      "ones": 20,
+      "gasUsed": 909904,
+      "hasherCalls": 26,
+      "groups": [
+        {
+          "op": "SLOAD",
+          "slot": "hasher",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteNextIndex",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteNextIndex",
+          "gasEach": 100,
+          "count": 2
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteFilledSubtrees[level]",
+          "gasEach": 2100,
+          "count": 20
+        },
+        {
+          "op": "SLOAD",
+          "slot": "hasher",
+          "gasEach": 100,
+          "count": 25
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteFilledSubtrees[level]",
+          "gasEach": 22100,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteRoot",
+          "gasEach": 5000,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "knownNoteRoots[new root]",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "knownNoteRoots[new root]",
+          "gasEach": 20000,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteNextIndex",
+          "gasEach": 2900,
+          "count": 1
+        }
+      ]
+    },
+    {
+      "index": 16777214,
+      "ones": 23,
+      "gasUsed": 899041,
+      "hasherCalls": 26,
+      "groups": [
+        {
+          "op": "SLOAD",
+          "slot": "hasher",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteNextIndex",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteNextIndex",
+          "gasEach": 100,
+          "count": 2
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteFilledSubtrees[level]",
+          "gasEach": 5000,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "hasher",
+          "gasEach": 100,
+          "count": 25
+        },
+        {
+          "op": "SLOAD",
+          "slot": "noteFilledSubtrees[level]",
+          "gasEach": 2100,
+          "count": 23
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteRoot",
+          "gasEach": 5000,
+          "count": 1
+        },
+        {
+          "op": "SLOAD",
+          "slot": "knownNoteRoots[new root]",
+          "gasEach": 2100,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "knownNoteRoots[new root]",
+          "gasEach": 20000,
+          "count": 1
+        },
+        {
+          "op": "SSTORE",
+          "slot": "noteNextIndex",
+          "gasEach": 2900,
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "calls": {
+    "index": 1024,
+    "ones": 1,
+    "harness": {
+      "gasUsed": 823060,
+      "inContract": 801484
+    },
+    "depositPayment": {
+      "gasUsed": 853303,
+      "inContract": 831727
+    },
+    "mergeWithdrawStub": {
+      "withChange": 894285,
+      "withoutChange": 92294,
+      "calldataDifference": 384
+    },
+    "deliveryOrder": {
+      "withNote": 991695,
+      "withoutNote": 140102
+    }
+  },
+  "proving": {
+    "repoDepth": 25,
+    "rows": [
+      {
+        "label": "MergeWithdraw(12), scratch build",
+        "depth": 12,
+        "nonLinear": 8468,
+        "linear": 8778,
+        "constraints": 17246,
+        "wires": 17298,
+        "ptau": "pot15_final.ptau",
+        "domainPower": 15,
+        "zkeyMB": 8.021101951599121,
+        "wasmMB": 1.7782535552978516,
+        "compileMs": 753.2089390000037,
+        "setupMs": 7943.092758000013,
+        "warmupMs": 615.7177179999999,
+        "timesMs": [
+          629.4958920000063,
+          620.8649440000008,
+          596.2565340000147,
+          617.4824960000115,
+          615.3988970000064
+        ],
+        "proveMs": {
+          "mean": 615.8997526000079,
+          "stddev": 12.228247034961514,
+          "min": 596.2565340000147,
+          "max": 629.4958920000063,
+          "n": 5
+        },
+        "verifyRaw": {
+          "mean": 249885.8,
+          "stddev": 16.099689437998485,
+          "min": 249857,
+          "max": 249893,
+          "n": 5
+        },
+        "verifyInContract": {
+          "mean": 222177,
+          "stddev": 0,
+          "min": 222177,
+          "max": 222177,
+          "n": 5
+        }
+      },
+      {
+        "label": "MergeWithdraw(16), scratch build",
+        "depth": 16,
+        "nonLinear": 10428,
+        "linear": 10970,
+        "constraints": 21398,
+        "wires": 21466,
+        "ptau": "pot15_final.ptau",
+        "domainPower": 15,
+        "zkeyMB": 9.458571434020996,
+        "wasmMB": 1.7941646575927734,
+        "compileMs": 824.2218569999968,
+        "setupMs": 8890.777180000005,
+        "warmupMs": 692.7320579999941,
+        "timesMs": [
+          710.1979730000021,
+          702.0459160000028,
+          712.2149720000161,
+          677.0068339999998,
+          689.4360150000139
+        ],
+        "proveMs": {
+          "mean": 698.1803420000069,
+          "stddev": 14.841812996967558,
+          "min": 677.0068339999998,
+          "max": 712.2149720000161,
+          "n": 5
+        },
+        "verifyRaw": {
+          "mean": 249893,
+          "stddev": 12,
+          "min": 249881,
+          "max": 249905,
+          "n": 5
+        },
+        "verifyInContract": {
+          "mean": 222177,
+          "stddev": 0,
+          "min": 222177,
+          "max": 222177,
+          "n": 5
+        }
+      },
+      {
+        "label": "MergeWithdraw(20), scratch build",
+        "depth": 20,
+        "nonLinear": 12388,
+        "linear": 13162,
+        "constraints": 25550,
+        "wires": 25634,
+        "ptau": "pot15_final.ptau",
+        "domainPower": 15,
+        "zkeyMB": 10.896040916442871,
+        "wasmMB": 1.8100652694702148,
+        "compileMs": 840.8575760000094,
+        "setupMs": 9476.63591099999,
+        "warmupMs": 769.5045490000048,
+        "timesMs": [
+          737.9209960000007,
+          755.7797859999991,
+          760.7146200000134,
+          754.5862900000066,
+          773.2805820000067
+        ],
+        "proveMs": {
+          "mean": 756.4564548000053,
+          "stddev": 12.734813081501324,
+          "min": 737.9209960000007,
+          "max": 773.2805820000067,
+          "n": 5
+        },
+        "verifyRaw": {
+          "mean": 249873.8,
+          "stddev": 10.73312629199899,
+          "min": 249857,
+          "max": 249881,
+          "n": 5
+        },
+        "verifyInContract": {
+          "mean": 222177,
+          "stddev": 0,
+          "min": 222177,
+          "max": 222177,
+          "n": 5
+        }
+      },
+      {
+        "label": "MergeWithdraw(25), scratch build",
+        "depth": 25,
+        "nonLinear": 14838,
+        "linear": 15902,
+        "constraints": 30740,
+        "wires": 30844,
+        "ptau": "pot15_final.ptau",
+        "domainPower": 15,
+        "zkeyMB": 12.692877769470215,
+        "wasmMB": 1.8299407958984375,
+        "compileMs": 810.4656010000035,
+        "setupMs": 10463.876554999995,
+        "warmupMs": 824.2005660000141,
+        "timesMs": [
+          822.757163000002,
+          815.8792079999985,
+          807.4552900000126,
+          842.5847939999949,
+          857.2219000000041
+        ],
+        "proveMs": {
+          "mean": 829.1796710000024,
+          "stddev": 20.34799489378943,
+          "min": 807.4552900000126,
+          "max": 857.2219000000041,
+          "n": 5
+        },
+        "verifyRaw": {
+          "mean": 249883.4,
+          "stddev": 23.082460874005612,
+          "min": 249845,
+          "max": 249905,
+          "n": 5
+        },
+        "verifyInContract": {
+          "mean": 222177,
+          "stddev": 0,
+          "min": 222177,
+          "max": 222177,
+          "n": 5
+        }
+      },
+      {
+        "depth": 25,
+        "reference": true,
+        "constraints": 30740,
+        "wires": 30844,
+        "ptau": "\u2014",
+        "domainPower": 15,
+        "zkeyMB": 12.692892074584961,
+        "wasmMB": 1.8299407958984375,
+        "label": "MergeWithdraw(25), repository files",
+        "warmupMs": 859.6276350000117,
+        "timesMs": [
+          839.2495150000032,
+          822.484392000013,
+          800.8028810000105,
+          837.8646849999786,
+          866.5983750000014
+        ],
+        "proveMs": {
+          "mean": 833.3999696000013,
+          "stddev": 24.176460688184115,
+          "min": 800.8028810000105,
+          "max": 866.5983750000014,
+          "n": 5
+        },
+        "verifyRaw": {
+          "mean": 249890.6,
+          "stddev": 13.145341380123988,
+          "min": 249869,
+          "max": 249905,
+          "n": 5
+        },
+        "verifyInContract": {
+          "mean": 222177,
+          "stddev": 0,
+          "min": 222177,
+          "max": 222177,
+          "n": 5
+        }
+      },
+      {
+        "depth": 25,
+        "reference": true,
+        "constraints": 30740,
+        "wires": 30844,
+        "ptau": "\u2014",
+        "domainPower": 15,
+        "zkeyMB": 12.692892074584961,
+        "wasmMB": 1.8299407958984375,
+        "label": "MergeWithdraw(25), repository files, already in memory",
+        "inMemory": true,
+        "warmupMs": 847.1097619999782,
+        "timesMs": [
+          831.4601179999881,
+          848.6439819999796,
+          811.5785179999948,
+          820.2086839999829,
+          865.3502730000182
+        ],
+        "proveMs": {
+          "mean": 835.4483149999927,
+          "stddev": 21.715040852818156,
+          "min": 811.5785179999948,
+          "max": 865.3502730000182,
+          "n": 5
+        },
+        "verifyRaw": null,
+        "verifyInContract": null
+      }
+    ],
+    "loadBefore": [
+      2.78,
+      3.12,
+      3.3
+    ],
+    "loadAfter": [
+      5.63,
+      3.78,
+      3.51
+    ],
+    "readFilesMs": 10.01625200000126
+  },
+  "capacity": [
+    {
+      "depth": 12,
+      "leaves": 4096,
+      "cyclesAt3": 1365,
+      "cyclesAt2": 2047
+    },
+    {
+      "depth": 14,
+      "leaves": 16384,
+      "cyclesAt3": 5461,
+      "cyclesAt2": 8191
+    },
+    {
+      "depth": 16,
+      "leaves": 65536,
+      "cyclesAt3": 21845,
+      "cyclesAt2": 32767
+    },
+    {
+      "depth": 18,
+      "leaves": 262144,
+      "cyclesAt3": 87381,
+      "cyclesAt2": 131071
+    },
+    {
+      "depth": 20,
+      "leaves": 1048576,
+      "cyclesAt3": 349525,
+      "cyclesAt2": 524287
+    },
+    {
+      "depth": 22,
+      "leaves": 4194304,
+      "cyclesAt3": 1398101,
+      "cyclesAt2": 2097151
+    },
+    {
+      "depth": 24,
+      "leaves": 16777216,
+      "cyclesAt3": 5592405,
+      "cyclesAt2": 8388607
+    },
+    {
+      "depth": 25,
+      "leaves": 33554432,
+      "cyclesAt3": 11184810,
+      "cyclesAt2": 16777215
+    }
+  ],
+  "fill": [
+    {
+      "notes": 1000,
+      "meanExtra": 8338.945945945947,
+      "maxExtra": 33732,
+      "maxAt": 511,
+      "maxExtraWithoutFirstWrite": 16632,
+      "lastWindow": 999,
+      "meanExtraLastWindow": 8338.945945945947
+    },
+    {
+      "notes": 100000,
+      "meanExtra": 14868.254432544325,
+      "maxExtra": 48285,
+      "maxAt": 65535,
+      "maxExtraWithoutFirstWrite": 31185,
+      "lastWindow": 3000,
+      "meanExtraLastWindow": 16335.396
+    },
+    {
+      "notes": 1000000,
+      "meanExtra": 18472.24381924382,
+      "maxExtra": 54522,
+      "maxAt": 524287,
+      "maxExtraWithoutFirstWrite": 37422,
+      "lastWindow": 3000,
+      "meanExtraLastWindow": 22788.612
+    },
+    {
+      "notes": 16777216,
+      "meanExtra": 22869.02594876444,
+      "maxExtra": 64917,
+      "maxAt": 16777215,
+      "maxExtraWithoutFirstWrite": 45738,
+      "lastWindow": 3000,
+      "meanExtraLastWindow": 36160.896
+    },
+    {
+      "notes": 33554432,
+      "meanExtra": 23908.51300536135,
+      "maxExtra": 64917,
+      "maxAt": 16777215,
+      "maxExtraWithoutFirstWrite": 47817,
+      "lastWindow": 3000,
+      "meanExtraLastWindow": 38234.196
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+ "what": "cash-out of the payment pool from the secrets file of a benchmark run: two notes per mergeWithdraw, the whole sum of the pair paid out, change 0",
+ "tool": "benchmarking/pool-cashout.cjs",
+ "mode": "sent",
+ "network": "fuji",
+ "chainId": "43113",
+ "endpoint": "https://api.avax-test.network",
+ "at": "2026-10-15T00:11:15.008Z",
+ "deploymentRecord": "<repository>/deployments/fuji-2026-10-14/deployment.json",
+ "pool": "0x26b6d893358996ec2a5cCee3Fb12d14982ef4CF5",
+ "secretsFile": "ephemeral-wallets-privacy-run-fuji-2026-10-14T23-35-26-178Z.json",
+ "recipient": {
+  "role": "establishment",
+  "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7"
+ },
+ "sender": {
+  "role": "establishment",
+  "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7"
+ },
+ "gasLimitRule": "eth_estimateGas x 1.2",
+ "feeSettings": "tip at least 0.00000015 gwei, maximum fee 0.001 gwei",
+ "ethUsd": null,
+ "tree": {
+  "block": 59473876,
+  "leaves": 31
+ },
+ "notes": {
+  "deposit": {
+   "spent": {
+    "notes": 10,
+    "wei": "10000007560000000"
+   }
+  },
+  "change": {
+   "spent": {
+    "notes": 9,
+    "wei": "0"
+   },
+   "unspent, zero value": {
+    "notes": 1,
+    "wei": "0"
+   }
+  },
+  "revenue": {
+   "unspent, can be proved": {
+    "notes": 10,
+    "wei": "19999996160000000"
+   }
+  }
+ },
+ "provable": {
+  "notes": 10,
+  "wei": "19999996160000000"
+ },
+ "poolBalanceWeiBefore": "19999996160000000",
+ "plan": {
+  "withdrawals": 1,
+  "ofWhole": 5,
+  "wei": "3999999232000000"
+ },
+ "gasRule": "two-note mergeWithdraw: 1117064 + 2079 x (1 bits of the change note's leaf index - 1) + 17100 when the leaf is 2^k - 1; with the dummy note -22370; calldata zero bytes not counted",
+ "steps": [
+  {
+   "n": 1,
+   "leaves": [
+    3,
+    6
+   ],
+   "withDummy": false,
+   "amountWei": "3999999232000000",
+   "nonce": 294,
+   "status": "mined",
+   "treeLeavesOfTheProof": 31,
+   "proveMs": 1103,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 39,
+   "txHash": "0xcdbe868756537abaa448f3e7f2c0def881733c42cb47ec6378139e7fc08c009f",
+   "estimate": 1152715,
+   "gasLimit": 1383258,
+   "maxFeePerGasWei": "1000000",
+   "maxPriorityFeePerGasWei": "150",
+   "block": 59473884,
+   "gasUsed": 1142480,
+   "effectiveGasPriceWei": "160",
+   "feeWei": "182796800",
+   "changeLeaf": 31,
+   "ruleGas": 1142480,
+   "secondsFromSendToReceipt": 4.625,
+   "secondsOfTheStep": 7.723
+  }
+ ],
+ "balancesWeiBefore": {
+  "pool": "19999996160000000",
+  "recipient": "1201999999365709984",
+  "sender": "1201999999365709984"
+ },
+ "firstNonce": 294,
+ "balancesWeiAfter": {
+  "block": 59473884,
+  "pool": "15999996928000000",
+  "recipient": "1205999998414913184",
+  "sender": "1205999998414913184"
+ },
+ "poolDownByThePayouts": true,
+ "accountsMovedByPayoutsAndFees": true,
+ "totals": {
+  "withdrawalsMined": 1,
+  "gas": "1142480",
+  "feeWei": "182796800",
+  "paidOutWei": "3999999232000000",
+  "netWei": "3999999049203200",
+  "seconds": 8.662
+ }
+}

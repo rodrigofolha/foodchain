@@ -1,0 +1,312 @@
+====================================================================================================
+FOODCHAIN LOCAL BENCHMARK (Hardhat in-process network) — Privacy vs No-Privacy
+====================================================================================================
+
+SETUP
+| Parameter    | Value                                                                                                                                                                                                       |
+|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Network      | Hardhat 2.28.6 in-process, chainId 31337, hardfork osaka                                                                                                                                                    |
+| Solidity     | 0.8.20, optimizer 200 runs, evm target paris                                                                                                                                                                |
+| ZK           | Groth16 (snarkjs 0.7.6); one real proof per cycle (the pool withdrawal), verified on-chain                                                                                                                  |
+| Circuit      | mergeWithdraw(25) circuits/mergeWithdraw_0001.zkey                                                                                                                                                          |
+| Ratings      | Chain.rateOrder(order, worker, score), in the clear: the customer from its wallet, the establishment from the order's stealth wallet                                                                        |
+| Note tree    | depth 25 (Poseidon); 2 notes before cycle 1 (dummy + seed note + 0 warm-up), 32 after the last cycle                                                                                                        |
+| Courier      | new in cycle 1 (no delivery, no rating before)                                                                                                                                                              |
+| Payloads     | makeOrder strings 612 + 508 characters (establishment: {items, k}; customer: items); addInformation strings 492 + 177 characters ({restaurantId, s} for the courier's key; sealed {deliveryAddress, items}) |
+| Iterations   | 10 per variant                                                                                                                                                                                              |
+| Baselines    | (a) contracts_no_privacy, makeOrder string of 113 characters (items and delivery address); (b) the privacy contracts, every mechanism off, the same string                                                  |
+| Order values | total 0.01 ETH, delivery fee 0.001 ETH, pool deposit 0.02 ETH                                                                                                                                               |
+| Gas stipend  | eth_gasPrice x 1600000 x 1.5 (customer-frontend estimateGasStipend)                                                                                                                                         |
+| Withdrawal   | deliveryFee + eth_gasPrice x 3150000 x 1.5 (manager dApp, orderFunding.js)                                                                                                                                  |
+| Gas limits   | one-time address: eth_estimateGas x 1.2 (manager dApp); the other senders: the node's estimate (their dApps send it x 1.25)                                                                                 |
+| Node.js      | v20.20.2 (linux x64)                                                                                                                                                                                        |
+
+Latency of an on-chain operation runs from the start of its client-side preparation (encryption,
+commitments, gas estimation) to the mined receipt. zkProof_mergeWithdraw includes reading the
+NoteAdded logs, rebuilding the tree and fullProve. sealDetails is the customer's part of the late
+release (pickup key, sealing, encryption of the seal value for the courier); openDetails is the
+courier's (reading the Information log, decryption, opening with the pickup key).
+
+DEPLOYMENT GAS
+| Variant    | Contract / tx                         |        Gas |
+|------------|---------------------------------------|------------|
+| privacy    | Poseidon                              |  2,157,126 |
+| privacy    | MergeWithdrawVerifier                 |    450,071 |
+| privacy    | GlobalReputation                      |  3,721,625 |
+| privacy    | Util                                  |    882,183 |
+| privacy    | Storage                               |    489,610 |
+| privacy    | Chain (with the Order implementation) |  4,049,292 |
+| privacy    | GlobalReputation.setChain             |     44,156 |
+| privacy    | Storage.setChain                      |     44,088 |
+| privacy    | StealthAnnouncer                      |    151,293 |
+| privacy    | TOTAL                                 | 11,989,444 |
+| no-privacy | No_Util                               |    882,183 |
+| no-privacy | No_Chain                              |  3,660,265 |
+| no-privacy | TOTAL                                 |  4,542,448 |
+
+TABLE A — Privacy variant, gas per operation (iteration 1 vs iterations 2..10)
+| Operation                 | Gas iter 1 | Gas mean 2..N | SD 2..N |        Min-Max 2..N | Gas mean 1..N | Latency ms (mean) |
+|---------------------------|------------|---------------|---------|---------------------|---------------|-------------------|
+| stealthDerivation         |  off-chain |               |         |                     |               |              14.2 |
+| stealthAnnounce           |     26,245 |        26,244 |       4 |       26,233-26,245 |        26,244 |               3.6 |
+| makeOrder                 |  1,230,393 |     1,213,290 |       8 | 1,213,269-1,213,293 |     1,215,001 |              10.8 |
+| poolDeposit               |    853,303 |       856,767 |   1,961 |     853,303-859,540 |       856,420 |              13.7 |
+| zkProof_mergeWithdraw     |  off-chain |               |         |                     |               |            1153.8 |
+| poolWithdraw              |  1,136,231 |     1,122,659 |   6,497 | 1,119,107-1,140,401 |     1,124,016 |             217.2 |
+| prepareOrder              |    137,392 |       137,388 |       6 |     137,380-137,392 |       137,388 |              16.0 |
+| confirmIntention          |    230,245 |       230,245 |       0 |     230,245-230,245 |       230,245 |               4.4 |
+| sealDetails               |  off-chain |               |         |                     |               |               4.0 |
+| addInformation            |     60,130 |        60,130 |       0 |       60,130-60,130 |        60,130 |               5.2 |
+| openDetails               |  off-chain |               |         |                     |               |               4.1 |
+| pickupOrder               |     68,770 |        68,776 |       8 |       68,770-68,787 |        68,775 |              15.6 |
+| deliveryOrder             |  1,011,318 |     1,001,935 |   8,512 |   994,201-1,019,634 |     1,002,874 |              18.9 |
+| rateOrder_client          |     57,957 |        57,957 |       0 |       57,957-57,957 |        57,957 |               3.5 |
+| rateOrder_restaurant      |     57,932 |        57,932 |       0 |       57,932-57,932 |        57,932 |              11.2 |
+| TOTAL on-chain / cycle    |  4,869,916 |     4,833,322 |  10,398 | 4,820,671-4,854,451 |     4,836,982 |            1496.2 |
+| TOTAL without poolDeposit |  4,016,613 |     3,976,556 |   9,465 | 3,967,368-3,994,911 |     3,980,561 |            1482.5 |
+
+TABLE B — Baseline (a): no-privacy contracts, items and delivery address in the clear (113 characters in makeOrder), gas per operation
+| Operation              | Gas iter 1 | Gas mean 2..N | SD 2..N |    Min-Max 2..N | Gas mean 1..N | Latency ms (mean) |
+|------------------------|------------|---------------|---------|-----------------|---------------|-------------------|
+| makeOrder              |    393,194 |       376,094 |       0 | 376,094-376,094 |       377,804 |               1.8 |
+| prepareOrder           |    109,991 |       109,990 |       4 | 109,979-109,991 |       109,990 |               1.5 |
+| confirmIntention       |    106,599 |       106,598 |       4 | 106,587-106,599 |       106,598 |               1.8 |
+| pickupOrder            |     68,434 |        68,438 |      11 |   68,422-68,451 |        68,437 |               2.5 |
+| deliveryOrder          |     98,947 |        98,938 |      11 |   98,918-98,947 |        98,939 |               2.6 |
+| rateOrder_client       |     92,152 |        75,051 |       4 |   75,040-75,052 |        76,761 |               1.7 |
+| rateOrder_restaurant   |     57,966 |        57,965 |       4 |   57,954-57,966 |        57,965 |               1.6 |
+| TOTAL on-chain / cycle |    927,283 |       893,072 |      30 | 892,994-893,100 |       896,493 |              13.6 |
+
+TABLE B2 — Baseline (b): the privacy contracts with every mechanism off (the same plain string, the establishment's own
+account, no stipend, no announcement, payment commitment zero, no pool call, a zero key at confirmIntention, no addInformation)
+| Operation              | Gas iter 1 | Gas mean 2..N | SD 2..N |        Min-Max 2..N | Gas mean 1..N | Latency ms (mean) |
+|------------------------|------------|---------------|---------|---------------------|---------------|-------------------|
+| makeOrder              |    446,785 |       429,685 |       0 |     429,685-429,685 |       431,395 |               3.1 |
+| prepareOrder           |    117,108 |       117,108 |       0 |     117,108-117,108 |       117,108 |               1.9 |
+| confirmIntention       |    189,917 |       189,917 |       0 |     189,917-189,917 |       189,917 |               2.2 |
+| pickupOrder            |     68,770 |        68,776 |       8 |       68,770-68,787 |        68,775 |               2.2 |
+| deliveryOrder          |    157,088 |       139,978 |      10 |     139,959-139,988 |       141,689 |               5.4 |
+| rateOrder_client       |     57,957 |        57,957 |       0 |       57,957-57,957 |        57,957 |               1.8 |
+| rateOrder_restaurant   |     57,932 |        57,932 |       0 |       57,932-57,932 |        57,932 |               1.9 |
+| TOTAL on-chain / cycle |  1,095,557 |     1,061,353 |      13 | 1,061,328-1,061,374 |     1,064,773 |              18.4 |
+
+TABLE C — Overhead of the privacy cycle against baseline (a), per call (gas, mean of iterations 2..10; iteration 1 apart)
+| Operation                 | Privacy 2..N | Baseline 2..N | Overhead 2..N |   Overhead % | Privacy it.1 | Baseline it.1 | Overhead it.1 |
+|---------------------------|--------------|---------------|---------------|--------------|--------------|---------------|---------------|
+| stealthAnnounce           |       26,244 |             - |       +26,244 | privacy only |       26,245 |             - |       +26,245 |
+| makeOrder                 |    1,213,290 |       376,094 |      +837,196 |      +222.6% |    1,230,393 |       393,194 |      +837,199 |
+| poolDeposit               |      856,767 |             - |      +856,767 | privacy only |      853,303 |             - |      +853,303 |
+| poolWithdraw              |    1,122,659 |             - |    +1,122,659 | privacy only |    1,136,231 |             - |    +1,136,231 |
+| prepareOrder              |      137,388 |       109,990 |       +27,398 |       +24.9% |      137,392 |       109,991 |       +27,401 |
+| confirmIntention          |      230,245 |       106,598 |      +123,647 |      +116.0% |      230,245 |       106,599 |      +123,646 |
+| addInformation            |       60,130 |             - |       +60,130 | privacy only |       60,130 |             - |       +60,130 |
+| pickupOrder               |       68,776 |        68,438 |          +338 |        +0.5% |       68,770 |        68,434 |          +336 |
+| deliveryOrder             |    1,001,935 |        98,938 |      +902,997 |      +912.7% |    1,011,318 |        98,947 |      +912,371 |
+| rateOrder_client          |       57,957 |        75,051 |       -17,094 |       -22.8% |       57,957 |        92,152 |       -34,195 |
+| rateOrder_restaurant      |       57,932 |        57,965 |           -33 |        -0.1% |       57,932 |        57,966 |           -34 |
+| TOTAL on-chain / cycle    |    4,833,322 |       893,072 |    +3,940,250 |      +441.2% |    4,869,916 |       927,283 |    +3,942,633 |
+| TOTAL without poolDeposit |    3,976,556 |       893,072 |    +3,083,483 |      +345.3% |    4,016,613 |       927,283 |    +3,089,330 |
+
+TABLE C2 — The privacy cycle against both baselines (gas, mean of iterations 2..10)
+| Operation                              |   Privacy | Baseline (a) | Baseline (b) | (b) - (a) |      Privacy - (a) |      Privacy - (b) |
+|----------------------------------------|-----------|--------------|--------------|-----------|--------------------|--------------------|
+| stealthAnnounce                        |    26,244 |            - |            - |         - |            +26,244 |            +26,244 |
+| makeOrder                              | 1,213,290 |      376,094 |      429,685 |   +53,591 |           +837,196 |           +783,605 |
+| poolDeposit                            |   856,767 |            - |            - |         - |           +856,767 |           +856,767 |
+| poolWithdraw                           | 1,122,659 |            - |            - |         - |         +1,122,659 |         +1,122,659 |
+| prepareOrder                           |   137,388 |      109,990 |      117,108 |    +7,118 |            +27,398 |            +20,280 |
+| confirmIntention                       |   230,245 |      106,598 |      189,917 |   +83,319 |           +123,647 |            +40,328 |
+| addInformation                         |    60,130 |            - |            - |         - |            +60,130 |            +60,130 |
+| pickupOrder                            |    68,776 |       68,438 |       68,776 |      +338 |               +338 |                 +0 |
+| deliveryOrder                          | 1,001,935 |       98,938 |      139,978 |   +41,040 |           +902,997 |           +861,957 |
+| rateOrder_client                       |    57,957 |       75,051 |       57,957 |   -17,094 |            -17,094 |                 +0 |
+| rateOrder_restaurant                   |    57,932 |       57,965 |       57,932 |       -33 |                -33 |                 +0 |
+| TOTAL on-chain / cycle                 | 4,833,322 |      893,072 |    1,061,353 |  +168,281 | +3,940,250 (5.41x) | +3,771,969 (4.55x) |
+| TOTAL without poolDeposit              | 3,976,556 |      893,072 |    1,061,353 |  +168,281 | +3,083,483 (4.45x) | +2,915,203 (3.75x) |
+| TOTAL, iteration 1                     | 4,869,916 |      927,283 |    1,095,557 |  +168,274 | +3,942,633 (5.25x) | +3,774,359 (4.45x) |
+| TOTAL without poolDeposit, iteration 1 | 4,016,613 |      927,283 |    1,095,557 |  +168,274 | +3,089,330 (4.33x) | +2,921,056 (3.67x) |
+Neither ratio includes the cash-out that turns the establishment's notes into money, nor the fill level of the note tree.
+
+TABLE C3 — Variants of the cycle on the privacy contracts, each from the state before cycle 1 (gas)
+| Variant                                                                         |    Iter 1 | Mean 2..N |        Min-Max 2..N | Without poolDeposit 2..N | vs every mechanism on | vs baseline (b) | Transactions |
+|---------------------------------------------------------------------------------|-----------|-----------|---------------------|--------------------------|-----------------------|-----------------|--------------|
+| privacy cycle again (every mechanism on)                                        | 4,869,940 | 4,833,340 | 4,820,707-4,854,427 |                3,976,576 |                    +0 |      +3,771,987 |           11 |
+| baseline (b): privacy contracts, every mechanism off                            | 1,095,557 | 1,061,353 | 1,061,328-1,061,374 |                1,061,353 |            -3,771,987 |              +0 |            7 |
+| without the one-time address and its stipend                                    | 4,808,720 | 4,772,176 | 4,759,559-4,793,279 |                3,915,408 |               -61,164 |      +3,710,823 |           10 |
+| without the encryption of the order's content (and so without the late release) | 4,020,669 | 3,984,165 | 3,971,568-4,005,240 |                3,127,399 |              -849,175 |      +2,922,812 |           10 |
+| without the late release (details encrypted for the worker's key at once)       | 4,786,123 | 4,749,521 | 4,736,878-4,770,622 |                3,892,756 |               -83,818 |      +3,688,168 |           11 |
+| without the pool (no funding from it, no payment commitment)                    | 2,026,832 | 1,992,659 | 1,992,620-1,992,685 |                1,992,659 |            -2,840,681 |        +931,306 |           10 |
+| without the funding from the pool (payment commitment kept)                     | 2,901,382 | 2,873,048 | 2,867,170-2,888,428 |                2,873,048 |            -1,960,292 |      +1,811,695 |           10 |
+| without the payment commitment (funding from the pool kept)                     | 3,995,438 | 3,951,148 | 3,944,090-3,969,530 |                3,096,228 |              -882,192 |      +2,889,795 |           11 |
+| only the one-time address and its stipend                                       | 1,177,705 | 1,143,493 | 1,143,457-1,143,510 |                1,143,493 |            -3,689,847 |         +82,140 |            9 |
+| only the encryption of the order's content, with the late release               | 1,944,720 | 1,910,516 | 1,910,491-1,910,537 |                1,910,516 |            -2,922,824 |        +849,163 |            8 |
+| only the pool (funding and payment commitment)                                  | 3,959,617 | 3,923,011 | 3,910,384-3,944,140 |                3,066,246 |              -910,328 |      +2,861,658 |            9 |
+| only the payment commitment                                                     | 1,970,071 | 1,941,745 | 1,935,871-1,957,129 |                1,941,745 |            -2,891,595 |        +880,392 |            7 |
+| baseline (b) without the zone                                                   | 1,092,700 | 1,058,496 | 1,058,471-1,058,517 |                1,058,496 |            -3,774,844 |          -2,857 |            7 |
+| baseline (b) with the plain string stored twice                                 | 1,206,432 | 1,172,228 | 1,172,203-1,172,249 |                1,172,228 |            -3,661,112 |        +110,875 |            7 |
+A mechanism's overhead is read twice: what the cycle loses when only it is switched off, and what baseline (b) gains
+when only it is switched on. The two differ where mechanisms interact. Without the pool's funding a one-time address
+is funded by a plain transfer from the establishment's wallet (fundTransfer), which no dApp does.
+
+TABLE D — Off-chain operations (ms)
+| Operation             |   Mean | Median |    SD |   Min |    Max |
+|-----------------------|--------|--------|-------|-------|--------|
+| stealthDerivation     |   14.2 |   10.1 |   8.9 |   8.1 |   38.0 |
+| zkProof_mergeWithdraw | 1153.8 | 1050.8 | 434.7 | 799.4 | 2399.0 |
+| sealDetails           |    4.0 |    2.6 |   3.1 |   1.9 |   11.6 |
+| openDetails           |    4.1 |    3.7 |   1.1 |   2.9 |    6.6 |
+| Part of the proof step                               | Iter 1 | Mean 2..10 |   Min |    Max |
+|------------------------------------------------------|--------|------------|-------|--------|
+| zkProof_mergeWithdraw: logs and tree                 |    5.6 |       12.1 |   5.8 |   18.6 |
+| zkProof_mergeWithdraw: witness and proof (fullProve) | 2392.1 |     1002.0 | 791.6 | 1226.7 |
+Iteration 1 includes the first use of the circuit files and of the prover's threads in the process.
+
+TABLE D2 — Leaf index of each note the cycles added, with the gas of the call
+| Iter | Operation     | Leaf index | 1 bits |       Gas |
+|------|---------------|------------|--------|-----------|
+|    1 | poolDeposit   |          2 |      1 |   853,303 |
+|    1 | poolWithdraw  |          3 |      2 | 1,136,231 |
+|    1 | deliveryOrder |          4 |      1 | 1,011,318 |
+|    2 | poolDeposit   |          5 |      2 |   855,382 |
+|    2 | poolWithdraw  |          6 |      2 | 1,119,131 |
+|    2 | deliveryOrder |          7 |      3 | 1,015,476 |
+|    3 | poolDeposit   |          8 |      1 |   853,303 |
+|    3 | poolWithdraw  |          9 |      2 | 1,119,107 |
+|    3 | deliveryOrder |         10 |      2 |   996,297 |
+|    4 | poolDeposit   |         11 |      3 |   857,461 |
+|    4 | poolWithdraw  |         12 |      2 | 1,119,155 |
+|    4 | deliveryOrder |         13 |      3 |   998,364 |
+|    5 | poolDeposit   |         14 |      3 |   857,461 |
+|    5 | poolWithdraw  |         15 |      4 | 1,140,401 |
+|    5 | deliveryOrder |         16 |      1 |   994,201 |
+|    6 | poolDeposit   |         17 |      2 |   855,370 |
+|    6 | poolWithdraw  |         18 |      2 | 1,119,131 |
+|    6 | deliveryOrder |         19 |      3 |   998,376 |
+|    7 | poolDeposit   |         20 |      2 |   855,382 |
+|    7 | poolWithdraw  |         21 |      3 | 1,121,234 |
+|    7 | deliveryOrder |         22 |      3 |   998,359 |
+|    8 | poolDeposit   |         23 |      4 |   859,540 |
+|    8 | poolWithdraw  |         24 |      2 | 1,119,131 |
+|    8 | deliveryOrder |         25 |      3 |   998,364 |
+|    9 | poolDeposit   |         26 |      3 |   857,461 |
+|    9 | poolWithdraw  |         27 |      4 | 1,123,313 |
+|    9 | deliveryOrder |         28 |      3 |   998,347 |
+|   10 | poolDeposit   |         29 |      4 |   859,540 |
+|   10 | poolWithdraw  |         30 |      4 | 1,123,325 |
+|   10 | deliveryOrder |         31 |      5 | 1,019,634 |
+
+TABLE E — Stealth wallet gas stipend (paid by makeOrder, spent first on the pool withdrawal)
+| Iter | gasPrice@order (gwei) |   Stipend (ETH) | Withdraw upfront (ETH) | Stipend / upfront | Withdraw gasUsed | Upfront ethers-v5 1559 (ETH) | Covers v5? | Stealth gas (4 tx) | Stealth final bal. (ETH) |
+|------|-----------------------|-----------------|------------------------|-------------------|------------------|------------------------------|------------|--------------------|--------------------------|
+|    1 |           1.167458585 |  0.002801900604 |   0.001552059032095107 |             1.805 |        1,136,231 |         0.002466244851244596 |        yes |          1,400,325 |     0.006567376524098457 |
+|    2 |           1.039449779 | 0.0024946794696 |   0.001394731875682469 |             1.789 |        1,119,131 |         0.002124151560401918 |        yes |          1,383,230 |     0.005940807711211372 |
+|    3 |           1.009292324 | 0.0024223015776 |    0.00136314380298672 |             1.777 |        1,119,107 |           0.0020522658878784 |        yes |          1,383,201 |     0.005788681915335596 |
+|    4 |           1.002188571 | 0.0024052525704 |   0.001355768339229864 |             1.774 |        1,119,155 |         0.002035430770501184 |        yes |          1,383,266 |     0.005752776098127838 |
+|    5 |           1.000515481 | 0.0024012371544 |   0.001379721692446524 |             1.740 |        1,140,401 |         0.002070009328272288 |        yes |          1,404,495 |     0.005723097310900721 |
+|    6 |           1.000121425 |   0.00240029142 |   0.001353576068559365 |             1.773 |        1,119,131 |         0.002030462761827178 |        yes |          1,383,225 |     0.005742387634164187 |
+|    7 |           1.000028602 | 0.0024000686448 |   0.001356021989119072 |             1.770 |        1,121,234 |         0.002034056266061248 |        yes |          1,385,333 |     0.005739811264848213 |
+|    8 |            1.00000674 |  0.002400016176 |   0.001353456054176188 |             1.773 |        1,119,131 |         0.002030189557318936 |        yes |          1,383,225 |     0.005741809007837246 |
+|    9 |           1.000001591 | 0.0024000038184 |   0.001358507672320886 |             1.767 |        1,123,313 |         0.002037762806533812 |        yes |          1,387,407 |     0.005737601024645287 |
+|   10 |           1.000000378 | 0.0024000009072 |    0.00135852039804636 |             1.767 |        1,123,325 |          0.00203778090477432 |        yes |          1,387,407 |     0.005737594908186847 |
+Withdraw upfront = gasLimit x gasPrice of the legacy transaction this script sends (the price the
+stipend formula uses). 'Upfront ethers-v5 1559' = gasLimit x (2 x baseFee + 1.5 gwei), what an
+ethers v5 wallet (manager dApp) commits when it fills EIP-1559 fees itself.
+
+TABLE F — Transactions of the one-time address: gas used and the gas limit sent (eth_estimateGas x 1.2, as the manager dApp)
+| Operation            | Max gasUsed | Its gas limit | Smallest limit / gasUsed | Largest limit x gas price (ETH) |
+|----------------------|-------------|---------------|--------------------------|---------------------------------|
+| poolWithdraw         |   1,140,401 |     1,379,172 |                    1.209 |            0.001552059032095107 |
+| prepareOrder         |     137,392 |       168,735 |                    1.228 |            0.000187956109548795 |
+| pickupOrder          |      68,787 |        83,834 |                    1.219 |            0.000090222041902363 |
+| rateOrder_restaurant |      57,932 |        70,605 |                    1.219 |            0.000074241552393765 |
+No dApp sends a fixed gas limit: the customer's and the worker's send the node's estimate x 1.25, the manager's x 1.2.
+
+TABLE G — Cash-out withdrawals of one denomination (0.01 ETH), after the cycles, not in the CSV
+| Notes to choose from           | Inputs           | Withdraw gasUsed | Gas limit (estimate x 1.2) | vs poolWithdraw mean 2..N | Proof ms |
+|--------------------------------|------------------|------------------|----------------------------|---------------------------|----------|
+| all unspent notes (the policy) | one note + dummy |        1,096,713 |                  1,326,337 |                     -2.3% |    857.5 |
+| revenue notes only             | two notes        |        1,121,210 |                  1,355,962 |                     -0.1% |   1324.9 |
+The establishment's own wallet sends each withdrawal and receives it (manager dApp, cashout.js). With
+one input the second is the dummy note (note index 0), whose nullifier hash is never marked spent.
+
+TABLE H — Paths that are not in a normal cycle (gas per call; run 1: workers without a record, run 2: the same workers again)
+| Path        | Call                                                          | Gas run 1 | Gas run 2 |
+|-------------|---------------------------------------------------------------|-----------|-----------|
+| leaving     | stealthAnnounce                                               |    26,245 |    26,245 |
+| leaving     | makeOrder                                                     | 1,213,293 | 1,213,293 |
+| leaving     | prepareOrder                                                  |   137,392 |   137,392 |
+| leaving     | confirmIntention_first                                        |   230,245 |   230,245 |
+| leaving     | addInformation_first                                          |    60,130 |    60,130 |
+| leaving     | leave_beforePickup (first worker's cancelOrder in WAITING)    |   111,877 |    94,777 |
+| leaving     | rateOrder_restaurant, worker who left before pickup           |    58,487 |    58,487 |
+| leaving     | confirmIntention_second                                       |   139,936 |   139,936 |
+| leaving     | addInformation_second                                         |    60,141 |    60,141 |
+| leaving     | pickupOrder_second                                            |    68,775 |    68,770 |
+| leaving     | deliveryOrder_second                                          | 1,011,301 |   996,280 |
+| leaving     | rateOrder_client, second worker                               |    57,957 |    57,957 |
+| leaving     | rateOrder_restaurant, second worker                           |    57,932 |    57,932 |
+| replacement | stealthAnnounce                                               |    26,245 |    26,233 |
+| replacement | makeOrder                                                     | 1,213,293 | 1,213,293 |
+| replacement | prepareOrder                                                  |   137,392 |   137,392 |
+| replacement | confirmIntention_first                                        |   230,245 |   230,245 |
+| replacement | addInformation_first                                          |    60,130 |    60,130 |
+| replacement | replacement (callSecondDeliveryman)                           |   100,617 |    83,517 |
+| replacement | rateOrder_restaurant, replaced worker                         |    58,487 |    58,487 |
+| replacement | confirmIntention_second                                       |   139,936 |   139,936 |
+| replacement | addInformation_second                                         |    60,141 |    60,141 |
+| replacement | pickupOrder_second                                            |    68,775 |    68,770 |
+| replacement | leave_afterPickup (second worker's cancelOrder in DISPATCHED) | 1,017,654 | 1,002,633 |
+| replacement | rateOrder_client, worker who left after pickup                |    58,512 |    58,512 |
+| replacement | rateOrder_restaurant, worker who left after pickup            |    58,487 |    58,487 |
+| leaving     | TOTAL of the path                                             | 3,233,711 | 3,201,585 |
+| replacement | TOTAL of the path                                             | 3,229,914 | 3,197,776 |
+leaving: the first worker gives up before pickup, the order is offered again, a second worker concludes.
+replacement: the establishment replaces the first worker; the second picks up and then gives up. That leaving ends
+the order and returns the establishment's collateral as a note in the pool (leaves 33, 35).
+Both use a fresh stealth address and a payment commitment, as the cycle; no pool deposit or withdrawal
+(the deployer funds the stealth wallet directly, which is not what the dApp does).
+
+TABLE I — Every ending, without a payment commitment (one order) and with one (3 orders; median, range)
+| Ending                                                    | Sent by          | Establishment gets | Gas without | Gas with (median) |               Range | Note at leaves | Lowest limit without | Lowest limit with | Limit / gas |
+|-----------------------------------------------------------|------------------|--------------------|-------------|-------------------|---------------------|----------------|----------------------|-------------------|-------------|
+| ORDERED, customer cancels                                 | customer         | 0                  |     101,959 |           101,959 |     101,959-101,959 |              - |              111,150 |           111,150 |       1.090 |
+| ORDERED, establishment refuses                            | one-time address | 0                  |     104,780 |           104,780 |     104,780-104,780 |              - |              114,062 |           114,062 |       1.089 |
+| PREPARATION, customer cancels                             | customer         | T+F                |      95,138 |     958,032, note |     955,953-960,111 |       38 39 40 |              109,086 |         1,010,870 |       1.055 |
+| PREPARATION, establishment cancels                        | one-time address | F                  |      95,452 |     960,834, note |     960,834-962,901 |       41 42 43 |              109,409 |         1,013,761 |       1.055 |
+| PREPARATION timeout                                       | customer         | F                  |      95,076 |     960,037, note |     957,958-960,037 |       44 45 46 |              109,021 |         1,010,792 |       1.055 |
+| reopened, customer cancels                                | customer         | T+F                |      97,377 |     960,256, note |     958,177-964,414 |       47 48 49 |              111,396 |         1,017,524 |       1.055 |
+| reopened, establishment cancels                           | one-time address | F                  |      97,679 |     963,058, note |     963,058-965,137 |       50 51 52 |              111,708 |         1,016,056 |       1.055 |
+| reopened, timeout                                         | customer         | F                  |      97,303 |     962,261, note |     962,261-964,340 |       53 54 55 |              111,320 |         1,015,267 |       1.055 |
+| WAITING, customer cancels                                 | customer         | T+F                |     103,094 |     968,052, note |     965,973-968,052 |       56 57 58 |              112,390 |         1,002,880 |       1.038 |
+| WAITING, establishment cancels                            | one-time address | 0                  |     103,319 |           103,319 |     103,319-103,319 |              - |              112,622 |           112,622 |       1.090 |
+| WAITING timeout                                           | customer         | F                  |     137,266 |     999,803, note |     997,724-999,803 |       59 60 61 |              152,562 |         1,054,045 |       1.054 |
+| WAITING, second worker withdraws                          | worker           | F                  |     143,532 |   1,006,069, note |   997,753-1,025,248 |       62 63 64 |              159,029 |         1,060,511 |       1.054 |
+| DISPATCHED, worker cancels (leaves after pickup)          | worker           | F                  |     141,774 |     998,074, note |   998,074-1,000,153 |       65 66 67 |              157,214 |         1,052,159 |       1.054 |
+| DISPATCHED timeout                                        | customer         | F                  |     137,750 |     996,129, note |     994,050-996,129 |       68 69 70 |              153,061 |         1,048,006 |       1.054 |
+| DISPATCHED, customer cancels                              | customer         | T+F                |     103,317 |     966,196, note |     964,105-968,275 |       71 72 73 |              112,620 |         1,005,255 |       1.038 |
+| DISPATCHED, establishment cancels                         | one-time address | 0                  |     103,542 |           103,542 |     103,542-103,542 |              - |              112,852 |           112,852 |       1.090 |
+| contested, against the customer                           | one-time address | T+F                |      92,783 |     958,171, note |     958,171-960,250 |       74 75 76 |              101,734 |           994,812 |       1.038 |
+| contested, against the worker                             | one-time address | F                  |     131,907 |     994,886, note |     994,886-996,965 |       77 78 79 |              147,017 |         1,048,922 |       1.054 |
+| delivered                                                 | worker           | T+F                |     139,971 |     998,359, note |     996,297-998,359 |       80 81 82 |              150,386 |         1,035,056 |       1.039 |
+| WAITING timeout, worker without a record                  | customer         | F                  |     154,366 |   1,014,812, note | 1,012,745-1,014,824 |       83 84 85 |              170,209 |         1,069,513 |       1.054 |
+| WAITING, second worker withdraws, worker without a record | worker           | F                  |     160,632 |   1,021,090, note | 1,019,011-1,023,169 |       86 87 88 |              176,675 |         1,075,979 |       1.054 |
+| DISPATCHED, worker cancels, worker without a record       | worker           | F                  |     158,874 |   1,019,332, note | 1,019,332-1,021,411 |       89 90 91 |              174,861 |         1,074,165 |       1.054 |
+| DISPATCHED timeout, worker without a record               | customer         | F                  |     154,850 |   1,017,387, note | 1,015,308-1,017,387 |       92 93 94 |              170,708 |         1,070,012 |       1.054 |
+| contested, against the worker, worker without a record    | one-time address | F                  |     149,019 |   1,009,907, note | 1,007,828-1,016,144 |       95 96 97 |              164,676 |         1,070,928 |       1.054 |
+| delivered, worker without a record                        | worker           | T+F                |     157,088 |   1,015,476, note | 1,015,476-1,017,555 |      98 99 100 |              168,051 |         1,054,883 |       1.039 |
+T = food total less the stipend, F = fee = collateral. Every order has a fresh one-time address with a stipend, funded by
+the deployer; workers have a record unless the row says otherwise. With a commitment, whatever the order pays its
+establishment is a note in the pool, inserted by the ending's transaction; without, a transfer. An order in ORDERED has no
+commitment yet. The lowest limit is found by bisection for the order without a commitment and the first one with.
+
+NOTES
+- Each privacy cycle inserts 3 notes into the note tree (pool deposit, change note, revenue note).
+- Whatever an order with a payment commitment pays its establishment, in any ending, is a note in the pool.
+- Baseline (a) pays its parties by transfers in the transaction that ends the order, as baseline (b) does.
+- Every past root stays valid (mapping, O(1)). Each insertion records its new root in a mapping slot
+  that was never written (zero -> non-zero SSTORE) and writes one filled-subtree slot.
+- Iteration 1 is the first cycle of a new worker. It also pays first writes that later cycles do
+  not: Chain.lastOrder, the courier's record (deliveries, ratings), and tree levels whose
+  filled-subtree slot is still empty.
+- The customer's two strings for the courier are emitted by Storage (event Information) and not stored.
+- One order per cycle uses a fresh stealth account; the stipend transfer always creates it.

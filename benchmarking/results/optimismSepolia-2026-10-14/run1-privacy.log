@@ -1,0 +1,330 @@
+(node:3770909) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Startup complete. Network: optimism-sepolia (chainId 11155420)
+Mode: optimism-sepolia (https://sepolia.optimism.io; actors' keys from benchmarking/.env)
+Deployment: <repository>/deployments/optimismSepolia-2026-10-14/deployment.json (DEPLOYMENT_RECORD)
+Cycle: privacy (11 transactions)
+Gas limits: eth_estimateGas x 1.25 (customer, worker), x 1.2 (establishment)
+Chain contract: 0xa4486EFBf60d39E9d77fe121b1171D637b1756f3
+Storage contract: 0xfd8fF5E21CBF9881787242ea479634Ba1e530198
+Reputation contract: 0x92e6965698E8A95d9cb535073d591D042083cEcA
+Stealth announcer: 0xE158963c1e896Ee559b78a1f5C838383c5063D54
+Deploy block: 50109169
+Note tree depth: 25 | ratings: Chain.rateOrder, in the clear
+Off-chain decryption checks: on
+WEI_PER_DOLLAR: 1000000000000000
+Order: total 0.001 ETH + fee 0.001 ETH (gas stipend at today's price 0.0000024006 ETH; rule: ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH)
+Fees: tip at least 0.001 gwei, maximum fee 0.01 gwei | receipt timeout: 300 s | stop at the first failed step: yes
+Accounts: customer 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d | establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7 | worker 0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2
+Balances against the need of 10 cycles (gas table of the main schedule, gas at 1.25 x eth_gasPrice 1000250 wei, fee cap 10000000 wei; income during the run not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.431843 ETH, needs at most 0.022033 ETH (per cycle: value 0.002000 + gas 0.000002; one upfront 0.002015): 19.60x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 0.747939 ETH, needs at most 0.011073 ETH (per cycle: value 0.001005 + gas 0.000001; one upfront 0.001015): 67.55x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.814953 ETH, needs at most 0.000028 ETH (per cycle: value 0.000000 + gas 0.000002; one upfront 0.000013): 28723.01x
+Network at the start: block 50109232, eth_gasPrice 1000250 wei, base fee 250 wei, fork id not answered (eth_config)
+Note secrets and one-time keys: benchmarking/ephemeral-wallets-privacy-run-optimism-sepolia-2026-10-14T23-36-55-693Z.json (mode 0600; not printed)
+
+=== PRIVACY BENCHMARK (stealth + pool + ratings in the clear) — 10 iterations ===
+
+--- Iteration 1/10 ---
+  stealthDerivation (off-chain): latency=38ms | mem=5008KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2156ms | cost=0.000000026 ETH
+[makeOrder] order address: 0x8483C25935c76F663c243133084b49d597b3cB66
+  makeOrder: gas=1230393 (limit 1551657) | latency=3254ms | cost=0.000001231 ETH
+  poolDeposit: gas=870391 (limit 1054160) | latency=2831ms | cost=0.000000871 ETH
+[ZK] note tree: local root: 166135306971812467974187994023 ... leaves: 2 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1923ms | mem=1758KB
+[poolWithdraw] recipient: 0xF935c7f5923199eade0F31F76025eCAfaeeD0201
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1094670 (limit 1325430) | latency=3077ms | cost=0.000001095 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2986ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2821ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=667ms | mem=-252KB
+  addInformation: gas=60130 (limit 76189) | latency=2523ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1226ms | mem=986KB
+  pickupOrder: gas=68787 (limit 84600) | latency=2775ms | cost=0.000000069 ETH
+  deliveryOrder: gas=1030480 (limit 1356104) | latency=3466ms | cost=0.000001031 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=3168ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2545ms | cost=0.000000058 ETH
+  TOTAL: gas=4864634 | latency=35457ms
+
+--- Iteration 2/10 ---
+  stealthDerivation (off-chain): latency=8ms | mem=566KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2151ms | cost=0.000000026 ETH
+[makeOrder] order address: 0xa7b331AFe6b295c1D45258C0FF7630D539D6Ee06
+  makeOrder: gas=1213293 (limit 1530113) | latency=2921ms | cost=0.000001214 ETH
+  poolDeposit: gas=853303 (limit 1033492) | latency=2788ms | cost=0.000000854 ETH
+[ZK] note tree: local root: 521299731632523000873477648019 ... leaves: 5 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1565ms | mem=-341KB
+[poolWithdraw] recipient: 0xC97f65891c362779dE27f9eF5505FcF6E1946F35
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1119119 (limit 1355002) | latency=3013ms | cost=0.000001119 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2703ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2593ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=511ms | mem=-35KB
+  addInformation: gas=60130 (limit 76189) | latency=2244ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1378ms | mem=41KB
+  pickupOrder: gas=68787 (limit 84600) | latency=2743ms | cost=0.000000069 ETH
+  deliveryOrder: gas=996297 (limit 1311418) | latency=3299ms | cost=0.000000997 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=3137ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2473ms | cost=0.000000058 ETH
+  TOTAL: gas=4820712 | latency=33527ms
+
+--- Iteration 3/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=-458KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2346ms | cost=0.000000026 ETH
+[makeOrder] order address: 0x5575Fde7e4686ecA56eD336c146D322F3c84AdE9
+  makeOrder: gas=1213293 (limit 1530113) | latency=2913ms | cost=0.000001214 ETH
+  poolDeposit: gas=874561 (limit 1059203) | latency=3253ms | cost=0.000000875 ETH
+[ZK] note tree: local root: 220519006072885397217510591002 ... leaves: 8 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1274ms | mem=247KB
+[poolWithdraw] recipient: 0xa998485A40088C170D976E70730f5137798EB845
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1117064 (limit 1352517) | latency=3279ms | cost=0.000001117 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2530ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2438ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=760ms | mem=-187KB
+  addInformation: gas=60130 (limit 76189) | latency=2338ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=911ms | mem=-136KB
+  pickupOrder: gas=68787 (limit 84600) | latency=2449ms | cost=0.000000069 ETH
+  deliveryOrder: gas=996280 (limit 1311397) | latency=3241ms | cost=0.000000997 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=2722ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2785ms | cost=0.000000058 ETH
+  TOTAL: gas=4839898 | latency=33248ms
+
+--- Iteration 4/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=-444KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2586ms | cost=0.000000026 ETH
+[makeOrder] order address: 0xaA3843A7f6b6e854280d1C39E05Bc374c87759F4
+  makeOrder: gas=1213293 (limit 1530113) | latency=2820ms | cost=0.000001214 ETH
+  poolDeposit: gas=855382 (limit 1036006) | latency=2714ms | cost=0.000000856 ETH
+[ZK] note tree: local root: 125061656772611999607161330762 ... leaves: 11 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1417ms | mem=97KB
+[poolWithdraw] recipient: 0xac13FbD522963119B9548A604bbdd7878a4794ea
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1121198 (limit 1357517) | latency=3252ms | cost=0.000001121 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2689ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2484ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=604ms | mem=-128KB
+  addInformation: gas=60130 (limit 76189) | latency=2273ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1058ms | mem=-110KB
+  pickupOrder: gas=68770 (limit 84580) | latency=2586ms | cost=0.000000069 ETH
+  deliveryOrder: gas=996280 (limit 1311397) | latency=3226ms | cost=0.000000997 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=2950ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2572ms | cost=0.000000058 ETH
+  TOTAL: gas=4824836 | latency=33238ms
+
+--- Iteration 5/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=529KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2468ms | cost=0.000000026 ETH
+[makeOrder] order address: 0x85563F6f36E47853c5514a06310d88e3c36b3400
+  makeOrder: gas=1213293 (limit 1530113) | latency=3010ms | cost=0.000001214 ETH
+  poolDeposit: gas=857461 (limit 1038521) | latency=2884ms | cost=0.000000858 ETH
+[ZK] note tree: local root: 796127965568598081065780313630 ... leaves: 14 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1346ms | mem=100KB
+[poolWithdraw] recipient: 0x78884A118464DEc5D1a84dC538eb3b38B187730C
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1121246 (limit 1357575) | latency=3037ms | cost=0.000001122 ETH
+  prepareOrder: gas=137380 (limit 168921) | latency=3348ms | cost=0.000000137 ETH
+  confirmIntention: gas=230245 (limit 291550) | latency=2672ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=603ms | mem=-227KB
+  addInformation: gas=60130 (limit 76189) | latency=2144ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1105ms | mem=-132KB
+  pickupOrder: gas=68758 (limit 84566) | latency=2705ms | cost=0.000000069 ETH
+  deliveryOrder: gas=1017526 (limit 1339159) | latency=3269ms | cost=0.000001018 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57945 (limit 74465) | latency=3095ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57920 (limit 71457) | latency=2583ms | cost=0.000000058 ETH
+  TOTAL: gas=4848149 | latency=34276ms
+
+--- Iteration 6/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=-447KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2259ms | cost=0.000000026 ETH
+[makeOrder] order address: 0x957353108B3e79786CdC3f7981616b7B6bE13562
+  makeOrder: gas=1213293 (limit 1530113) | latency=3065ms | cost=0.000001214 ETH
+  poolDeposit: gas=853303 (limit 1033492) | latency=2672ms | cost=0.000000854 ETH
+[ZK] note tree: local root: 149368662021243271679262368903 ... leaves: 17 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1390ms | mem=-37KB
+[poolWithdraw] recipient: 0xb0ca83462B2417A418Ca985F321020B5f3358E21
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1119155 (limit 1355045) | latency=3021ms | cost=0.000001119 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2761ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2741ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=682ms | mem=-81KB
+  addInformation: gas=60130 (limit 76189) | latency=2278ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=856ms | mem=829KB
+  pickupOrder: gas=68770 (limit 84580) | latency=2178ms | cost=0.000000069 ETH
+  deliveryOrder: gas=996280 (limit 1311397) | latency=3215ms | cost=0.000000997 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=2931ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2608ms | cost=0.000000058 ETH
+  TOTAL: gas=4820714 | latency=32664ms
+
+--- Iteration 7/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=-478KB
+  stealthAnnounce: gas=26233 (limit 33220) | latency=2188ms | cost=0.000000026 ETH
+[makeOrder] order address: 0xb3e4724C8abdD2652B375DB8b7dD481E42c392B0
+  makeOrder: gas=1213293 (limit 1530113) | latency=2948ms | cost=0.000001214 ETH
+  poolDeposit: gas=857461 (limit 1038521) | latency=2959ms | cost=0.000000858 ETH
+[ZK] note tree: local root: 372756615893478334525950947074 ... leaves: 20 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1375ms | mem=-986KB
+[poolWithdraw] recipient: 0x54088a034E8791c7B8c1b88b4Ac3F4f3a722b97a
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1119143 (limit 1355031) | latency=2981ms | cost=0.000001119 ETH
+  prepareOrder: gas=137380 (limit 168921) | latency=2707ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2891ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=696ms | mem=-236KB
+  addInformation: gas=60130 (limit 76189) | latency=2294ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1174ms | mem=778KB
+  pickupOrder: gas=68787 (limit 84600) | latency=2789ms | cost=0.000000069 ETH
+  deliveryOrder: gas=998359 (limit 1314113) | latency=3133ms | cost=0.000000999 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=2748ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2501ms | cost=0.000000058 ETH
+  TOTAL: gas=4826932 | latency=33392ms
+
+--- Iteration 8/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=554KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2602ms | cost=0.000000026 ETH
+[makeOrder] order address: 0xCF6699848D76De510A5583F14c9282cb82c0096d
+  makeOrder: gas=1213293 (limit 1530113) | latency=3139ms | cost=0.000001214 ETH
+  poolDeposit: gas=857461 (limit 1038521) | latency=2971ms | cost=0.000000858 ETH
+[ZK] note tree: local root: 909333731079095292987530096086 ... leaves: 23 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1488ms | mem=-745KB
+[poolWithdraw] recipient: 0x9329d98A9CfA69aE04B3603816Da4F513C8fa114
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1123289 (limit 1360046) | latency=3228ms | cost=0.000001124 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2999ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2464ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=690ms | mem=-66KB
+  addInformation: gas=60130 (limit 76189) | latency=2459ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1042ms | mem=51KB
+  pickupOrder: gas=68770 (limit 84580) | latency=2977ms | cost=0.000000069 ETH
+  deliveryOrder: gas=996297 (limit 1311418) | latency=3153ms | cost=0.000000997 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=2707ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2779ms | cost=0.000000058 ETH
+  TOTAL: gas=4829023 | latency=34707ms
+
+--- Iteration 9/10 ---
+  stealthDerivation (off-chain): latency=6ms | mem=556KB
+  stealthAnnounce: gas=26233 (limit 33220) | latency=2388ms | cost=0.000000026 ETH
+[makeOrder] order address: 0xc594e8c35062f712ddf7024B31ac613986ab7C8e
+  makeOrder: gas=1213293 (limit 1530113) | latency=2718ms | cost=0.000001214 ETH
+  poolDeposit: gas=857449 (limit 1038506) | latency=2614ms | cost=0.000000858 ETH
+[ZK] note tree: local root: 135925217531408845163627181296 ... leaves: 26 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1618ms | mem=-141KB
+[poolWithdraw] recipient: 0x36fbf894a74AC58DE77AB9053EFBa3903316a560
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1121246 (limit 1357575) | latency=3202ms | cost=0.000001122 ETH
+  prepareOrder: gas=137392 (limit 168935) | latency=2497ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2548ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=696ms | mem=-159KB
+  addInformation: gas=60130 (limit 76189) | latency=2314ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=1001ms | mem=-135KB
+  pickupOrder: gas=68787 (limit 84600) | latency=2599ms | cost=0.000000069 ETH
+  deliveryOrder: gas=1000438 (limit 1316830) | latency=3456ms | cost=0.000001001 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=3202ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2662ms | cost=0.000000058 ETH
+  TOTAL: gas=4831114 | latency=33521ms
+
+--- Iteration 10/10 ---
+  stealthDerivation (off-chain): latency=7ms | mem=571KB
+  stealthAnnounce: gas=26245 (limit 33235) | latency=2200ms | cost=0.000000026 ETH
+[makeOrder] order address: 0xea751456E1F35cDAc920afB41a07BAa33d54aB0c
+  makeOrder: gas=1213293 (limit 1530113) | latency=2759ms | cost=0.000001214 ETH
+  poolDeposit: gas=857449 (limit 1038506) | latency=2955ms | cost=0.000000858 ETH
+[ZK] note tree: local root: 805394011246102504680889883849 ... leaves: 29 isKnownRoot: true
+  zkProof_mergeWithdraw (off-chain): latency=1362ms | mem=-59KB
+[poolWithdraw] recipient: 0x664D7f3d266F48568E3fF4Cfaa1674b533AdE3D9
+[poolWithdraw] withdrawAmount: 1004726181250000
+[poolWithdraw] stealth balance (stipend): 0.0000024006 ETH
+[poolWithdraw] dry-run: OK
+  poolWithdraw: gas=1123301 (limit 1360060) | latency=3329ms | cost=0.000001124 ETH
+  prepareOrder: gas=137380 (limit 168921) | latency=2409ms | cost=0.000000137 ETH
+  confirmIntention: gas=230257 (limit 291565) | latency=2695ms | cost=0.000000230 ETH
+  sealDetails (off-chain): latency=677ms | mem=-116KB
+  addInformation: gas=60130 (limit 76189) | latency=2175ms | cost=0.000000060 ETH
+  openDetails (off-chain): latency=844ms | mem=-171KB
+  pickupOrder: gas=68787 (limit 84600) | latency=2846ms | cost=0.000000069 ETH
+  deliveryOrder: gas=1000443 (limit 1316837) | latency=3239ms | cost=0.000001001 ETH
+[rateOrder_client] dry-run: OK
+  rateOrder_client: gas=57957 (limit 74480) | latency=2543ms | cost=0.000000058 ETH
+[rateOrder_restaurant] dry-run: OK
+  rateOrder_restaurant: gas=57932 (limit 71471) | latency=2792ms | cost=0.000000058 ETH
+  TOTAL: gas=4833174 | latency=32830ms
+
+
+=== PRIVACY RESULTS SUMMARY ===
+
+Operation                 | Avg Gas     | Avg Latency (ms) | Avg Cost (ETH)
+--------------------------+-------------+------------------+----------------
+stealthDerivation         |           0 |             9.94 | 0.000000000
+stealthAnnounce           |       26243 |          2334.63 | 0.000000026
+makeOrder                 |     1215003 |          2954.66 | 0.000001215
+poolDeposit               |      859422 |          2864.09 | 0.000000860
+zkProof_mergeWithdraw     |           0 |          1475.89 | 0.000000000
+poolWithdraw              |     1117943 |          3141.69 | 0.000001118
+prepareOrder              |      137388 |          2762.88 | 0.000000137
+confirmIntention          |      230256 |          2634.76 | 0.000000230
+sealDetails               |           0 |           658.63 | 0.000000000
+addInformation            |       60130 |          2304.34 | 0.000000060
+openDetails               |           0 |          1059.71 | 0.000000000
+pickupOrder               |       68779 |          2664.55 | 0.000000069
+deliveryOrder             |     1002868 |          3269.81 | 0.000001003
+rateOrder_client          |       57956 |          2920.23 | 0.000000058
+rateOrder_restaurant      |       57931 |          2630.09 | 0.000000058
+--------------------------+-------------+------------------+----------------
+Completed cycles: 10
+Failed or skipped steps: 0
+Total on-chain gas: 48339186
+Total on-chain cost: 0.000048351 ETH
+Total off-chain time (derivation, proof, sealing, opening): 32.04 sec
+Total elapsed time: 336.86 sec
+Throughput: 0.0297 cycles/sec
+
+Cost of a cycle (mean of 10 complete cycles; gas used x effective gas price of each transaction, summed; x the ETH/USD rate)
+  customer                              1,359,331 gas  0.000001360 ETH = 0.0033 USD
+  establishment (own wallet)              859,422 gas  0.000000860 ETH = 0.0021 USD
+  establishment (one-time address)      1,382,041 gas  0.000001382 ETH = 0.0033 USD
+  worker                                1,233,124 gas  0.000001233 ETH = 0.0030 USD
+  all parties                           4,833,919 gas  0.000004835 ETH = 0.0117 USD
+  rate: 2413.47 USD per ETH (Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot, 2026-10-14T23:32:19Z)
+Network at the end: block 50109658, eth_gasPrice 1000250 wei, base fee 250 wei
+Secrets file: 30 notes recorded; 11 unspent notes found in the tree (0.019975994 ETH), 19 spent, 0 created but not inserted, 0 NOT FOUND; 10 one-time keys
+
+Raw data saved to: results/optimismSepolia-2026-10-14/privacy-2026-10-14T23-51-06-898Z.json
+exit=0

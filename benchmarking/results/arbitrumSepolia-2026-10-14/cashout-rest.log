@@ -1,0 +1,34 @@
+Pool cash-out on arbitrum-sepolia (chain 421614, https://sepolia-rollup.arbitrum.io)
+  deployment record <repository>/deployments/arbitrumSepolia-2026-10-14/deployment.json
+  pool (GlobalReputation) 0x8B3E3657fF45ED15Cb34475E938a8034501c0A9f, deploy block 319238543
+  secrets file ephemeral-wallets-privacy-run-arbitrum-sepolia-2026-10-14T23-31-58-911Z.json
+  recipient: the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7; sender (pays the gas): the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7
+(node:3778867) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 319247064: 32 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.01094697505 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  spent                       2 notes  0.0039037024 ETH
+  revenue  unspent, can be proved      8 notes  0.0156142816 ETH
+Unspent notes that can be proved: 8, 0.0156142816 ETH (15614281600000000 wei); the pool holds 0.0156142816 ETH (15614281600000000 wei)
+
+Plan: 4 withdrawal(s), two notes each; 0.0156142816 ETH (15614281600000000 wei) to the establishment
+
+Sending 4 withdrawal(s) from the establishment, nonces 162 to 165; result file <repository>/benchmarking/results/arbitrumSepolia-2026-10-14/pool-cashout-arbitrum-sepolia-2026-10-15T00-09-41-665Z.json
+   1/4  leaves 9 + 12                  0.0039031744         ETH  0x8a955df29c741c05d921cf80224bac673b9700fa1c46771b55dfd6ca5a449381  block 319247167  gas 1117040 (limit 1352488)  0.02 gwei  fee 0.0000223408 ETH  change note at leaf 32  proof 1101 ms
+   2/4  leaves 15 + 18                 0.0039037504         ETH  0x307a14e5ea1474717d6e09c4d8c7a429fb1f75ba53ff2532ffa811b3934e5389  block 319247201  gas 1119119 (limit 1355002)  0.02 gwei  fee 0.00002238238 ETH  change note at leaf 33  proof 741 ms
+   3/4  leaves 21 + 24                 0.0039033712         ETH  0x56e2309dac5ebde9d98e690e204b5c5ce2a95c0ff309ee891b17f63485c78da3  block 319247236  gas 1119119 (limit 1355002)  0.020026 gwei  fee 0.000022411477094 ETH  change note at leaf 34  proof 740 ms
+   4/4  leaves 27 + 30                 0.0039039856         ETH  0xbcdff5bf9411ee7f3a9fb701d8375e072636f0b5b8892d84d58bb6653f0ccb9f  block 319247279  gas 1121210 (limit 1357532)  0.020026 gwei  fee 0.00002245335146 ETH  change note at leaf 35  proof 729 ms
+
+Withdrawals mined: 4 of 4 in 40 s; gas 4,476,488; fees 0.000089588008554 ETH paid by the establishment; paid out 0.0156142816 ETH (15614281600000000 wei) to the establishment
+Balances before and at block 319247283:
+  pool                              15614281600000000 ->                      0 wei  (-15614281600000000)
+  establishment (sends and receives)    1419196824835184800 ->    1434721518426630800 wei  (+15524693591446000)
+  the pool is down by exactly what was paid out: yes; the accounts moved by exactly the payouts and the fees: yes
+Result written to <repository>/benchmarking/results/arbitrumSepolia-2026-10-14/pool-cashout-arbitrum-sepolia-2026-10-15T00-09-41-665Z.json
+exit=0

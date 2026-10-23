@@ -11,7 +11,8 @@ export const isAuthenticated = () => {
   return false
 }
 
+// Ends the API session only.
 export const SignOut = () => {
-  localStorage.clear();
+  ['authorization', 'deliveryman'].forEach(key => localStorage.removeItem(key));
   window.location.reload();
 }

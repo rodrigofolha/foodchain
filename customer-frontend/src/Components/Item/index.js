@@ -10,6 +10,7 @@ import {
 } from './styles';
 
 import CancelBasket from '../../Components/CancelBasket';
+import { loadRestaurantInfo } from '../../utils/restaurantInfo';
 
 export default function Item({ restaurantId, id, title, description, price, thumbnail, history }) {
   const item = {name: title, quantity: 1, price: price, id}
@@ -21,7 +22,7 @@ export default function Item({ restaurantId, id, title, description, price, thum
 
     let itemsOnBasket = JSON.parse(localStorage.getItem('basket') || '[]');
 
-    const alreadyHaveOrder = JSON.parse(localStorage.getItem('restaurantInfo')) || '';
+    const alreadyHaveOrder = loadRestaurantInfo() || '';
 
     if (itemsOnBasket.length > 0 && alreadyHaveOrder.id !== restaurantId) {
       if (!window.confirm('You already have items in your basket from another restaurant. Do you want to clear it and start a new order?')) {

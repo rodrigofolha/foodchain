@@ -1,0 +1,482 @@
+{
+ "what": "cash-out of the ten revenue notes of a sequential run with every kind of mergeWithdraw the establishment's dApp makes",
+ "tool": "benchmarking/pool-cashout-kinds.cjs",
+ "mode": "sent",
+ "run": "2026-10-13T20:52:26.646Z",
+ "network": "hoodi",
+ "chainId": "560048",
+ "endpoint": "https://ethereum-hoodi-rpc.publicnode.com",
+ "deploymentRecord": "<repository>/deployments/hoodi-2026-10-13/deployment.json",
+ "pool": "0x2785120d91f169F7d6B196a35730206Bf7fa681f",
+ "secretsFile": "ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.json",
+ "establishment": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+ "senderAndRecipient": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+ "gasLimitRule": "eth_estimateGas x 1.2",
+ "feeSettings": "tip at least 0.2 gwei, maximum fee 3 gwei",
+ "ethUsd": {
+  "usdPerEth": 2507.445,
+  "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+  "at": "2026-10-13T19:32:01Z"
+ },
+ "tree": {
+  "block": 3810639,
+  "leaves": 222
+ },
+ "notes": {
+  "deposit": {
+   "spent": {
+    "notes": 10,
+    "wei": "59066535227500000"
+   }
+  },
+  "change": {
+   "spent": {
+    "notes": 9,
+    "wei": "0"
+   },
+   "unspent, zero value": {
+    "notes": 1,
+    "wei": "0"
+   }
+  },
+  "revenue": {
+   "unspent, can be proved": {
+    "notes": 10,
+    "wei": "45602615845600000"
+   }
+  }
+ },
+ "provable": {
+  "notes": 10,
+  "wei": "45602615845600000"
+ },
+ "kinds": {
+  "1F0": "one note + the zero-value note, the whole paid out, change 0",
+  "1PV": "one note + the zero-value note, a part paid out, change with value",
+  "2F0": "two notes, the whole paid out, change 0",
+  "2PV": "two notes, a part paid out, change with value",
+  "2MV": "two notes, nothing paid out (pure merge), change with value"
+ },
+ "denominationWei": "10000000000000000",
+ "partWei": "2000000000000000",
+ "gasRule": "1117064 + 2079 x (1 bits of the change note's leaf index - 1) + 17100 when the leaf is 2^k - 1; -22370 with the zero-value note; -8940 for a pure merge; - 12 x (zero bytes of the calldata - 39); sender = recipient",
+ "plan": [
+  {
+   "n": 1,
+   "kind": "2F0",
+   "source": "fixed",
+   "inputs": [
+    "leaf:9",
+    "leaf:24"
+   ],
+   "inputsWei": [
+    "4429800733600000",
+    "4346310680800000"
+   ],
+   "payoutWei": "8776111414400000",
+   "changeWei": "0"
+  },
+  {
+   "n": 2,
+   "kind": "2MV",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    "leaf:21",
+    "leaf:18"
+   ],
+   "inputsWei": [
+    "4742846476000000",
+    "4719280568800000"
+   ],
+   "payoutWei": "0",
+   "changeWei": "9462127044800000"
+  },
+  {
+   "n": 3,
+   "kind": "2PV",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    "change:2",
+    "leaf:27"
+   ],
+   "inputsWei": [
+    "9462127044800000",
+    "4669543688800000"
+   ],
+   "payoutWei": "10000000000000000",
+   "changeWei": "4131670733600000"
+  },
+  {
+   "n": 4,
+   "kind": "2MV",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    "leaf:3",
+    "leaf:15"
+   ],
+   "inputsWei": [
+    "4641831680800000",
+    "4598230525600000"
+   ],
+   "payoutWei": "0",
+   "changeWei": "9240062206400000"
+  },
+  {
+   "n": 5,
+   "kind": "2PV",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    "change:4",
+    "leaf:12"
+   ],
+   "inputsWei": [
+    "9240062206400000",
+    "4560954155200000"
+   ],
+   "payoutWei": "10000000000000000",
+   "changeWei": "3801016361600000"
+  },
+  {
+   "n": 6,
+   "kind": "1PV",
+   "source": "fixed",
+   "inputs": [
+    "change:3",
+    "dummy"
+   ],
+   "inputsWei": [
+    "4131670733600000",
+    "0"
+   ],
+   "payoutWei": "2000000000000000",
+   "changeWei": "2131670733600000"
+  },
+  {
+   "n": 7,
+   "kind": "1F0",
+   "source": "fixed",
+   "inputs": [
+    "change:6",
+    "dummy"
+   ],
+   "inputsWei": [
+    "2131670733600000",
+    "0"
+   ],
+   "payoutWei": "2131670733600000",
+   "changeWei": "0"
+  },
+  {
+   "n": 8,
+   "kind": "1PV",
+   "source": "fixed",
+   "inputs": [
+    "leaf:6",
+    "dummy"
+   ],
+   "inputsWei": [
+    "4462497412000000",
+    "0"
+   ],
+   "payoutWei": "2000000000000000",
+   "changeWei": "2462497412000000"
+  },
+  {
+   "n": 9,
+   "kind": "2F0",
+   "source": "fixed",
+   "inputs": [
+    "change:8",
+    "leaf:30"
+   ],
+   "inputsWei": [
+    "2462497412000000",
+    "4431319924000000"
+   ],
+   "payoutWei": "6893817336000000",
+   "changeWei": "0"
+  },
+  {
+   "n": 10,
+   "kind": "1F0",
+   "source": "fixed",
+   "inputs": [
+    "change:5",
+    "dummy"
+   ],
+   "inputsWei": [
+    "3801016361600000",
+    "0"
+   ],
+   "payoutWei": "3801016361600000",
+   "changeWei": "0"
+  }
+ ],
+ "planWei": "45602615845600000",
+ "steps": [
+  {
+   "n": 1,
+   "kind": "2F0",
+   "kindText": "two notes, the whole paid out, change 0",
+   "source": "fixed",
+   "inputs": [
+    {
+     "note": "note of the file",
+     "leaf": 9,
+     "amountWei": "4429800733600000"
+    },
+    {
+     "note": "note of the file",
+     "leaf": 24,
+     "amountWei": "4346310680800000"
+    }
+   ],
+   "payoutWei": "8776111414400000",
+   "changeWei": "0",
+   "attempts": 1,
+   "status": "mined",
+   "changeLeaf": 222,
+   "txHash": "0xa7122b947553ba8c048db1e238c1397e8dd21058cf703263ceffcce6f42b9abd",
+   "block": 3810642,
+   "nonce": 70,
+   "gasUsed": 1127435,
+   "estimate": 1137550,
+   "gasLimit": 1365060,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "effectiveGasPriceWei": "1225746490",
+   "feeWei": "1381949493953150",
+   "calldataBytes": 452,
+   "calldataZeroBytes": 41,
+   "proveMs": 998,
+   "treeLeavesOfTheProof": 222,
+   "ruleGas": 1127435,
+   "ruleGasWithoutZeroBytes": 1127459,
+   "secondsFromSendToReceipt": 13.525,
+   "recordedBy": "the receipt",
+   "minedInRun": "2026-10-13T20:52:26.646Z"
+  },
+  {
+   "n": 2,
+   "kind": "2MV",
+   "kindText": "two notes, nothing paid out (pure merge), change with value",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    {
+     "note": "note of the file",
+     "leaf": 21,
+     "amountWei": "4742846476000000"
+    },
+    {
+     "note": "note of the file",
+     "leaf": 18,
+     "amountWei": "4719280568800000"
+    }
+   ],
+   "payoutWei": "0",
+   "changeWei": "9462127044800000",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 3,
+   "kind": "2PV",
+   "kindText": "two notes, a part paid out, change with value",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    {
+     "note": "change note of step 2",
+     "leaf": null,
+     "amountWei": "9462127044800000"
+    },
+    {
+     "note": "note of the file",
+     "leaf": 27,
+     "amountWei": "4669543688800000"
+    }
+   ],
+   "payoutWei": "10000000000000000",
+   "changeWei": "4131670733600000",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 4,
+   "kind": "2MV",
+   "kindText": "two notes, nothing paid out (pure merge), change with value",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    {
+     "note": "note of the file",
+     "leaf": 3,
+     "amountWei": "4641831680800000"
+    },
+    {
+     "note": "note of the file",
+     "leaf": 15,
+     "amountWei": "4598230525600000"
+    }
+   ],
+   "payoutWei": "0",
+   "changeWei": "9240062206400000",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 5,
+   "kind": "2PV",
+   "kindText": "two notes, a part paid out, change with value",
+   "source": "the dApp's planner (planAmounts), denomination 0.01 ETH",
+   "inputs": [
+    {
+     "note": "change note of step 4",
+     "leaf": null,
+     "amountWei": "9240062206400000"
+    },
+    {
+     "note": "note of the file",
+     "leaf": 12,
+     "amountWei": "4560954155200000"
+    }
+   ],
+   "payoutWei": "10000000000000000",
+   "changeWei": "3801016361600000",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 6,
+   "kind": "1PV",
+   "kindText": "one note + the zero-value note, a part paid out, change with value",
+   "source": "fixed",
+   "inputs": [
+    {
+     "note": "change note of step 3",
+     "leaf": null,
+     "amountWei": "4131670733600000"
+    },
+    {
+     "note": "the pool's zero-value note",
+     "leaf": 0,
+     "amountWei": "0"
+    }
+   ],
+   "payoutWei": "2000000000000000",
+   "changeWei": "2131670733600000",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 7,
+   "kind": "1F0",
+   "kindText": "one note + the zero-value note, the whole paid out, change 0",
+   "source": "fixed",
+   "inputs": [
+    {
+     "note": "change note of step 6",
+     "leaf": null,
+     "amountWei": "2131670733600000"
+    },
+    {
+     "note": "the pool's zero-value note",
+     "leaf": 0,
+     "amountWei": "0"
+    }
+   ],
+   "payoutWei": "2131670733600000",
+   "changeWei": "0",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 8,
+   "kind": "1PV",
+   "kindText": "one note + the zero-value note, a part paid out, change with value",
+   "source": "fixed",
+   "inputs": [
+    {
+     "note": "note of the file",
+     "leaf": 6,
+     "amountWei": "4462497412000000"
+    },
+    {
+     "note": "the pool's zero-value note",
+     "leaf": 0,
+     "amountWei": "0"
+    }
+   ],
+   "payoutWei": "2000000000000000",
+   "changeWei": "2462497412000000",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 9,
+   "kind": "2F0",
+   "kindText": "two notes, the whole paid out, change 0",
+   "source": "fixed",
+   "inputs": [
+    {
+     "note": "change note of step 8",
+     "leaf": null,
+     "amountWei": "2462497412000000"
+    },
+    {
+     "note": "note of the file",
+     "leaf": 30,
+     "amountWei": "4431319924000000"
+    }
+   ],
+   "payoutWei": "6893817336000000",
+   "changeWei": "0",
+   "attempts": 0,
+   "status": "not started"
+  },
+  {
+   "n": 10,
+   "kind": "1F0",
+   "kindText": "one note + the zero-value note, the whole paid out, change 0",
+   "source": "fixed",
+   "inputs": [
+    {
+     "note": "change note of step 5",
+     "leaf": null,
+     "amountWei": "3801016361600000"
+    },
+    {
+     "note": "the pool's zero-value note",
+     "leaf": 0,
+     "amountWei": "0"
+    }
+   ],
+   "payoutWei": "3801016361600000",
+   "changeWei": "0",
+   "attempts": 0,
+   "status": "not started"
+  }
+ ],
+ "doneBefore": 0,
+ "balancesWeiBefore": {
+  "block": 3810640,
+  "pool": "45602615845600000",
+  "establishment": "301358280490560656"
+ },
+ "firstNonce": 70,
+ "stateFile": "ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.cashout-kinds.json",
+ "balancesWeiAfter": {
+  "block": 3810642,
+  "pool": "36826504431200000",
+  "establishment": "308752442411007506"
+ },
+ "poolDownByThePayouts": true,
+ "establishmentMovedByPayoutsLessFees": true,
+ "totals": {
+  "withdrawalsMinedInThisRun": 1,
+  "gas": "1127435",
+  "feeWei": "1381949493953150",
+  "feeWeiOfRevertedAttempts": "0",
+  "paidOutWei": "8776111414400000",
+  "netWei": "7394161920446850",
+  "seconds": 27.233
+ }
+}

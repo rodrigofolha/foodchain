@@ -1,0 +1,74 @@
+==============================================================================================================
+FoodChain — concurrent throughput (hardhat (in-process), privacy-distributed, block time 12000 ms)
+==============================================================================================================
+
+Experimental variables
+  Started at:          2026-10-20T00:21:37.280Z
+  Network:             hardhat (in-process) (chainId 31337)
+  Block timing:        12000 ms interval mining (12000 ms mirrors Sepolia)
+  Block gas limit:     60,000,000
+  Contracts:           Chain 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707, GlobalReputation 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+                       Storage 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9, StealthAnnouncer 0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6
+  Tree:                note tree depth 25; every past root stays valid (mapping, O(1)). Ratings: Chain.rateOrder, in the clear
+  Privacy:             stealth address derived and announced per order, stipend in makeOrder, stealth wallet sends poolWithdraw/prepareOrder/pickupOrder/rating (legacy gasPrice), withdrawal proof emulated (see Prover)
+  Concurrency levels:  {256} clients; units per client: makeOrder 5, cycle 1
+  Client model:        closed loop (next tx after the previous receipt), clients start together
+  Prover:              DISTRIBUTED (emulated): each client proves on its own device. No snarkjs: after building the
+                       proof input as for a real proof, the client waits a timer of mergeWithdraw 756 ms
+                       (median of 10 real proofs on this host, benchmarking/results/gas-equivalent-verifier-calibration-2026-10-13T02-31-54-926Z.json), then submits a placeholder proof
+                       with the real public signals. Verifier: contracts/test/GasEquivalentVerifier.sol (same precompile
+                       work and gas as the real verifier; accepts only the placeholder proof)
+  Receipt polling:     25 ms
+  Host:                Node v20.20.2 on linux x64
+
+Definitions
+  window      wall clock from the level start to the last receipt of the level
+  units/s     completed units (orders or cycles) / window;  tx/s = mined transactions / window
+  unit lat.   one unit's wall clock (makeOrder: derivation + announce + makeOrder; cycle: all its steps)
+  incl. lat.  sendTransaction returned -> block containing the tx observed
+  blk/util    blocks spanned by the level / mean and max gasUsed/gasLimit over those blocks
+  root age    note-tree insertions between a withdrawal proof's snapshot and its on-chain check
+              (every past root stays valid: mapping, O(1)); stale = proofs regenerated because the dry run
+              reported their root as not known
+
+── Workload: cycle (1 cycles per client) ────────────────────────────────────────
+|   k | units ok | window s | units/s | tx/s | proofs/s | unit lat. ms p50/p90/p99 | incl. lat. ms p50/p95/p99 | blk / util mean / max | max tx/blk | base fee gwei | root age max / stale |
+|-----|----------|----------|---------|------|----------|--------------------------|---------------------------|-----------------------|------------|---------------|----------------------|
+| 256 |  256/256 |   336.06 |    0.76 | 8.38 |     0.76 | 251654 / 323768 / 335948 |    11651 / 62378 / 155187 |        28 / 74% / 99% |        256 | 0.0593-0.5227 |              712 / 0 |
+
+| operation             |   n | mean gasUsed | gas limit | latency ms p50/p95 (tx: inclusion) | tx prep or prove ms p50/p95 | prover wait ms p50/p95 |
+|-----------------------|-----|--------------|-----------|------------------------------------|-----------------------------|------------------------|
+| stealthDerivation     | 256 |    off-chain |         - |                         687 / 1337 |                           - |                      - |
+| stealthAnnounce       | 256 |       26,242 |   200,000 |                       9998 / 10238 |                   549 / 831 |                      - |
+| makeOrder             | 256 |    1,213,303 | 5,000,000 |                      35279 / 71059 |                     64 / 75 |                      - |
+| poolDeposit           | 256 |      859,848 | 2,000,000 |                      50389 / 62365 |                     26 / 67 |                      - |
+| zkProof_mergeWithdraw | 256 |    off-chain |         - |                         799 / 1010 |                   756 / 760 |                  0 / 0 |
+| poolWithdraw          | 256 |    1,102,996 | 1,392,000 |                     44494 / 165741 |                   234 / 356 |                      - |
+| prepareOrder          | 256 |      137,389 |   400,000 |                      11098 / 11684 |                     45 / 70 |                      - |
+| confirmIntention      | 256 |      230,244 | 4,000,000 |                      11268 / 11772 |                   185 / 385 |                      - |
+| sealDetails           | 256 |    off-chain |         - |                          199 / 570 |                           - |                      - |
+| addInformation        | 256 |       60,130 | 4,000,000 |                      11451 / 11871 |                     33 / 51 |                      - |
+| openDetails           | 256 |    off-chain |         - |                           90 / 533 |                           - |                      - |
+| pickupOrder           | 256 |       68,775 |   400,000 |                      11616 / 22728 |                     45 / 61 |                      - |
+| deliveryOrder         | 256 |    1,020,020 | 4,000,000 |                      11775 / 12204 |                    45 / 285 |                      - |
+| rateOrder_client      | 256 |       57,956 | 4,000,000 |                      11840 / 12141 |                     26 / 47 |                      - |
+| rateOrder_restaurant  | 256 |       57,931 |   400,000 |                      11689 / 12136 |                     30 / 52 |                      - |
+
+  Gas per cycle: 4,834,835; gas-bound ceiling 12.4 cycles per block = 1.0 cycles/s at 12000 ms blocks.
+  Closed-loop bound: 11 sequential transactions per cycle, so one client completes at most 1/(11 x 12 s + proving time) cycles/s.
+  Per cycle (mean): k=256 on-chain 248,756 ms, proving 756 ms, prover queue 0 ms
+  Each client waits its own device's proving time (timers, no CPU here), so proofs do not queue on this host: what the
+  clients share is the chain (block gas, block time) and this host's EVM and client-side processing.
+  Mean block interval over each level's window (window / blocks spanned): k=256 12002 ms.
+
+Notes
+  - Fresh deployment per run; client wallets are reused across levels, so later levels see a larger note tree and couriers with a record.
+  - Contracts: the final ones of 2026-10-12 (ratings in the clear, orders as minimal proxies, the worker's ciphertexts in an event, the establishment paid by a note in the pool). Payloads: the dApps' late-release format.
+  - Warm-up: 1 unrecorded unit(s) by client 0 before each sweep.
+  - In-process network: clients, provers and the EVM share one Node process.
+  - Distributed provers EMULATED: no snarkjs proof is generated during the sweep. The proof step waits the per-device proving time on a timer and submits a placeholder proof that only the test-only gas-equivalent verifier accepts; the public signals, tree, roots and nullifiers are real. The on-chain work (gas) is that of the real system; the off-chain proving is not run.
+  - In-process EDR guard (distributed mode only, see installEdrGuard): nonce queries, gas estimates and calls use the "latest" block instead of "pending" (EDR executes the whole mempool for every pending-tag query; each sender here has at most one transaction in flight, so the nonce is the same; 2827 queries retagged), eth_estimateGas and eth_call run one at a time (0 + 2067 calls; EDR executes them one at a time anyway) with a minor GC after each, and a full GC runs every second, so EDR's per-response trace memory is released (without the guard the process was OOM-killed at k=32).
+  - poolWithdraw gas limit: a fixed 1,392,000 (WITHDRAW_GAS_LIMIT) instead of the dApp's eth_estimateGas x 1.2 (on this host every client's estimate re-executes the withdrawal on the EVM that mines the blocks; gasUsed is unchanged).
+  - EDR allocator: MIMALLOC_PURGE_DELAY=0 (0 returns EDR's trace memory at once; it bounds memory and slows the in-process EVM, see the header of benchmark-concurrent.cjs).
+  - Gas stipend of the one-time address: 1,600,000 gas x eth_gasPrice at the order x 10 (STIPEND_FACTOR) instead of the customer dApp's x 1.5; only the amount moved changes, not the gas of any transaction.
+  - EIP-1559 fees read for each transaction by the wallet (FEES_PER_TX=1: 2 x base fee of the latest block + eth_maxPriorityFeePerGas) instead of once per level.

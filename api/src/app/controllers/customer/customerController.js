@@ -8,11 +8,9 @@ module.exports = {
       attributes: [
           "id",
           "restaurant_name",
-          "banner_path",
-          "digital_address"
+          "banner_path"
         ]
     });
-    console.log(restaurants);
   
     return res.json({ restaurants });
   }

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Thumbnail from '../../assets/thumbnail.jpeg';
 
 import { ItemContainer, Modal, ModalContent, Button } from './styles';
+import { HintText } from '../../global-styles';
+import { WHOLE_PRICE_HINT, NOT_WHOLE_PRICE_NOTICE, isWholePrice } from '../../utils/priceHint';
 
 export default function Item(props) {
   function modalAction(action) {
@@ -73,6 +75,8 @@ export default function Item(props) {
               name="price"
               onChange={e => setPrice(e.target.value)}
             />
+            <HintText>{WHOLE_PRICE_HINT}</HintText>
+            {!isWholePrice(price) && <HintText>{NOT_WHOLE_PRICE_NOTICE}</HintText>}
 
             <div className="btn-group">
               <Button 

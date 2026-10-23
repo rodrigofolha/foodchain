@@ -1,0 +1,69 @@
+==============================================================================================================
+FoodChain — concurrent throughput (hardhat (in-process), privacy, block time 250 ms)
+==============================================================================================================
+
+Experimental variables
+  Started at:          2026-10-13T02:35:41.083Z
+  Network:             hardhat (in-process) (chainId 31337)
+  Block timing:        250 ms interval mining (12000 ms mirrors Sepolia)
+  Block gas limit:     60,000,000
+  Contracts:           Chain 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707, GlobalReputation 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+                       Storage 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9, StealthAnnouncer 0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6
+  Tree:                note tree depth 25; every past root stays valid (mapping, O(1)). Ratings: Chain.rateOrder, in the clear
+  Privacy:             stealth address derived and announced per order, stipend in makeOrder, stealth wallet sends poolWithdraw/prepareOrder/pickupOrder/rating (legacy gasPrice), one real Groth16 proof per cycle (the withdrawal)
+  Concurrency levels:  {1, 2, 4, 8, 16, 32, 64} clients; units per client: makeOrder 5, cycle 2
+  Client model:        closed loop (next tx after the previous receipt), clients start together
+  Prover:              snarkjs 0.7.6 groth16.fullProve, 1 concurrent proofs on 16 CPUs (12th Gen Intel(R) Core(TM) i5-12500H)
+  Receipt polling:     25 ms
+  Host:                Node v20.20.2 on linux x64
+
+Definitions
+  window      wall clock from the level start to the last receipt of the level
+  units/s     completed units (orders or cycles) / window;  tx/s = mined transactions / window
+  unit lat.   one unit's wall clock (makeOrder: derivation + announce + makeOrder; cycle: all its steps)
+  incl. lat.  sendTransaction returned -> block containing the tx observed
+  blk/util    blocks spanned by the level / mean and max gasUsed/gasLimit over those blocks
+  root age    note-tree insertions between a withdrawal proof's snapshot and its on-chain check
+              (every past root stays valid: mapping, O(1)); stale = proofs regenerated because the dry run
+              reported their root as not known
+
+── Workload: cycle (2 cycles per client) ────────────────────────────────────────
+|  k | units ok | window s | units/s |  tx/s | proofs/s | unit lat. ms p50/p90/p99 | incl. lat. ms p50/p95/p99 | blk / util mean / max | max tx/blk | base fee gwei | root age max / stale |
+|----|----------|----------|---------|-------|----------|--------------------------|---------------------------|-----------------------|------------|---------------|----------------------|
+|  1 |      2/2 |     7.03 |    0.28 |  3.13 |     0.28 |       3499 / 3529 / 3529 |           233 / 258 / 258 |          28 / 1% / 2% |          1 | 0.0006-0.0197 |                0 / 0 |
+|  2 |      4/4 |     8.14 |    0.49 |  5.41 |     0.49 |       3523 / 4604 / 4604 |           234 / 259 / 339 |          32 / 1% / 4% |          2 | 0.0000-0.0003 |                1 / 0 |
+|  4 |      8/8 |    10.22 |    0.78 |  8.61 |     0.78 |       3905 / 6467 / 6467 |           215 / 275 / 301 |          40 / 2% / 8% |          4 | 0.0000-0.0000 |                3 / 0 |
+|  8 |    16/16 |    17.37 |    0.92 | 10.13 |     0.92 |      7320 / 9597 / 10146 |           192 / 340 / 358 |         67 / 2% / 16% |          8 | 0.0000-0.0000 |                4 / 0 |
+| 16 |    32/32 |    32.63 |    0.98 | 10.79 |     0.98 |    14607 / 15146 / 17571 |           198 / 346 / 616 |        125 / 2% / 32% |         16 | 0.0000-0.0000 |                8 / 0 |
+| 32 |    64/64 |    63.61 |    1.01 | 11.07 |     1.01 |    29809 / 30470 / 33791 |          199 / 365 / 1294 |        244 / 2% / 53% |         32 | 0.0000-0.0000 |               26 / 0 |
+| 64 |  128/128 |   125.49 |    1.02 | 11.22 |     1.02 |    59163 / 61070 / 65032 |         205 / 1563 / 2959 |        475 / 2% / 38% |         64 | 0.0000-0.0000 |               29 / 0 |
+
+| operation             |   n | mean gasUsed | gas limit | latency ms p50/p95 (tx: inclusion) | tx prep or prove ms p50/p95 | prover wait ms p50/p95 |
+|-----------------------|-----|--------------|-----------|------------------------------------|-----------------------------|------------------------|
+| stealthDerivation     | 254 |    off-chain |         - |                           23 / 314 |                           - |                      - |
+| stealthAnnounce       | 254 |       26,243 |   200,000 |                          172 / 240 |                    50 / 221 |                      - |
+| makeOrder             | 254 |    1,213,303 | 5,000,000 |                         226 / 2051 |                     46 / 98 |                      - |
+| poolDeposit           | 254 |      861,021 | 2,000,000 |                         265 / 2909 |                    64 / 361 |                      - |
+| zkProof_mergeWithdraw | 254 |    off-chain |         - |                      26772 / 57615 |                   844 / 900 |          25897 / 56667 |
+| poolWithdraw          | 254 |    1,119,730 | 1,353,434 |                          132 / 290 |                   186 / 309 |                      - |
+| prepareOrder          | 254 |      137,390 |   400,000 |                          187 / 235 |                    47 / 123 |                      - |
+| confirmIntention      | 254 |      230,244 | 4,000,000 |                          215 / 340 |                     34 / 89 |                      - |
+| sealDetails           | 254 |    off-chain |         - |                            14 / 86 |                           - |                      - |
+| addInformation        | 254 |       60,130 | 4,000,000 |                          231 / 342 |                     27 / 95 |                      - |
+| openDetails           | 254 |    off-chain |         - |                           32 / 119 |                           - |                      - |
+| pickupOrder           | 254 |       68,776 |   400,000 |                          146 / 230 |                    34 / 107 |                      - |
+| deliveryOrder         | 254 |    1,005,913 | 4,000,000 |                          210 / 315 |                     35 / 85 |                      - |
+| rateOrder_client      | 254 |       57,956 | 4,000,000 |                          237 / 365 |                     22 / 61 |                      - |
+| rateOrder_restaurant  | 254 |       57,931 |   400,000 |                          174 / 265 |                    61 / 171 |                      - |
+
+  Gas per cycle: 4,833,879; gas-bound ceiling 12.4 cycles per block = 49.6 cycles/s at 250 ms blocks.
+  Closed-loop bound: 11 sequential transactions per cycle, so one client completes at most 1/(11 x 0.25 s + proving time) cycles/s.
+  Per cycle (mean): k=1 on-chain 2,687 ms, proving 760 ms, prover queue 0 ms; k=2 on-chain 2,745 ms, proving 787 ms, prover queue 203 ms; k=4 on-chain 2,769 ms, proving 816 ms, prover queue 653 ms; k=8 on-chain 2,818 ms, proving 821 ms, prover queue 3,205 ms; k=16 on-chain 2,878 ms, proving 839 ms, prover queue 8,702 ms; k=32 on-chain 3,299 ms, proving 846 ms, prover queue 19,846 ms; k=64 on-chain 4,472 ms, proving 854 ms, prover queue 41,938 ms
+  All clients share this host's prover (1 proofs at a time), so at high k the measured cycles/s is bounded by this host, not by the chain.
+  Projection, NOT measured (one prover per client, uncontended k=1 cycle latency 3.50 s, capped by the gas ceiling): k=1: 0.29, k=2: 0.57, k=4: 1.14, k=8: 2.29, k=16: 4.57, k=32: 9.15, k=64: 18.29 cycles/s.
+
+Notes
+  - Fresh deployment per run; client wallets are reused across levels, so later levels see a larger note tree and couriers with a record.
+  - Contracts: the final ones of 2026-10-12 (ratings in the clear, orders as minimal proxies, the worker's ciphertexts in an event, the establishment paid by a note in the pool). Payloads: the dApps' late-release format.
+  - Warm-up: 1 unrecorded unit(s) by client 0 before each sweep.
+  - In-process network: clients, provers and the EVM share one Node process.

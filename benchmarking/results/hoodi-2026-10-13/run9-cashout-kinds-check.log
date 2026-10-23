@@ -1,0 +1,47 @@
+Pool cash-out, every kind, on Hoodi (chain 560048, https://ethereum-hoodi-rpc.publicnode.com)  DRY RUN: nothing is sent, no key is read
+  deployment record <repository>/deployments/hoodi-2026-10-13/deployment.json
+  pool (GlobalReputation) 0x2785120d91f169F7d6B196a35730206Bf7fa681f, deploy block 3807607
+  secrets file ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.json
+  the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7 sends, pays the gas and receives
+(node:3440663) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 3810667: 232 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.0590665352275 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  spent                      10 notes  0.0456026158456 ETH
+Unspent notes of the file that can be proved: 0, 0.0 ETH (0 wei); the pool holds 0.0 ETH (0 wei)
+
+State file ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.cashout-kinds.json: the plan of 2026-10-13T20:52:26.639Z is continued
+
+Plan: 10 withdrawals over the 10 notes, 0.0456026158456 ETH (45602615845600000 wei) to the establishment; nothing of the file stays in the pool
+   1  2F0  two notes, the whole paid out, change 0                            inputs leaf 9 + leaf 24                     payout 0.0087761114144    change 0.0
+   2  2MV  two notes, nothing paid out (pure merge), change with value        inputs leaf 21 + leaf 18                    payout 0.0                change 0.0094621270448
+   3  2PV  two notes, a part paid out, change with value                      inputs change of step 2 + leaf 27           payout 0.01               change 0.0041316707336
+   4  2MV  two notes, nothing paid out (pure merge), change with value        inputs leaf 3 + leaf 15                     payout 0.0                change 0.0092400622064
+   5  2PV  two notes, a part paid out, change with value                      inputs change of step 4 + leaf 12           payout 0.01               change 0.0038010163616
+   6  1PV  one note + the zero-value note, a part paid out, change with value inputs change of step 3 + zero-value note   payout 0.002              change 0.0021316707336
+   7  1F0  one note + the zero-value note, the whole paid out, change 0       inputs change of step 6 + zero-value note   payout 0.0021316707336    change 0.0
+   8  1PV  one note + the zero-value note, a part paid out, change with value inputs leaf 6 + zero-value note             payout 0.002              change 0.002462497412
+   9  2F0  two notes, the whole paid out, change 0                            inputs change of step 8 + leaf 30           payout 0.006893817336     change 0.0
+  10  1F0  one note + the zero-value note, the whole paid out, change 0       inputs change of step 5 + zero-value note   payout 0.0038010163616    change 0.0
+  steps 2 to 5 are what the dApp's planner (cashout.js planAmounts) gives for two withdrawals of its denomination, 0.01 ETH
+
+Already mined: steps 1 to 10
+   1  2F0  0xa7122b947553ba8c048db1e238c1397e8dd21058cf703263ceffcce6f42b9abd  block 3810642  gas 1127435  fee 0.00138194949395315 ETH  change note at leaf 222
+   2  2MV  0x5280b323e86c5dd267a5e5d834a392e3c97212e391f8294aa15d0f14fe230202  block 3810648  gas 1120478  fee 0.001317198724658372 ETH  change note at leaf 223
+   3  2PV  0xf62743b4b76bab91fbd3de149a9e371f1c978ae71c2504f0f39fd7384d61db90  block 3810650  gas 1121198  fee 0.00125725451958353 ETH  change note at leaf 224
+   4  2MV  0x79cb914c473b055d92ddb8dd140a6cdfe21550095d03832cf9bfea110143a2b3  block 3810652  gas 1114253  fee 0.001240754326941745 ETH  change note at leaf 225
+   5  2PV  0x525728f0a71d8f4947f7d6e479c9f24e0ff50daf8b50cfc4d03e8aeaea6d5a82  block 3810654  gas 1123253  fee 0.001233236514064275 ETH  change note at leaf 226
+   6  1PV  0xb21c113957ef434ba2f6159acb392e1dd9c656cf3cb2720f28760dab57b7ca96  block 3810657  gas 1102998  fee 0.001334695973596986 ETH  change note at leaf 227
+   7  1F0  0xf8f6dcbbbf0fba11c729c94ffe0f47f0cfdd3f1a8f11459970a3a8298fcedc9e  block 3810659  gas 1100907  fee 0.001327245972115167 ETH  change note at leaf 228
+   8  1PV  0x9237e41ec6fb160e0464646a9f51df49bcea9d59fe5f57056cbc81b4cc1b66da  block 3810661  gas 1102986  fee 0.001333950640800966 ETH  change note at leaf 229
+   9  2F0  0xf8e9f288d52724ce6664db2632ffabef873333caa877badab71472cd882aff89  block 3810663  gas 1125356  fee 0.001355018415029884 ETH  change note at leaf 230
+  10  1F0  0x8af367d6b35e42ea6028a36dd7cc07ba209575933fc01e27e53c56c488606ead  block 3810665  gas 1105065  fee 0.00134312538909861 ETH  change note at leaf 231
+
+Nothing to withdraw: the 10 steps of the plan are mined; notes of the file and change notes with value still unspent: 0
+exit=0

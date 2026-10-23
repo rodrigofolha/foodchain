@@ -1,0 +1,3691 @@
+{
+ "title": "Local gas of the order cycle on the final contracts (2026-10-12)",
+ "generatedAt": "2026-10-12T22:47:36Z",
+ "supersedes": "local-gas-candidate-v2-2026-10-12.{md,json}",
+ "environment": {
+  "network": "hardhat",
+  "hardhatVersion": "2.28.6",
+  "hardfork": "osaka",
+  "chainId": "31337",
+  "blockGasLimit": "60000000",
+  "node": "v20.20.2",
+  "solidity": "0.8.20, optimizer 200 runs, EVM target paris",
+  "host": {
+   "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+   "threads": 16,
+   "node": "v20.20.2"
+  },
+  "realNetwork": "none: nothing here was measured on Sepolia or any real network"
+ },
+ "settings": {
+  "iterations": 10,
+  "warmupNotes": 0,
+  "warmupDeliveries": 0,
+  "noteStartIndex": 0,
+  "endingOrders": 3,
+  "plainOrderChars": 113,
+  "totalPriceWei": "10000000000000000",
+  "deliveryFeeWei": "1000000000000000",
+  "poolDepositWei": "20000000000000000",
+  "cashoutDenominationWei": "10000000000000000",
+  "denominationWei": "1000000000000000",
+  "orderGasBudget": "3150000",
+  "oneTimeGasMarginPercent": "120",
+  "scores": {
+   "client": 4,
+   "restaurant": 5
+  },
+  "payloadChars": {
+   "makeOrder": {
+    "establishment": 612,
+    "client": 508
+   },
+   "addInformation": {
+    "first": 492,
+    "second": 177
+   }
+  }
+ },
+ "privacy": {
+  "perCall": {
+   "stealthAnnounce": {
+    "sender": "customer",
+    "first": 26245,
+    "laterMean": 26243.666666666668,
+    "laterMin": 26233,
+    "laterMax": 26245,
+    "perCycle": [
+     26245,
+     26245,
+     26245,
+     26245,
+     26245,
+     26233,
+     26245,
+     26245,
+     26245,
+     26245
+    ]
+   },
+   "makeOrder": {
+    "sender": "customer",
+    "first": 1230393,
+    "laterMean": 1213290.3333333333,
+    "laterMin": 1213269,
+    "laterMax": 1213293,
+    "perCycle": [
+     1230393,
+     1213293,
+     1213293,
+     1213293,
+     1213293,
+     1213269,
+     1213293,
+     1213293,
+     1213293,
+     1213293
+    ]
+   },
+   "poolDeposit": {
+    "sender": "establishment's wallet",
+    "first": 853303,
+    "laterMean": 856766.6666666666,
+    "laterMin": 853303,
+    "laterMax": 859540,
+    "perCycle": [
+     853303,
+     855382,
+     853303,
+     857461,
+     857461,
+     855370,
+     855382,
+     859540,
+     857461,
+     859540
+    ]
+   },
+   "poolWithdraw": {
+    "sender": "one-time address",
+    "first": 1136231,
+    "laterMean": 1122658.6666666667,
+    "laterMin": 1119107,
+    "laterMax": 1140401,
+    "perCycle": [
+     1136231,
+     1119131,
+     1119107,
+     1119155,
+     1140401,
+     1119131,
+     1121234,
+     1119131,
+     1123313,
+     1123325
+    ]
+   },
+   "prepareOrder": {
+    "sender": "one-time address",
+    "first": 137392,
+    "laterMean": 137388,
+    "laterMin": 137380,
+    "laterMax": 137392,
+    "perCycle": [
+     137392,
+     137380,
+     137392,
+     137392,
+     137392,
+     137392,
+     137380,
+     137392,
+     137392,
+     137380
+    ]
+   },
+   "confirmIntention": {
+    "sender": "worker",
+    "first": 230245,
+    "laterMean": 230245,
+    "laterMin": 230245,
+    "laterMax": 230245,
+    "perCycle": [
+     230245,
+     230245,
+     230245,
+     230245,
+     230245,
+     230245,
+     230245,
+     230245,
+     230245,
+     230245
+    ]
+   },
+   "addInformation": {
+    "sender": "customer",
+    "first": 60130,
+    "laterMean": 60130,
+    "laterMin": 60130,
+    "laterMax": 60130,
+    "perCycle": [
+     60130,
+     60130,
+     60130,
+     60130,
+     60130,
+     60130,
+     60130,
+     60130,
+     60130,
+     60130
+    ]
+   },
+   "pickupOrder": {
+    "sender": "one-time address",
+    "first": 68770,
+    "laterMean": 68775.66666666667,
+    "laterMin": 68770,
+    "laterMax": 68787,
+    "perCycle": [
+     68770,
+     68787,
+     68770,
+     68787,
+     68770,
+     68770,
+     68787,
+     68770,
+     68770,
+     68770
+    ]
+   },
+   "deliveryOrder": {
+    "sender": "worker",
+    "first": 1011318,
+    "laterMean": 1001935.3333333334,
+    "laterMin": 994201,
+    "laterMax": 1019634,
+    "perCycle": [
+     1011318,
+     1015476,
+     996297,
+     998364,
+     994201,
+     998376,
+     998359,
+     998364,
+     998347,
+     1019634
+    ]
+   },
+   "rateOrder_client": {
+    "sender": "customer",
+    "first": 57957,
+    "laterMean": 57957,
+    "laterMin": 57957,
+    "laterMax": 57957,
+    "perCycle": [
+     57957,
+     57957,
+     57957,
+     57957,
+     57957,
+     57957,
+     57957,
+     57957,
+     57957,
+     57957
+    ]
+   },
+   "rateOrder_restaurant": {
+    "sender": "one-time address",
+    "first": 57932,
+    "laterMean": 57932,
+    "laterMin": 57932,
+    "laterMax": 57932,
+    "perCycle": [
+     57932,
+     57932,
+     57932,
+     57932,
+     57932,
+     57932,
+     57932,
+     57932,
+     57932,
+     57932
+    ]
+   }
+  },
+  "cycle": {
+   "first": 4869916,
+   "laterMean": 4833322.333333333,
+   "laterMin": 4820671,
+   "laterMax": 4854451
+  },
+  "cycleWithoutPoolDeposit": {
+   "first": 4016613,
+   "laterMean": 3976555.6666666665,
+   "laterMin": 3967368,
+   "laterMax": 3994911
+  },
+  "repeatFromTheSameState": {
+   "first": 4869940,
+   "laterMean": 4833339.666666667
+  }
+ },
+ "baselineA": {
+  "what": "contracts/contracts_no_privacy; makeOrder string = JSON {items, deliveryAddress} in the clear (113 characters); zero key at confirmIntention; parties paid by transfers at delivery",
+  "perCall": {
+   "makeOrder": {
+    "first": 393194,
+    "laterMean": 376094,
+    "laterMin": 376094,
+    "laterMax": 376094
+   },
+   "prepareOrder": {
+    "first": 109991,
+    "laterMean": 109989.66666666667,
+    "laterMin": 109979,
+    "laterMax": 109991
+   },
+   "confirmIntention": {
+    "first": 106599,
+    "laterMean": 106597.66666666667,
+    "laterMin": 106587,
+    "laterMax": 106599
+   },
+   "pickupOrder": {
+    "first": 68434,
+    "laterMean": 68437.55555555556,
+    "laterMin": 68422,
+    "laterMax": 68451
+   },
+   "deliveryOrder": {
+    "first": 98947,
+    "laterMean": 98938.11111111111,
+    "laterMin": 98918,
+    "laterMax": 98947
+   },
+   "rateOrder_client": {
+    "first": 92152,
+    "laterMean": 75050.66666666667,
+    "laterMin": 75040,
+    "laterMax": 75052
+   },
+   "rateOrder_restaurant": {
+    "first": 57966,
+    "laterMean": 57964.666666666664,
+    "laterMin": 57954,
+    "laterMax": 57966
+   }
+  },
+  "cycle": {
+   "first": 927283,
+   "laterMean": 893072.3333333334,
+   "laterMin": 892994,
+   "laterMax": 893100
+  }
+ },
+ "baselineB": {
+  "what": "the privacy contracts with every mechanism off: no announcement, the establishment's own account, no stipend, payment commitment zero, no pool call, the same plain string once (customer's copy empty), zero key at confirmIntention, no addInformation; the zone kept",
+  "perCall": {
+   "makeOrder": {
+    "first": 446785,
+    "laterMean": 429685,
+    "laterMin": 429685,
+    "laterMax": 429685
+   },
+   "prepareOrder": {
+    "first": 117108,
+    "laterMean": 117108,
+    "laterMin": 117108,
+    "laterMax": 117108
+   },
+   "confirmIntention": {
+    "first": 189917,
+    "laterMean": 189917,
+    "laterMin": 189917,
+    "laterMax": 189917
+   },
+   "pickupOrder": {
+    "first": 68770,
+    "laterMean": 68775.66666666667,
+    "laterMin": 68770,
+    "laterMax": 68787
+   },
+   "deliveryOrder": {
+    "first": 157088,
+    "laterMean": 139978.33333333334,
+    "laterMin": 139959,
+    "laterMax": 139988
+   },
+   "rateOrder_client": {
+    "first": 57957,
+    "laterMean": 57957,
+    "laterMin": 57957,
+    "laterMax": 57957
+   },
+   "rateOrder_restaurant": {
+    "first": 57932,
+    "laterMean": 57932,
+    "laterMin": 57932,
+    "laterMax": 57932
+   }
+  },
+  "cycle": {
+   "first": 1095557,
+   "laterMean": 1061353,
+   "laterMin": 1061328,
+   "laterMax": 1061374
+  }
+ },
+ "baselineA_itemsOnly_earlierCycle": {
+  "what": "baseline (a) contracts with the cycle of the earlier measurements: item list only (52 characters), the worker's key halves in the calldata",
+  "perCall": {
+   "makeOrder": {
+    "first": 347672,
+    "laterMean": 330572,
+    "laterMin": 330572,
+    "laterMax": 330572
+   },
+   "prepareOrder": {
+    "first": 109991,
+    "laterMean": 109989.66666666667,
+    "laterMin": 109979,
+    "laterMax": 109991
+   },
+   "confirmIntention": {
+    "first": 107367,
+    "laterMean": 107365.66666666667,
+    "laterMin": 107355,
+    "laterMax": 107367
+   },
+   "pickupOrder": {
+    "first": 68434,
+    "laterMean": 68437.55555555556,
+    "laterMin": 68422,
+    "laterMax": 68451
+   },
+   "deliveryOrder": {
+    "first": 98947,
+    "laterMean": 98938.11111111111,
+    "laterMin": 98918,
+    "laterMax": 98947
+   },
+   "rateOrder_client": {
+    "first": 92152,
+    "laterMean": 75050.66666666667,
+    "laterMin": 75040,
+    "laterMax": 75052
+   },
+   "rateOrder_restaurant": {
+    "first": 57966,
+    "laterMean": 57964.666666666664,
+    "laterMin": 57954,
+    "laterMax": 57966
+   }
+  },
+  "cycle": {
+   "first": 882529,
+   "laterMean": 848318.3333333334,
+   "laterMin": 848240,
+   "laterMax": 848346
+  }
+ },
+ "baselineB_minus_A": {
+  "perCallLater": {
+   "makeOrder": 53591,
+   "prepareOrder": 7118.3333333333285,
+   "confirmIntention": 83319.33333333333,
+   "pickupOrder": 338.1111111111095,
+   "deliveryOrder": 41040.22222222223,
+   "rateOrder_client": -17093.66666666667,
+   "rateOrder_restaurant": -32.66666666666424
+  },
+  "cycleLater": 168280.66666666663,
+  "cycleFirst": 168274
+ },
+ "overhead": {
+  "againstA": {
+   "later": {
+    "gas": 3940249.9999999995,
+    "ratio": 5.412016645161627
+   },
+   "laterWithoutPoolDeposit": {
+    "gas": 3083483.333333333,
+    "ratio": 4.4526691940219845
+   },
+   "first": {
+    "gas": 3942633,
+    "ratio": 5.25181201423945
+   },
+   "firstWithoutPoolDeposit": {
+    "gas": 3089330,
+    "ratio": 4.331593483327096
+   }
+  },
+  "againstB": {
+   "later": {
+    "gas": 3771969.333333333,
+    "ratio": 4.553925351257624
+   },
+   "laterWithoutPoolDeposit": {
+    "gas": 2915202.6666666665,
+    "ratio": 3.7466852844121292
+   },
+   "first": {
+    "gas": 3774359,
+    "ratio": 4.445150731545689
+   },
+   "firstWithoutPoolDeposit": {
+    "gas": 2921056,
+    "ratio": 3.6662747807736156
+   }
+  },
+  "perCallLater": {
+   "stealthAnnounce": {
+    "privacy": 26243.666666666668,
+    "a": null,
+    "b": null,
+    "privacyMinusA": 26243.666666666668,
+    "privacyMinusB": 26243.666666666668
+   },
+   "makeOrder": {
+    "privacy": 1213290.3333333333,
+    "a": 376094,
+    "b": 429685,
+    "privacyMinusA": 837196.3333333333,
+    "privacyMinusB": 783605.3333333333
+   },
+   "poolDeposit": {
+    "privacy": 856766.6666666666,
+    "a": null,
+    "b": null,
+    "privacyMinusA": 856766.6666666666,
+    "privacyMinusB": 856766.6666666666
+   },
+   "poolWithdraw": {
+    "privacy": 1122658.6666666667,
+    "a": null,
+    "b": null,
+    "privacyMinusA": 1122658.6666666667,
+    "privacyMinusB": 1122658.6666666667
+   },
+   "prepareOrder": {
+    "privacy": 137388,
+    "a": 109989.66666666667,
+    "b": 117108,
+    "privacyMinusA": 27398.33333333333,
+    "privacyMinusB": 20280
+   },
+   "confirmIntention": {
+    "privacy": 230245,
+    "a": 106597.66666666667,
+    "b": 189917,
+    "privacyMinusA": 123647.33333333333,
+    "privacyMinusB": 40328
+   },
+   "addInformation": {
+    "privacy": 60130,
+    "a": null,
+    "b": null,
+    "privacyMinusA": 60130,
+    "privacyMinusB": 60130
+   },
+   "pickupOrder": {
+    "privacy": 68775.66666666667,
+    "a": 68437.55555555556,
+    "b": 68775.66666666667,
+    "privacyMinusA": 338.1111111111095,
+    "privacyMinusB": 0.0
+   },
+   "deliveryOrder": {
+    "privacy": 1001935.3333333334,
+    "a": 98938.11111111111,
+    "b": 139978.33333333334,
+    "privacyMinusA": 902997.2222222222,
+    "privacyMinusB": 861957.0
+   },
+   "rateOrder_client": {
+    "privacy": 57957,
+    "a": 75050.66666666667,
+    "b": 57957,
+    "privacyMinusA": -17093.66666666667,
+    "privacyMinusB": 0
+   },
+   "rateOrder_restaurant": {
+    "privacy": 57932,
+    "a": 57964.666666666664,
+    "b": 57932,
+    "privacyMinusA": -32.66666666666424,
+    "privacyMinusB": 0
+   }
+  }
+ },
+ "mechanisms": {
+  "fundTransferGas": 21000,
+  "variants": {
+   "full": {
+    "name": "privacy cycle again (every mechanism on)",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": true,
+     "lateRelease": true,
+     "poolFunding": true,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 612,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 492,
+      "second": 177
+     }
+    },
+    "cycleFirst": 4869940,
+    "cycleLaterMean": 4833339.666666667,
+    "cycleLaterMin": 4820707,
+    "cycleLaterMax": 4854427,
+    "cycleLaterWithoutPoolDeposit": 3976575.6666666665,
+    "perCallLater": {
+     "stealthAnnounce": 26243.666666666668,
+     "makeOrder": 1213293,
+     "poolDeposit": 856764,
+     "poolWithdraw": 1122672,
+     "prepareOrder": 137392,
+     "confirmIntention": 230245,
+     "addInformation": 60130,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1001935.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "off": {
+    "name": "baseline (b): privacy contracts, every mechanism off",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": false,
+     "poolNote": false,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 0
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 1095557,
+    "cycleLaterMean": 1061353,
+    "cycleLaterMin": 1061328,
+    "cycleLaterMax": 1061374,
+    "cycleLaterWithoutPoolDeposit": 1061353,
+    "perCallLater": {
+     "makeOrder": 429685,
+     "prepareOrder": 117108,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "noOneTime": {
+    "name": "without the one-time address and its stipend",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": true,
+     "lateRelease": true,
+     "poolFunding": true,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 612,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 492,
+      "second": 177
+     }
+    },
+    "cycleFirst": 4808720,
+    "cycleLaterMean": 4772175.666666667,
+    "cycleLaterMin": 4759559,
+    "cycleLaterMax": 4793279,
+    "cycleLaterWithoutPoolDeposit": 3915407.6666666665,
+    "perCallLater": {
+     "makeOrder": 1178390,
+     "poolDeposit": 856768,
+     "poolWithdraw": 1122652,
+     "prepareOrder": 137390.66666666666,
+     "confirmIntention": 230245,
+     "addInformation": 60130,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1001935.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "noEncryption": {
+    "name": "without the encryption of the order's content (and so without the late release)",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": true,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 0
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 4020669,
+    "cycleLaterMean": 3984164.6666666665,
+    "cycleLaterMin": 3971568,
+    "cycleLaterMax": 4005240,
+    "cycleLaterWithoutPoolDeposit": 3127399.3333333335,
+    "perCallLater": {
+     "stealthAnnounce": 26242.333333333332,
+     "makeOrder": 464588,
+     "poolDeposit": 856765.3333333334,
+     "poolWithdraw": 1122660,
+     "prepareOrder": 137392,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1001935.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "noLateRelease": {
+    "name": "without the late release (details encrypted for the worker's key at once)",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": true,
+     "lateRelease": false,
+     "poolFunding": true,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 508,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 452,
+      "second": 508
+     }
+    },
+    "cycleFirst": 4786123,
+    "cycleLaterMean": 4749521.333333333,
+    "cycleLaterMin": 4736878,
+    "cycleLaterMax": 4770622,
+    "cycleLaterWithoutPoolDeposit": 3892756,
+    "perCallLater": {
+     "stealthAnnounce": 26243.666666666668,
+     "makeOrder": 1122461,
+     "poolDeposit": 856765.3333333334,
+     "poolWithdraw": 1122670.6666666667,
+     "prepareOrder": 137390.66666666666,
+     "confirmIntention": 230245,
+     "addInformation": 67145,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1001935.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "noPool": {
+    "name": "without the pool (no funding from it, no payment commitment)",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": true,
+     "lateRelease": true,
+     "poolFunding": false,
+     "poolNote": false,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 612,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 492,
+      "second": 177
+     }
+    },
+    "cycleFirst": 2026832,
+    "cycleLaterMean": 1992658.6666666667,
+    "cycleLaterMin": 1992620,
+    "cycleLaterMax": 1992685,
+    "cycleLaterWithoutPoolDeposit": 1992658.6666666667,
+    "perCallLater": {
+     "stealthAnnounce": 26242.333333333332,
+     "makeOrder": 1213290.3333333333,
+     "fundTransfer": 21000,
+     "prepareOrder": 117108,
+     "confirmIntention": 230245,
+     "addInformation": 60130,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "noPoolFunding": {
+    "name": "without the funding from the pool (payment commitment kept)",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": true,
+     "lateRelease": true,
+     "poolFunding": false,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 612,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 492,
+      "second": 177
+     }
+    },
+    "cycleFirst": 2901382,
+    "cycleLaterMean": 2873047.6666666665,
+    "cycleLaterMin": 2867170,
+    "cycleLaterMax": 2888428,
+    "cycleLaterWithoutPoolDeposit": 2873047.6666666665,
+    "perCallLater": {
+     "stealthAnnounce": 26242.333333333332,
+     "makeOrder": 1213290.3333333333,
+     "fundTransfer": 21000,
+     "prepareOrder": 137388,
+     "confirmIntention": 230245,
+     "addInformation": 60130,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1000087.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "noPoolNote": {
+    "name": "without the payment commitment (funding from the pool kept)",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": true,
+     "lateRelease": true,
+     "poolFunding": true,
+     "poolNote": false,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 612,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 492,
+      "second": 177
+     }
+    },
+    "cycleFirst": 3995438,
+    "cycleLaterMean": 3951148,
+    "cycleLaterMin": 3944090,
+    "cycleLaterMax": 3969530,
+    "cycleLaterWithoutPoolDeposit": 3096228,
+    "perCallLater": {
+     "stealthAnnounce": 26243.666666666668,
+     "makeOrder": 1213293,
+     "poolDeposit": 854920,
+     "poolWithdraw": 1124565.3333333333,
+     "prepareOrder": 117108,
+     "confirmIntention": 230245,
+     "addInformation": 60130,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "onlyOneTime": {
+    "name": "only the one-time address and its stipend",
+    "mechanisms": {
+     "oneTime": true,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": false,
+     "poolNote": false,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 0
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 1177705,
+    "cycleLaterMean": 1143493,
+    "cycleLaterMin": 1143457,
+    "cycleLaterMax": 1143510,
+    "cycleLaterWithoutPoolDeposit": 1143493,
+    "perCallLater": {
+     "stealthAnnounce": 26241,
+     "makeOrder": 464584,
+     "fundTransfer": 21000,
+     "prepareOrder": 117108,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "onlyEncryption": {
+    "name": "only the encryption of the order's content, with the late release",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": true,
+     "lateRelease": true,
+     "poolFunding": false,
+     "poolNote": false,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 612,
+      "client": 508
+     },
+     "addInformation": {
+      "first": 492,
+      "second": 177
+     }
+    },
+    "cycleFirst": 1944720,
+    "cycleLaterMean": 1910516,
+    "cycleLaterMin": 1910491,
+    "cycleLaterMax": 1910537,
+    "cycleLaterWithoutPoolDeposit": 1910516,
+    "perCallLater": {
+     "makeOrder": 1178390,
+     "prepareOrder": 117108,
+     "confirmIntention": 230245,
+     "addInformation": 60130,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "onlyPool": {
+    "name": "only the pool (funding and payment commitment)",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": true,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 0
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 3959617,
+    "cycleLaterMean": 3923011.3333333335,
+    "cycleLaterMin": 3910384,
+    "cycleLaterMax": 3944140,
+    "cycleLaterWithoutPoolDeposit": 3066246,
+    "perCallLater": {
+     "makeOrder": 429685,
+     "poolDeposit": 856765.3333333334,
+     "poolWithdraw": 1122654.6666666667,
+     "prepareOrder": 137389.33333333334,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1001935.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "onlyPoolNote": {
+    "name": "only the payment commitment",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": false,
+     "poolNote": true,
+     "zone": true,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 0
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 1970071,
+    "cycleLaterMean": 1941744.6666666667,
+    "cycleLaterMin": 1935871,
+    "cycleLaterMax": 1957129,
+    "cycleLaterWithoutPoolDeposit": 1941744.6666666667,
+    "perCallLater": {
+     "makeOrder": 429685,
+     "prepareOrder": 137390.66666666666,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 1000087.3333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "offNoZone": {
+    "name": "baseline (b) without the zone",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": false,
+     "poolNote": false,
+     "zone": false,
+     "clientCopy": false
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 0
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 1092700,
+    "cycleLaterMean": 1058496,
+    "cycleLaterMin": 1058471,
+    "cycleLaterMax": 1058517,
+    "cycleLaterWithoutPoolDeposit": 1058496,
+    "perCallLater": {
+     "makeOrder": 426828,
+     "prepareOrder": 117108,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   },
+   "offTwoCopies": {
+    "name": "baseline (b) with the plain string stored twice",
+    "mechanisms": {
+     "oneTime": false,
+     "encryption": false,
+     "lateRelease": false,
+     "poolFunding": false,
+     "poolNote": false,
+     "zone": true,
+     "clientCopy": true
+    },
+    "payloadChars": {
+     "makeOrder": {
+      "establishment": 113,
+      "client": 113
+     },
+     "addInformation": null
+    },
+    "cycleFirst": 1206432,
+    "cycleLaterMean": 1172228,
+    "cycleLaterMin": 1172203,
+    "cycleLaterMax": 1172249,
+    "cycleLaterWithoutPoolDeposit": 1172228,
+    "perCallLater": {
+     "makeOrder": 540560,
+     "prepareOrder": 117108,
+     "confirmIntention": 189917,
+     "pickupOrder": 68775.66666666667,
+     "deliveryOrder": 139978.33333333334,
+     "rateOrder_client": 57957,
+     "rateOrder_restaurant": 57932
+    }
+   }
+  },
+  "overhead": {
+   "oneTimeAddress": {
+    "switchedOff": 61146.666666666046,
+    "switchedOnFromB": 82140,
+    "switchedOnFromB_withoutTheTransfer": 61140
+   },
+   "encryption": {
+    "switchedOff": 849157.6666666665,
+    "switchedOnFromB": 849163
+   },
+   "lateReleaseAlone": {
+    "switchedOff": 83801.0
+   },
+   "pool": {
+    "switchedOff": 2840663.666666666,
+    "switchedOff_withoutTheTransfer": 2861663.666666666,
+    "switchedOnFromB": 2861658.3333333335
+   },
+   "poolFundingAlone": {
+    "switchedOff": 1960274.6666666665,
+    "switchedOff_withoutTheTransfer": 1981274.6666666665
+   },
+   "poolNoteAlone": {
+    "switchedOff": 882174.333333333,
+    "switchedOnFromB": 880391.6666666667
+   }
+  },
+  "sumOfTheThree": 3771967.9999999986,
+  "privacyMinusB": 3771969.333333333,
+  "shares": {
+   "againstB_withDeposit": {
+    "total": 3771969.333333333,
+    "pool": 0.7586656766739354,
+    "encryption": 0.22512316289598677,
+    "lateReleasePartOfEncryption": 0.022216776594507485,
+    "oneTimeAddress": 0.016210806945408017,
+    "unexplained": 3.5348466983468136e-07
+   },
+   "againstB_withoutDeposit": {
+    "total": 2915202.6666666665,
+    "pool": 0.6877384625517172,
+    "encryption": 0.29128598034579184,
+    "lateReleasePartOfEncryption": 0.028746200378521426,
+    "oneTimeAddress": 0.02097509973005858
+   },
+   "againstA_withDeposit": {
+    "total": 3940249.9999999995,
+    "pool": 0.7262644925237399,
+    "encryption": 0.21550857602098003,
+    "oneTimeAddress": 0.015518473870101149,
+    "contractsWithMechanismsOff": 0.04270811919717445
+   },
+   "againstA_withoutDeposit": {
+    "total": 3083483.333333333,
+    "pool": 0.6502052332589224,
+    "encryption": 0.2753890891794453,
+    "oneTimeAddress": 0.01983038662983943,
+    "contractsWithMechanismsOff": 0.0545748585203963
+   }
+  },
+  "zoneEvent": 2857,
+  "secondCopyOfThePlainString": 110875,
+  "poolParts": {
+   "withoutThePoolDeposit": 2004896.9999999995,
+   "fundingAlonePlusNoteAlone": 2863448.9999999995,
+   "overlap": 1785.3333333334886
+  }
+ },
+ "endings": {
+  "rows": [
+   {
+    "ending": "ORDERED, customer cancels",
+    "sentBy": "customer",
+    "establishmentGets": "0",
+    "pays": {
+     "customer": "T+F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 101959,
+     "lowestGasLimit": 111150,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 101959,
+      "lowestGasLimit": 111150,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 101959,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 101959,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     }
+    ],
+    "withCommitmentMedian": 101959,
+    "withCommitmentMin": 101959,
+    "withCommitmentMax": 101959,
+    "note": false,
+    "insertionAdds": 0,
+    "oneBitLeafGas": null,
+    "poolRefundsTable": {
+     "key": "cancel_ORDERED_customer",
+     "withoutCommitment": 101959,
+     "withCommitmentMedian": 101959,
+     "oneBitLeafGas": [
+      101959
+     ],
+     "lowestLimit": 111150
+    }
+   },
+   {
+    "ending": "ORDERED, establishment refuses",
+    "sentBy": "one-time address",
+    "establishmentGets": "0",
+    "pays": {
+     "customer": "T+F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 104780,
+     "lowestGasLimit": 114062,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 104780,
+      "lowestGasLimit": 114062,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 104780,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 104780,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     }
+    ],
+    "withCommitmentMedian": 104780,
+    "withCommitmentMin": 104780,
+    "withCommitmentMax": 104780,
+    "note": false,
+    "insertionAdds": 0,
+    "oneBitLeafGas": null,
+    "poolRefundsTable": {
+     "key": "cancel_ORDERED_establishment",
+     "withoutCommitment": 104780,
+     "withCommitmentMedian": 104780,
+     "oneBitLeafGas": [
+      104780
+     ],
+     "lowestLimit": 114062
+    }
+   },
+   {
+    "ending": "PREPARATION, customer cancels",
+    "sentBy": "customer",
+    "establishmentGets": "T+F",
+    "pays": {
+     "customer": "F",
+     "establishment": "T+F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 95138,
+     "lowestGasLimit": 109086,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 958032,
+      "lowestGasLimit": 1010870,
+      "noteLeafIndex": 38
+     },
+     {
+      "gasUsed": 960111,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 39
+     },
+     {
+      "gasUsed": 955953,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 40
+     }
+    ],
+    "withCommitmentMedian": 958032,
+    "withCommitmentMin": 955953,
+    "withCommitmentMax": 960111,
+    "note": true,
+    "insertionAdds": 862894,
+    "oneBitLeafGas": [
+     953874
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_PREPARATION_customer",
+     "withoutCommitment": 95150,
+     "withCommitmentMedian": 958032,
+     "oneBitLeafGas": [
+      953874
+     ],
+     "lowestLimit": 1010870
+    }
+   },
+   {
+    "ending": "PREPARATION, establishment cancels",
+    "sentBy": "one-time address",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 95452,
+     "lowestGasLimit": 109409,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 960834,
+      "lowestGasLimit": 1013761,
+      "noteLeafIndex": 41
+     },
+     {
+      "gasUsed": 960834,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 42
+     },
+     {
+      "gasUsed": 962901,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 43
+     }
+    ],
+    "withCommitmentMedian": 960834,
+    "withCommitmentMin": 960834,
+    "withCommitmentMax": 962901,
+    "note": true,
+    "insertionAdds": 865382,
+    "oneBitLeafGas": [
+     956664,
+     956676
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_PREPARATION_establishment",
+     "withoutCommitment": 95452,
+     "withCommitmentMedian": 960834,
+     "oneBitLeafGas": [
+      956676
+     ],
+     "lowestLimit": 1011582
+    }
+   },
+   {
+    "ending": "PREPARATION timeout",
+    "sentBy": "customer",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 95076,
+     "lowestGasLimit": 109021,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 957958,
+      "lowestGasLimit": 1010792,
+      "noteLeafIndex": 44
+     },
+     {
+      "gasUsed": 960037,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 45
+     },
+     {
+      "gasUsed": 960037,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 46
+     }
+    ],
+    "withCommitmentMedian": 960037,
+    "withCommitmentMin": 957958,
+    "withCommitmentMax": 960037,
+    "note": true,
+    "insertionAdds": 864961,
+    "oneBitLeafGas": [
+     953800
+    ],
+    "poolRefundsTable": {
+     "key": "timeout_PREPARATION_customerCalls",
+     "withoutCommitment": 95076,
+     "withCommitmentMedian": 960037,
+     "oneBitLeafGas": [
+      953788,
+      953800
+     ],
+     "lowestLimit": 1012972
+    }
+   },
+   {
+    "ending": "reopened, customer cancels",
+    "sentBy": "customer",
+    "establishmentGets": "T+F",
+    "pays": {
+     "customer": "F",
+     "establishment": "T+F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 97377,
+     "lowestGasLimit": 111396,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 964414,
+      "lowestGasLimit": 1017524,
+      "noteLeafIndex": 47
+     },
+     {
+      "gasUsed": 958177,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 48
+     },
+     {
+      "gasUsed": 960256,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 49
+     }
+    ],
+    "withCommitmentMedian": 960256,
+    "withCommitmentMin": 958177,
+    "withCommitmentMax": 964414,
+    "note": true,
+    "insertionAdds": 862879,
+    "oneBitLeafGas": [
+     956098
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_REOPENED_customer",
+     "withoutCommitment": 97377,
+     "withCommitmentMedian": 962335,
+     "oneBitLeafGas": [
+      956098
+     ],
+     "lowestLimit": 1015344
+    }
+   },
+   {
+    "ending": "reopened, establishment cancels",
+    "sentBy": "one-time address",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 97679,
+     "lowestGasLimit": 111708,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 963058,
+      "lowestGasLimit": 1016056,
+      "noteLeafIndex": 50
+     },
+     {
+      "gasUsed": 965137,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 51
+     },
+     {
+      "gasUsed": 963058,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 52
+     }
+    ],
+    "withCommitmentMedian": 963058,
+    "withCommitmentMin": 963058,
+    "withCommitmentMax": 965137,
+    "note": true,
+    "insertionAdds": 865379,
+    "oneBitLeafGas": [
+     958900
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_REOPENED_establishment",
+     "withoutCommitment": 97679,
+     "withCommitmentMedian": 960979,
+     "oneBitLeafGas": [
+      958900
+     ],
+     "lowestLimit": 1013877
+    }
+   },
+   {
+    "ending": "reopened, timeout",
+    "sentBy": "customer",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 97303,
+     "lowestGasLimit": 111320,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 962261,
+      "lowestGasLimit": 1015267,
+      "noteLeafIndex": 53
+     },
+     {
+      "gasUsed": 962261,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 54
+     },
+     {
+      "gasUsed": 964340,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 55
+     }
+    ],
+    "withCommitmentMedian": 962261,
+    "withCommitmentMin": 962261,
+    "withCommitmentMax": 964340,
+    "note": true,
+    "insertionAdds": 864958,
+    "oneBitLeafGas": [
+     956024
+    ],
+    "poolRefundsTable": {
+     "key": "timeout_REOPENED_customerCalls",
+     "withoutCommitment": 97303,
+     "withCommitmentMedian": 960182,
+     "oneBitLeafGas": [
+      956024
+     ],
+     "lowestLimit": 1010908
+    }
+   },
+   {
+    "ending": "WAITING, customer cancels",
+    "sentBy": "customer",
+    "establishmentGets": "T+F",
+    "pays": {
+     "establishment": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 103094,
+     "lowestGasLimit": 112390,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 965973,
+      "lowestGasLimit": 1002880,
+      "noteLeafIndex": 56
+     },
+     {
+      "gasUsed": 968052,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 57
+     },
+     {
+      "gasUsed": 968052,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 58
+     }
+    ],
+    "withCommitmentMedian": 968052,
+    "withCommitmentMin": 965973,
+    "withCommitmentMax": 968052,
+    "note": true,
+    "insertionAdds": 864958,
+    "oneBitLeafGas": [
+     961815
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_WAITING_customer",
+     "withoutCommitment": 103094,
+     "withCommitmentMedian": 965973,
+     "oneBitLeafGas": [
+      961815
+     ],
+     "lowestLimit": 1005025
+    }
+   },
+   {
+    "ending": "WAITING, establishment cancels",
+    "sentBy": "one-time address",
+    "establishmentGets": "0",
+    "pays": {
+     "customer": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 103319,
+     "lowestGasLimit": 112622,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 103319,
+      "lowestGasLimit": 112622,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 103319,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 103319,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     }
+    ],
+    "withCommitmentMedian": 103319,
+    "withCommitmentMin": 103319,
+    "withCommitmentMax": 103319,
+    "note": false,
+    "insertionAdds": 0,
+    "oneBitLeafGas": null,
+    "poolRefundsTable": {
+     "key": "cancel_WAITING_establishment",
+     "withoutCommitment": 103319,
+     "withCommitmentMedian": 103319,
+     "oneBitLeafGas": [
+      103307,
+      103319
+     ],
+     "lowestLimit": 112622
+    }
+   },
+   {
+    "ending": "WAITING timeout",
+    "sentBy": "customer",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 137266,
+     "lowestGasLimit": 152562,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 999803,
+      "lowestGasLimit": 1054045,
+      "noteLeafIndex": 59
+     },
+     {
+      "gasUsed": 997724,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 60
+     },
+     {
+      "gasUsed": 999803,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 61
+     }
+    ],
+    "withCommitmentMedian": 999803,
+    "withCommitmentMin": 997724,
+    "withCommitmentMax": 999803,
+    "note": true,
+    "insertionAdds": 862537,
+    "oneBitLeafGas": [
+     991487
+    ],
+    "poolRefundsTable": {
+     "key": "timeout_WAITING_customerCalls",
+     "withoutCommitment": 137266,
+     "withCommitmentMedian": 995645,
+     "oneBitLeafGas": [
+      991475,
+      991487
+     ],
+     "lowestLimit": 1049674
+    }
+   },
+   {
+    "ending": "WAITING, second worker withdraws",
+    "sentBy": "worker",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 143532,
+     "lowestGasLimit": 159029,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1006069,
+      "lowestGasLimit": 1060511,
+      "noteLeafIndex": 62
+     },
+     {
+      "gasUsed": 1025248,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 63
+     },
+     {
+      "gasUsed": 997753,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 64
+     }
+    ],
+    "withCommitmentMedian": 1006069,
+    "withCommitmentMin": 997753,
+    "withCommitmentMax": 1025248,
+    "note": true,
+    "insertionAdds": 862537,
+    "oneBitLeafGas": [
+     997753
+    ],
+    "poolRefundsTable": {
+     "key": "withdrawal_WAITING_secondWorker",
+     "withoutCommitment": 160632,
+     "withCommitmentMedian": 1003990,
+     "oneBitLeafGas": [
+      997741,
+      997753
+     ],
+     "lowestLimit": 1058320
+    }
+   },
+   {
+    "ending": "DISPATCHED, worker cancels (leaves after pickup)",
+    "sentBy": "worker",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 141774,
+     "lowestGasLimit": 157214,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 998074,
+      "lowestGasLimit": 1052159,
+      "noteLeafIndex": 65
+     },
+     {
+      "gasUsed": 998074,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 66
+     },
+     {
+      "gasUsed": 1000153,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 67
+     }
+    ],
+    "withCommitmentMedian": 998074,
+    "withCommitmentMin": 998074,
+    "withCommitmentMax": 1000153,
+    "note": true,
+    "insertionAdds": 856300,
+    "oneBitLeafGas": [
+     995995
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_DISPATCHED_worker",
+     "withoutCommitment": 141774,
+     "withCommitmentMedian": 1000153,
+     "oneBitLeafGas": [
+      995995
+     ],
+     "lowestLimit": 1052159
+    }
+   },
+   {
+    "ending": "DISPATCHED timeout",
+    "sentBy": "customer",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 137750,
+     "lowestGasLimit": 153061,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 994050,
+      "lowestGasLimit": 1048006,
+      "noteLeafIndex": 68
+     },
+     {
+      "gasUsed": 996129,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 69
+     },
+     {
+      "gasUsed": 996129,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 70
+     }
+    ],
+    "withCommitmentMedian": 996129,
+    "withCommitmentMin": 994050,
+    "withCommitmentMax": 996129,
+    "note": true,
+    "insertionAdds": 858379,
+    "oneBitLeafGas": [
+     991971
+    ],
+    "poolRefundsTable": {
+     "key": "timeout_DISPATCHED_customerCalls",
+     "withoutCommitment": 137750,
+     "withCommitmentMedian": 998208,
+     "oneBitLeafGas": [
+      991971
+     ],
+     "lowestLimit": 1052365
+    }
+   },
+   {
+    "ending": "DISPATCHED, customer cancels",
+    "sentBy": "customer",
+    "establishmentGets": "T+F",
+    "pays": {
+     "establishment": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 103317,
+     "lowestGasLimit": 112620,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 968275,
+      "lowestGasLimit": 1005255,
+      "noteLeafIndex": 71
+     },
+     {
+      "gasUsed": 964105,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 72
+     },
+     {
+      "gasUsed": 966196,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 73
+     }
+    ],
+    "withCommitmentMedian": 966196,
+    "withCommitmentMin": 964105,
+    "withCommitmentMax": 968275,
+    "note": true,
+    "insertionAdds": 862879,
+    "oneBitLeafGas": [
+     962026,
+     962038
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_DISPATCHED_customer",
+     "withoutCommitment": 103317,
+     "withCommitmentMedian": 968275,
+     "oneBitLeafGas": [
+      962038
+     ],
+     "lowestLimit": 1005255
+    }
+   },
+   {
+    "ending": "DISPATCHED, establishment cancels",
+    "sentBy": "one-time address",
+    "establishmentGets": "0",
+    "pays": {
+     "customer": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 103542,
+     "lowestGasLimit": 112852,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 103542,
+      "lowestGasLimit": 112852,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 103542,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     },
+     {
+      "gasUsed": 103542,
+      "lowestGasLimit": null,
+      "noteLeafIndex": null
+     }
+    ],
+    "withCommitmentMedian": 103542,
+    "withCommitmentMin": 103542,
+    "withCommitmentMax": 103542,
+    "note": false,
+    "insertionAdds": 0,
+    "oneBitLeafGas": null,
+    "poolRefundsTable": {
+     "key": "cancel_DISPATCHED_establishment",
+     "withoutCommitment": 103542,
+     "withCommitmentMedian": 103530,
+     "oneBitLeafGas": [
+      103530,
+      103542
+     ],
+     "lowestLimit": 112840
+    }
+   },
+   {
+    "ending": "contested, against the customer",
+    "sentBy": "one-time address",
+    "establishmentGets": "T+F",
+    "pays": {
+     "establishment": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 92783,
+     "lowestGasLimit": 101734,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 958171,
+      "lowestGasLimit": 994812,
+      "noteLeafIndex": 74
+     },
+     {
+      "gasUsed": 960250,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 75
+     },
+     {
+      "gasUsed": 958171,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 76
+     }
+    ],
+    "withCommitmentMedian": 958171,
+    "withCommitmentMin": 958171,
+    "withCommitmentMax": 960250,
+    "note": true,
+    "insertionAdds": 865388,
+    "oneBitLeafGas": [
+     954013
+    ],
+    "poolRefundsTable": {
+     "key": "contest_againstCustomer",
+     "withoutCommitment": 92783,
+     "withCommitmentMedian": 960250,
+     "oneBitLeafGas": [
+      954013
+     ],
+     "lowestLimit": 996958
+    }
+   },
+   {
+    "ending": "contested, against the worker",
+    "sentBy": "one-time address",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 131907,
+     "lowestGasLimit": 147017,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 994886,
+      "lowestGasLimit": 1048922,
+      "noteLeafIndex": 77
+     },
+     {
+      "gasUsed": 994886,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 78
+     },
+     {
+      "gasUsed": 996965,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 79
+     }
+    ],
+    "withCommitmentMedian": 994886,
+    "withCommitmentMin": 994886,
+    "withCommitmentMax": 996965,
+    "note": true,
+    "insertionAdds": 862979,
+    "oneBitLeafGas": [
+     988649
+    ],
+    "poolRefundsTable": {
+     "key": "contest_againstWorker",
+     "withoutCommitment": 131919,
+     "withCommitmentMedian": 996965,
+     "oneBitLeafGas": [
+      988649
+     ],
+     "lowestLimit": 1048922
+    }
+   },
+   {
+    "ending": "delivered",
+    "sentBy": "worker",
+    "establishmentGets": "T+F",
+    "pays": {
+     "establishment": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 139971,
+     "lowestGasLimit": 150386,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 996297,
+      "lowestGasLimit": 1035056,
+      "noteLeafIndex": 80
+     },
+     {
+      "gasUsed": 998359,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 81
+     },
+     {
+      "gasUsed": 998359,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 82
+     }
+    ],
+    "withCommitmentMedian": 998359,
+    "withCommitmentMin": 996297,
+    "withCommitmentMax": 998359,
+    "note": true,
+    "insertionAdds": 858388,
+    "oneBitLeafGas": [
+     994201,
+     994218
+    ],
+    "poolRefundsTable": {
+     "key": "deliveryOrder",
+     "withoutCommitment": 139976,
+     "withCommitmentMedian": 996297,
+     "oneBitLeafGas": [
+      994201,
+      994218
+     ],
+     "lowestLimit": 1061685
+    }
+   },
+   {
+    "ending": "WAITING timeout, worker without a record",
+    "sentBy": "customer",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 154366,
+     "lowestGasLimit": 170209,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1014824,
+      "lowestGasLimit": 1069513,
+      "noteLeafIndex": 83
+     },
+     {
+      "gasUsed": 1012745,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 84
+     },
+     {
+      "gasUsed": 1014812,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 85
+     }
+    ],
+    "withCommitmentMedian": 1014812,
+    "withCommitmentMin": 1012745,
+    "withCommitmentMax": 1014824,
+    "note": true,
+    "insertionAdds": 860446,
+    "oneBitLeafGas": [
+     1008575,
+     1008587
+    ],
+    "poolRefundsTable": {
+     "key": "timeout_WAITING_customerCalls_workerWithoutRecord",
+     "withoutCommitment": 154366,
+     "withCommitmentMedian": 1010666,
+     "oneBitLeafGas": [
+      1008575,
+      1008587
+     ],
+     "lowestLimit": 1065154
+    }
+   },
+   {
+    "ending": "WAITING, second worker withdraws, worker without a record",
+    "sentBy": "worker",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 160632,
+     "lowestGasLimit": 176675,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1021090,
+      "lowestGasLimit": 1075979,
+      "noteLeafIndex": 86
+     },
+     {
+      "gasUsed": 1023169,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 87
+     },
+     {
+      "gasUsed": 1019011,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 88
+     }
+    ],
+    "withCommitmentMedian": 1021090,
+    "withCommitmentMin": 1019011,
+    "withCommitmentMax": 1023169,
+    "note": true,
+    "insertionAdds": 860458,
+    "oneBitLeafGas": [
+     1014853
+    ],
+    "poolRefundsTable": {
+     "key": "withdrawal_WAITING_secondWorker_workerWithoutRecord",
+     "withoutCommitment": 160632,
+     "withCommitmentMedian": 1019011,
+     "oneBitLeafGas": [
+      1014853
+     ],
+     "lowestLimit": 1073800
+    }
+   },
+   {
+    "ending": "DISPATCHED, worker cancels, worker without a record",
+    "sentBy": "worker",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 158874,
+     "lowestGasLimit": 174861,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1019332,
+      "lowestGasLimit": 1074165,
+      "noteLeafIndex": 89
+     },
+     {
+      "gasUsed": 1019332,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 90
+     },
+     {
+      "gasUsed": 1021411,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 91
+     }
+    ],
+    "withCommitmentMedian": 1019332,
+    "withCommitmentMin": 1019332,
+    "withCommitmentMax": 1021411,
+    "note": true,
+    "insertionAdds": 860458,
+    "oneBitLeafGas": [
+     1013095
+    ],
+    "poolRefundsTable": {
+     "key": "cancel_DISPATCHED_worker_workerWithoutRecord",
+     "withoutCommitment": 158874,
+     "withCommitmentMedian": 1017253,
+     "oneBitLeafGas": [
+      1013095
+     ],
+     "lowestLimit": 1069805
+    }
+   },
+   {
+    "ending": "DISPATCHED timeout, worker without a record",
+    "sentBy": "customer",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 154850,
+     "lowestGasLimit": 170708,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1015308,
+      "lowestGasLimit": 1070012,
+      "noteLeafIndex": 92
+     },
+     {
+      "gasUsed": 1017387,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 93
+     },
+     {
+      "gasUsed": 1017387,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 94
+     }
+    ],
+    "withCommitmentMedian": 1017387,
+    "withCommitmentMin": 1015308,
+    "withCommitmentMax": 1017387,
+    "note": true,
+    "insertionAdds": 862537,
+    "oneBitLeafGas": [
+     1009071
+    ],
+    "poolRefundsTable": {
+     "key": "timeout_DISPATCHED_customerCalls_workerWithoutRecord",
+     "withoutCommitment": 154850,
+     "withCommitmentMedian": 1015308,
+     "oneBitLeafGas": [
+      1009071
+     ],
+     "lowestLimit": 1070012
+    }
+   },
+   {
+    "ending": "contested, against the worker, worker without a record",
+    "sentBy": "one-time address",
+    "establishmentGets": "F",
+    "pays": {
+     "customer": "T+F",
+     "establishment": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 149019,
+     "lowestGasLimit": 164676,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1016144,
+      "lowestGasLimit": 1070928,
+      "noteLeafIndex": 95
+     },
+     {
+      "gasUsed": 1007828,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 96
+     },
+     {
+      "gasUsed": 1009907,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 97
+     }
+    ],
+    "withCommitmentMedian": 1009907,
+    "withCommitmentMin": 1007828,
+    "withCommitmentMax": 1016144,
+    "note": true,
+    "insertionAdds": 860888,
+    "oneBitLeafGas": [
+     1005749
+    ],
+    "poolRefundsTable": {
+     "key": "contest_againstWorker_workerWithoutRecord",
+     "withoutCommitment": 149019,
+     "withCommitmentMedian": 1011986,
+     "oneBitLeafGas": [
+      1005749
+     ],
+     "lowestLimit": 1066569
+    }
+   },
+   {
+    "ending": "delivered, worker without a record",
+    "sentBy": "worker",
+    "establishmentGets": "T+F",
+    "pays": {
+     "establishment": "T+F",
+     "worker": "F"
+    },
+    "withoutCommitment": {
+     "gasUsed": 157088,
+     "lowestGasLimit": 168051,
+     "noteLeafIndex": null
+    },
+    "withCommitment": [
+     {
+      "gasUsed": 1015476,
+      "lowestGasLimit": 1054883,
+      "noteLeafIndex": 98
+     },
+     {
+      "gasUsed": 1017555,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 99
+     },
+     {
+      "gasUsed": 1015476,
+      "lowestGasLimit": null,
+      "noteLeafIndex": 100
+     }
+    ],
+    "withCommitmentMedian": 1015476,
+    "withCommitmentMin": 1015476,
+    "withCommitmentMax": 1017555,
+    "note": true,
+    "insertionAdds": 858388,
+    "oneBitLeafGas": [
+     1011318
+    ]
+   }
+  ],
+  "ordersWithCommitmentPerEnding": 3,
+  "largestIndexNormalisedDifferenceFromThePoolRefundsTable": 17,
+  "highestLowestLimitWithANote": 1075979,
+  "limitOverGasWithANote": [
+   1.0381916294441145,
+   1.0551527311218236
+  ],
+  "insertionAdds": [
+   856300,
+   865388
+  ],
+  "comparisonWithThePoolRefundsTable": {
+   "commonEndings": 24,
+   "withoutCommitment_equal": 20,
+   "withoutCommitment_withinCalldata": [
+    -12,
+    -12,
+    -5
+   ],
+   "withoutCommitment_other": [
+    -17100
+   ],
+   "largestMedianDifferenceWithANote": 4158,
+   "largestLowestLimitDifference_exceptDelivered": 4371,
+   "noteLeavesHere": [
+    38,
+    100
+   ]
+  }
+ },
+ "paths": [
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "stealthAnnounce",
+   "gasUsed": 26245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "makeOrder",
+   "gasUsed": 1213293,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "prepareOrder",
+   "gasUsed": 137392,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "confirmIntention_first",
+   "gasUsed": 230245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "addInformation_first",
+   "gasUsed": 60130,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "leave_beforePickup (first worker's cancelOrder in WAITING)",
+   "gasUsed": 111877,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "rateOrder_restaurant, worker who left before pickup",
+   "gasUsed": 58487,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "confirmIntention_second",
+   "gasUsed": 139936,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "addInformation_second",
+   "gasUsed": 60141,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "pickupOrder_second",
+   "gasUsed": 68775,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "deliveryOrder_second",
+   "gasUsed": 1011301,
+   "noteLeafIndex": 32
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "rateOrder_client, second worker",
+   "gasUsed": 57957,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 1,
+   "label": "rateOrder_restaurant, second worker",
+   "gasUsed": 57932,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "stealthAnnounce",
+   "gasUsed": 26245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "makeOrder",
+   "gasUsed": 1213293,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "prepareOrder",
+   "gasUsed": 137392,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "confirmIntention_first",
+   "gasUsed": 230245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "addInformation_first",
+   "gasUsed": 60130,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "replacement (callSecondDeliveryman)",
+   "gasUsed": 100617,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "rateOrder_restaurant, replaced worker",
+   "gasUsed": 58487,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "confirmIntention_second",
+   "gasUsed": 139936,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "addInformation_second",
+   "gasUsed": 60141,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "pickupOrder_second",
+   "gasUsed": 68775,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "leave_afterPickup (second worker's cancelOrder in DISPATCHED)",
+   "gasUsed": 1017654,
+   "noteLeafIndex": 33
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "rateOrder_client, worker who left after pickup",
+   "gasUsed": 58512,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 1,
+   "label": "rateOrder_restaurant, worker who left after pickup",
+   "gasUsed": 58487,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "stealthAnnounce",
+   "gasUsed": 26245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "makeOrder",
+   "gasUsed": 1213293,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "prepareOrder",
+   "gasUsed": 137392,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "confirmIntention_first",
+   "gasUsed": 230245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "addInformation_first",
+   "gasUsed": 60130,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "leave_beforePickup (first worker's cancelOrder in WAITING)",
+   "gasUsed": 94777,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "rateOrder_restaurant, worker who left before pickup",
+   "gasUsed": 58487,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "confirmIntention_second",
+   "gasUsed": 139936,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "addInformation_second",
+   "gasUsed": 60141,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "pickupOrder_second",
+   "gasUsed": 68770,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "deliveryOrder_second",
+   "gasUsed": 996280,
+   "noteLeafIndex": 34
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "rateOrder_client, second worker",
+   "gasUsed": 57957,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "leaving",
+   "run": 2,
+   "label": "rateOrder_restaurant, second worker",
+   "gasUsed": 57932,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "stealthAnnounce",
+   "gasUsed": 26233,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "makeOrder",
+   "gasUsed": 1213293,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "prepareOrder",
+   "gasUsed": 137392,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "confirmIntention_first",
+   "gasUsed": 230245,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "addInformation_first",
+   "gasUsed": 60130,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "replacement (callSecondDeliveryman)",
+   "gasUsed": 83517,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "rateOrder_restaurant, replaced worker",
+   "gasUsed": 58487,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "confirmIntention_second",
+   "gasUsed": 139936,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "addInformation_second",
+   "gasUsed": 60141,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "pickupOrder_second",
+   "gasUsed": 68770,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "leave_afterPickup (second worker's cancelOrder in DISPATCHED)",
+   "gasUsed": 1002633,
+   "noteLeafIndex": 35
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "rateOrder_client, worker who left after pickup",
+   "gasUsed": 58512,
+   "noteLeafIndex": null
+  },
+  {
+   "path": "replacement",
+   "run": 2,
+   "label": "rateOrder_restaurant, worker who left after pickup",
+   "gasUsed": 58487,
+   "noteLeafIndex": null
+  }
+ ],
+ "fillLevel": {
+  "rule": {
+   "text": "gas(i) = base + 2079 * (ones(i) - 1) + 17100 if i = 2^k - 1 (first write of level k); the last leaf 2^25 - 1 costs 5049 less",
+   "perOneBit": 2079,
+   "firstWrite": 17100,
+   "bases": {
+    "depositPayment": 853303,
+    "mergeWithdrawTwoNotes": 1117064,
+    "deliveryOrder": 994201,
+    "deliveryOrderBeforeThePoolRefunds": 991707,
+    "firstDeliveryOfAWorker": 17117
+   },
+   "checkedInsertions": 210,
+   "largestDifference": 36,
+   "exactAt84IndicesWithTheSameCalldata": "carried over from the afternoon (depositPayment and the harness; Reputation.sol is unchanged)"
+  },
+  "runs": [
+   {
+    "noteStartIndex": 0,
+    "files": [
+     "hardhat-report-10it-2026-10-12T22-42-50-080Z.txt",
+     "hardhat-data-10it-2026-10-12T22-42-50-080Z.csv",
+     "hardhat-summary-10it-2026-10-12T22-42-50-080Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     2,
+     31
+    ],
+    "cycle1": 4869916,
+    "cycleLater": {
+     "mean": 4833322.333333333,
+     "min": 4820671,
+     "max": 4854451
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 3976555.6666666665,
+     "min": 3967368,
+     "max": 3994911
+    },
+    "deliveryOrderLaterMean": 1001935.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1096713,
+      "changeLeafIndex": 36
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1121210,
+      "changeLeafIndex": 37
+     }
+    ]
+   },
+   {
+    "noteStartIndex": 1000,
+    "files": [
+     "hardhat-report-10it-start1000-2026-10-12T22-43-06-621Z.txt",
+     "hardhat-data-10it-start1000-2026-10-12T22-43-06-621Z.csv",
+     "hardhat-summary-10it-start1000-2026-10-12T22-43-06-621Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     1001,
+     1030
+    ],
+    "cycle1": 4890262,
+    "cycleLater": {
+     "mean": 4852858.666666667,
+     "min": 4824848,
+     "max": 4868956
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 3987782.6666666665,
+     "min": 3969478,
+     "max": 3999045
+    },
+    "deliveryOrderLaterMean": 1004834.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1100919,
+      "changeLeafIndex": 1035
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1121186,
+      "changeLeafIndex": 1036
+     }
+    ]
+   },
+   {
+    "noteStartIndex": 100000,
+    "files": [
+     "hardhat-report-10it-start100000-2026-10-12T22-43-23-540Z.txt",
+     "hardhat-data-10it-start100000-2026-10-12T22-43-23-540Z.csv",
+     "hardhat-summary-10it-start100000-2026-10-12T22-43-23-540Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     100001,
+     100030
+    ],
+    "cycle1": 4890274,
+    "cycleLater": {
+     "mean": 4864127,
+     "min": 4858105,
+     "max": 4870591
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 3995347,
+     "min": 3990285,
+     "max": 4000656
+    },
+    "deliveryOrderLaterMean": 1010378.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1109211,
+      "changeLeafIndex": 100035
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1129514,
+      "changeLeafIndex": 100036
+     }
+    ]
+   },
+   {
+    "noteStartIndex": 1000000,
+    "files": [
+     "hardhat-report-10it-start1000000-2026-10-12T22-43-40-338Z.txt",
+     "hardhat-data-10it-start1000000-2026-10-12T22-43-40-338Z.csv",
+     "hardhat-summary-10it-start1000000-2026-10-12T22-43-40-338Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     1000001,
+     1000030
+    ],
+    "cycle1": 4896475,
+    "cycleLater": {
+     "mean": 4870361.333333333,
+     "min": 4864342,
+     "max": 4876864
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 3999505,
+     "min": 3994395,
+     "max": 4004850
+    },
+    "deliveryOrderLaterMean": 1012457.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1113369,
+      "changeLeafIndex": 1000035
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1133672,
+      "changeLeafIndex": 1000036
+     }
+    ]
+   },
+   {
+    "noteStartIndex": 16777182,
+    "files": [
+     "hardhat-report-10it-start16777182-2026-10-12T22-44-04-284Z.txt",
+     "hardhat-data-10it-start16777182-2026-10-12T22-44-04-284Z.csv",
+     "hardhat-summary-10it-start16777182-2026-10-12T22-44-04-284Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     16777183,
+     16777212
+    ],
+    "cycle1": 4973434,
+    "cycleLater": {
+     "mean": 4944063.666666667,
+     "min": 4937160,
+     "max": 4949617
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 4048489,
+     "min": 4044356,
+     "max": 4052655
+    },
+    "deliveryOrderLaterMean": 1036712.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1096761,
+      "changeLeafIndex": 16777217
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1119119,
+      "changeLeafIndex": 16777218
+     }
+    ]
+   },
+   {
+    "noteStartIndex": 16777200,
+    "files": [
+     "hardhat-report-10it-start16777200-2026-10-12T22-44-28-269Z.txt",
+     "hardhat-data-10it-start16777200-2026-10-12T22-44-28-269Z.csv",
+     "hardhat-summary-10it-start16777200-2026-10-12T22-44-28-269Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     16777201,
+     16777230
+    ],
+    "cycle1": 4977568,
+    "cycleLater": {
+     "mean": 4884045,
+     "min": 4820719,
+     "max": 4972865
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 4009259,
+     "min": 3967416,
+     "max": 4073824
+    },
+    "deliveryOrderLaterMean": 1018284.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1100919,
+      "changeLeafIndex": 16777235
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1121186,
+      "changeLeafIndex": 16777236
+     }
+    ]
+   },
+   {
+    "noteStartIndex": 33554368,
+    "files": [
+     "hardhat-report-10it-start33554368-2026-10-12T22-44-59-138Z.txt",
+     "hardhat-data-10it-start33554368-2026-10-12T22-44-59-138Z.csv",
+     "hardhat-summary-10it-start33554368-2026-10-12T22-44-59-138Z.json"
+    ],
+    "leafIndicesOfTheCycles": [
+     33554369,
+     33554398
+    ],
+    "cycle1": 4971331,
+    "cycleLater": {
+     "mean": 4945213.333333333,
+     "min": 4939203,
+     "max": 4951684
+    },
+    "cycleLaterWithoutPoolDeposit": {
+     "mean": 4049406.3333333335,
+     "min": 4044315,
+     "max": 4054722
+    },
+    "deliveryOrderLaterMean": 1037405.3333333334,
+    "cashouts": [
+     {
+      "inputs": "one note + dummy",
+      "gasUsed": 1138329,
+      "changeLeafIndex": 33554403
+     },
+     {
+      "inputs": "two notes",
+      "gasUsed": 1158584,
+      "changeLeafIndex": 33554404
+     }
+    ]
+   }
+  ],
+  "baseCycle": {
+   "otherEightCallsLaterMean": 1851961.6666666667,
+   "cycle": 4816529.666666667,
+   "cycleWithoutPoolDeposit": 3963226.666666667,
+   "note": "computed: the eight other calls plus the three bases"
+  },
+  "worstCycleMeasured": {
+   "run": "NOTE_START_INDEX=16777200, cycle 5",
+   "leafIndices": [
+    16777213,
+    16777214,
+    16777215
+   ],
+   "gas": 4972865,
+   "gasWithoutPoolDeposit": 4073824,
+   "perCall": {
+    "stealthAnnounce": 26233,
+    "makeOrder": 1213269,
+    "poolDeposit": 899041,
+    "poolWithdraw": 1162790,
+    "prepareOrder": 137380,
+    "confirmIntention": 230245,
+    "addInformation": 60130,
+    "pickupOrder": 68770,
+    "deliveryOrder": 1059118,
+    "rateOrder_client": 57957,
+    "rateOrder_restaurant": 57932
+   }
+  },
+  "computedFromTheRule": {
+   "convention": "base cycle + 3 x the mean extra of a leaf over all leaves below n (2 x without the pool deposit); largest = base cycle + the largest extra of any three consecutive leaves below n. Extras per leaf carried over from the afternoon: the rule did not change.",
+   "rows": {
+    "1000": {
+     "meanExtraPerLeaf": 8338.945945945947,
+     "cycleMean": 4841546.504504505,
+     "cycleMeanWithoutPoolDeposit": 3979904.558558559,
+     "largestThreeConsecutiveLeaves": 4879367.666666667,
+     "firstOfThem": 509
+    },
+    "100000": {
+     "meanExtraPerLeaf": 14868.254432544325,
+     "cycleMean": 4861134.4299643,
+     "cycleMeanWithoutPoolDeposit": 3992963.1755317557,
+     "largestThreeConsecutiveLeaves": 4923026.666666667,
+     "firstOfThem": 65533
+    },
+    "1000000": {
+     "meanExtraPerLeaf": 18472.24381924382,
+     "cycleMean": 4871946.398124399,
+     "cycleMeanWithoutPoolDeposit": 4000171.1543051545,
+     "largestThreeConsecutiveLeaves": 4941737.666666667,
+     "firstOfThem": 524285
+    },
+    "16777216": {
+     "meanExtraPerLeaf": 22869.02594876444,
+     "cycleMean": 4885136.74451296,
+     "cycleMeanWithoutPoolDeposit": 4008964.718564196,
+     "largestThreeConsecutiveLeaves": 4972922.666666667,
+     "firstOfThem": 16777213
+    },
+    "33554432": {
+     "meanExtraPerLeaf": 23908.51300536135,
+     "cycleMean": 4888255.205682751,
+     "cycleMeanWithoutPoolDeposit": 4011043.69267739,
+     "largestThreeConsecutiveLeaves": 4972922.666666667,
+     "firstOfThem": 16777213
+    }
+   }
+  },
+  "upperBounds": {
+   "notesOnAnyLeaves_workerDeliveredBefore": 4977080.666666667,
+   "notesOnAnyLeaves_firstDeliveryOfTheWorker": 4994197.666666667,
+   "computed": true,
+   "largestInsertionExtra": 64917,
+   "largestExtraAwayFromAFirstWrite": 47817
+  },
+  "ratioAgainstBaselines": {
+   "treeAsDeployed": [
+    5.412016645161627,
+    4.553925351257624
+   ],
+   "at1000000Notes": [
+    5.453490329450731,
+    4.588823259870498
+   ],
+   "worstCycleMeasured": [
+    5.568266773464038,
+    4.68540155819977
+   ]
+  }
+ },
+ "cashout": {
+  "measuredThisEvening": {
+   "oneNoteAndDummy": {
+    "n": 7,
+    "min": 1096713,
+    "max": 1138329
+   },
+   "twoNotes": {
+    "n": 7,
+    "min": 1119119,
+    "max": 1158584
+   },
+   "all": [
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1096713,
+     "changeLeafIndex": 36,
+     "noteStartIndex": 0
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1121210,
+     "changeLeafIndex": 37,
+     "noteStartIndex": 0
+    },
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1100919,
+     "changeLeafIndex": 1035,
+     "noteStartIndex": 1000
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1121186,
+     "changeLeafIndex": 1036,
+     "noteStartIndex": 1000
+    },
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1109211,
+     "changeLeafIndex": 100035,
+     "noteStartIndex": 100000
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1129514,
+     "changeLeafIndex": 100036,
+     "noteStartIndex": 100000
+    },
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1113369,
+     "changeLeafIndex": 1000035,
+     "noteStartIndex": 1000000
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1133672,
+     "changeLeafIndex": 1000036,
+     "noteStartIndex": 1000000
+    },
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1096761,
+     "changeLeafIndex": 16777217,
+     "noteStartIndex": 16777182
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1119119,
+     "changeLeafIndex": 16777218,
+     "noteStartIndex": 16777182
+    },
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1100919,
+     "changeLeafIndex": 16777235,
+     "noteStartIndex": 16777200
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1121186,
+     "changeLeafIndex": 16777236,
+     "noteStartIndex": 16777200
+    },
+    {
+     "inputs": "one note + dummy",
+     "gasUsed": 1138329,
+     "changeLeafIndex": 33554403,
+     "noteStartIndex": 33554368
+    },
+    {
+     "inputs": "two notes",
+     "gasUsed": 1158584,
+     "changeLeafIndex": 33554404,
+     "noteStartIndex": 33554368
+    }
+   ]
+  },
+  "carriedOver": {
+   "oneNoteAndDummy_oneBitLeaf": 1094665,
+   "oneNoteAndDummy_maximumMeasuredAtLeaf2pow24minus1": 1159575,
+   "twoNotes_oneBitLeaf": 1117031,
+   "twoNotes_maximumComputed": 1181948,
+   "why": "GlobalReputation (mergeWithdraw) did not change; this evening no cash-out landed on leaf 2^24 - 1"
+  },
+  "perOrder_privacyReport": {
+   "source": "privacy-eval-candidate-v2-2026-10-12.md, table 4c (the dApp's cash-out policy, 20 establishments, 500 orders, three seeds; measured before the pool refunds)",
+   "denominationUsd": 10,
+   "meanRevenueUsdPerOrder": 35.76,
+   "withdrawalsPerOrder": [
+    2.93,
+    3.38
+   ],
+   "gasPerOrder": [
+    3278736,
+    3737383
+   ],
+   "rows": {
+    "float 1,400 USD": {
+     "withdrawalsPerOrder": 3.38,
+     "gasPerOrder": 3737383,
+     "range": [
+      3568092,
+      3904058
+     ]
+    },
+    "float 45 USD": {
+     "withdrawalsPerOrder": 2.93,
+     "gasPerOrder": 3278736,
+     "range": [
+      3135793,
+      3393059
+     ]
+    }
+   }
+  },
+  "cyclePlusCashout_computed": {
+   "gas": [
+    8112058.333333333,
+    8570705.333333332
+   ],
+   "ratioAgainstA": [
+    9.083316133034389,
+    9.596876998018448
+   ],
+   "ratioAgainstB": [
+    7.643129414373289,
+    8.075263680729533
+   ]
+  }
+ },
+ "deployment": {
+  "privacy": [
+   {
+    "label": "Poseidon",
+    "gasUsed": 2157126
+   },
+   {
+    "label": "MergeWithdrawVerifier",
+    "gasUsed": 450071
+   },
+   {
+    "label": "GlobalReputation",
+    "gasUsed": 3721625
+   },
+   {
+    "label": "Util",
+    "gasUsed": 882183
+   },
+   {
+    "label": "Storage",
+    "gasUsed": 489610
+   },
+   {
+    "label": "Chain (with the Order implementation)",
+    "gasUsed": 4049292
+   },
+   {
+    "label": "GlobalReputation.setChain",
+    "gasUsed": 44156
+   },
+   {
+    "label": "Storage.setChain",
+    "gasUsed": 44088
+   },
+   {
+    "label": "StealthAnnouncer",
+    "gasUsed": 151293
+   }
+  ],
+  "privacyTotal": 11989444,
+  "baselineA": [
+   {
+    "label": "No_Util",
+    "gasUsed": 882183
+   },
+   {
+    "label": "No_Chain",
+    "gasUsed": 3660265
+   }
+  ],
+  "baselineATotal": 4542448,
+  "earlierBaselines": {
+   "asProxyBeforeThePayout_afternoon": {
+    "No_Util": 927431,
+    "No_Chain": 3559720,
+    "total": 4487151
+   },
+   "deployingItsCodePerOrder_morning": {
+    "No_Util": 927431,
+    "No_Chain": 3365423,
+    "total": 4292854
+   }
+  },
+  "privacyBeforeThePoolRefunds": {
+   "Chain": 3949235,
+   "total": null
+  }
+ },
+ "depthTable": {
+  "source": "gas-study-candidate-v2-2026-10-12.json",
+  "rows": [
+   {
+    "depth": 12,
+    "leaves": 4096,
+    "cyclesAt3Notes": 1365,
+    "insertionGasWarmInContract": 414107.5,
+    "earlierCodeSameWindow": 471794.5,
+    "withdrawalCircuitConstraints": 17246,
+    "provingMsMeanOf5": 615.8997526000079,
+    "provingMsSd": 12.228247034961514,
+    "provingMsMeanOf5_earlierRunUnderLoad": 694.3578277999943,
+    "verifyInContractGas": 222177
+   },
+   {
+    "depth": 16,
+    "leaves": 65536,
+    "cyclesAt3Notes": 21845,
+    "insertionGasWarmInContract": 534898.5,
+    "earlierCodeSameWindow": 621596.5,
+    "withdrawalCircuitConstraints": 21398,
+    "provingMsMeanOf5": 698.1803420000069,
+    "provingMsSd": 14.841812996967558,
+    "provingMsMeanOf5_earlierRunUnderLoad": 808.0870931999991,
+    "verifyInContractGas": 222177
+   },
+   {
+    "depth": 20,
+    "leaves": 1048576,
+    "cyclesAt3Notes": 349525,
+    "insertionGasWarmInContract": 655690.5,
+    "earlierCodeSameWindow": 771399.5,
+    "withdrawalCircuitConstraints": 25550,
+    "provingMsMeanOf5": 756.4564548000053,
+    "provingMsSd": 12.734813081501324,
+    "provingMsMeanOf5_earlierRunUnderLoad": 866.935221199994,
+    "verifyInContractGas": 222177
+   },
+   {
+    "depth": 25,
+    "leaves": 33554432,
+    "cyclesAt3Notes": 11184810,
+    "insertionGasWarmInContract": 806681.5,
+    "earlierCodeSameWindow": 958653.5,
+    "withdrawalCircuitConstraints": 30740,
+    "provingMsMeanOf5": 829.1796710000024,
+    "provingMsSd": 20.34799489378943,
+    "provingMsMeanOf5_earlierRunUnderLoad": 951.3360920000065,
+    "verifyInContractGas": 222177
+   }
+  ],
+  "gasPerLevel": 30198.028248587572,
+  "gasPerLevelEarlierCode": 37450.707021791764,
+  "gasPerRightChildLevel": 32277.028248587572,
+  "insertionAtOneBitInContract": 801484,
+  "repositoryFilesDepth25ProvingMs": 833.3999696000013,
+  "repositoryFilesInMemoryProvingMs": 835.4483149999927,
+  "insertionShare": {
+   "depositPayment": {
+    "call": 853303,
+    "insertion": 801484
+   },
+   "mergeWithdrawTwoNotes": {
+    "call": 1117064,
+    "insertion": 801607
+   },
+   "mergeWithdrawOneNoteAndDummy": {
+    "call": 1094664.857142857,
+    "insertion": 801607
+   },
+   "deliveryOrder": {
+    "call": 994201,
+    "insertion": 801484
+   }
+  },
+  "carriedOver": "gas-study-candidate-v2-2026-10-12 (afternoon); contracts/Reputation.sol and contracts/test/NoteTreeDepthHarness.sol did not change since"
+ },
+ "offChainMs": {
+  "toQuote_carriedOver": {
+   "how": "cycles 2-10 of the seven benchmark runs of section 5.1 (63 cycles); first = cycle 1 of each run (7 values); proof end to end and its tree part from the run at start 0 only",
+   "host": {
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "threads": 16,
+    "node": "v20.20.2"
+   },
+   "figures": {
+    "stealthDerivation": {
+     "later": {
+      "n": 63,
+      "mean": 9.449641904761812,
+      "median": 9.14213000000018,
+      "min": 8.393854000001738,
+      "max": 12.933746000000156,
+      "sd": 0.9626396816241548
+     },
+     "first": {
+      "n": 7,
+      "mean": 34.25229071428579,
+      "median": 33.77360199999998,
+      "min": 32.64081400000009,
+      "max": 35.85365999999999,
+      "sd": 1.437206979827016
+     }
+    },
+    "sealDetails": {
+     "later": {
+      "n": 63,
+      "mean": 2.053078492063515,
+      "median": 2.0286730000007083,
+      "min": 1.8194969999985915,
+      "max": 2.624033000000054,
+      "sd": 0.16071462657057342
+     },
+     "first": {
+      "n": 7,
+      "mean": 11.39429699999989,
+      "median": 11.208589000000302,
+      "min": 10.344192000000021,
+      "max": 12.389827999999397,
+      "sd": 0.8456603274463206
+     }
+    },
+    "openDetails": {
+     "later": {
+      "n": 63,
+      "mean": 3.1305152380952084,
+      "median": 3.0500040000006265,
+      "min": 2.596437000000151,
+      "max": 5.095946999999796,
+      "sd": 0.4054670478118132
+     },
+     "first": {
+      "n": 7,
+      "mean": 3.2472731428570114,
+      "median": 2.940987999999379,
+      "min": 2.8674660000001495,
+      "max": 4.432703999999831,
+      "sd": 0.560549690200717
+     }
+    },
+    "fullProve": {
+     "later": {
+      "n": 63,
+      "mean": 828.2696606349208,
+      "median": 825.1205360000004,
+      "min": 763.3123949999999,
+      "max": 909.6489180000008,
+      "sd": 32.20203819111106
+     },
+     "first": {
+      "n": 7,
+      "mean": 2067.4342315714284,
+      "median": 2053.626762,
+      "min": 1917.0713589999998,
+      "max": 2183.797736,
+      "sd": 91.6058101190306
+     }
+    },
+    "proofEndToEndFreshTree": {
+     "later": {
+      "n": 9,
+      "mean": 819.311284111111,
+      "median": 819.5599149999998,
+      "min": 772.412875,
+      "max": 883.8194210000001,
+      "sd": 31.911916867290376
+     },
+     "first": 1923.5432730000002
+    },
+    "logsAndTreeFreshTree": {
+     "later": {
+      "n": 9,
+      "mean": 9.439512555555515,
+      "median": 9.797723000000587,
+      "min": 5.787499999999909,
+      "max": 12.24210099999982,
+      "sd": 2.0885058355796264
+     },
+     "first": 5.349454000000151
+    },
+    "logsAndTreeByRun": {
+     "0": 9.439512555555515,
+     "1000": 10.119710888888726,
+     "100000": 13.644405888888741,
+     "1000000": 48.5237756666667,
+     "16777182": 670.3564536666664,
+     "16777200": 673.7562361111113,
+     "33554368": 1331.1722441111112
+    }
+   },
+   "readingTheTwoCircuitFilesMs": 10.01625200000126
+  },
+  "thisEvening_hostUnderLoad": {
+   "figures": {
+    "stealthDerivation": {
+     "later": {
+      "n": 63,
+      "mean": 9.66644514285698,
+      "min": 7.876897000000099,
+      "max": 22.26721599999928
+     },
+     "first": {
+      "n": 7,
+      "mean": 35.210013428571365
+     }
+    },
+    "zkProof_mergeWithdraw": {
+     "later": {
+      "n": 63,
+      "mean": 1204.1622232380953,
+      "min": 762.4951329999994,
+      "max": 2330.166600999997
+     },
+     "first": {
+      "n": 7,
+      "mean": 2469.18023
+     }
+    },
+    "sealDetails": {
+     "later": {
+      "n": 63,
+      "mean": 2.1581699999998443,
+      "min": 1.75983400000041,
+      "max": 8.235371999999188
+     },
+     "first": {
+      "n": 7,
+      "mean": 11.537616571428511
+     }
+    },
+    "openDetails": {
+     "later": {
+      "n": 63,
+      "mean": 3.2538398253967005,
+      "min": 2.6230189999987488,
+      "max": 6.616034999999101
+     },
+     "first": {
+      "n": 7,
+      "mean": 3.2396071428570394
+     }
+    },
+    "fullProve": {
+     "later": {
+      "n": 63,
+      "mean": 829.8475563492063,
+      "min": 732.5623480000004,
+      "max": 1226.7123769999998
+     }
+    }
+   },
+   "loadAverage1min": "4 to 10 (other tasks ran on the host)",
+   "anEarlierSetOfRunsThisEvening_load6to12_fullProveMs": 1004
+  }
+ },
+ "pathTotals": {
+  "leaving": {
+   "1": 3233711,
+   "2": 3201585
+  },
+  "replacement": {
+   "1": 3229914,
+   "2": 3197776
+  }
+ },
+ "carriedOverForComparison": {
+  "baselineCycleLater_deployingItsCode_morning": 2653277.3,
+  "baselineCycleLater_asProxyNoPayout_afternoon": 820317.3,
+  "afternoonFillLevelMeans": {
+   "0": 4830823,
+   "1000": 4850362,
+   "100000": 4861626.3,
+   "1000000": 4867866,
+   "16777182": 4941556,
+   "33554368": 4942715
+  },
+  "privacyDeploymentBeforeThePoolRefunds": 11889363,
+  "chainDeploymentBeforeThePoolRefunds_about": 3949200,
+  "orderRuntimeBytes": [
+   12254,
+   12717
+  ],
+  "leaveAfterPickupBeforeThePoolRefunds": [
+   159386,
+   142286
+  ],
+  "poolRefundsTable_deliveredLargestGas": 1021696,
+  "noteTreeLeaves": {
+   "2^24": 16777216,
+   "2^25": 33554432
+  }
+ },
+ "files": {
+  "mainRun": [
+   "hardhat-report-10it-2026-10-12T22-42-50-080Z.txt",
+   "hardhat-data-10it-2026-10-12T22-42-50-080Z.csv",
+   "hardhat-summary-10it-2026-10-12T22-42-50-080Z.json"
+  ],
+  "fillLevelRuns": [
+   [
+    "hardhat-report-10it-start1000-2026-10-12T22-43-06-621Z.txt",
+    "hardhat-data-10it-start1000-2026-10-12T22-43-06-621Z.csv",
+    "hardhat-summary-10it-start1000-2026-10-12T22-43-06-621Z.json"
+   ],
+   [
+    "hardhat-report-10it-start100000-2026-10-12T22-43-23-540Z.txt",
+    "hardhat-data-10it-start100000-2026-10-12T22-43-23-540Z.csv",
+    "hardhat-summary-10it-start100000-2026-10-12T22-43-23-540Z.json"
+   ],
+   [
+    "hardhat-report-10it-start1000000-2026-10-12T22-43-40-338Z.txt",
+    "hardhat-data-10it-start1000000-2026-10-12T22-43-40-338Z.csv",
+    "hardhat-summary-10it-start1000000-2026-10-12T22-43-40-338Z.json"
+   ],
+   [
+    "hardhat-report-10it-start16777182-2026-10-12T22-44-04-284Z.txt",
+    "hardhat-data-10it-start16777182-2026-10-12T22-44-04-284Z.csv",
+    "hardhat-summary-10it-start16777182-2026-10-12T22-44-04-284Z.json"
+   ],
+   [
+    "hardhat-report-10it-start16777200-2026-10-12T22-44-28-269Z.txt",
+    "hardhat-data-10it-start16777200-2026-10-12T22-44-28-269Z.csv",
+    "hardhat-summary-10it-start16777200-2026-10-12T22-44-28-269Z.json"
+   ],
+   [
+    "hardhat-report-10it-start33554368-2026-10-12T22-44-59-138Z.txt",
+    "hardhat-data-10it-start33554368-2026-10-12T22-44-59-138Z.csv",
+    "hardhat-summary-10it-start33554368-2026-10-12T22-44-59-138Z.json"
+   ]
+  ],
+  "text": "local-gas-final-2026-10-12.md"
+ },
+ "commands": [
+  "ITERATIONS=10 npx hardhat run --no-compile benchmarking/benchmark-hardhat.cjs",
+  "ITERATIONS=10 NOTE_START_INDEX=<n> ENDINGS=0 VARIANTS=0 npx hardhat run --no-compile benchmarking/benchmark-hardhat.cjs   # n = 1000, 100000, 1000000, 16777182, 16777200, 33554368"
+ ],
+ "status": {
+  "measuredThisEvening": [
+   "privacy",
+   "baselineA",
+   "baselineB",
+   "baselineA_itemsOnly_earlierCycle",
+   "mechanisms.variants",
+   "endings",
+   "paths",
+   "fillLevel.runs",
+   "fillLevel.worstCycleMeasured",
+   "cashout.measuredThisEvening",
+   "deployment"
+  ],
+  "computed": [
+   "overhead",
+   "mechanisms.overhead",
+   "mechanisms.shares",
+   "fillLevel.baseCycle",
+   "fillLevel.computedFromTheRule",
+   "fillLevel.upperBounds",
+   "cashout.cyclePlusCashout_computed"
+  ],
+  "carriedOver": [
+   "cashout.carriedOver",
+   "cashout.perOrder_privacyReport",
+   "depthTable",
+   "offChainMs.toQuote_carriedOver",
+   "deployment.earlierBaselines"
+  ]
+ }
+}

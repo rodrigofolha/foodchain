@@ -1,0 +1,118 @@
+{
+ "what": "cash-out of the payment pool from the secrets file of a benchmark run: two notes per mergeWithdraw, the whole sum of the pair paid out, change 0",
+ "tool": "benchmarking/pool-cashout.cjs",
+ "mode": "sent",
+ "network": "hoodi",
+ "chainId": "560048",
+ "endpoint": "https://ethereum-hoodi-rpc.publicnode.com",
+ "at": "2026-10-13T19:33:42.361Z",
+ "deploymentRecord": "<repository>/deployments/hoodi-2026-10-13/deployment.json",
+ "pool": "0x2785120d91f169F7d6B196a35730206Bf7fa681f",
+ "secretsFile": "ephemeral-wallets-hoodi-2026-10-13T10-36-02-836Z.json",
+ "recipient": {
+  "role": "funder",
+  "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d"
+ },
+ "sender": {
+  "role": "funder",
+  "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d"
+ },
+ "gasLimitRule": "eth_estimateGas x 1.2",
+ "feeSettings": "tip at least 0.2 gwei, maximum fee 3 gwei",
+ "ethUsd": {
+  "usdPerEth": 2507.445,
+  "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+  "at": "2026-10-13T19:32:01Z"
+ },
+ "tree": {
+  "block": 3810281,
+  "leaves": 195
+ },
+ "notes": {
+  "deposit": {
+   "spent": {
+    "notes": 25,
+    "wei": "149185971788200000"
+   }
+  },
+  "change": {
+   "spent": {
+    "notes": 17,
+    "wei": "0"
+   },
+   "unspent, zero value": {
+    "notes": 8,
+    "wei": "0"
+   }
+  },
+  "revenue": {
+   "unspent, can be proved": {
+    "notes": 24,
+    "wei": "107706546297600000"
+   }
+  }
+ },
+ "provable": {
+  "notes": 24,
+  "wei": "107706546297600000"
+ },
+ "poolBalanceWeiBefore": "285134337380800000",
+ "plan": {
+  "withdrawals": 1,
+  "ofWhole": 12,
+  "wei": "8730464544800000"
+ },
+ "gasRule": "two-note mergeWithdraw: 1117064 + 2079 x (1 bits of the change note's leaf index - 1) + 17100 when the leaf is 2^k - 1; with the dummy note -22370; calldata zero bytes not counted",
+ "steps": [
+  {
+   "n": 1,
+   "leaves": [
+    33,
+    36
+   ],
+   "withDummy": false,
+   "amountWei": "8730464544800000",
+   "nonce": 199,
+   "status": "mined",
+   "treeLeavesOfTheProof": 195,
+   "proveMs": 993,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 39,
+   "txHash": "0xe939fa61f070449726ac04e286c6c0eac1efdf0fbc859d98ed0c99c8fcf20821",
+   "estimate": 1133383,
+   "gasLimit": 1360060,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810286,
+   "gasUsed": 1123301,
+   "effectiveGasPriceWei": "1233807611",
+   "feeWei": "1385937323243911",
+   "changeLeaf": 195,
+   "ruleGas": 1123301,
+   "secondsFromSendToReceipt": 12.885,
+   "secondsOfTheStep": 16.128
+  }
+ ],
+ "balancesWeiBefore": {
+  "pool": "285134337380800000",
+  "recipient": "6901693901508347591",
+  "sender": "6901693901508347591"
+ },
+ "firstNonce": 199,
+ "balancesWeiAfter": {
+  "block": 3810286,
+  "pool": "276403872836000000",
+  "recipient": "6909038428729903680",
+  "sender": "6909038428729903680"
+ },
+ "poolDownByThePayouts": true,
+ "accountsMovedByPayoutsAndFees": true,
+ "totals": {
+  "withdrawalsMined": 1,
+  "gas": "1123301",
+  "feeWei": "1385937323243911",
+  "paidOutWei": "8730464544800000",
+  "netWei": "7344527221556089",
+  "seconds": 17.116
+ }
+}

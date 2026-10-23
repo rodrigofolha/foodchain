@@ -1,0 +1,37 @@
+Pool cash-out on Hoodi (chain 560048, https://ethereum-hoodi-rpc.publicnode.com)
+  deployment record <repository>/deployments/hoodi-2026-10-13/deployment.json
+  pool (GlobalReputation) 0x2785120d91f169F7d6B196a35730206Bf7fa681f, deploy block 3807607
+  secrets file ephemeral-wallets-hoodi-2026-10-13T10-36-02-836Z.json
+  recipient: the funder 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d; sender (pays the gas): the funder 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d
+  note tree at block 3810287: 196 leaves, root equal to the contract's
+
+Notes of the file: 74
+  deposit  spent                      25 notes  0.1491859717882 ETH
+  change   spent                      17 notes  0.0 ETH
+  change   unspent, zero value         8 notes  0.0 ETH
+  revenue  spent                       2 notes  0.0087304645448 ETH
+  revenue  unspent, can be proved     22 notes  0.0989760817528 ETH
+Unspent notes that can be proved: 22, 0.0989760817528 ETH (98976081752800000 wei); the pool holds 0.276403872836 ETH (276403872836000000 wei)
+
+Plan: 11 withdrawal(s), two notes each; 0.0989760817528 ETH (98976081752800000 wei) to the funder
+
+Sending 11 withdrawal(s) from the funder, nonces 200 to 210; result file <repository>/benchmarking/results/hoodi-2026-10-13/pool-cashout-hoodi-2026-10-13T19-35-11-787Z.json
+   1/11  leaves 41 + 42                 0.0088184587184      ETH  0x75b5a73b2ab1b8c99b4280630d5798dbb746d28b50a232f59e3dbcdb46096e6a  block 3810292  gas 1121186 (limit 1357503)  1.216400541 gwei  fee 0.001363811256961626 ETH  change note at leaf 196  proof 988 ms
+   2/11  leaves 47 + 56                 0.008879015024       ETH  0x3b7dd2412761aeff53f871ab93192eae4ce95bc3f46fc57b9cea0299a691d98d  block 3810293  gas 1123301 (limit 1360060)  1.111949428 gwei  fee 0.001249053904421828 ETH  change note at leaf 197  proof 667 ms
+   3/11  leaves 57 + 58                 0.0088908154448      ETH  0x3019e284f1d3af9a12c9fc36bd9920e21275c3356fdf83b72edf0538aed47979  block 3810294  gas 1123301 (limit 1360060)  1.223195661 gwei  fee 0.001374016909196961 ETH  change note at leaf 198  proof 664 ms
+   4/11  leaves 59 + 64                 0.0087397312856      ETH  0xece182beb77f8a2f2409268ae57860ca164c7395b44ed0d3e4dd9983f6b84664  block 3810296  gas 1125356 (limit 1362546)  1.217698864 gwei  fee 0.001370344722795584 ETH  change note at leaf 199  proof 682 ms
+   5/11  leaves 65 + 82                 0.0090174553088      ETH  0xf57ebf997757fc701970accbeceea69cda9969171c30a75bda09eb3b73d02e60  block 3810297  gas 1121234 (limit 1357560)  1.097134994 gwei  fee 0.001230145057862596 ETH  change note at leaf 200  proof 652 ms
+   6/11  leaves 83 + 84                 0.0094002523712      ETH  0x3bf386fbebaa550875d318f08b4730cb820e7a16fa4ae054a6f33e43c09c9cfa  block 3810298  gas 1123313 (limit 1360074)  1.206989156 gwei  fee 0.001355826609793828 ETH  change note at leaf 201  proof 650 ms
+   7/11  leaves 85 + 86                 0.0094002523712      ETH  0x2ab0ef98f0ac9cf2af17c2f392227fe2a41d265732ef47b9846e7f0c079ed8d6  block 3810300  gas 1123313 (limit 1360074)  1.214489914 gwei  fee 0.001364252308765082 ETH  change note at leaf 202  proof 662 ms
+   8/11  leaves 87 + 88                 0.0094002523712      ETH  0x0ee57654a098238f64ff0671cfdbd3daebd7df3c14d1605268512c9c814d1589  block 3810302  gas 1125368 (limit 1362561)  1.201422985 gwei  fee 0.00135204298178348 ETH  change note at leaf 203  proof 656 ms
+   9/11  leaves 89 + 100                0.00904607072        ETH  0xac8dd7894dfaa3f9c6e68535d0ce273d676eca6071ac1ffd0dc91e9735f29173  block 3810303  gas 1123289 (limit 1360046)  1.100660468 gwei  fee 0.001236359796439252 ETH  change note at leaf 204  proof 642 ms
+  10/11  leaves 101 + 102               0.0086918890688      ETH  0x28e32123046793da4e8eb38c4aefd46b4bc77e0b84460f2dd401f53f66530285  block 3810305  gas 1125380 (limit 1362575)  1.089070451 gwei  fee 0.00122561810414638 ETH  change note at leaf 205  proof 649 ms
+  11/11  leaves 103 + 104               0.0086918890688      ETH  0xd1ee1d2613aecb3cc32bc5a27b66feda248cefc0a0ba7d3dd72ccd6ed09b1ec1  block 3810307  gas 1125380 (limit 1362575)  1.309966225 gwei  fee 0.0014742097902905 ETH  change note at leaf 206  proof 655 ms
+
+Withdrawals mined: 11 of 11 in 206 s; gas 12,360,421; fees 0.014595681442457117 ETH = 36.5979 USD paid by the funder; paid out 0.0989760817528 ETH (98976081752800000 wei) to the funder
+Balances before and at block 3810307:
+  pool                             276403872836000000 ->     177427791083200000 wei  (-98976081752800000)
+  funder (sends and receives)     6909038428729903680 ->    6993418829040246563 wei  (+84380400310342883)
+  the pool is down by exactly what was paid out: yes; the accounts moved by exactly the payouts and the fees: yes
+Result written to <repository>/benchmarking/results/hoodi-2026-10-13/pool-cashout-hoodi-2026-10-13T19-35-11-787Z.json
+exit=0

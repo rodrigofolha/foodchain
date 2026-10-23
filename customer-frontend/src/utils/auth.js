@@ -11,7 +11,9 @@ export const isAuthenticated = () => {
   return false
 }
 
+// Ends the API session only. What the browser keeps about past orders (orderSecrets,
+// orderRestaurantInfo) stays: the pickup secret keeps the address closed until pickup.
 export const SignOut = () => {
-  localStorage.clear();
+  ['authorization', 'customer', 'basket', 'restaurantInfo'].forEach(key => localStorage.removeItem(key));
   window.location.reload();
 }

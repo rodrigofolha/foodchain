@@ -112,3 +112,18 @@ export const ButtonsContainer = styled.div`
   display: flex;
   margin-top: 15px;
 `
+
+export const HandoverContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+
+  svg {
+    margin: 0 15px 10px 0;
+  }
+
+  textarea {
+    max-width: 100%;
+  }
+`;

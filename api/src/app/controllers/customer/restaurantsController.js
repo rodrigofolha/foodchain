@@ -8,7 +8,6 @@ module.exports = {
         'restaurant_name',
         'culinary',
         'delivery_price',
-        'digital_address',
         'public_key',
         'spend_public_key',
         'view_public_key',

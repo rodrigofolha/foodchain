@@ -1,6 +1,6 @@
 {
   "meta": {
-    "rpc": "https://sepolia.infura.io/v3/2c5086ea325e479396bd99289cbb5268",
+    "rpc": "https://sepolia.infura.io/v3/<redacted>",
     "kValues": [
       1,
       5,

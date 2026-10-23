@@ -1,0 +1,56 @@
+==============================================================================================================
+FoodChain — concurrent throughput (hardhat (in-process), privacy, block time 250 ms)
+==============================================================================================================
+
+Experimental variables
+  Started at:          2026-10-13T02:33:43.708Z
+  Network:             hardhat (in-process) (chainId 31337)
+  Block timing:        250 ms interval mining (12000 ms mirrors Sepolia)
+  Block gas limit:     60,000,000
+  Contracts:           Chain 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707, GlobalReputation 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+                       Storage 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9, StealthAnnouncer 0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6
+  Tree:                note tree depth 25; every past root stays valid (mapping, O(1)). Ratings: Chain.rateOrder, in the clear
+  Privacy:             stealth address derived and announced per order, stipend in makeOrder, stealth wallet sends poolWithdraw/prepareOrder/pickupOrder/rating (legacy gasPrice), one real Groth16 proof per cycle (the withdrawal)
+  Concurrency levels:  {1, 2, 4, 8, 16, 32, 64, 128, 256} clients; units per client: makeOrder 5, cycle 2
+  Client model:        closed loop (next tx after the previous receipt), clients start together
+  Prover:              snarkjs 0.7.6 groth16.fullProve, 1 concurrent proofs on 16 CPUs (12th Gen Intel(R) Core(TM) i5-12500H)
+  Receipt polling:     25 ms
+  Host:                Node v20.20.2 on linux x64
+
+Definitions
+  window      wall clock from the level start to the last receipt of the level
+  units/s     completed units (orders or cycles) / window;  tx/s = mined transactions / window
+  unit lat.   one unit's wall clock (makeOrder: derivation + announce + makeOrder; cycle: all its steps)
+  incl. lat.  sendTransaction returned -> block containing the tx observed
+  blk/util    blocks spanned by the level / mean and max gasUsed/gasLimit over those blocks
+  root age    note-tree insertions between a withdrawal proof's snapshot and its on-chain check
+              (every past root stays valid: mapping, O(1)); stale = proofs regenerated because the dry run
+              reported their root as not known
+
+── Workload: makeOrder (5 orders per client) ────────────────────────────────────────
+|   k |  units ok | window s | units/s |   tx/s | makeOrder tx/s | unit lat. ms p50/p90/p99 | incl. lat. ms p50/p95/p99 | blk / util mean / max | max tx/blk | base fee gwei | root age max / stale |
+|-----|-----------|----------|---------|--------|----------------|--------------------------|---------------------------|-----------------------|------------|---------------|----------------------|
+|   1 |       5/5 |     2.52 |    1.99 |   3.98 |           1.99 |          511 / 520 / 520 |           233 / 259 / 259 |          10 / 1% / 2% |          1 | 0.0660-0.2144 |                    - |
+|   2 |     10/10 |     2.52 |    3.98 |   7.95 |           3.98 |          502 / 506 / 506 |           233 / 236 / 236 |          10 / 2% / 4% |          2 | 0.0107-0.0341 |                    - |
+|   4 |     20/20 |     2.52 |    7.94 |  15.87 |           7.94 |          499 / 519 / 520 |           225 / 237 / 238 |          10 / 4% / 8% |          4 | 0.0018-0.0056 |                    - |
+|   8 |     40/40 |     2.50 |   16.00 |  32.01 |          16.00 |          495 / 522 / 538 |           191 / 228 / 252 |         10 / 8% / 16% |          8 | 0.0003-0.0010 |                    - |
+|  16 |     80/80 |     2.52 |   31.68 |  63.37 |          31.68 |          501 / 507 / 561 |           153 / 222 / 233 |        10 / 17% / 32% |         16 | 0.0001-0.0002 |                    - |
+|  32 |   160/160 |     3.28 |   48.84 |  97.68 |          48.84 |          619 / 647 / 772 |           172 / 277 / 298 |        13 / 25% / 45% |         29 | 0.0000-0.0000 |                    - |
+|  64 |   320/320 |     6.40 |   50.03 | 100.05 |          50.03 |       1309 / 1463 / 1514 |           465 / 601 / 632 |        24 / 28% / 49% |         56 | 0.0000-0.0000 |                    - |
+| 128 |   640/640 |    12.94 |   49.44 |  98.88 |          49.44 |       2641 / 3128 / 3215 |        1123 / 1306 / 1387 |        47 / 28% / 55% |        120 | 0.0000-0.0000 |                    - |
+| 256 | 1280/1280 |    27.69 |   46.23 |  92.46 |          46.23 |       5514 / 7348 / 9085 |        2513 / 3691 / 4528 |        93 / 28% / 95% |        209 | 0.0000-0.0000 |                    - |
+
+| operation         |    n | mean gasUsed | gas limit | latency ms p50/p95 (tx: inclusion) | tx prep or prove ms p50/p95 | prover wait ms p50/p95 |
+|-------------------|------|--------------|-----------|------------------------------------|-----------------------------|------------------------|
+| stealthDerivation | 2555 |    off-chain |         - |                            6 / 743 |                           - |                      - |
+| stealthAnnounce   | 2555 |       26,243 |   200,000 |                        1144 / 2700 |                    34 / 549 |                      - |
+| makeOrder         | 2555 |    1,213,303 | 5,000,000 |                        1209 / 3394 |                   47 / 1300 |                      - |
+
+  Gas-bound ceiling: 46 makeOrders per 60,000,000-gas block (each needs its 5,000,000 gas limit free) = 184.0 makeOrder/s at 250 ms blocks.
+  Closed-loop bound: a client needs 2 blocks per order (announce, then makeOrder), so k clients offer at most k/(2 x 0.25 s) orders/s.
+
+Notes
+  - Fresh deployment per run; client wallets are reused across levels, so later levels see a larger note tree and couriers with a record.
+  - Contracts: the final ones of 2026-10-12 (ratings in the clear, orders as minimal proxies, the worker's ciphertexts in an event, the establishment paid by a note in the pool). Payloads: the dApps' late-release format.
+  - Warm-up: 1 unrecorded unit(s) by client 0 before each sweep.
+  - In-process network: clients, provers and the EVM share one Node process.

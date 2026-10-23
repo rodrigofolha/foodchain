@@ -1,0 +1,4146 @@
+{
+  "meta": {
+    "network": "hoodi",
+    "chainId": "560048",
+    "rpc": "https://ethereum-hoodi-rpc.publicnode.com",
+    "variant": "privacy",
+    "startedAt": "2026-10-13T10:35:56.782Z",
+    "blockTimeMs": 12000,
+    "blockTiming": "network (~12000 ms)",
+    "blockGasLimit": 60000000,
+    "contracts": {
+      "chain": "0xAa5FDAB5D55D76da97C15D435f5b0C059e72BF07",
+      "storage": "0x56bAA20bE01075979A598acD02f666fAeA14e7d7",
+      "reputation": "0x2785120d91f169F7d6B196a35730206Bf7fa681f",
+      "stealth": "0xe4D8ebC06747594C6F7c3F9f414f89fD058Ae457"
+    },
+    "deploymentSource": "<repository>/deployments/hoodi-2026-10-13/deployment.json (DEPLOYMENT_RECORD)",
+    "levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "ordersPerClient": 2,
+    "cyclesPerClient": 2,
+    "proverConcurrency": 1,
+    "cpus": 16,
+    "cpuModel": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "snarkjsVersion": "0.7.6",
+    "pollMs": 1000,
+    "nodeVersion": "v20.20.2",
+    "platform": "linux x64",
+    "funder": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+    "gasPriceAtStartWei": "956259894",
+    "run": {
+      "date": "2026-10-13T10:35:56.782Z",
+      "chainId": "560048",
+      "blockRange": {
+        "first": 3807906,
+        "last": 3808061
+      },
+      "forkId": "0x23aa1351",
+      "forkActivationTime": 1762955544,
+      "atStart": {
+        "at": "2026-10-13T10:35:57.851Z",
+        "block": 3807904,
+        "blockTimestamp": 1791887748,
+        "blockGasLimit": "60000000",
+        "baseFeePerGasWei": "887963555",
+        "gasPriceWei": "956259894",
+        "maxPriorityFeePerGasWei": "68296339",
+        "forkId": "0x23aa1351",
+        "forkActivationTime": 1762955544
+      },
+      "atEnd": {
+        "at": "2026-10-13T11:14:34.823Z",
+        "block": 3808077,
+        "blockTimestamp": 1791890064,
+        "blockGasLimit": "60000000",
+        "baseFeePerGasWei": "1042974842",
+        "gasPriceWei": "1109222290",
+        "maxPriorityFeePerGasWei": "66247448",
+        "forkId": "0x23aa1351",
+        "forkActivationTime": 1762955544
+      },
+      "ethUsd": {
+        "usdPerEth": 2509.195,
+        "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+        "at": "2026-10-13T09:24:59Z"
+      },
+      "gasSchedule": "main",
+      "gasTable": "built-in, main-network schedule (local Hardhat, hardfork osaka, 2026-10-12, final contracts)",
+      "fees": "tip at least 0.2 gwei, maximum fee 2 x base fee + tip",
+      "stealthFeeMode": "capped",
+      "orderTotalWei": "6000000000000000",
+      "orderTotalRule": "ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH"
+    },
+    "cost": {
+      "makeOrder": {
+        "cycles": 30,
+        "formula": "gas used x effective gas price of each transaction, summed; x the ETH/USD rate",
+        "ethUsd": {
+          "usdPerEth": 2509.195,
+          "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+          "at": "2026-10-13T09:24:59Z"
+        },
+        "meanEffectiveGasPriceWei": "1195879229",
+        "total": {
+          "gasPerCycle": 1239534.4,
+          "feeWeiPerCycle": "1482333443401033",
+          "feeEthPerCycle": 0.001482333443401033,
+          "feeUsdPerCycle": 3.7194636645146555,
+          "transactionsPerCycle": 2
+        },
+        "perParty": {
+          "customer": {
+            "gasPerCycle": 1239534.4,
+            "feeWeiPerCycle": "1482333443401033",
+            "feeEthPerCycle": 0.001482333443401033,
+            "feeUsdPerCycle": 3.7194636645146555,
+            "transactionsPerCycle": 2
+          }
+        }
+      },
+      "cycle": {
+        "cycles": 24,
+        "formula": "gas used x effective gas price of each transaction, summed; x the ETH/USD rate",
+        "ethUsd": {
+          "usdPerEth": 2509.195,
+          "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+          "at": "2026-10-13T09:24:59Z"
+        },
+        "meanEffectiveGasPriceWei": "1192552403",
+        "total": {
+          "gasPerCycle": 4831894.041666667,
+          "feeWeiPerCycle": "5762286851532691",
+          "feeEthPerCycle": 0.005762286851532691,
+          "feeUsdPerCycle": 14.458701356431572,
+          "transactionsPerCycle": 11
+        },
+        "perParty": {
+          "customer": {
+            "gasPerCycle": 1357616,
+            "feeWeiPerCycle": "1614459761242101",
+            "feeEthPerCycle": 0.001614459761242101,
+            "feeUsdPerCycle": 4.050994360609874,
+            "transactionsPerCycle": 4
+          },
+          "establishment (own wallet)": {
+            "gasPerCycle": 859124.875,
+            "feeWeiPerCycle": "1071000425095576",
+            "feeEthPerCycle": 0.001071000425095576,
+            "feeUsdPerCycle": 2.6873489116476943,
+            "transactionsPerCycle": 1
+          },
+          "establishment (one-time address)": {
+            "gasPerCycle": 1379878.5,
+            "feeWeiPerCycle": "1619871706648590",
+            "feeEthPerCycle": 0.00161987170664859,
+            "feeUsdPerCycle": 4.064573986964109,
+            "transactionsPerCycle": 4
+          },
+          "worker": {
+            "gasPerCycle": 1235274.6666666667,
+            "feeWeiPerCycle": "1456954958546423",
+            "feeEthPerCycle": 0.001456954958546423,
+            "feeUsdPerCycle": 3.655784097209892,
+            "transactionsPerCycle": 2
+          }
+        }
+      }
+    },
+    "estimate": {
+      "gasWei": "207376287153492450",
+      "lockedWei": "141149287632000000",
+      "netWei": "348525574785492450"
+    },
+    "spentWei": "337897578397190388",
+    "refund": {
+      "returnedWei": "613959791312282158",
+      "count": 92
+    },
+    "aborted": null,
+    "notes": [
+      "Hoodi: other users share the blocks; block packing and base fee include their transactions."
+    ]
+  },
+  "sweeps": [
+    {
+      "workload": "makeOrder",
+      "levels": [
+        {
+          "workload": "makeOrder",
+          "variant": "privacy",
+          "k": 1,
+          "perClient": 2,
+          "windowMs": 50847.47099,
+          "unitsAttempted": 2,
+          "unitsOk": 2,
+          "unitsFailed": 0,
+          "unitsPerSec": 0.039333322996404935,
+          "txOk": 4,
+          "txFailed": 0,
+          "txPerSec": 0.07866664599280987,
+          "makeOrderTxPerSec": 0.039333322996404935,
+          "gasPerSec": 48754.9125203798,
+          "gasPerUnit": 1239532,
+          "unitLatencyMs": {
+            "n": 2,
+            "mean": 25423.634734500007,
+            "stddev": 254.74673550000443,
+            "min": 25168.887999000002,
+            "max": 25678.38147000001,
+            "p50": 25168.887999000002,
+            "p90": 25678.38147000001,
+            "p95": 25678.38147000001,
+            "p99": 25678.38147000001
+          },
+          "inclusionMs": {
+            "n": 4,
+            "mean": 11402.2686225,
+            "stddev": 1246.5291460975457,
+            "min": 9859.344777000002,
+            "max": 13296.608311999997,
+            "p50": 10922.869863999997,
+            "p90": 13296.608311999997,
+            "p95": 13296.608311999997,
+            "p99": 13296.608311999997
+          },
+          "makeOrderInclusionMs": {
+            "n": 2,
+            "mean": 12413.4299245,
+            "stddev": 883.1783874999965,
+            "min": 11530.251537000004,
+            "max": 13296.608311999997,
+            "p50": 11530.251537000004,
+            "p90": 13296.608311999997,
+            "p95": 13296.608311999997,
+            "p99": 13296.608311999997
+          },
+          "proofsPerSec": 0,
+          "proofCpuMsPerUnit": 0,
+          "proofWaitMsPerUnit": 0,
+          "onchainMsPerUnit": 24819.5056435,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 0,
+            "mean": null,
+            "stddev": null,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 26239,
+                "stddev": 6,
+                "min": 26233,
+                "max": 26245,
+                "p50": 26233,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 10391.1073205,
+                "stddev": 531.7625434999973,
+                "min": 9859.344777000002,
+                "max": 10922.869863999997,
+                "p50": 9859.344777000002,
+                "p90": 10922.869863999997,
+                "p95": 10922.869863999997,
+                "p99": 10922.869863999997
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 864.3047545000009,
+                "stddev": 358.0838595000023,
+                "min": 506.22089499999856,
+                "max": 1222.3886140000031,
+                "p50": 506.22089499999856,
+                "p90": 1222.3886140000031,
+                "p95": 1222.3886140000031,
+                "p99": 1222.3886140000031
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 1213293,
+                "stddev": 0,
+                "min": 1213293,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 12413.4299245,
+                "stddev": 883.1783874999965,
+                "min": 11530.251537000004,
+                "max": 13296.608311999997,
+                "p50": 11530.251537000004,
+                "p90": 13296.608311999997,
+                "p95": 13296.608311999997,
+                "p99": 13296.608311999997
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1150.6636440000002,
+                "stddev": 422.8506369999959,
+                "min": 727.8130070000043,
+                "max": 1573.5142809999961,
+                "p50": 727.8130070000043,
+                "p90": 1573.5142809999961,
+                "p95": 1573.5142809999961,
+                "p99": 1573.5142809999961
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 2,
+              "ms": {
+                "n": 2,
+                "mean": 13.23574699999881,
+                "stddev": 3.045307000000321,
+                "min": 10.190439999998489,
+                "max": 16.28105399999913,
+                "p50": 10.190439999998489,
+                "p90": 16.28105399999913,
+                "p95": 16.28105399999913,
+                "p99": 16.28105399999913
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3807906,
+            "last": 3807909,
+            "count": 4,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 1,
+            "ourTxPerBlockMean": 1,
+            "txPerBlockMax": 41,
+            "gasUtilMean": 0.5189744958333333,
+            "gasUtilMax": 0.9997470666666667,
+            "fullBlocks": 2,
+            "baseFeeMin": "978222265",
+            "baseFeeMax": "1113538836",
+            "timestampSpanS": 36
+          },
+          "sampleFailures": []
+        },
+        {
+          "workload": "makeOrder",
+          "variant": "privacy",
+          "k": 2,
+          "perClient": 2,
+          "windowMs": 47894.265250999975,
+          "unitsAttempted": 4,
+          "unitsOk": 4,
+          "unitsFailed": 0,
+          "unitsPerSec": 0.08351730586192645,
+          "txOk": 8,
+          "txFailed": 0,
+          "txPerSec": 0.1670346117238529,
+          "makeOrderTxPerSec": 0.08351730586192645,
+          "gasPerSec": 103522.12261772783,
+          "gasPerUnit": 1239529,
+          "unitLatencyMs": {
+            "n": 4,
+            "mean": 23851.789724749993,
+            "stddev": 423.85005826832423,
+            "min": 23263.065165999986,
+            "max": 24258.022515999997,
+            "p50": 23634.553698000003,
+            "p90": 24258.022515999997,
+            "p95": 24258.022515999997,
+            "p99": 24258.022515999997
+          },
+          "inclusionMs": {
+            "n": 8,
+            "mean": 10490.877978624998,
+            "stddev": 680.9630478426423,
+            "min": 9444.161158999981,
+            "max": 11439.771053000004,
+            "p50": 10033.478620999987,
+            "p90": 11439.771053000004,
+            "p95": 11439.771053000004,
+            "p99": 11439.771053000004
+          },
+          "makeOrderInclusionMs": {
+            "n": 4,
+            "mean": 10579.075302749996,
+            "stddev": 600.8961674902762,
+            "min": 9999.513806999981,
+            "max": 11439.771053000004,
+            "p50": 10033.478620999987,
+            "p90": 11439.771053000004,
+            "p95": 11439.771053000004,
+            "p99": 11439.771053000004
+          },
+          "proofsPerSec": 0,
+          "proofCpuMsPerUnit": 0,
+          "proofWaitMsPerUnit": 0,
+          "onchainMsPerUnit": 22909.521463750003,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 0,
+            "mean": null,
+            "stddev": null,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 4,
+              "failed": 0,
+              "gasUsed": {
+                "n": 4,
+                "mean": 26242,
+                "stddev": 5.196152422706632,
+                "min": 26233,
+                "max": 26245,
+                "p50": 26245,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 4,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 4,
+                "mean": 10402.6806545,
+                "stddev": 742.1506619172144,
+                "min": 9444.161158999981,
+                "max": 11160.659822000016,
+                "p50": 9915.690157999983,
+                "p90": 11160.659822000016,
+                "p95": 11160.659822000016,
+                "p99": 11160.659822000016
+              },
+              "prepMs": {
+                "n": 4,
+                "mean": 839.5556285000057,
+                "stddev": 306.2164398118213,
+                "min": 500.73291900000186,
+                "max": 1188.140642000013,
+                "p50": 571.3172659999982,
+                "p90": 1188.140642000013,
+                "p95": 1188.140642000013,
+                "p99": 1188.140642000013
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 4,
+              "failed": 0,
+              "gasUsed": {
+                "n": 4,
+                "mean": 1213287,
+                "stddev": 10.392304845413264,
+                "min": 1213269,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 4,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 4,
+                "mean": 10579.075302749996,
+                "stddev": 600.8961674902762,
+                "min": 9999.513806999981,
+                "max": 11439.771053000004,
+                "p50": 10033.478620999987,
+                "p90": 11439.771053000004,
+                "p95": 11439.771053000004,
+                "p99": 11439.771053000004
+              },
+              "prepMs": {
+                "n": 4,
+                "mean": 1088.2098780000015,
+                "stddev": 150.07467528016974,
+                "min": 884.975620000012,
+                "max": 1308.7157679999946,
+                "p50": 1076.979177000001,
+                "p90": 1308.7157679999946,
+                "p95": 1308.7157679999946,
+                "p99": 1308.7157679999946
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 4,
+              "ms": {
+                "n": 4,
+                "mean": 10.074179499999445,
+                "stddev": 3.185569052756767,
+                "min": 7.240561000013258,
+                "max": 15.364693999988958,
+                "p50": 7.964172000007238,
+                "p90": 15.364693999988958,
+                "p95": 15.364693999988958,
+                "p99": 15.364693999988958
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3807915,
+            "last": 3807918,
+            "count": 4,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 2,
+            "ourTxPerBlockMean": 2,
+            "txPerBlockMax": 49,
+            "gasUtilMean": 0.5372798583333334,
+            "gasUtilMax": 0.9988434833333333,
+            "fullBlocks": 2,
+            "baseFeeMin": "956301177",
+            "baseFeeMax": "1075562329",
+            "timestampSpanS": 36
+          },
+          "sampleFailures": []
+        },
+        {
+          "workload": "makeOrder",
+          "variant": "privacy",
+          "k": 4,
+          "perClient": 2,
+          "windowMs": 60285.493665000016,
+          "unitsAttempted": 8,
+          "unitsOk": 8,
+          "unitsFailed": 0,
+          "unitsPerSec": 0.13270190743489862,
+          "txOk": 16,
+          "txFailed": 0,
+          "txPerSec": 0.26540381486979725,
+          "makeOrderTxPerSec": 0.13270190743489862,
+          "gasPerSec": 164489.05693803937,
+          "gasPerUnit": 1239538,
+          "unitLatencyMs": {
+            "n": 8,
+            "mean": 29870.25083975002,
+            "stddev": 6994.167682097122,
+            "min": 22848.956102000026,
+            "max": 37435.91507000002,
+            "p50": 22911.625189000042,
+            "p90": 37435.91507000002,
+            "p95": 37435.91507000002,
+            "p99": 37435.91507000002
+          },
+          "inclusionMs": {
+            "n": 16,
+            "mean": 13171.0918408125,
+            "stddev": 6145.778455912508,
+            "min": 7564.709486000007,
+            "max": 23734.294217999995,
+            "p50": 10197.310236999998,
+            "p90": 23669.83448899997,
+            "p95": 23734.294217999995,
+            "p99": 23734.294217999995
+          },
+          "makeOrderInclusionMs": {
+            "n": 8,
+            "mean": 10451.253346500001,
+            "stddev": 535.1030087826732,
+            "min": 9834.603110999975,
+            "max": 11295.647425000032,
+            "p50": 10197.310236999998,
+            "p90": 11295.647425000032,
+            "p95": 11295.647425000032,
+            "p99": 11295.647425000032
+          },
+          "proofsPerSec": 0,
+          "proofCpuMsPerUnit": 0,
+          "proofWaitMsPerUnit": 0,
+          "onchainMsPerUnit": 28280.66032975001,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 0,
+            "mean": null,
+            "stddev": null,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 8,
+              "failed": 0,
+              "gasUsed": {
+                "n": 8,
+                "mean": 26245,
+                "stddev": 0,
+                "min": 26245,
+                "max": 26245,
+                "p50": 26245,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 8,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 8,
+                "mean": 15890.930335124998,
+                "stddev": 7775.59049577717,
+                "min": 7564.709486000007,
+                "max": 23734.294217999995,
+                "p50": 8678.698494000011,
+                "p90": 23734.294217999995,
+                "p95": 23734.294217999995,
+                "p99": 23734.294217999995
+              },
+              "prepMs": {
+                "n": 8,
+                "mean": 855.2131678750084,
+                "stddev": 264.11636209298183,
+                "min": 520.7266719999898,
+                "max": 1128.3062369999825,
+                "p50": 676.719654000015,
+                "p90": 1128.3062369999825,
+                "p95": 1128.3062369999825,
+                "p99": 1128.3062369999825
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 8,
+              "failed": 0,
+              "gasUsed": {
+                "n": 8,
+                "mean": 1213293,
+                "stddev": 0,
+                "min": 1213293,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 8,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 8,
+                "mean": 10451.253346500001,
+                "stddev": 535.1030087826732,
+                "min": 9834.603110999975,
+                "max": 11295.647425000032,
+                "p50": 10197.310236999998,
+                "p90": 11295.647425000032,
+                "p95": 11295.647425000032,
+                "p99": 11295.647425000032
+              },
+              "prepMs": {
+                "n": 8,
+                "mean": 1083.2634802500033,
+                "stddev": 267.32987552313574,
+                "min": 758.6077430000296,
+                "max": 1474.774586000014,
+                "p50": 944.8312179999775,
+                "p90": 1474.774586000014,
+                "p95": 1474.774586000014,
+                "p99": 1474.774586000014
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 8,
+              "ms": {
+                "n": 8,
+                "mean": 12.0046716249999,
+                "stddev": 6.940598120360326,
+                "min": 5.87256299998262,
+                "max": 27.235464999976102,
+                "p50": 8.456951000029221,
+                "p90": 27.235464999976102,
+                "p95": 27.235464999976102,
+                "p99": 27.235464999976102
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3807924,
+            "last": 3807927,
+            "count": 4,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 4,
+            "ourTxPerBlockMean": 4,
+            "txPerBlockMax": 33,
+            "gasUtilMean": 0.5245129375,
+            "gasUtilMax": 0.9986883666666667,
+            "fullBlocks": 2,
+            "baseFeeMin": "906084989",
+            "baseFeeMax": "1027723290",
+            "timestampSpanS": 36
+          },
+          "sampleFailures": []
+        },
+        {
+          "workload": "makeOrder",
+          "variant": "privacy",
+          "k": 8,
+          "perClient": 2,
+          "windowMs": 46068.859251999995,
+          "unitsAttempted": 16,
+          "unitsOk": 16,
+          "unitsFailed": 0,
+          "unitsPerSec": 0.34730619033735655,
+          "txOk": 32,
+          "txFailed": 0,
+          "txPerSec": 0.6946123806747131,
+          "makeOrderTxPerSec": 0.34730619033735655,
+          "gasPerSec": 430497.9181601725,
+          "gasPerUnit": 1239534.25,
+          "unitLatencyMs": {
+            "n": 16,
+            "mean": 22388.39177731249,
+            "stddev": 1660.2468614340867,
+            "min": 19593.351981999993,
+            "max": 24641.955084999965,
+            "p50": 22155.59850999998,
+            "p90": 24268.235915999976,
+            "p95": 24641.955084999965,
+            "p99": 24641.955084999965
+          },
+          "inclusionMs": {
+            "n": 32,
+            "mean": 8512.8731249375,
+            "stddev": 1258.7561721675768,
+            "min": 6856.406877000001,
+            "max": 11165.827839999984,
+            "p50": 8341.138133,
+            "p90": 10095.369591999974,
+            "p95": 10812.815676999977,
+            "p99": 11165.827839999984
+          },
+          "makeOrderInclusionMs": {
+            "n": 16,
+            "mean": 8520.9072996875,
+            "stddev": 914.8368362184059,
+            "min": 6856.406877000001,
+            "max": 9960.793958999973,
+            "p50": 8341.138133,
+            "p90": 9801.08328000002,
+            "p95": 9960.793958999973,
+            "p99": 9960.793958999973
+          },
+          "proofsPerSec": 0,
+          "proofCpuMsPerUnit": 0,
+          "proofWaitMsPerUnit": 0,
+          "onchainMsPerUnit": 19068.078554437503,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 0,
+            "mean": null,
+            "stddev": null,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 16,
+              "failed": 0,
+              "gasUsed": {
+                "n": 16,
+                "mean": 26242.75,
+                "stddev": 4.683748498798798,
+                "min": 26233,
+                "max": 26245,
+                "p50": 26245,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 16,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 16,
+                "mean": 8504.838950187499,
+                "stddev": 1527.0490067807293,
+                "min": 6889.91146600002,
+                "max": 11165.827839999984,
+                "p50": 7303.287394999992,
+                "p90": 10812.815676999977,
+                "p95": 11165.827839999984,
+                "p99": 11165.827839999984
+              },
+              "prepMs": {
+                "n": 16,
+                "mean": 902.914692250004,
+                "stddev": 210.08908453248898,
+                "min": 521.6095440000063,
+                "max": 1091.9435420000227,
+                "p50": 935.0171669999836,
+                "p90": 1084.5668710000464,
+                "p95": 1091.9435420000227,
+                "p99": 1091.9435420000227
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 16,
+              "failed": 0,
+              "gasUsed": {
+                "n": 16,
+                "mean": 1213291.5,
+                "stddev": 5.809475019311125,
+                "min": 1213269,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 16,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 16,
+                "mean": 8520.9072996875,
+                "stddev": 914.8368362184059,
+                "min": 6856.406877000001,
+                "max": 9960.793958999973,
+                "p50": 8341.138133,
+                "p90": 9801.08328000002,
+                "p95": 9960.793958999973,
+                "p99": 9960.793958999973
+              },
+              "prepMs": {
+                "n": 16,
+                "mean": 1139.4176123124998,
+                "stddev": 188.85953615697642,
+                "min": 678.993610000005,
+                "max": 1457.5499609999824,
+                "p50": 1093.1074630000512,
+                "p90": 1435.3462229999714,
+                "p95": 1457.5499609999824,
+                "p99": 1457.5499609999824
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 16,
+              "ms": {
+                "n": 16,
+                "mean": 17.127873812496546,
+                "stddev": 14.118149901925486,
+                "min": 6.002452999993693,
+                "max": 50.46338199998718,
+                "p50": 8.32468499999959,
+                "p90": 42.608137999952305,
+                "p95": 50.46338199998718,
+                "p99": 50.46338199998718
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3807933,
+            "last": 3807936,
+            "count": 4,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 8,
+            "ourTxPerBlockMean": 8,
+            "txPerBlockMax": 51,
+            "gasUtilMean": 0.5698677416666666,
+            "gasUtilMax": 0.9817901333333333,
+            "fullBlocks": 1,
+            "baseFeeMin": "919629411",
+            "baseFeeMax": "1030396505",
+            "timestampSpanS": 36
+          },
+          "sampleFailures": []
+        }
+      ]
+    },
+    {
+      "workload": "cycle",
+      "levels": [
+        {
+          "workload": "cycle",
+          "variant": "privacy",
+          "k": 1,
+          "perClient": 2,
+          "windowMs": 309449.20637200004,
+          "unitsAttempted": 2,
+          "unitsOk": 2,
+          "unitsFailed": 0,
+          "unitsPerSec": 0.006463096232975075,
+          "txOk": 22,
+          "txFailed": 0,
+          "txPerSec": 0.07109405856272583,
+          "makeOrderTxPerSec": 0.006463096232975075,
+          "gasPerSec": 31228.553187442907,
+          "gasPerUnit": 4831825.5,
+          "unitLatencyMs": {
+            "n": 2,
+            "mean": 154724.58524599997,
+            "stddev": 23882.998719000025,
+            "min": 130841.58652699995,
+            "max": 178607.583965,
+            "p50": 130841.58652699995,
+            "p90": 178607.583965,
+            "p95": 178607.583965,
+            "p99": 178607.583965
+          },
+          "inclusionMs": {
+            "n": 22,
+            "mean": 12039.360008636362,
+            "stddev": 6132.888979516317,
+            "min": 4618.703911999939,
+            "max": 33053.38413100003,
+            "p50": 10282.801405999926,
+            "p90": 21507.924233000027,
+            "p95": 23651.017157000024,
+            "p99": 33053.38413100003
+          },
+          "makeOrderInclusionMs": {
+            "n": 2,
+            "mean": 21539.50586850004,
+            "stddev": 11513.878262499988,
+            "min": 10025.627606000053,
+            "max": 33053.38413100003,
+            "p50": 10025.627606000053,
+            "p90": 33053.38413100003,
+            "p95": 33053.38413100003,
+            "p99": 33053.38413100003
+          },
+          "proofsPerSec": 0.006463096232975075,
+          "proofCpuMsPerUnit": 853.4426659999881,
+          "proofWaitMsPerUnit": 0.006607000017538667,
+          "onchainMsPerUnit": 147593.84030800004,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 2,
+            "mean": 0,
+            "stddev": 0,
+            "min": 0,
+            "max": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "p99": 0
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 26245,
+                "stddev": 0,
+                "min": 26245,
+                "max": 26245,
+                "p50": 26245,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 10364.828874500003,
+                "stddev": 25.29717549995985,
+                "min": 10339.531699000043,
+                "max": 10390.126049999963,
+                "p50": 10339.531699000043,
+                "p90": 10390.126049999963,
+                "p95": 10390.126049999963,
+                "p99": 10390.126049999963
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1088.1015085000545,
+                "stddev": 4.474424500018358,
+                "min": 1083.6270840000361,
+                "max": 1092.5759330000728,
+                "p50": 1083.6270840000361,
+                "p90": 1092.5759330000728,
+                "p95": 1092.5759330000728,
+                "p99": 1092.5759330000728
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 1213293,
+                "stddev": 0,
+                "min": 1213293,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 21539.50586850004,
+                "stddev": 11513.878262499988,
+                "min": 10025.627606000053,
+                "max": 33053.38413100003,
+                "p50": 10025.627606000053,
+                "p90": 33053.38413100003,
+                "p95": 33053.38413100003,
+                "p99": 33053.38413100003
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1532.7491534999572,
+                "stddev": 152.32183449994773,
+                "min": 1380.4273190000094,
+                "max": 1685.070987999905,
+                "p50": 1380.4273190000094,
+                "p90": 1685.070987999905,
+                "p95": 1685.070987999905,
+                "p99": 1685.070987999905
+              }
+            },
+            "poolDeposit": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 867044.5,
+                "stddev": 11674.5,
+                "min": 855370,
+                "max": 878719,
+                "p50": 855370,
+                "p90": 878719,
+                "p95": 878719,
+                "p99": 878719
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 2000000,
+                "stddev": 0,
+                "min": 2000000,
+                "max": 2000000,
+                "p50": 2000000,
+                "p90": 2000000,
+                "p95": 2000000,
+                "p99": 2000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 11593.257848999987,
+                "stddev": 224.78868699999293,
+                "min": 11368.469161999994,
+                "max": 11818.04653599998,
+                "p50": 11368.469161999994,
+                "p90": 11818.04653599998,
+                "p95": 11818.04653599998,
+                "p99": 11818.04653599998
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1440.4129949999624,
+                "stddev": 0.05551000003470108,
+                "min": 1440.3574849999277,
+                "max": 1440.468504999997,
+                "p50": 1440.3574849999277,
+                "p90": 1440.468504999997,
+                "p95": 1440.468504999997,
+                "p99": 1440.468504999997
+              }
+            },
+            "poolWithdraw": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 1107964,
+                "stddev": 13246,
+                "min": 1094718,
+                "max": 1121210,
+                "p50": 1094718,
+                "p90": 1121210,
+                "p95": 1121210,
+                "p99": 1121210
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 1341509,
+                "stddev": 16022,
+                "min": 1325487,
+                "max": 1357531,
+                "p50": 1325487,
+                "p90": 1357531,
+                "p95": 1357531,
+                "p99": 1357531
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 6006.459038999979,
+                "stddev": 1387.7551270000404,
+                "min": 4618.703911999939,
+                "max": 7394.21416600002,
+                "p50": 4618.703911999939,
+                "p90": 7394.21416600002,
+                "p95": 7394.21416600002,
+                "p99": 7394.21416600002
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 2180.8086850000545,
+                "stddev": 7.322563000023365,
+                "min": 2173.486122000031,
+                "max": 2188.131248000078,
+                "p50": 2173.486122000031,
+                "p90": 2188.131248000078,
+                "p95": 2188.131248000078,
+                "p99": 2188.131248000078
+              }
+            },
+            "prepareOrder": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 137386,
+                "stddev": 6,
+                "min": 137380,
+                "max": 137392,
+                "p50": 137380,
+                "p90": 137392,
+                "p95": 137392,
+                "p99": 137392
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 10204.510183999955,
+                "stddev": 1293.794664999994,
+                "min": 8910.715518999961,
+                "max": 11498.30484899995,
+                "p50": 8910.715518999961,
+                "p90": 11498.30484899995,
+                "p95": 11498.30484899995,
+                "p99": 11498.30484899995
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1795.148079500068,
+                "stddev": 4.155604499974288,
+                "min": 1790.9924750000937,
+                "max": 1799.3036840000423,
+                "p50": 1790.9924750000937,
+                "p90": 1799.3036840000423,
+                "p95": 1799.3036840000423,
+                "p99": 1799.3036840000423
+              }
+            },
+            "confirmIntention": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 230257,
+                "stddev": 0,
+                "min": 230257,
+                "max": 230257,
+                "p50": 230257,
+                "p90": 230257,
+                "p95": 230257,
+                "p99": 230257
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 9208.034005000023,
+                "stddev": 523.2508620000444,
+                "min": 8684.783142999979,
+                "max": 9731.284867000068,
+                "p50": 8684.783142999979,
+                "p90": 9731.284867000068,
+                "p95": 9731.284867000068,
+                "p99": 9731.284867000068
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1540.8239269999322,
+                "stddev": 100.16548500000499,
+                "min": 1440.6584419999272,
+                "max": 1640.9894119999371,
+                "p50": 1440.6584419999272,
+                "p90": 1640.9894119999371,
+                "p95": 1640.9894119999371,
+                "p99": 1640.9894119999371
+              }
+            },
+            "addInformation": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 60130,
+                "stddev": 0,
+                "min": 60130,
+                "max": 60130,
+                "p50": 60130,
+                "p90": 60130,
+                "p95": 60130,
+                "p99": 60130
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 15764.882989500009,
+                "stddev": 5743.041243500018,
+                "min": 10021.841745999991,
+                "max": 21507.924233000027,
+                "p50": 10021.841745999991,
+                "p90": 21507.924233000027,
+                "p95": 21507.924233000027,
+                "p99": 21507.924233000027
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 824.7775320000364,
+                "stddev": 234.217207000067,
+                "min": 590.5603249999695,
+                "max": 1058.9947390001034,
+                "p50": 590.5603249999695,
+                "p90": 1058.9947390001034,
+                "p95": 1058.9947390001034,
+                "p99": 1058.9947390001034
+              }
+            },
+            "pickupOrder": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 68770,
+                "stddev": 0,
+                "min": 68770,
+                "max": 68770,
+                "p50": 68770,
+                "p90": 68770,
+                "p95": 68770,
+                "p99": 68770
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 15481.285418000014,
+                "stddev": 8169.73173900001,
+                "min": 7311.553679000004,
+                "max": 23651.017157000024,
+                "p50": 7311.553679000004,
+                "p90": 23651.017157000024,
+                "p95": 23651.017157000024,
+                "p99": 23651.017157000024
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1333.5793634999427,
+                "stddev": 463.87664049997693,
+                "min": 869.7027229999658,
+                "max": 1797.4560039999196,
+                "p50": 869.7027229999658,
+                "p90": 1797.4560039999196,
+                "p95": 1797.4560039999196,
+                "p99": 1797.4560039999196
+              }
+            },
+            "deliveryOrder": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 1004847,
+                "stddev": 8550,
+                "min": 996297,
+                "max": 1013397,
+                "p50": 996297,
+                "p90": 1013397,
+                "p95": 1013397,
+                "p99": 1013397
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 11804.394331499992,
+                "stddev": 938.5721395,
+                "min": 10865.822191999992,
+                "max": 12742.966470999992,
+                "p50": 10865.822191999992,
+                "p90": 12742.966470999992,
+                "p95": 12742.966470999992,
+                "p99": 12742.966470999992
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1195.9498775000102,
+                "stddev": 247.40182349999668,
+                "min": 948.5480540000135,
+                "max": 1443.3517010000069,
+                "p50": 948.5480540000135,
+                "p90": 1443.3517010000069,
+                "p95": 1443.3517010000069,
+                "p99": 1443.3517010000069
+              }
+            },
+            "rateOrder_client": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 57957,
+                "stddev": 0,
+                "min": 57957,
+                "max": 57957,
+                "p50": 57957,
+                "p90": 57957,
+                "p95": 57957,
+                "p99": 57957
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 10467.52451149997,
+                "stddev": 1760.5368664999842,
+                "min": 8706.987644999987,
+                "max": 12228.061377999955,
+                "p50": 8706.987644999987,
+                "p90": 12228.061377999955,
+                "p95": 12228.061377999955,
+                "p99": 12228.061377999955
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 819.4274310000474,
+                "stddev": 254.6868989999639,
+                "min": 564.7405320000835,
+                "max": 1074.1143300000113,
+                "p50": 564.7405320000835,
+                "p90": 1074.1143300000113,
+                "p95": 1074.1143300000113,
+                "p99": 1074.1143300000113
+              }
+            },
+            "rateOrder_restaurant": {
+              "kind": "tx",
+              "n": 2,
+              "failed": 0,
+              "gasUsed": {
+                "n": 2,
+                "mean": 57932,
+                "stddev": 0,
+                "min": 57932,
+                "max": 57932,
+                "p50": 57932,
+                "p90": 57932,
+                "p95": 57932,
+                "p99": 57932
+              },
+              "gasLimit": {
+                "n": 2,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 2,
+                "mean": 9998.277024500014,
+                "stddev": 284.5243814999121,
+                "min": 9713.752643000102,
+                "max": 10282.801405999926,
+                "p50": 9713.752643000102,
+                "p90": 10282.801405999926,
+                "p95": 10282.801405999926,
+                "p99": 10282.801405999926
+              },
+              "prepMs": {
+                "n": 2,
+                "mean": 1409.1016604999895,
+                "stddev": 476.01983950001886,
+                "min": 933.0818209999707,
+                "max": 1885.1215000000084,
+                "p50": 933.0818209999707,
+                "p90": 1885.1215000000084,
+                "p95": 1885.1215000000084,
+                "p99": 1885.1215000000084
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 2,
+              "ms": {
+                "n": 2,
+                "mean": 8.339407499937806,
+                "stddev": 0.19810750003671274,
+                "min": 8.141299999901094,
+                "max": 8.537514999974519,
+                "p50": 8.141299999901094,
+                "p90": 8.537514999974519,
+                "p95": 8.537514999974519,
+                "p99": 8.537514999974519
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "zkProof_mergeWithdraw": {
+              "kind": "offchain",
+              "n": 2,
+              "ms": {
+                "n": 2,
+                "mean": 1941.2289504999644,
+                "stddev": 187.11135950003518,
+                "min": 1754.1175909999292,
+                "max": 2128.3403099999996,
+                "p50": 1754.1175909999292,
+                "p90": 2128.3403099999996,
+                "p95": 2128.3403099999996,
+                "p99": 2128.3403099999996
+              },
+              "proveMs": {
+                "n": 2,
+                "mean": 853.4426659999881,
+                "stddev": 188.6262080000015,
+                "min": 664.8164579999866,
+                "max": 1042.0688739999896,
+                "p50": 664.8164579999866,
+                "p90": 1042.0688739999896,
+                "p95": 1042.0688739999896,
+                "p99": 1042.0688739999896
+              },
+              "waitMs": {
+                "n": 2,
+                "mean": 0.006607000017538667,
+                "stddev": 0.0038090000161901116,
+                "min": 0.002798000001348555,
+                "max": 0.010416000033728778,
+                "p50": 0.002798000001348555,
+                "p90": 0.010416000033728778,
+                "p95": 0.010416000033728778,
+                "p99": 0.010416000033728778
+              }
+            },
+            "sealDetails": {
+              "kind": "offchain",
+              "n": 2,
+              "ms": {
+                "n": 2,
+                "mean": 528.3299714999739,
+                "stddev": 200.84894749999512,
+                "min": 327.4810239999788,
+                "max": 729.178918999969,
+                "p50": 327.4810239999788,
+                "p90": 729.178918999969,
+                "p95": 729.178918999969,
+                "p99": 729.178918999969
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "openDetails": {
+              "kind": "offchain",
+              "n": 2,
+              "ms": {
+                "n": 2,
+                "mean": 791.9477670000633,
+                "stddev": 287.9359870000044,
+                "min": 504.01178000005893,
+                "max": 1079.8837540000677,
+                "p50": 504.01178000005893,
+                "p90": 1079.8837540000677,
+                "p95": 1079.8837540000677,
+                "p99": 1079.8837540000677
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3807952,
+            "last": 3807973,
+            "count": 22,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 1,
+            "ourTxPerBlockMean": 1,
+            "txPerBlockMax": 52,
+            "gasUtilMean": 0.5050872367693219,
+            "gasUtilMax": 0.99843155,
+            "fullBlocks": 10,
+            "baseFeeMin": "895843578",
+            "baseFeeMax": "1068731285",
+            "timestampSpanS": 300
+          },
+          "sampleFailures": []
+        },
+        {
+          "workload": "cycle",
+          "variant": "privacy",
+          "k": 2,
+          "perClient": 2,
+          "windowMs": 315082.94314700004,
+          "unitsAttempted": 4,
+          "unitsOk": 3,
+          "unitsFailed": 1,
+          "unitsPerSec": 0.009521302454637693,
+          "txOk": 37,
+          "txFailed": 1,
+          "txPerSec": 0.11742939694053155,
+          "makeOrderTxPerSec": 0.012695069939516924,
+          "gasPerSec": 56208.58692987813,
+          "gasPerUnit": 4830030.333333333,
+          "unitLatencyMs": {
+            "n": 3,
+            "mean": 161677.1255026666,
+            "stddev": 11963.884006006774,
+            "min": 144759.02684199996,
+            "max": 170323.8821709999,
+            "p50": 169948.467495,
+            "p90": 170323.8821709999,
+            "p95": 170323.8821709999,
+            "p99": 170323.8821709999
+          },
+          "inclusionMs": {
+            "n": 37,
+            "mean": 12529.375581972983,
+            "stddev": 7002.483633155388,
+            "min": 3437.62396300002,
+            "max": 36546.292102999985,
+            "p50": 10781.100807000184,
+            "p90": 21352.01671700005,
+            "p95": 36318.770518000005,
+            "p99": 36546.292102999985
+          },
+          "makeOrderInclusionMs": {
+            "n": 4,
+            "mean": 17754.125196000037,
+            "stddev": 3481.45483771785,
+            "min": 14093.970802000025,
+            "max": 21352.01671700005,
+            "p50": 14458.199432000052,
+            "p90": 21352.01671700005,
+            "p95": 21352.01671700005,
+            "p99": 21352.01671700005
+          },
+          "proofsPerSec": 0.012695069939516924,
+          "proofCpuMsPerUnit": 893.0389563332623,
+          "proofWaitMsPerUnit": 712.0439626666097,
+          "onchainMsPerUnit": 153516.21303866684,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 4,
+            "mean": 0.5,
+            "stddev": 0.5,
+            "min": 0,
+            "max": 1,
+            "p50": 0,
+            "p90": 1,
+            "p95": 1,
+            "p99": 1
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 4,
+              "failed": 0,
+              "gasUsed": {
+                "n": 4,
+                "mean": 26236,
+                "stddev": 5.196152422706632,
+                "min": 26233,
+                "max": 26245,
+                "p50": 26233,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 4,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 4,
+                "mean": 12061.116863000003,
+                "stddev": 2276.9173274358664,
+                "min": 9581.282187999925,
+                "max": 14512.109063000069,
+                "p50": 10004.300385999959,
+                "p90": 14512.109063000069,
+                "p95": 14512.109063000069,
+                "p99": 14512.109063000069
+              },
+              "prepMs": {
+                "n": 4,
+                "mean": 927.2471515000216,
+                "stddev": 224.4014259687513,
+                "min": 562.0687710000202,
+                "max": 1137.9458250000607,
+                "p50": 927.8618479999714,
+                "p90": 1137.9458250000607,
+                "p95": 1137.9458250000607,
+                "p99": 1137.9458250000607
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 4,
+              "failed": 0,
+              "gasUsed": {
+                "n": 4,
+                "mean": 1213287,
+                "stddev": 10.392304845413264,
+                "min": 1213269,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 4,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 4,
+                "mean": 17754.125196000037,
+                "stddev": 3481.45483771785,
+                "min": 14093.970802000025,
+                "max": 21352.01671700005,
+                "p50": 14458.199432000052,
+                "p90": 21352.01671700005,
+                "p95": 21352.01671700005,
+                "p99": 21352.01671700005
+              },
+              "prepMs": {
+                "n": 4,
+                "mean": 1254.0882272499148,
+                "stddev": 75.63874537856739,
+                "min": 1132.3448880000506,
+                "max": 1324.3603879997972,
+                "p50": 1249.8186429999769,
+                "p90": 1324.3603879997972,
+                "p95": 1324.3603879997972,
+                "p99": 1324.3603879997972
+              }
+            },
+            "poolDeposit": {
+              "kind": "tx",
+              "n": 4,
+              "failed": 0,
+              "gasUsed": {
+                "n": 4,
+                "mean": 857977.75,
+                "stddev": 901.9787622222599,
+                "min": 857449,
+                "max": 859540,
+                "p50": 857461,
+                "p90": 859540,
+                "p95": 859540,
+                "p99": 859540
+              },
+              "gasLimit": {
+                "n": 4,
+                "mean": 2000000,
+                "stddev": 0,
+                "min": 2000000,
+                "max": 2000000,
+                "p50": 2000000,
+                "p90": 2000000,
+                "p95": 2000000,
+                "p99": 2000000
+              },
+              "inclusionMs": {
+                "n": 4,
+                "mean": 10681.344434249972,
+                "stddev": 1536.8609444422987,
+                "min": 8640.311165999854,
+                "max": 12622.305927000009,
+                "p50": 9862.584962999914,
+                "p90": 12622.305927000009,
+                "p95": 12622.305927000009,
+                "p99": 12622.305927000009
+              },
+              "prepMs": {
+                "n": 4,
+                "mean": 1255.016599250026,
+                "stddev": 339.1678122953732,
+                "min": 784.3236730000935,
+                "max": 1679.86323300004,
+                "p50": 1109.0584480001125,
+                "p90": 1679.86323300004,
+                "p95": 1679.86323300004,
+                "p99": 1679.86323300004
+              }
+            },
+            "poolWithdraw": {
+              "kind": "tx",
+              "n": 4,
+              "failed": 0,
+              "gasUsed": {
+                "n": 4,
+                "mean": 1116666,
+                "stddev": 9248.648387737529,
+                "min": 1100919,
+                "max": 1123301,
+                "p50": 1119143,
+                "p90": 1123301,
+                "p95": 1123301,
+                "p99": 1123301
+              },
+              "gasLimit": {
+                "n": 4,
+                "mean": 1353291.25,
+                "stddev": 11722.086852924269,
+                "min": 1332988,
+                "max": 1360059,
+                "p50": 1360059,
+                "p90": 1360059,
+                "p95": 1360059,
+                "p99": 1360059
+              },
+              "inclusionMs": {
+                "n": 4,
+                "mean": 5211.5787007500185,
+                "stddev": 1257.8971361347935,
+                "min": 3437.62396300002,
+                "max": 6503.330572000006,
+                "p50": 4616.790574999992,
+                "p90": 6503.330572000006,
+                "p95": 6503.330572000006,
+                "p99": 6503.330572000006
+              },
+              "prepMs": {
+                "n": 4,
+                "mean": 1085.852442000003,
+                "stddev": 80.94805768650252,
+                "min": 991.2211549999192,
+                "max": 1211.676759999944,
+                "p50": 1048.6109490001108,
+                "p90": 1211.676759999944,
+                "p95": 1211.676759999944,
+                "p99": 1211.676759999944
+              }
+            },
+            "prepareOrder": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 1,
+              "gasUsed": {
+                "n": 3,
+                "mean": 137392,
+                "stddev": 0,
+                "min": 137392,
+                "max": 137392,
+                "p50": 137392,
+                "p90": 137392,
+                "p95": 137392,
+                "p99": 137392
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 32194.877858333366,
+                "stddev": 5993.666760833996,
+                "min": 23719.57095400011,
+                "max": 36546.292102999985,
+                "p50": 36318.770518000005,
+                "p90": 36546.292102999985,
+                "p95": 36546.292102999985,
+                "p99": 36546.292102999985
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 858.6244823334273,
+                "stddev": 30.59690323152474,
+                "min": 836.020083000185,
+                "max": 901.8803450001869,
+                "p50": 837.97301899991,
+                "p90": 901.8803450001869,
+                "p95": 901.8803450001869,
+                "p99": 901.8803450001869
+              }
+            },
+            "confirmIntention": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 0,
+              "gasUsed": {
+                "n": 3,
+                "mean": 230257,
+                "stddev": 0,
+                "min": 230257,
+                "max": 230257,
+                "p50": 230257,
+                "p90": 230257,
+                "p95": 230257,
+                "p99": 230257
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 10787.033070666716,
+                "stddev": 946.9137003656348,
+                "min": 10009.352797999978,
+                "max": 12120.001577000134,
+                "p50": 10231.744837000035,
+                "p90": 12120.001577000134,
+                "p95": 12120.001577000134,
+                "p99": 12120.001577000134
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 893.196533000019,
+                "stddev": 189.99172759958725,
+                "min": 745.5151599999517,
+                "max": 1161.42843300011,
+                "p50": 772.6460059999954,
+                "p90": 1161.42843300011,
+                "p95": 1161.42843300011,
+                "p99": 1161.42843300011
+              }
+            },
+            "addInformation": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 0,
+              "gasUsed": {
+                "n": 3,
+                "mean": 60130,
+                "stddev": 0,
+                "min": 60130,
+                "max": 60130,
+                "p50": 60130,
+                "p90": 60130,
+                "p95": 60130,
+                "p99": 60130
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 8120.945853999893,
+                "stddev": 538.9827522745239,
+                "min": 7401.990779999876,
+                "max": 8699.697903999826,
+                "p50": 8261.148877999978,
+                "p90": 8699.697903999826,
+                "p95": 8699.697903999826,
+                "p99": 8699.697903999826
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 723.7418510000376,
+                "stddev": 124.02907399622278,
+                "min": 558.3174980001058,
+                "max": 856.9605059998576,
+                "p50": 755.9475490001496,
+                "p90": 856.9605059998576,
+                "p95": 856.9605059998576,
+                "p99": 856.9605059998576
+              }
+            },
+            "pickupOrder": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 0,
+              "gasUsed": {
+                "n": 3,
+                "mean": 68787,
+                "stddev": 0,
+                "min": 68787,
+                "max": 68787,
+                "p50": 68787,
+                "p90": 68787,
+                "p95": 68787,
+                "p99": 68787
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 10862.7111739999,
+                "stddev": 716.9561226354764,
+                "min": 9849.094470999902,
+                "max": 11391.3141859998,
+                "p50": 11347.724864999996,
+                "p90": 11391.3141859998,
+                "p95": 11391.3141859998,
+                "p99": 11391.3141859998
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 1330.7121440000676,
+                "stddev": 336.41283667130347,
+                "min": 1080.1889919999521,
+                "max": 1806.2436270001344,
+                "p50": 1105.7038130001165,
+                "p90": 1806.2436270001344,
+                "p95": 1806.2436270001344,
+                "p99": 1806.2436270001344
+              }
+            },
+            "deliveryOrder": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 0,
+              "gasUsed": {
+                "n": 3,
+                "mean": 1005445,
+                "stddev": 7281.592682923153,
+                "min": 998359,
+                "max": 1015459,
+                "p50": 1002517,
+                "p90": 1015459,
+                "p95": 1015459,
+                "p99": 1015459
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 9538.929499000078,
+                "stddev": 516.2622357311104,
+                "min": 8836.016214000061,
+                "max": 10061.338560000062,
+                "p50": 9719.433723000111,
+                "p90": 10061.338560000062,
+                "p95": 10061.338560000062,
+                "p99": 10061.338560000062
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 1280.1554353333388,
+                "stddev": 241.61870833455015,
+                "min": 938.6873109999578,
+                "max": 1461.8000600000378,
+                "p50": 1439.978935000021,
+                "p90": 1461.8000600000378,
+                "p95": 1461.8000600000378,
+                "p99": 1461.8000600000378
+              }
+            },
+            "rateOrder_client": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 0,
+              "gasUsed": {
+                "n": 3,
+                "mean": 57957,
+                "stddev": 0,
+                "min": 57957,
+                "max": 57957,
+                "p50": 57957,
+                "p90": 57957,
+                "p95": 57957,
+                "p99": 57957
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 11067.022363333419,
+                "stddev": 267.29663966282504,
+                "min": 10781.100807000184,
+                "max": 11424.127691000002,
+                "p50": 10995.838592000073,
+                "p90": 11424.127691000002,
+                "p95": 11424.127691000002,
+                "p99": 11424.127691000002
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 719.3467099998767,
+                "stddev": 254.00372649098708,
+                "min": 519.2087099999189,
+                "max": 1077.747715999838,
+                "p50": 561.0837039998733,
+                "p90": 1077.747715999838,
+                "p95": 1077.747715999838,
+                "p99": 1077.747715999838
+              }
+            },
+            "rateOrder_restaurant": {
+              "kind": "tx",
+              "n": 3,
+              "failed": 0,
+              "gasUsed": {
+                "n": 3,
+                "mean": 57932,
+                "stddev": 0,
+                "min": 57932,
+                "max": 57932,
+                "p50": 57932,
+                "p90": 57932,
+                "p95": 57932,
+                "p99": 57932
+              },
+              "gasLimit": {
+                "n": 3,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 3,
+                "mean": 11013.225433000052,
+                "stddev": 680.917242500248,
+                "min": 10060.804752000142,
+                "max": 11612.494993000058,
+                "p50": 11366.376553999959,
+                "p90": 11612.494993000058,
+                "p95": 11612.494993000058,
+                "p99": 11612.494993000058
+              },
+              "prepMs": {
+                "n": 3,
+                "mean": 1255.6375763333247,
+                "stddev": 437.0036931899497,
+                "min": 912.878665999975,
+                "max": 1872.37709799991,
+                "p50": 981.6569650000893,
+                "p90": 1872.37709799991,
+                "p95": 1872.37709799991,
+                "p99": 1872.37709799991
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 4,
+              "ms": {
+                "n": 4,
+                "mean": 10.125311500043608,
+                "stddev": 3.4956050672313346,
+                "min": 7.632744999951683,
+                "max": 16.14181300008204,
+                "p50": 8.005027000093833,
+                "p90": 16.14181300008204,
+                "p95": 16.14181300008204,
+                "p99": 16.14181300008204
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "zkProof_mergeWithdraw": {
+              "kind": "offchain",
+              "n": 4,
+              "ms": {
+                "n": 4,
+                "mean": 2123.1261057499796,
+                "stddev": 698.6668481542619,
+                "min": 1399.5558869999368,
+                "max": 2834.3384010000154,
+                "p50": 1449.9346570000052,
+                "p90": 2834.3384010000154,
+                "p95": 2834.3384010000154,
+                "p99": 2834.3384010000154
+              },
+              "proveMs": {
+                "n": 4,
+                "mean": 669.7792172499467,
+                "stddev": 16.49605838933219,
+                "min": 649.3177549999673,
+                "max": 695.2456399998628,
+                "p50": 665.185705000069,
+                "p90": 695.2456399998628,
+                "p95": 695.2456399998628,
+                "p99": 695.2456399998628
+              },
+              "waitMs": {
+                "n": 4,
+                "mean": 534.0329719999572,
+                "stddev": 534.3874592645145,
+                "min": 0.0168159999884665,
+                "max": 1096.3930730000138,
+                "p50": 0.02641099994070828,
+                "p90": 1096.3930730000138,
+                "p95": 1096.3930730000138,
+                "p99": 1096.3930730000138
+              }
+            },
+            "sealDetails": {
+              "kind": "offchain",
+              "n": 3,
+              "ms": {
+                "n": 3,
+                "mean": 651.7672716666324,
+                "stddev": 214.62135761922596,
+                "min": 348.62177100009285,
+                "max": 816.4012159998529,
+                "p50": 790.2788279999513,
+                "p90": 816.4012159998529,
+                "p95": 816.4012159998529,
+                "p99": 816.4012159998529
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "openDetails": {
+              "kind": "offchain",
+              "n": 3,
+              "ms": {
+                "n": 3,
+                "mean": 766.1131770000793,
+                "stddev": 247.02509042925095,
+                "min": 510.08920100005344,
+                "max": 1099.96706000017,
+                "p50": 688.2832700000145,
+                "p90": 1099.96706000017,
+                "p95": 1099.96706000017,
+                "p99": 1099.96706000017
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3807979,
+            "last": 3808001,
+            "count": 23,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 2,
+            "ourTxPerBlockMean": 1.608695652173913,
+            "txPerBlockMax": 54,
+            "gasUtilMean": 0.5052590434782609,
+            "gasUtilMax": 0.9985463666666666,
+            "fullBlocks": 11,
+            "baseFeeMin": "881525687",
+            "baseFeeMax": "1099855220",
+            "timestampSpanS": 300
+          },
+          "sampleFailures": [
+            "nonce has already been used"
+          ]
+        },
+        {
+          "workload": "cycle",
+          "variant": "privacy",
+          "k": 4,
+          "perClient": 2,
+          "windowMs": 322764.35404699994,
+          "unitsAttempted": 8,
+          "unitsOk": 6,
+          "unitsFailed": 2,
+          "unitsPerSec": 0.018589413374707105,
+          "txOk": 70,
+          "txFailed": 2,
+          "txPerSec": 0.2168764893715829,
+          "makeOrderTxPerSec": 0.024785884499609473,
+          "gasPerSec": 97553.45224837001,
+          "gasPerUnit": 4834616.833333333,
+          "unitLatencyMs": {
+            "n": 6,
+            "mean": 155079.77521316663,
+            "stddev": 7370.694872929879,
+            "min": 141684.10290100006,
+            "max": 166660.58804900013,
+            "p50": 154076.17657399992,
+            "p90": 166660.58804900013,
+            "p95": 166660.58804900013,
+            "p99": 166660.58804900013
+          },
+          "inclusionMs": {
+            "n": 70,
+            "mean": 11867.912071357145,
+            "stddev": 6093.901104798978,
+            "min": 3827.801648999797,
+            "max": 34679.206287000095,
+            "p50": 10315.555594999809,
+            "p90": 22086.975185000105,
+            "p95": 23757.68596699997,
+            "p99": 34679.206287000095
+          },
+          "makeOrderInclusionMs": {
+            "n": 8,
+            "mean": 9984.003168625,
+            "stddev": 894.3341656235418,
+            "min": 8403.09721700009,
+            "max": 11672.20763999992,
+            "p50": 9854.781709000003,
+            "p90": 11672.20763999992,
+            "p95": 11672.20763999992,
+            "p99": 11672.20763999992
+          },
+          "proofsPerSec": 0.018589413374707105,
+          "proofCpuMsPerUnit": 662.0770153333433,
+          "proofWaitMsPerUnit": 1141.604929499949,
+          "onchainMsPerUnit": 143467.6072784999,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 6,
+            "mean": 1,
+            "stddev": 1.1547005383792515,
+            "min": 0,
+            "max": 3,
+            "p50": 0,
+            "p90": 3,
+            "p95": 3,
+            "p99": 3
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 8,
+              "failed": 0,
+              "gasUsed": {
+                "n": 8,
+                "mean": 26242,
+                "stddev": 7.937253933193772,
+                "min": 26221,
+                "max": 26245,
+                "p50": 26245,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 8,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 8,
+                "mean": 10724.103666874958,
+                "stddev": 574.1339061815356,
+                "min": 10127.924897999968,
+                "max": 11527.616130999988,
+                "p50": 10389.613633999834,
+                "p90": 11527.616130999988,
+                "p95": 11527.616130999988,
+                "p99": 11527.616130999988
+              },
+              "prepMs": {
+                "n": 8,
+                "mean": 693.7244921250094,
+                "stddev": 215.38713757315872,
+                "min": 487.6408450000454,
+                "max": 1161.4396719997749,
+                "p50": 563.9410990001634,
+                "p90": 1161.4396719997749,
+                "p95": 1161.4396719997749,
+                "p99": 1161.4396719997749
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 8,
+              "failed": 0,
+              "gasUsed": {
+                "n": 8,
+                "mean": 1213287,
+                "stddev": 15.874507866387544,
+                "min": 1213245,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 8,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 8,
+                "mean": 9984.003168625,
+                "stddev": 894.3341656235418,
+                "min": 8403.09721700009,
+                "max": 11672.20763999992,
+                "p50": 9854.781709000003,
+                "p90": 11672.20763999992,
+                "p95": 11672.20763999992,
+                "p99": 11672.20763999992
+              },
+              "prepMs": {
+                "n": 8,
+                "mean": 1026.0145942500094,
+                "stddev": 227.1326318824708,
+                "min": 756.77813900006,
+                "max": 1451.7114079999737,
+                "p50": 906.8445439999923,
+                "p90": 1451.7114079999737,
+                "p95": 1451.7114079999737,
+                "p99": 1451.7114079999737
+              }
+            },
+            "poolDeposit": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 2,
+              "gasUsed": {
+                "n": 6,
+                "mean": 858500.5,
+                "stddev": 1990.490957025427,
+                "min": 855382,
+                "max": 861619,
+                "p50": 857461,
+                "p90": 861619,
+                "p95": 861619,
+                "p99": 861619
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 2000000,
+                "stddev": 0,
+                "min": 2000000,
+                "max": 2000000,
+                "p50": 2000000,
+                "p90": 2000000,
+                "p95": 2000000,
+                "p99": 2000000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 10552.45043466663,
+                "stddev": 1223.9907708036699,
+                "min": 8464.14767399989,
+                "max": 11716.556382999988,
+                "p50": 10773.185936999973,
+                "p90": 11716.556382999988,
+                "p95": 11716.556382999988,
+                "p99": 11716.556382999988
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 1133.5686474999723,
+                "stddev": 212.74616190149086,
+                "min": 904.3547829999588,
+                "max": 1427.0011899999809,
+                "p50": 937.8020600001328,
+                "p90": 1427.0011899999809,
+                "p95": 1427.0011899999809,
+                "p99": 1427.0011899999809
+              }
+            },
+            "poolWithdraw": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 1119735.8333333333,
+                "stddev": 15721.619270044108,
+                "min": 1098840,
+                "max": 1144571,
+                "p50": 1123301,
+                "p90": 1144571,
+                "p95": 1144571,
+                "p99": 1144571
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 1354071,
+                "stddev": 19211.582912399488,
+                "min": 1330473,
+                "max": 1385786,
+                "p50": 1357545,
+                "p90": 1385786,
+                "p95": 1385786,
+                "p99": 1385786
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 7621.601324499934,
+                "stddev": 2900.844843190192,
+                "min": 3827.801648999797,
+                "max": 12321.878242000006,
+                "p50": 7176.856809000019,
+                "p90": 12321.878242000006,
+                "p95": 12321.878242000006,
+                "p99": 12321.878242000006
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 1880.1344526666605,
+                "stddev": 284.6236592967028,
+                "min": 1432.366435999982,
+                "max": 2197.8467359999195,
+                "p50": 1798.1257460000925,
+                "p90": 2197.8467359999195,
+                "p95": 2197.8467359999195,
+                "p99": 2197.8467359999195
+              }
+            },
+            "prepareOrder": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 137388,
+                "stddev": 5.656854249492381,
+                "min": 137380,
+                "max": 137392,
+                "p50": 137392,
+                "p90": 137392,
+                "p95": 137392,
+                "p99": 137392
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 8570.58715866669,
+                "stddev": 1126.4801419308847,
+                "min": 6956.275936000049,
+                "max": 10405.867681000149,
+                "p50": 7892.9610639999155,
+                "p90": 10405.867681000149,
+                "p95": 10405.867681000149,
+                "p99": 10405.867681000149
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 1479.7269003333058,
+                "stddev": 376.5938617368406,
+                "min": 882.7650910001248,
+                "max": 2051.6565359998494,
+                "p50": 1456.4711729998235,
+                "p90": 2051.6565359998494,
+                "p95": 2051.6565359998494,
+                "p99": 2051.6565359998494
+              }
+            },
+            "confirmIntention": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 230257,
+                "stddev": 0,
+                "min": 230257,
+                "max": 230257,
+                "p50": 230257,
+                "p90": 230257,
+                "p95": 230257,
+                "p99": 230257
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 12565.901252666721,
+                "stddev": 5081.666783121291,
+                "min": 9048.118444000138,
+                "max": 23757.68596699997,
+                "p50": 10045.696115999948,
+                "p90": 23757.68596699997,
+                "p95": 23757.68596699997,
+                "p99": 23757.68596699997
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 1447.2729791666304,
+                "stddev": 160.3675572753607,
+                "min": 1168.1674870001152,
+                "max": 1722.8693189998157,
+                "p50": 1440.0749999999534,
+                "p90": 1722.8693189998157,
+                "p95": 1722.8693189998157,
+                "p99": 1722.8693189998157
+              }
+            },
+            "addInformation": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 60130,
+                "stddev": 0,
+                "min": 60130,
+                "max": 60130,
+                "p50": 60130,
+                "p90": 60130,
+                "p95": 60130,
+                "p99": 60130
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 10409.015058499994,
+                "stddev": 1162.6469419348766,
+                "min": 8100.371833999874,
+                "max": 11506.51767500001,
+                "p50": 10806.121600000188,
+                "p90": 11506.51767500001,
+                "p95": 11506.51767500001,
+                "p99": 11506.51767500001
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 694.0545525000198,
+                "stddev": 163.92956685929732,
+                "min": 508.7461300001014,
+                "max": 908.5889350001235,
+                "p50": 578.7551309999544,
+                "p90": 908.5889350001235,
+                "p95": 908.5889350001235,
+                "p99": 908.5889350001235
+              }
+            },
+            "pickupOrder": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 68778.5,
+                "stddev": 8.5,
+                "min": 68770,
+                "max": 68787,
+                "p50": 68770,
+                "p90": 68787,
+                "p95": 68787,
+                "p99": 68787
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 13545.355843666708,
+                "stddev": 6645.521262605905,
+                "min": 8506.896703999955,
+                "max": 23740.344130999874,
+                "p50": 9029.93510400015,
+                "p90": 23740.344130999874,
+                "p95": 23740.344130999874,
+                "p99": 23740.344130999874
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 990.1063501666455,
+                "stddev": 164.52693353965046,
+                "min": 772.2312269997783,
+                "max": 1287.7666060000192,
+                "p50": 958.0204429998994,
+                "p90": 1287.7666060000192,
+                "p95": 1287.7666060000192,
+                "p99": 1287.7666060000192
+              }
+            },
+            "deliveryOrder": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 1004412,
+                "stddev": 8984.388237381552,
+                "min": 994206,
+                "max": 1017555,
+                "p50": 1000455,
+                "p90": 1017555,
+                "p95": 1017555,
+                "p99": 1017555
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 10141.089481500016,
+                "stddev": 630.595805046007,
+                "min": 9399.9089540001,
+                "max": 11087.228899999987,
+                "p50": 9775.966636999976,
+                "p90": 11087.228899999987,
+                "p95": 11087.228899999987,
+                "p99": 11087.228899999987
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 879.5423988333592,
+                "stddev": 215.29040331062194,
+                "min": 702.3387990000192,
+                "max": 1314.5102240000851,
+                "p50": 749.750192000065,
+                "p90": 1314.5102240000851,
+                "p95": 1314.5102240000851,
+                "p99": 1314.5102240000851
+              }
+            },
+            "rateOrder_client": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 57957,
+                "stddev": 0,
+                "min": 57957,
+                "max": 57957,
+                "p50": 57957,
+                "p90": 57957,
+                "p95": 57957,
+                "p99": 57957
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 16546.414001166704,
+                "stddev": 9472.335706824766,
+                "min": 7344.979082999984,
+                "max": 34679.206287000095,
+                "p50": 11404.331280000042,
+                "p90": 34679.206287000095,
+                "p95": 34679.206287000095,
+                "p99": 34679.206287000095
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 719.4201321666284,
+                "stddev": 261.1801185590931,
+                "min": 495.5364029998891,
+                "max": 1095.3417350000236,
+                "p50": 552.3961000000127,
+                "p90": 1095.3417350000236,
+                "p95": 1095.3417350000236,
+                "p99": 1095.3417350000236
+              }
+            },
+            "rateOrder_restaurant": {
+              "kind": "tx",
+              "n": 6,
+              "failed": 0,
+              "gasUsed": {
+                "n": 6,
+                "mean": 57932,
+                "stddev": 0,
+                "min": 57932,
+                "max": 57932,
+                "p50": 57932,
+                "p90": 57932,
+                "p95": 57932,
+                "p99": 57932
+              },
+              "gasLimit": {
+                "n": 6,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 6,
+                "mean": 20895.750496500015,
+                "stddev": 10497.056042057171,
+                "min": 10365.63912399998,
+                "max": 34624.97456600005,
+                "p50": 11588.430107999826,
+                "p90": 34624.97456600005,
+                "p95": 34624.97456600005,
+                "p99": 34624.97456600005
+              },
+              "prepMs": {
+                "n": 6,
+                "mean": 1201.5751079999998,
+                "stddev": 347.44760154692756,
+                "min": 919.8308589998633,
+                "max": 1875.1250090000685,
+                "p50": 977.6944379999768,
+                "p90": 1875.1250090000685,
+                "p95": 1875.1250090000685,
+                "p99": 1875.1250090000685
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 8,
+              "ms": {
+                "n": 8,
+                "mean": 13.044528999977047,
+                "stddev": 7.256891433002814,
+                "min": 5.5712309998925775,
+                "max": 29.570415999973193,
+                "p50": 8.881755999987945,
+                "p90": 29.570415999973193,
+                "p95": 29.570415999973193,
+                "p99": 29.570415999973193
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "zkProof_mergeWithdraw": {
+              "kind": "offchain",
+              "n": 6,
+              "ms": {
+                "n": 6,
+                "mean": 2561.857417666664,
+                "stddev": 1408.6966746364562,
+                "min": 1212.9469869998284,
+                "max": 4936.806735999882,
+                "p50": 1413.4679310000502,
+                "p90": 4936.806735999882,
+                "p95": 4936.806735999882,
+                "p99": 4936.806735999882
+              },
+              "proveMs": {
+                "n": 6,
+                "mean": 662.0770153333433,
+                "stddev": 8.298048218680519,
+                "min": 650.3673030000646,
+                "max": 671.8539340000134,
+                "p50": 661.8369430000894,
+                "p90": 671.8539340000134,
+                "p95": 671.8539340000134,
+                "p99": 671.8539340000134
+              },
+              "waitMs": {
+                "n": 6,
+                "mean": 1141.604929499949,
+                "stddev": 1328.5096433035997,
+                "min": 0.00927899987436831,
+                "max": 3382.2887550001033,
+                "p50": 0.014847999904304743,
+                "p90": 3382.2887550001033,
+                "p95": 3382.2887550001033,
+                "p99": 3382.2887550001033
+              }
+            },
+            "sealDetails": {
+              "kind": "offchain",
+              "n": 6,
+              "ms": {
+                "n": 6,
+                "mean": 643.9551363332818,
+                "stddev": 156.82172772057908,
+                "min": 343.2823389999103,
+                "max": 796.6762569998391,
+                "p50": 721.2153910000343,
+                "p90": 796.6762569998391,
+                "p95": 796.6762569998391,
+                "p99": 796.6762569998391
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "openDetails": {
+              "kind": "offchain",
+              "n": 6,
+              "ms": {
+                "n": 6,
+                "mean": 798.0872453333577,
+                "stddev": 172.42167694036777,
+                "min": 529.7173320001457,
+                "max": 1089.2712430001702,
+                "p50": 760.9483020000625,
+                "p90": 1089.2712430001702,
+                "p95": 1089.2712430001702,
+                "p99": 1089.2712430001702
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3808005,
+            "last": 3808029,
+            "count": 25,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 4,
+            "ourTxPerBlockMean": 2.8,
+            "txPerBlockMax": 61,
+            "gasUtilMean": 0.5319926893333333,
+            "gasUtilMax": 0.9982456,
+            "fullBlocks": 12,
+            "baseFeeMin": "892386943",
+            "baseFeeMax": "1119969390",
+            "timestampSpanS": 312
+          },
+          "sampleFailures": [
+            "insufficient funds for intrinsic transaction cost"
+          ]
+        },
+        {
+          "workload": "cycle",
+          "variant": "privacy",
+          "k": 8,
+          "perClient": 2,
+          "windowMs": 299794.1816260002,
+          "unitsAttempted": 16,
+          "unitsOk": 13,
+          "unitsFailed": 3,
+          "unitsPerSec": 0.04336308306415961,
+          "txOk": 149,
+          "txFailed": 3,
+          "txPerSec": 0.4970076443507525,
+          "makeOrderTxPerSec": 0.05336994838665799,
+          "gasPerSec": 221894.32643155308,
+          "gasPerUnit": 4831078,
+          "unitLatencyMs": {
+            "n": 13,
+            "mean": 146940.6126353846,
+            "stddev": 12698.11734053221,
+            "min": 130706.38714100001,
+            "max": 167607.61194299976,
+            "p50": 154740.9952100003,
+            "p90": 155571.1502710001,
+            "p95": 167607.61194299976,
+            "p99": 167607.61194299976
+          },
+          "inclusionMs": {
+            "n": 149,
+            "mean": 10880.692716234902,
+            "stddev": 3848.359862878476,
+            "min": 2640.4609250000212,
+            "max": 22327.16309799999,
+            "p50": 10194.47117899987,
+            "p90": 16863.616407000227,
+            "p95": 20794.51932099997,
+            "p99": 21957.231384999817
+          },
+          "makeOrderInclusionMs": {
+            "n": 16,
+            "mean": 9243.750926499997,
+            "stddev": 2147.7898417309198,
+            "min": 5344.123878000071,
+            "max": 12023.96629599994,
+            "p50": 9728.360517000081,
+            "p90": 11876.306588999927,
+            "p95": 12023.96629599994,
+            "p99": 12023.96629599994
+          },
+          "proofsPerSec": 0.04336308306415961,
+          "proofCpuMsPerUnit": 664.3739673077093,
+          "proofWaitMsPerUnit": 2950.883941923053,
+          "onchainMsPerUnit": 130325.17976607695,
+          "staleRootRetries": 0,
+          "noteRootAge": {
+            "n": 13,
+            "mean": 2.923076923076923,
+            "stddev": 2.1289773081689303,
+            "min": 0,
+            "max": 7,
+            "p50": 3,
+            "p90": 6,
+            "p95": 7,
+            "p99": 7
+          },
+          "perOp": {
+            "stealthAnnounce": {
+              "kind": "tx",
+              "n": 16,
+              "failed": 0,
+              "gasUsed": {
+                "n": 16,
+                "mean": 26242.75,
+                "stddev": 4.683748498798798,
+                "min": 26233,
+                "max": 26245,
+                "p50": 26245,
+                "p90": 26245,
+                "p95": 26245,
+                "p99": 26245
+              },
+              "gasLimit": {
+                "n": 16,
+                "mean": 200000,
+                "stddev": 0,
+                "min": 200000,
+                "max": 200000,
+                "p50": 200000,
+                "p90": 200000,
+                "p95": 200000,
+                "p99": 200000
+              },
+              "inclusionMs": {
+                "n": 16,
+                "mean": 14349.203765124927,
+                "stddev": 4974.8531313574495,
+                "min": 9460.062220000196,
+                "max": 22327.16309799999,
+                "p50": 11573.505465999944,
+                "p90": 21957.231384999817,
+                "p95": 22327.16309799999,
+                "p99": 22327.16309799999
+              },
+              "prepMs": {
+                "n": 16,
+                "mean": 733.9019902500295,
+                "stddev": 220.67057446260483,
+                "min": 486.597929000156,
+                "max": 1089.5494270001072,
+                "p50": 684.5783480000682,
+                "p90": 1088.612064999994,
+                "p95": 1089.5494270001072,
+                "p99": 1089.5494270001072
+              }
+            },
+            "makeOrder": {
+              "kind": "tx",
+              "n": 16,
+              "failed": 0,
+              "gasUsed": {
+                "n": 16,
+                "mean": 1213291.5,
+                "stddev": 5.809475019311125,
+                "min": 1213269,
+                "max": 1213293,
+                "p50": 1213293,
+                "p90": 1213293,
+                "p95": 1213293,
+                "p99": 1213293
+              },
+              "gasLimit": {
+                "n": 16,
+                "mean": 5000000,
+                "stddev": 0,
+                "min": 5000000,
+                "max": 5000000,
+                "p50": 5000000,
+                "p90": 5000000,
+                "p95": 5000000,
+                "p99": 5000000
+              },
+              "inclusionMs": {
+                "n": 16,
+                "mean": 9243.750926499997,
+                "stddev": 2147.7898417309198,
+                "min": 5344.123878000071,
+                "max": 12023.96629599994,
+                "p50": 9728.360517000081,
+                "p90": 11876.306588999927,
+                "p95": 12023.96629599994,
+                "p99": 12023.96629599994
+              },
+              "prepMs": {
+                "n": 16,
+                "mean": 1016.8608398125216,
+                "stddev": 329.33138724862357,
+                "min": 509.43619200005196,
+                "max": 1602.90200500004,
+                "p50": 879.1124550001696,
+                "p90": 1547.5040430000518,
+                "p95": 1602.90200500004,
+                "p99": 1602.90200500004
+              }
+            },
+            "poolDeposit": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 3,
+              "gasUsed": {
+                "n": 13,
+                "mean": 858418.6923076923,
+                "stddev": 2251.108389715724,
+                "min": 855370,
+                "max": 861619,
+                "p50": 857461,
+                "p90": 861619,
+                "p95": 861619,
+                "p99": 861619
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 2000000,
+                "stddev": 0,
+                "min": 2000000,
+                "max": 2000000,
+                "p50": 2000000,
+                "p90": 2000000,
+                "p95": 2000000,
+                "p99": 2000000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 10840.027053769194,
+                "stddev": 1542.993843295119,
+                "min": 8054.609198000049,
+                "max": 12981.071508999914,
+                "p50": 10658.712563999929,
+                "p90": 12733.996078999946,
+                "p95": 12981.071508999914,
+                "p99": 12981.071508999914
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 1029.6597129230638,
+                "stddev": 270.35639281276644,
+                "min": 638.3287500001024,
+                "max": 1510.2030299999751,
+                "p50": 971.3718860000372,
+                "p90": 1332.0709579999093,
+                "p95": 1510.2030299999751,
+                "p99": 1510.2030299999751
+              }
+            },
+            "poolWithdraw": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 1115468.5384615385,
+                "stddev": 10618.289182895596,
+                "min": 1098840,
+                "max": 1127435,
+                "p50": 1121234,
+                "p90": 1125380,
+                "p95": 1127435,
+                "p99": 1127435
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 1352133.3076923077,
+                "stddev": 14755.917584192428,
+                "min": 1330473,
+                "max": 1365118,
+                "p50": 1357574,
+                "p90": 1365118,
+                "p95": 1365118,
+                "p99": 1365118
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 8617.004047076953,
+                "stddev": 5278.540726561671,
+                "min": 2640.4609250000212,
+                "max": 17931.820195000153,
+                "p50": 6208.197962000035,
+                "p90": 16863.616407000227,
+                "p95": 17931.820195000153,
+                "p99": 17931.820195000153
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 1124.9764378460911,
+                "stddev": 170.20198988602897,
+                "min": 1000.4818740000483,
+                "max": 1663.1726979999803,
+                "p50": 1086.287289999891,
+                "p90": 1267.884848000016,
+                "p95": 1663.1726979999803,
+                "p99": 1663.1726979999803
+              }
+            },
+            "prepareOrder": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 137388.3076923077,
+                "stddev": 7.268314960626289,
+                "min": 137368,
+                "max": 137392,
+                "p50": 137392,
+                "p90": 137392,
+                "p95": 137392,
+                "p99": 137392
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 11333.950507692365,
+                "stddev": 2254.0763825123436,
+                "min": 7320.116473000031,
+                "max": 14013.189556000056,
+                "p50": 11194.39098100015,
+                "p90": 13830.59120900021,
+                "p95": 14013.189556000056,
+                "p99": 14013.189556000056
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 921.5655443846391,
+                "stddev": 130.02582303198204,
+                "min": 736.5855670000892,
+                "max": 1144.9060680000111,
+                "p50": 887.6342710000463,
+                "p90": 1139.532084000064,
+                "p95": 1144.9060680000111,
+                "p99": 1144.9060680000111
+              }
+            },
+            "confirmIntention": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 230256.07692307694,
+                "stddev": 3.197632260127157,
+                "min": 230245,
+                "max": 230257,
+                "p50": 230257,
+                "p90": 230257,
+                "p95": 230257,
+                "p99": 230257
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 10605.908573769266,
+                "stddev": 1019.8992596225709,
+                "min": 8919.569310000166,
+                "max": 12014.890625,
+                "p50": 10679.277924000053,
+                "p90": 11788.608213,
+                "p95": 12014.890625,
+                "p99": 12014.890625
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 744.3455534615518,
+                "stddev": 104.17434941833963,
+                "min": 652.8492739999201,
+                "max": 1086.9444220000878,
+                "p50": 714.4658420002088,
+                "p90": 775.8866600000765,
+                "p95": 1086.9444220000878,
+                "p99": 1086.9444220000878
+              }
+            },
+            "addInformation": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 60130,
+                "stddev": 0,
+                "min": 60130,
+                "max": 60130,
+                "p50": 60130,
+                "p90": 60130,
+                "p95": 60130,
+                "p99": 60130
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 11006.73078969232,
+                "stddev": 2981.8714252845334,
+                "min": 8927.481847000076,
+                "max": 20965.58935899986,
+                "p50": 10682.079720000038,
+                "p90": 11166.123903000029,
+                "p95": 20965.58935899986,
+                "p99": 20965.58935899986
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 492.8583294615651,
+                "stddev": 45.39795173297098,
+                "min": 407.0935339999851,
+                "max": 578.8020760000218,
+                "p50": 494.9659850001335,
+                "p90": 544.2652330000419,
+                "p95": 578.8020760000218,
+                "p99": 578.8020760000218
+              }
+            },
+            "pickupOrder": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 68773.76923076923,
+                "stddev": 8.210254808693128,
+                "min": 68758,
+                "max": 68787,
+                "p50": 68770,
+                "p90": 68787,
+                "p95": 68787,
+                "p99": 68787
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 13170.740077384551,
+                "stddev": 5001.565078901468,
+                "min": 9170.88053700002,
+                "max": 21315.5291879999,
+                "p50": 9974.175495999865,
+                "p90": 20794.51932099997,
+                "p95": 21315.5291879999,
+                "p99": 21315.5291879999
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 951.0044273076614,
+                "stddev": 264.6264003136002,
+                "min": 732.1004959999118,
+                "max": 1571.1975579999853,
+                "p50": 806.2150399999227,
+                "p90": 1464.6385029999074,
+                "p95": 1571.1975579999853,
+                "p99": 1571.1975579999853
+              }
+            },
+            "deliveryOrder": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 1005225.7692307692,
+                "stddev": 7647.571722739047,
+                "min": 998359,
+                "max": 1017555,
+                "p50": 1000455,
+                "p90": 1017526,
+                "p95": 1017555,
+                "p99": 1017555
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 9836.730269307647,
+                "stddev": 763.8546011656366,
+                "min": 8241.24291699985,
+                "max": 11279.327824000036,
+                "p50": 9959.567090000026,
+                "p90": 10697.918204999994,
+                "p95": 11279.327824000036,
+                "p99": 11279.327824000036
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 1208.826222615406,
+                "stddev": 333.742435148664,
+                "min": 673.7226060000248,
+                "max": 1611.2789869999979,
+                "p50": 1421.6311719999649,
+                "p90": 1466.1503420001827,
+                "p95": 1611.2789869999979,
+                "p99": 1611.2789869999979
+              }
+            },
+            "rateOrder_client": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 57954.230769230766,
+                "stddev": 5.055900530816916,
+                "min": 57945,
+                "max": 57957,
+                "p50": 57957,
+                "p90": 57957,
+                "p95": 57957,
+                "p99": 57957
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 4000000,
+                "stddev": 0,
+                "min": 4000000,
+                "max": 4000000,
+                "p50": 4000000,
+                "p90": 4000000,
+                "p95": 4000000,
+                "p99": 4000000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 9283.09480784622,
+                "stddev": 1269.7657743898526,
+                "min": 6470.410208000336,
+                "max": 11023.948619999923,
+                "p50": 9452.753628000151,
+                "p90": 10660.463598999893,
+                "p95": 11023.948619999923,
+                "p99": 11023.948619999923
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 1092.4335535384284,
+                "stddev": 28.328908423275493,
+                "min": 1067.0055909999646,
+                "max": 1154.9046219999436,
+                "p50": 1080.1858679999132,
+                "p90": 1153.4839069999289,
+                "p95": 1154.9046219999436,
+                "p99": 1154.9046219999436
+              }
+            },
+            "rateOrder_restaurant": {
+              "kind": "tx",
+              "n": 13,
+              "failed": 0,
+              "gasUsed": {
+                "n": 13,
+                "mean": 57929.230769230766,
+                "stddev": 5.055900530816916,
+                "min": 57920,
+                "max": 57932,
+                "p50": 57932,
+                "p90": 57932,
+                "p95": 57932,
+                "p99": 57932
+              },
+              "gasLimit": {
+                "n": 13,
+                "mean": 400000,
+                "stddev": 0,
+                "min": 400000,
+                "max": 400000,
+                "p50": 400000,
+                "p90": 400000,
+                "p95": 400000,
+                "p99": 400000
+              },
+              "inclusionMs": {
+                "n": 13,
+                "mean": 10977.809231384676,
+                "stddev": 5358.593490632283,
+                "min": 6470.3825800004415,
+                "max": 20714.630274999887,
+                "p50": 8310.529052000027,
+                "p90": 20375.48664599983,
+                "p95": 20714.630274999887,
+                "p99": 20714.630274999887
+              },
+              "prepMs": {
+                "n": 13,
+                "mean": 1322.8828771538638,
+                "stddev": 288.78086407875963,
+                "min": 825.5585320000537,
+                "max": 1851.5844110001344,
+                "p50": 1453.6650330000557,
+                "p90": 1471.8639139998704,
+                "p95": 1851.5844110001344,
+                "p99": 1851.5844110001344
+              }
+            },
+            "stealthDerivation": {
+              "kind": "offchain",
+              "n": 16,
+              "ms": {
+                "n": 16,
+                "mean": 16.86719300005643,
+                "stddev": 13.342875113261169,
+                "min": 5.553342000115663,
+                "max": 46.95448600011878,
+                "p50": 9.08731700014323,
+                "p90": 40.40432699979283,
+                "p95": 46.95448600011878,
+                "p99": 46.95448600011878
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "zkProof_mergeWithdraw": {
+              "kind": "offchain",
+              "n": 13,
+              "ms": {
+                "n": 13,
+                "mean": 4165.977602153837,
+                "stddev": 2107.387989760521,
+                "min": 1329.150391999865,
+                "max": 8362.91379999998,
+                "p50": 4038.6304150000215,
+                "p90": 7375.421552999876,
+                "p95": 8362.91379999998,
+                "p99": 8362.91379999998
+              },
+              "proveMs": {
+                "n": 13,
+                "mean": 664.3739673077093,
+                "stddev": 10.741579259003474,
+                "min": 647.1770719999913,
+                "max": 683.3703970001079,
+                "p50": 663.9379889999982,
+                "p90": 679.9034710000269,
+                "p95": 683.3703970001079,
+                "p99": 683.3703970001079
+              },
+              "waitMs": {
+                "n": 13,
+                "mean": 2950.883941923053,
+                "stddev": 2163.299751423552,
+                "min": 0.013407000107690692,
+                "max": 7187.486711999867,
+                "p50": 2894.798283000011,
+                "p90": 6206.4217499999795,
+                "p95": 7187.486711999867,
+                "p99": 7187.486711999867
+              }
+            },
+            "sealDetails": {
+              "kind": "offchain",
+              "n": 13,
+              "ms": {
+                "n": 13,
+                "mean": 365.28200876920556,
+                "stddev": 35.4967168328387,
+                "min": 307.0153449999634,
+                "max": 424.2269919998944,
+                "p50": 368.79378700000234,
+                "p90": 406.13477999996394,
+                "p95": 424.2269919998944,
+                "p99": 424.2269919998944
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            },
+            "openDetails": {
+              "kind": "offchain",
+              "n": 13,
+              "ms": {
+                "n": 13,
+                "mean": 756.2512149230505,
+                "stddev": 255.2491347189582,
+                "min": 523.323379999958,
+                "max": 1201.2196769998409,
+                "p50": 604.597837000154,
+                "p90": 1112.1871799998917,
+                "p95": 1201.2196769998409,
+                "p99": 1201.2196769998409
+              },
+              "proveMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              },
+              "waitMs": {
+                "n": 0,
+                "mean": null,
+                "stddev": null,
+                "min": null,
+                "max": null,
+                "p50": null,
+                "p90": null,
+                "p95": null,
+                "p99": null
+              }
+            }
+          },
+          "blocks": {
+            "first": 3808039,
+            "last": 3808061,
+            "count": 23,
+            "gasLimit": 60000000,
+            "ourTxPerBlockMax": 8,
+            "ourTxPerBlockMean": 6.478260869565218,
+            "txPerBlockMax": 66,
+            "gasUtilMean": 0.5452151737634446,
+            "gasUtilMax": 0.9968126833333333,
+            "fullBlocks": 11,
+            "baseFeeMin": "892033308",
+            "baseFeeMax": "1114950764",
+            "timestampSpanS": 288
+          },
+          "sampleFailures": [
+            "insufficient funds for intrinsic transaction cost"
+          ]
+        }
+      ]
+    }
+  ]
+}

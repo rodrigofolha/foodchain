@@ -1,0 +1,32 @@
+Network fuji: chain 43113, endpoint https://api.avax-test.network, block 59473585, block gas limit 32000000
+  fork id not answered (activation null); base fee 10 wei, eth_gasPrice 160 wei, suggested tip 150 wei
+Accounts (keys from benchmarking/.env and the repository's .env; addresses only):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d: 1.10799999396757917 ETH, nonce 338 (pending 338)  (the expected account)
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7: 1.201999990225004864 ETH, nonce 294 (pending 294)  (the expected account)
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2: 1.412999997313681728 ETH, nonce 167 (pending 167)  (the expected account)
+  funder         0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  (the customer's account)
+  deployer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  (the customer's account)
+  one-time address keys: the establishment's spend key pair matches
+Order at this price: total 0.001 ETH (ORDER_TOTAL_WEI=1000000000000000) + fee 0.001 ETH; stipend 0.000000000384 ETH; pool deposit per cycle 0.001000000756 ETH
+  rule: ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH
+Fees the scripts would send: tip at least 0.00000015 gwei, maximum fee 0.001 gwei; fee cap now 0.001 gwei
+10 cycles, privacy (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 1.108000 ETH, needs at most 0.022002 ETH (per cycle: value 0.002000 + gas 0.000000; one upfront 0.002002): 50.36x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.202000 ETH, needs at most 0.011001 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001001): 109.26x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 1.413000 ETH, needs at most 0.000001 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000001): 1106462.56x
+10 cycles, mechanisms-off (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 1.108000 ETH, needs at most 0.022001 ETH (per cycle: value 0.002000 + gas 0.000000; one upfront 0.002001): 50.36x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.202000 ETH, needs at most 0.011000 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001000): 109.27x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 1.413000 ETH, needs at most 0.000000 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000000): 5934705.38x
+10 cycles, no-privacy (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 1.108000 ETH, needs at most 0.022000 ETH (per cycle: value 0.002000 + gas 0.000000; one upfront 0.002000): 50.36x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.202000 ETH, needs at most 0.011000 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001000): 109.27x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 1.413000 ETH, needs at most 0.000000 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000000): 10571592.28x
+The three runs together, against today's balances:
+  customer       needs at most 0.066002592696626 ETH, holds 1.10799999396757917 ETH: 16.79x
+  establishment  needs at most 0.033001314963516 ETH, holds 1.201999990225004864 ETH: 36.42x
+  worker         needs at most 0.00000164879386 ETH, holds 1.412999997313681728 ETH: 856990.09x
+Record (privacy): <repository>/deployments/fuji-2026-10-14/deployment.json, deploy block 59472434, 11989876 gas; code at every address
+Record (no-privacy): <repository>/deployments/fuji-2026-10-14/deployment-no-privacy.json, deploy block 59472441, 4542448 gas; code at every address
+
+Nothing found against sending. Nothing was sent by this check.

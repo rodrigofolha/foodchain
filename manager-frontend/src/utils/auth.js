@@ -4,8 +4,11 @@ export const signIn = (token, restaurant) => {
   localStorage.setItem('userLogged', restaurant);
 }
 
+// Ends the API session only. The stealth keys, the note secrets of the payment pool
+// (kept per deployment, see deploymentStorage.js) and the rating secrets stay in localStorage: clearing them would lose the funds in
+// the pool and the control of the open orders.
 export const signOut = () => {
-  localStorage.clear();
+  ['authorization', 'userLogged'].forEach(key => localStorage.removeItem(key));
   window.location.reload();
 }
 

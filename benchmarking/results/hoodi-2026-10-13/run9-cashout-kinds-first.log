@@ -1,0 +1,42 @@
+Pool cash-out, every kind, on Hoodi (chain 560048, https://ethereum-hoodi-rpc.publicnode.com)
+  deployment record <repository>/deployments/hoodi-2026-10-13/deployment.json
+  pool (GlobalReputation) 0x2785120d91f169F7d6B196a35730206Bf7fa681f, deploy block 3807607
+  secrets file ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.json
+  the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7 sends, pays the gas and receives
+(node:3439230) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 3810639: 222 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.0590665352275 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  unspent, can be proved     10 notes  0.0456026158456 ETH
+Unspent notes of the file that can be proved: 10, 0.0456026158456 ETH (45602615845600000 wei); the pool holds 0.0456026158456 ETH (45602615845600000 wei)
+
+Plan: 10 withdrawals over the 10 notes, 0.0456026158456 ETH (45602615845600000 wei) to the establishment; nothing of the file stays in the pool
+   1  2F0  two notes, the whole paid out, change 0                            inputs leaf 9 + leaf 24                     payout 0.0087761114144    change 0.0
+   2  2MV  two notes, nothing paid out (pure merge), change with value        inputs leaf 21 + leaf 18                    payout 0.0                change 0.0094621270448
+   3  2PV  two notes, a part paid out, change with value                      inputs change of step 2 + leaf 27           payout 0.01               change 0.0041316707336
+   4  2MV  two notes, nothing paid out (pure merge), change with value        inputs leaf 3 + leaf 15                     payout 0.0                change 0.0092400622064
+   5  2PV  two notes, a part paid out, change with value                      inputs change of step 4 + leaf 12           payout 0.01               change 0.0038010163616
+   6  1PV  one note + the zero-value note, a part paid out, change with value inputs change of step 3 + zero-value note   payout 0.002              change 0.0021316707336
+   7  1F0  one note + the zero-value note, the whole paid out, change 0       inputs change of step 6 + zero-value note   payout 0.0021316707336    change 0.0
+   8  1PV  one note + the zero-value note, a part paid out, change with value inputs leaf 6 + zero-value note             payout 0.002              change 0.002462497412
+   9  2F0  two notes, the whole paid out, change 0                            inputs change of step 8 + leaf 30           payout 0.006893817336     change 0.0
+  10  1F0  one note + the zero-value note, the whole paid out, change 0       inputs change of step 5 + zero-value note   payout 0.0038010163616    change 0.0
+  steps 2 to 5 are what the dApp's planner (cashout.js planAmounts) gives for two withdrawals of its denomination, 0.01 ETH
+
+Sending 1 withdrawal(s) of the 10 left (--max 1) from the establishment, first nonce 70; result file <repository>/benchmarking/results/hoodi-2026-10-13/pool-cashout-kinds-hoodi-2026-10-13T20-52-26-646Z.json
+  the change notes' secrets go to ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.cashout-kinds.json (mode 0600) before each transaction is sent: keep that file
+   1/10  2F0  leaves 9 + 24                                   payout 0.0087761114144    change 0.0                0xa7122b947553ba8c048db1e238c1397e8dd21058cf703263ceffcce6f42b9abd  block 3810642  gas 1127435 (limit 1365060; rule 1127435, +0)  1.22574649 gwei  fee 0.00138194949395315 ETH  change note at leaf 222  zero bytes 41/452  proof 998 ms
+
+Withdrawals mined in this run: 1 of 1 in 27 s; gas 1,127,435; fees 0.00138194949395315 ETH = 3.4652 USD paid by the establishment; paid out 0.0087761114144 ETH (8776111414400000 wei) to the establishment
+Balances at block 3810640 and at block 3810642:
+  pool                                    45602615845600000 ->      36826504431200000 wei  (-8776111414400000)
+  establishment (sends and receives)     301358280490560656 ->     308752442411007506 wei  (+7394161920446850)
+  the pool is down by exactly what was paid out: yes; the establishment moved by exactly the payouts less the fees: yes
+Result written to <repository>/benchmarking/results/hoodi-2026-10-13/pool-cashout-kinds-hoodi-2026-10-13T20-52-26-646Z.json
+exit=0

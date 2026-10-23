@@ -1,0 +1,263 @@
+{
+  "readAt": "2026-10-14T23:32:47.773Z",
+  "networks": [
+    {
+      "name": "Ethereum (production of Hoodi)",
+      "endpoint": "ethereum-rpc.publicnode.com",
+      "at": "2026-10-14T23:32:47.773Z",
+      "chainId": 1,
+      "block": 26194051,
+      "blockTime": "2026-10-14T23:32:35.000Z",
+      "blockGasLimit": "60000000",
+      "baseFeeWei": "103440623",
+      "gasPriceWei": "103440623",
+      "maxPriorityFeeWei": "0",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 26193028,
+        "medianBaseFeeWei": "130311440",
+        "minBaseFeeWei": "55693862",
+        "maxBaseFeeWei": "378894992",
+        "medianTipP50Wei": "28750000",
+        "meanFill": 0.5057825937013476
+      }
+    },
+    {
+      "name": "Hoodi",
+      "endpoint": "ethereum-hoodi-rpc.publicnode.com",
+      "at": "2026-10-14T23:32:48.768Z",
+      "chainId": 560048,
+      "block": 3817765,
+      "blockTime": "2026-10-14T23:32:36.000Z",
+      "blockGasLimit": "60000000",
+      "baseFeeWei": "968595844",
+      "gasPriceWei": "1030965250",
+      "maxPriorityFeeWei": "62369406",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 3816742,
+        "medianBaseFeeWei": "994263332",
+        "minBaseFeeWei": "840311943",
+        "maxBaseFeeWei": "1122674144",
+        "medianTipP50Wei": "62369406",
+        "meanFill": 0.5275897681351044
+      }
+    },
+    {
+      "name": "Arbitrum One",
+      "endpoint": "arb1.arbitrum.io",
+      "at": "2026-10-14T23:32:51.483Z",
+      "chainId": 42161,
+      "block": 514888124,
+      "blockTime": "2026-10-14T23:32:41.000Z",
+      "blockGasLimit": "1125899906842624",
+      "baseFeeWei": "20022000",
+      "gasPriceWei": "20000000",
+      "maxPriorityFeeWei": "0",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 514887104,
+        "medianBaseFeeWei": "20014000",
+        "minBaseFeeWei": "20000000",
+        "maxBaseFeeWei": "20636000",
+        "medianTipP50Wei": "0",
+        "meanFill": 0.13631958510044648
+      },
+      "arbitrum": {
+        "l2BaseFeeWei": "20030000",
+        "l1BaseFeeEstimateWei": "2273967"
+      }
+    },
+    {
+      "name": "Arbitrum Sepolia",
+      "endpoint": "sepolia-rollup.arbitrum.io",
+      "at": "2026-10-14T23:32:52.769Z",
+      "chainId": 421614,
+      "block": 319239000,
+      "blockTime": "2026-10-14T23:32:43.000Z",
+      "blockGasLimit": "1125899906842624",
+      "baseFeeWei": "20000000",
+      "gasPriceWei": "20064000",
+      "maxPriorityFeeWei": "0",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 319237979,
+        "medianBaseFeeWei": "20038000",
+        "minBaseFeeWei": "20000000",
+        "maxBaseFeeWei": "20554000",
+        "medianTipP50Wei": "0",
+        "meanFill": 0.16941953494698683
+      },
+      "arbitrum": {
+        "l2BaseFeeWei": "20164000",
+        "l1BaseFeeEstimateWei": "0"
+      }
+    },
+    {
+      "name": "OP Mainnet",
+      "endpoint": "mainnet.optimism.io",
+      "at": "2026-10-14T23:32:54.042Z",
+      "chainId": 10,
+      "block": 158210994,
+      "blockTime": "2026-10-14T23:32:45.000Z",
+      "blockGasLimit": "40000000",
+      "baseFeeWei": "1001",
+      "gasPriceWei": "1001001",
+      "maxPriorityFeeWei": "1000000",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 158209971,
+        "medianBaseFeeWei": "1112",
+        "minBaseFeeWei": "999",
+        "maxBaseFeeWei": "1161",
+        "medianTipP50Wei": "942",
+        "meanFill": 0.43017736813964835
+      },
+      "opstack": {
+        "l1BaseFeeWei": "101777919",
+        "blobBaseFeeWei": "4746121",
+        "baseFeeScalar": "5227",
+        "blobBaseFeeScalar": "1014213"
+      }
+    },
+    {
+      "name": "OP Sepolia",
+      "endpoint": "sepolia.optimism.io",
+      "at": "2026-10-14T23:32:56.616Z",
+      "chainId": 11155420,
+      "block": 50109114,
+      "blockTime": "2026-10-14T23:32:48.000Z",
+      "blockGasLimit": "40000000",
+      "baseFeeWei": "250",
+      "gasPriceWei": "1000250",
+      "maxPriorityFeeWei": "1000000",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 50108091,
+        "medianBaseFeeWei": "250",
+        "minBaseFeeWei": "250",
+        "maxBaseFeeWei": "250",
+        "medianTipP50Wei": "0",
+        "meanFill": 0.0037861187011718673
+      },
+      "opstack": {
+        "l1BaseFeeWei": "16",
+        "blobBaseFeeWei": "1",
+        "baseFeeScalar": "7600",
+        "blobBaseFeeScalar": "862000"
+      }
+    },
+    {
+      "name": "Avalanche C-Chain",
+      "endpoint": "api.avax.network",
+      "at": "2026-10-14T23:32:59.759Z",
+      "chainId": 43114,
+      "block": 97568111,
+      "blockTime": "2026-10-14T23:32:48.000Z",
+      "blockGasLimit": "80000000",
+      "baseFeeWei": "5000000000",
+      "gasPriceWei": "5000000150",
+      "maxPriorityFeeWei": "150",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 97567089,
+        "medianBaseFeeWei": "5000000000",
+        "minBaseFeeWei": "5000000000",
+        "maxBaseFeeWei": "5286719016",
+        "medianTipP50Wei": "2000000000",
+        "meanFill": 0.0123218935058594
+      }
+    },
+    {
+      "name": "Avalanche Fuji",
+      "endpoint": "api.avax-test.network",
+      "at": "2026-10-14T23:33:00.978Z",
+      "chainId": 43113,
+      "block": 59472388,
+      "blockTime": "2026-10-14T23:32:48.000Z",
+      "blockGasLimit": "32000000",
+      "baseFeeWei": "10",
+      "gasPriceWei": "160",
+      "maxPriorityFeeWei": "150",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 59471365,
+        "medianBaseFeeWei": "10",
+        "minBaseFeeWei": "10",
+        "maxBaseFeeWei": "10",
+        "medianTipP50Wei": "150",
+        "meanFill": 0.009732206085205067
+      }
+    },
+    {
+      "name": "Base (option)",
+      "endpoint": "mainnet.base.org",
+      "at": "2026-10-14T23:33:02.344Z",
+      "chainId": 8453,
+      "block": 52615713,
+      "blockTime": "2026-10-14T23:32:53.000Z",
+      "blockGasLimit": "400000000",
+      "baseFeeWei": "5000000",
+      "gasPriceWei": "6000000",
+      "maxPriorityFeeWei": "1000000",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 52614690,
+        "medianBaseFeeWei": "5000000",
+        "minBaseFeeWei": "5000000",
+        "maxBaseFeeWei": "5171512",
+        "medianTipP50Wei": "1000000",
+        "meanFill": 0.09116867070800774
+      },
+      "opstack": {
+        "l1BaseFeeWei": "80926800",
+        "blobBaseFeeWei": "4675664",
+        "baseFeeScalar": "2269",
+        "blobBaseFeeScalar": "1055762"
+      }
+    },
+    {
+      "name": "Base Sepolia (option)",
+      "endpoint": "sepolia.base.org",
+      "at": "2026-10-14T23:33:03.884Z",
+      "chainId": 84532,
+      "block": 48126243,
+      "blockTime": "2026-10-14T23:32:54.000Z",
+      "blockGasLimit": "1200000000",
+      "baseFeeWei": "5000000",
+      "gasPriceWei": "6000000",
+      "maxPriorityFeeWei": "1000000",
+      "feeHistory": {
+        "blocks": 1024,
+        "oldestBlock": 48125220,
+        "medianBaseFeeWei": "5000000",
+        "minBaseFeeWei": "5000000",
+        "maxBaseFeeWei": "5000000",
+        "medianTipP50Wei": "1000000",
+        "meanFill": 0.009591629104003905
+      },
+      "opstack": {
+        "l1BaseFeeWei": "17",
+        "blobBaseFeeWei": "2",
+        "baseFeeScalar": "1101",
+        "blobBaseFeeScalar": "659851"
+      }
+    }
+  ],
+  "rates": [
+    {
+      "pair": "ETH-USD",
+      "amount": "2414.59",
+      "currency": "USD",
+      "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+      "at": "2026-10-14T23:33:05.447Z"
+    },
+    {
+      "pair": "AVAX-USD",
+      "amount": "10.0265",
+      "currency": "USD",
+      "source": "Coinbase spot price API, api.coinbase.com/v2/prices/AVAX-USD/spot",
+      "at": "2026-10-14T23:33:05.693Z"
+    }
+  ]
+}

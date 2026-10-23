@@ -7,6 +7,7 @@
 .env.local
 .env.*.local
 **/.env
+.env.*
 !**/.env.example
 
 # ---- Node.js ----
@@ -114,3 +115,10 @@ CLAUDE.md
 benchmarking/*
 !benchmarking/results/
 !benchmarking/results/**
+# Re-exclude key files anywhere under benchmarking/, even inside results/
+benchmarking/**/ephemeral-wallets-*.json
+
+# ---- Local folders and copies (kept out of the repository) ----
+/results/
+.snapshots*/
+deployments/*/*-frontend/

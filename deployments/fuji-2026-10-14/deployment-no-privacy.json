@@ -1,0 +1,44 @@
+{
+  "kind": "no-privacy",
+  "network": "fuji",
+  "chainId": 43113,
+  "deployer": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+  "startedAt": "2026-10-14T23:34:24.603Z",
+  "completedAt": "2026-10-14T23:34:29.833Z",
+  "atStart": {
+    "block": 59472436,
+    "gasPrice": "160",
+    "baseFeePerGas": "10",
+    "maxPriorityFeePerGas": "150"
+  },
+  "feeSettings": {
+    "maxFeePerGas": "1000000",
+    "maxPriorityFeePerGas": "150"
+  },
+  "deployBlock": 59472441,
+  "contracts": {
+    "No_Util": "0xfCCC05909F6Eb570B0BD0B2f5385E55A0cc0244e",
+    "No_Chain": "0x69eAF6D03FeA2DE7661b129F281E1DbD26760E98",
+    "No_OrderImplementation": "0x5cDD523B84ae2C02f7D88f01938F98c1DcfC0EDa"
+  },
+  "transactions": [
+    {
+      "name": "No_Util",
+      "hash": "0xe931f19cde59796f83310a5105b3a934296d1225af0634ff0f2a21359c8070e2",
+      "blockNumber": 59472438,
+      "gasUsed": 882183,
+      "effectiveGasPrice": "160",
+      "contractAddress": "0xfCCC05909F6Eb570B0BD0B2f5385E55A0cc0244e"
+    },
+    {
+      "name": "No_Chain",
+      "hash": "0x4614b89bf83eef1c3e9520b4450f96ebed043c7ea71f1053539481ba5ff785ca",
+      "blockNumber": 59472441,
+      "gasUsed": 3660265,
+      "effectiveGasPrice": "160",
+      "contractAddress": "0x69eAF6D03FeA2DE7661b129F281E1DbD26760E98"
+    }
+  ],
+  "totalGasUsed": 4542448,
+  "totalFeeWei": "726791680"
+}

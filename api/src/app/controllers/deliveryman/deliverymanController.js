@@ -5,7 +5,7 @@ module.exports = {
   async index(req, res) {
 
     const restaurants = await Restaurant.findAll({
-      attributes: ['banner_path', 'restaurant_name', 'digital_address']
+      attributes: ['banner_path', 'restaurant_name']
     });
   
     return res.json({ restaurants });

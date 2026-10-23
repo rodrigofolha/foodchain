@@ -1,0 +1,187 @@
+{
+  "version": "no-privacy-v3-payout-at-the-end-plain-address",
+  "config": {
+    "payload": "makeOrder string: JSON {items, deliveryAddress} in the clear",
+    "payout": "deliveryOrder pays the establishment and the worker by transfers",
+    "weiPerDollar": "1000000000000000",
+    "gasLimits": "eth_estimateGas x 1.25 (customer, worker), x 1.2 (establishment)"
+  },
+  "run": {
+    "date": "2026-10-14T23:51:11.091Z",
+    "chainId": "11155420",
+    "blockRange": {
+      "first": 50109663,
+      "last": 50109663
+    },
+    "forkId": null,
+    "forkActivationTime": null,
+    "atStart": {
+      "at": "2026-10-14T23:51:11.091Z",
+      "block": 50109660,
+      "blockTimestamp": 1792021860,
+      "blockGasLimit": "40000000",
+      "baseFeePerGasWei": "250",
+      "gasPriceWei": "1000250",
+      "maxPriorityFeePerGasWei": "1000000",
+      "forkId": null,
+      "forkActivationTime": null
+    },
+    "atEnd": {
+      "at": "2026-10-14T23:51:16.870Z",
+      "block": 50109663,
+      "blockTimestamp": 1792021866,
+      "blockGasLimit": "40000000",
+      "baseFeePerGasWei": "250",
+      "gasPriceWei": "1000250",
+      "maxPriorityFeePerGasWei": "1000000",
+      "forkId": null,
+      "forkActivationTime": null
+    },
+    "gasMargins": {
+      "establishment": 1.2,
+      "other": 1.25,
+      "text": "1.25 (customer, worker), x 1.2 (establishment)"
+    },
+    "ethUsd": {
+      "usdPerEth": 2413.47,
+      "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+      "at": "2026-10-14T23:32:19Z"
+    },
+    "deployment": "<repository>/deployments/optimismSepolia-2026-10-14/deployment-no-privacy.json (NO_PRIVACY_DEPLOYMENT_RECORD)",
+    "deploymentCompletedAt": "2026-10-14T23:36:03.484Z",
+    "network": "optimism-sepolia",
+    "endpoint": "https://sepolia.optimism.io",
+    "fees": "tip at least 0.001 gwei, maximum fee 0.01 gwei",
+    "receiptTimeoutMs": 300000,
+    "orderTotalWei": "1000000000000000",
+    "orderTotalRule": "ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH",
+    "budget": {
+      "needs": {
+        "customer": {
+          "needWei": "22010983269279520",
+          "valuePerCycleWei": "2000000000000000",
+          "gasWeiPerCycle": "606833927952",
+          "upfrontWei": "2004914930000000"
+        },
+        "establishment": {
+          "needWei": "11004275525039920",
+          "valuePerCycleWei": "1000000000000000",
+          "gasWeiPerCycle": "295562503992",
+          "upfrontWei": "1001319900000000"
+        },
+        "worker": {
+          "needWei": "3902456303520",
+          "valuePerCycleWei": "0",
+          "gasWeiPerCycle": "256996630352",
+          "upfrontWei": "1332490000000"
+        }
+      },
+      "balancesWei": {
+        "customer": "411829272234324181",
+        "establishment": "737883588945520487",
+        "worker": "824940298114739316"
+      }
+    },
+    "stopped": "in cycle 1 at prepareOrder: missing revert data (action=\"call\", data=null, reason=null, transaction={ \"data\": \"0x6eba2b130000000000000000000000000000000000000000000000000000000000000000\", \"from\": \"0xEd2794006D72C83E42B5B7253144359E0947b9E7\", \"to\": \"0xFCdFD6a5e43B26c23F4976203B2130E99847Ec87\" }, invocation=null, revert=null, co"
+  },
+  "cost": {
+    "cycles": 0,
+    "formula": "gas used x effective gas price of each transaction, summed; x the ETH/USD rate",
+    "ethUsd": {
+      "usdPerEth": 2413.47,
+      "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+      "at": "2026-10-14T23:32:19Z"
+    },
+    "meanEffectiveGasPriceWei": null,
+    "total": {
+      "gasPerCycle": 0,
+      "feeWeiPerCycle": "0",
+      "feeEthPerCycle": 0,
+      "feeUsdPerCycle": 0,
+      "transactionsPerCycle": 0
+    },
+    "perParty": {}
+  },
+  "network": "optimism-sepolia",
+  "contract": "0xFCdFD6a5e43B26c23F4976203B2130E99847Ec87",
+  "iterations": 10,
+  "timestamp": "2026-10-14T23:51:16.880Z",
+  "results": [
+    {
+      "label": "makeOrder",
+      "gasUsed": 393206,
+      "latencyMs": 2994.3467679999994,
+      "sendTimeMs": 2582.0240679999997,
+      "costETH": 3.933043015e-7,
+      "memDeltaKB": 4408.9375,
+      "txHash": "0xfb476f669a4602aec65c2efe935971576d88b6482d200fb9598d0d26364c447b",
+      "from": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+      "blockNumber": 50109663,
+      "gasLimit": 502229,
+      "effectiveGasPriceWei": "1000250",
+      "costWei": "393304301500",
+      "party": "customer",
+      "iteration": 1
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "missing revert data (action=\"call\", data=null, reason=null, transaction={ \"data\": \"0x6eba2b130000000000000000000000000000000000000000000000000000000000000000\", \"from\": \"0xEd2794006D72C83E42B5B7253144359E0947b9E7\", \"to\": \"0xFCdFD6a5e43B26c23F4976203B2130E99847Ec87\" }, invocation=null, revert=null, code=CALL_EXCEPTION, version=6.16.0)"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "skipped: an earlier step of this cycle failed"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "skipped: an earlier step of this cycle failed"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "skipped: an earlier step of this cycle failed"
+    },
+    {
+      "label": "rateOrder_client",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "skipped: an earlier step of this cycle failed"
+    },
+    {
+      "label": "rateOrder_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 0,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 0,
+      "txHash": null,
+      "error": "skipped: an earlier step of this cycle failed"
+    }
+  ]
+}

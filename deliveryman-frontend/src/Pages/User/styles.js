@@ -101,3 +101,14 @@ export const Customer = styled.div`
     }
   }
 `;
+export const LeftOrder = styled.div`
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  color: #5e5e5e;
+  font-size: 14px;
+
+  b { color: #2f2f2f; }
+  p { margin-top: 4px; }
+`;

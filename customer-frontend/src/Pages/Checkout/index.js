@@ -10,14 +10,20 @@ import { FaMapMarkerAlt, FaClock, FaWindowMinimize } from 'react-icons/fa';
 import { MdShoppingBasket } from 'react-icons/md';
 import Cash from '../../assets/cash.png';
 
-import api from '../../services/api';
 import { useWeb3 } from '../../services/getWeb3';
 import { Button, CircularProgress } from '@material-ui/core';
 import { encrypt, getEncryptionPublicKey } from '../../utils/crypto';
 import { REPUTATION_ADDRESS, STEALTH_ADDRESS, STEALTH_ABI } from '../../services/config';
-import { poseidon2 } from '../../utils/poseidon';
-import { parseContractError } from '../../utils/contractErrors';
+import { parseContractError, errorText } from '../../utils/contractErrors';
 import { deriveStealthAddress, estimateGasStipend } from '../../utils/stealth';
+import { newPickupSecret } from '../../utils/pickupSeal';
+import { loadRestaurantInfo } from '../../utils/restaurantInfo';
+import { withEstimatedGas } from '../../utils/txGas';
+import { loadDeployment } from '../../utils/deploymentStorage';
+import {
+  resolvePlacedOrder, saveOrderSecrets, hasOrderSecrets, saveOrderRestaurantInfo,
+  savePendingOrder, removePendingOrder,
+} from '../../utils/orderSecrets';
 var deliveryFeeUtils = require('../../utils/deliveryFee');
 var priceUtils = require('../../utils/priceUtils');
 
@@ -64,28 +70,6 @@ export default function Checkout({ history }) {
     })
   }
 
-  async function handleSubmit(orderAddress) {
-    try {
-      console.log(JSON.stringify(items));
-      const response = await api.post(`/restaurants/${restaurant.id}/order`, 
-      {"orderAddress": orderAddress, "items_json": JSON.stringify(items)}, {
-      headers: {
-        "authorization": localStorage.getItem('authorization'),
-        "Content-Type": "application/json"
-      },
-      data: {
-        "order":orderAddress, 
-        "items": items
-      }
-    });
-      console.log(response.data);
-
-    } catch (err) {
-      console.log(err);
-    }
-}
-
-
   async function makeOrder(content) {
     try {
       const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
@@ -96,14 +80,15 @@ export default function Checkout({ history }) {
 
       setLoading(true);
 
-      let preparedItem = items.map(item => {return {'name': item.name, 'quantity': 1, 'price': parseInt(item.price)}});
-      let restaurant_items = encrypt(restaurant.public_key, preparedItem);
-      let client_items = encrypt(encryptPublicKey, preparedItem);
+      // The pickup secret is kept for this chain and Chain contract
+      await loadDeployment(web3);
 
-      // Generate anonymous rating secrets for ZK proof later
-      const nullifier = BigInt('0x' + Array.from(window.crypto.getRandomValues(new Uint8Array(31))).map(b => b.toString(16).padStart(2,'0')).join(''));
-      const trapdoor = BigInt('0x' + Array.from(window.crypto.getRandomValues(new Uint8Array(31))).map(b => b.toString(16).padStart(2,'0')).join(''));
-      const clientCommitment = poseidon2([nullifier, trapdoor]).toString();
+      let preparedItem = items.map(item => {return {'name': item.name, 'quantity': 1, 'price': parseInt(item.price)}});
+      // Pickup secret: the establishment derives from it the key that releases the
+      // delivery address to the worker at pickup.
+      const pickupSecret = newPickupSecret();
+      let restaurant_items = encrypt(restaurant.public_key, { items: preparedItem, k: pickupSecret });
+      let client_items = encrypt(encryptPublicKey, preparedItem);
 
       console.log('[Checkout] Chain contract:', chain.options.address);
       console.log('[Checkout] REPUTATION_ADDRESS:', REPUTATION_ADDRESS);
@@ -111,8 +96,8 @@ export default function Checkout({ history }) {
       console.log('[Checkout] Current order index:', index);
 
       // Derive stealth address — mandatory for all orders
-      if (!restaurant.spend_public_key) {
-        throw new Error('Restaurant does not support privacy (missing spend key). Cannot place order.');
+      if (!restaurant.spend_public_key || !restaurant.view_public_key) {
+        throw new Error('Restaurant does not support privacy (missing stealth keys). Cannot place order.');
       }
 
       console.log('[Checkout] Deriving stealth address for restaurant...');
@@ -121,76 +106,103 @@ export default function Checkout({ history }) {
 
       // Announce stealth address so restaurant can discover it
       const stealthContract = new web3.eth.Contract(STEALTH_ABI, STEALTH_ADDRESS);
-      await stealthContract.methods.announce(
+      const announce = stealthContract.methods.announce(
         1, // schemeId: secp256k1 ECDH
         stealthAddr,
         stealth.ephemeralPubKey,
         stealth.viewTag
-      ).send({ from: accounts[0], gas: 200000 });
+      );
+      await announce.send(await withEstimatedGas(announce, { from: accounts[0] }));
 
       // Estimate gas stipend for stealth address operations
-      var gasStipend = Number(await estimateGasStipend(web3));
-      console.log('[Checkout] Stealth address:', stealthAddr, 'Gas stipend:', gasStipend);
+      // Kept as a decimal string: wei amounts above 2^53 overflow a JS Number
+      var gasStipend = (await estimateGasStipend(web3)).toString();
 
       // Scale prices: 1 U$ = 10^15 wei (0.001 ETH)
       var scaledDeliveryFee = priceUtils.dollarsToWei(deliveryFee);
       var scaledTotal = priceUtils.dollarsToWei(parseFloat(total) - deliveryFee);
-      var orderTotal = (BigInt(scaledDeliveryFee) + BigInt(scaledTotal) + BigInt(gasStipend)).toString();
+      // Chain.makeOrder takes the stipend out of the establishment's total, so the
+      // customer pays only items + delivery fee.
+      if (BigInt(gasStipend) > BigInt(scaledTotal)) {
+        throw new Error('This order is too small to cover the private-withdrawal gas at the current gas price.');
+      }
+      var orderTotal = (BigInt(scaledDeliveryFee) + BigInt(scaledTotal)).toString();
 
-      // Wait for receipt, but fall back to a timeout if MetaMask doesn't fire the event
-      await new Promise((resolve, reject) => {
-        let resolved = false;
-        const done = () => { if (!resolved) { resolved = true; resolve(); } };
+      // The gas limit is the node's estimate with a margin: the order stores its two
+      // item ciphertexts, so its gas grows with the item list and with the network's
+      // price of storage. If the estimate says the order would fail, nothing is sent
+      // and nothing is kept as pending.
+      const order = chain.methods.makeOrder(
+        stealthAddr,
+        scaledDeliveryFee,
+        scaledTotal,
+        restaurant_items,
+        client_items,
+        REPUTATION_ADDRESS,
+        stealthAddr,
+        gasStipend,
+        zone
+      );
+      const orderOptions = await withEstimatedGas(order, { from: accounts[0], value: orderTotal });
 
-        chain.methods.makeOrder(
-          stealthAddr,
-          scaledDeliveryFee,
-          scaledTotal,
-          restaurant_items,
-          client_items,
-          clientCommitment,
-          REPUTATION_ADDRESS,
-          stealthAddr,
-          gasStipend,
-          zone
-        ).send({ from: accounts[0], gas: 5000000, value: orderTotal})
-          .on('receipt', done)
-          .on('error', (err) => { if (!resolved) { resolved = true; reject(err); } });
-
-        // Fallback: if receipt doesn't fire within 30s, proceed anyway
-        setTimeout(done, 30000);
-      });
-
-      // Persist secrets so the rating proof can be generated later
-      const orderId = parseInt(index) + 1;
-      const orderSecrets = JSON.parse(localStorage.getItem('orderSecrets') || '{}');
-      orderSecrets[orderId] = { nullifier: nullifier.toString(), trapdoor: trapdoor.toString() };
-      localStorage.setItem('orderSecrets', JSON.stringify(orderSecrets));
-
-      // Persist restaurant info per-order for two-phase revelation to deliveryman
-      const orderRestaurantInfo = JSON.parse(localStorage.getItem('orderRestaurantInfo') || '{}');
-      orderRestaurantInfo[orderId] = {
+      // Keep the pickup secret before the order is sent, under its stealth address: if
+      // this tab is closed during the wait, or the order is mined late, the orders page
+      // gives it to the order that has this establishment address.
+      const secrets = { pickupSecret: pickupSecret };
+      // Restaurant info per order, for the two-phase revelation to the deliveryman
+      const restaurantInfo = {
         id: restaurant.id,
         name: restaurant.restaurant_name || restaurant.name || '',
         address: restaurant.restaurant_address || restaurant.address || '',
       };
-      localStorage.setItem('orderRestaurantInfo', JSON.stringify(orderRestaurantInfo));
+      if (!savePendingOrder(stealthAddr, secrets, restaurantInfo)) {
+        throw new Error('This browser could not keep the pickup secret of the order. The order was not placed.');
+      }
 
+      // Wait for receipt, but fall back to a timeout if MetaMask doesn't fire the event
+      const receipt = await new Promise((resolve, reject) => {
+        let resolved = false;
+        const done = (result) => { if (!resolved) { resolved = true; resolve(result || null); } };
+
+        order.send(orderOptions)
+          .on('receipt', done)
+          .on('error', (err) => { if (!resolved) { resolved = true; reject(err); } });
+
+        // Fallback: if receipt doesn't fire within 30s, proceed anyway
+        setTimeout(() => done(null), 30000);
+      });
+
+      // Find the id the order really got: another order can be mined between the
+      // read of the index and this transaction.
+      const placed = await resolvePlacedOrder(web3, chain, accounts[0], index, receipt, hasOrderSecrets);
+
+      // Persist the pickup secret and the establishment of the order. If the order
+      // cannot be found yet (for example the transaction is not mined), the pending
+      // record stays and the orders page resolves it.
+      if (placed) {
+        saveOrderSecrets(placed.orderId, secrets, placed.orderAddress);
+        saveOrderRestaurantInfo(placed.orderId, restaurantInfo, placed.orderAddress);
+        removePendingOrder(stealthAddr);
+      }
+
+      // The order exists only on-chain: nothing about it is sent to the API server.
       setLoading(false);
+      if (!placed) {
+        alert('Your order was sent, but it could not be confirmed on-chain yet. '
+          + 'Check your orders in a few minutes, in this browser: it keeps what is needed '
+          + 'to keep your address closed until pickup.');
+      }
       history.push('/user');
-
-      // Notify API in background (non-blocking — order is already on-chain)
-      chain.methods.findAddress(parseInt(index) + 1).call()
-        .then(order => handleSubmit(order))
-        .catch(err => console.log('API notification failed (order is on-chain):', err));
     } catch(err) {
-      console.error(err);
+      console.error('Order failed:', errorText(err));
+      // Rejected in MetaMask: the order was never sent, so nothing is pending
+      if (err && err.code === 4001) removePendingOrder(stealthAddr);
       alert(parseContractError(err));
       setLoading(false);
     }
   }
 
-  const restaurant = JSON.parse(localStorage.getItem('restaurantInfo'));
+  const restaurant = loadRestaurantInfo();
   const items = JSON.parse(localStorage.getItem('basket'));
   const subtotal = items
     .map(item => parseFloat(item.price))

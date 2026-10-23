@@ -1,0 +1,74 @@
+{
+  "createdAt": "2026-10-13T02:31:54.926Z",
+  "network": "hardhat",
+  "hardhatVersion": "2.28.6",
+  "cpuModel": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "cpus": 16,
+  "nodeVersion": "v20.20.2",
+  "snarkjsVersion": "0.7.6",
+  "proveRuns": 10,
+  "circuits": [
+    "mergeWithdraw"
+  ],
+  "provingMs": {
+    "mergeWithdraw": {
+      "ms": [
+        736.8845270000002,
+        745.2935379999999,
+        724.8666250000006,
+        777.0827499999996,
+        749.1222780000007,
+        765.9301989999994,
+        797.0290499999992,
+        755.9529190000012,
+        770.9575810000006,
+        784.203469
+      ],
+      "median": 755.9529190000012
+    }
+  },
+  "gas": {
+    "mergeWithdraw": {
+      "proofs": 11,
+      "probe": {
+        "real": 226886,
+        "equiv": 227062,
+        "realRange": [
+          226886,
+          226886
+        ],
+        "equivRange": [
+          227062,
+          227062
+        ],
+        "errorGas": 176,
+        "errorPct": 0.07757199650926015
+      },
+      "inContract": {
+        "real": 222177,
+        "equiv": 222353,
+        "realRange": [
+          222177,
+          222177
+        ],
+        "equivRange": [
+          222353,
+          222353
+        ],
+        "errorGas": 176,
+        "errorPct": 0.07921612048051778
+      },
+      "txGasUsed": {
+        "real": 249924.63636363635,
+        "equiv": 250063.54545454544,
+        "errorGas": 138.90909090908826,
+        "errorPct": 0.05558039132523844
+      },
+      "calldataGas": {
+        "real": 6747.636363636364,
+        "equiv": 6710.545454545455
+      },
+      "rejectPathProbeGas": 5383
+    }
+  }
+}

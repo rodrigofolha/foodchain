@@ -1,5 +1,4 @@
-/* global BigInt */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Moment from 'react-moment';
 import { CircularProgress } from '@material-ui/core';
 import { ethers } from "ethers";
@@ -9,13 +8,21 @@ import {
   Order,
   OrderDetails,
   RestaurantThumbnail,
-  ButtonsContainer
+  ButtonsContainer,
+  HandoverContainer
 } from './styles';
+import HandoverQR from '../HandoverQR';
+import WorkerRatings from '../WorkerRatings';
 import { decrypt } from '../../utils/crypto';
-import { generateRatingProof } from '../../utils/zkUtils';
-import { parseContractError } from '../../utils/contractErrors';
-import { poseidon2 } from '../../utils/poseidon';
-import { REPUTATION_ADDRESS, REPUTATION_ABI } from '../../services/config';
+import { parseContractError, errorText, detailsErrorText } from '../../utils/contractErrors';
+import { withEstimatedGas } from '../../utils/txGas';
+import { loadDeployment } from '../../utils/deploymentStorage';
+import { pickupSecretOf, committedWorkerAndKey, sealForWorker, NO_PICKUP_SECRET_WARNING } from '../../utils/lateRelease';
+import { orderSecretsFor, orderRestaurantInfoFor, adoptPendingOrder } from '../../utils/orderSecrets';
+import {
+  workersOfOrder, currentCommitment, readWorkerRatings, customerRatingState, detailsSentTo, workerNotice,
+} from '../../utils/orderWorkers';
+import { REPUTATION_ADDRESS, REPUTATION_ABI, STORAGE_ADDRESS, DEPLOY_BLOCK } from '../../services/config';
 
 import {useWeb3} from '../../services/getWeb3';
 var priceUtils = require('../../utils/priceUtils');
@@ -23,52 +30,84 @@ const ethUtil = require('ethereumjs-util');
 const sigUtil = require('eth-sig-util');
 
 
-export default function Orders({ address, restaurant, orderBlock }) {
+// `orderAddress` is the order contract (checked against Chain by the orders page);
+// `commitments` are the workers who committed to it, from its OrderActors logs.
+// Once the establishment accepted, a cancellation or timeout that pays it puts its
+// money back into the payment pool in the same transaction.
+export const CANCEL_GAS_NOTE = "Cancelling now also returns the establishment's money to the payment pool, so this transaction costs more gas than the other steps.";
+
+export default function Orders({ address, restaurant, orderBlock, orderAddress, commitments }) {
   let button_accept;
   let button_cancel;
+  let cancel_note = null;
   let information_text = null;
   const [loading, setLoading] = useState(false);
-  const { web3, logWeb3, chain, storage } = useWeb3();
+  const { web3, logWeb3, chain, storage, reputation } = useWeb3();
   const [readMore, setReadMore] =  useState(false);
   const [items, setItems] = useState([]);
   const [customer_information, setCustomerInformation] = useState(null);
-  const [rating, setRating] = useState(0);
-  const [ratingLoading, setRatingLoading] = useState(false);
-  const [ratingDone, setRatingDone] = useState(false);
-  const [token, setToken] = useState(null);
-  
-  console.log('restaurant'+restaurant);
-  
+  const [workerRatings, setWorkerRatings] = useState([]);
+  const [ratingWorker, setRatingWorker] = useState(null);
+  const [detailsSent, setDetailsSent] = useState(null);
+  const [handoverSig, setHandoverSig] = useState(null);
+
+  // Which workers of this order the customer can rate, and which they rated: the
+  // one who delivered and one who left after pickup. No worker exists in ORDERED.
+  useEffect(() => {
+    let stale = false;
+    async function readRatings() {
+      const reader = logWeb3 || web3;
+      if (!reader || !REPUTATION_ADDRESS || !orderAddress || orderBlock[3] === 'ORDERED') return;
+      const workers = workersOfOrder(commitments, orderBlock[8]);
+      if (workers.length === 0) return;
+      const reputationReader = new reader.eth.Contract(REPUTATION_ABI, REPUTATION_ADDRESS);
+      const states = await readWorkerRatings(reputationReader, orderAddress, workers);
+      if (!stale) setWorkerRatings(states);
+    }
+    readRatings();
+    return () => { stale = true; };
+  }, [web3, logWeb3, orderAddress, commitments, orderBlock]);
+
+  // Whether the delivery details were already sent to the worker committed now.
+  useEffect(() => {
+    let stale = false;
+    async function readDetailsSent() {
+      const current = currentCommitment(commitments, orderBlock[8]);
+      if (!logWeb3 || !current || orderBlock[3] !== 'WAITING') return;
+      try {
+        const sent = await detailsSentTo(logWeb3, STORAGE_ADDRESS, orderBlock[0], current.position,
+          Math.max(current.blockNumber || 0, DEPLOY_BLOCK || 0));
+        if (!stale) setDetailsSent(sent);
+      } catch (_) {
+        // the logs could not be read: the page says nothing about it
+      }
+    }
+    readDetailsSent();
+    return () => { stale = true; };
+  }, [logWeb3, commitments, orderBlock]);
+
+  const notice = workerNotice(orderBlock[3], commitments, orderBlock[8], detailsSent);
+  // When the worker can read the address, for an order this browser can seal.
+  const sealedNotice = orderBlock[3] === 'WAITING' && pickupSecretOf(orderSecretsFor(orderBlock[0], orderAddress))
+    ? 'Your address is sent closed: the delivery worker can open it only after the establishment has recorded the pickup of your order.'
+    : null;
+
   if (orderBlock[3] === 'ORDERED'){
     button_accept = null;
     button_cancel = <Button warning onClick={() => cancelOrder(orderBlock[0])}>Cancel my order by time (free of charge)</Button>;
   } else if (orderBlock[3] === 'PREPARATION') {
     button_accept = null;
     button_cancel = <Button warning onClick={() => cancelOrder(orderBlock[0])}>Cancel my order</Button>;
+    cancel_note = CANCEL_GAS_NOTE;
   } else if (orderBlock[3] === 'WAITING') {
     button_accept = <Button atention onClick={() => addAddress(orderBlock[0])}>Send my address</Button>;
     button_cancel = <Button warning onClick={() => cancelOrder(orderBlock[0])}>Cancel my order </Button>;
-    information_text = <input maxLength="150" type="text" onChange={ handleChange } />;
+    cancel_note = CANCEL_GAS_NOTE;
+    information_text = <input maxLength="150" type="text" placeholder="Your name and delivery address" onChange={ handleChange } />;
   } else if (orderBlock[3] === 'DISPATCHED') {
-    button_accept = null;
+    button_accept = <Button atention onClick={() => signDelivery(orderBlock[0])}>Confirm delivery</Button>;
     button_cancel = <Button warning onClick={() => cancelOrder(orderBlock[0])}>Cancel my order </Button>;
-  } else if (orderBlock[3] === 'CONCLUDED') {
-    button_accept = null;
-    button_cancel = null;
-    if (!ratingDone && REPUTATION_ADDRESS && orderBlock[8] && orderBlock[8] !== '0x0000000000000000000000000000000000000000') {
-      button_accept = ratingLoading
-        ? <CircularProgress size={20} />
-        : (
-          <div>
-            <p>Rate the deliveryman anonymously:</p>
-            {[1,2,3,4,5].map(s => (
-              <Button key={s} onClick={() => submitRatingHandler(s)}>{'★'.repeat(s)}</Button>
-            ))}
-          </div>
-        );
-    } else if (ratingDone) {
-      button_accept = <p>Thank you for your anonymous rating!</p>;
-    }
+    cancel_note = CANCEL_GAS_NOTE;
   } else {
     button_accept = null;
     button_cancel = null;
@@ -78,128 +117,214 @@ export default function Orders({ address, restaurant, orderBlock }) {
     setCustomerInformation(e.target.value);
   }
 
-  const submitRatingHandler = async function (score) {
-    if (!orderBlock[8] || orderBlock[8] === '0x0000000000000000000000000000000000000000') {
-      alert('No deliveryman found for this order.');
-      return;
-    }
-    setRatingLoading(true);
+  // Delivery confirmation: the customer signs a digest bound to this order and
+  // to the committed worker, and hands the signature to the worker at the door.
+  const signDelivery = async function (order_id) {
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const orderAddress = await chain.methods.findAddress(order_id).call({ from: accounts[0] });
+      const digest = await chain.methods.handoverDigest(orderAddress, 2, orderBlock[8]).call();
+      const signature = await window.ethereum.request({ method: 'personal_sign', params: [digest, accounts[0]] });
+      setHandoverSig(signature);
+    } catch (err) {
+      console.error('Delivery confirmation failed:', errorText(err));
+      alert(parseContractError(err));
+    }
+  };
 
-      // Pre-check: compute nullifierHash cheaply and verify it hasn't been used
-      const orderSecrets = JSON.parse(localStorage.getItem('orderSecrets') || '{}');
-      const secrets = orderSecrets[orderBlock[0]];
-      if (!secrets) throw new Error('Rating secrets not found — was the order placed from this browser?');
-      const preNullifierHash = poseidon2([BigInt(secrets.nullifier), BigInt(orderBlock[8])]).toString();
-      const reputationContract = new (logWeb3 || web3).eth.Contract(REPUTATION_ABI, REPUTATION_ADDRESS);
-      const alreadyUsed = await reputationContract.methods.usedNullifiers(preNullifierHash).call();
-      if (alreadyUsed) {
-        alert('You have already rated this delivery worker.');
-        setRatingLoading(false);
-        setRatingDone(true);
+  // One rating of one worker of this order, 1 to 5, sent by the customer through
+  // Chain. It is an ordinary transaction and the rating is public.
+  const submitRatingHandler = async function (worker, score) {
+    if (ratingWorker) return;
+    setRatingWorker(worker);
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const ratedOrderAddress = await chain.methods.findAddress(orderBlock[0]).call({ from: accounts[0] });
+
+      // Read again before sending: the page may be older than a rating already given.
+      const now = customerRatingState(worker,
+        await reputation.methods.orderRatings(ratedOrderAddress, worker).call());
+      if (now.rated || !now.canRate) {
+        alert(now.rated
+          ? 'You have already rated this delivery worker on this order.'
+          : 'This delivery worker cannot be rated on this order by the customer.');
+        setWorkerRatings(states => states.map(state => state.worker === worker ? now : state));
+        setRatingWorker(null);
         return;
       }
 
-      const { a, b, c, nullifierHash, root } = await generateRatingProof(
-        web3, reputationContract, orderBlock[8], score, orderBlock[0]
-      );
-      await chain.methods.submitRating(
-        REPUTATION_ADDRESS, orderBlock[8], score, nullifierHash, root, a, b, c
-      ).send({ from: accounts[0], gas: 4000000 });
-      setRatingDone(true);
-      setRating(score);
+      const rating = chain.methods.rateOrder(ratedOrderAddress, worker, score);
+      await rating.send(await withEstimatedGas(rating, { from: accounts[0] }));
+      setWorkerRatings(states => states.map(state => state.worker === worker
+        ? Object.assign({}, state, { score: score, rated: true, canRate: false })
+        : state));
     } catch (err) {
-      console.error('Rating submission failed:', err);
+      console.error('Rating submission failed:', errorText(err));
       alert(parseContractError(err));
     }
-    setRatingLoading(false);
+    setRatingWorker(null);
   };
 
   const decryptDetails = async function () {
-    const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
-    let unecryptedItems;
-    if (orderBlock[1] && orderBlock[1].startsWith('0x')) {
-      unecryptedItems = await decrypt(accounts[0], orderBlock[1]);
-    } else {
-      unecryptedItems = orderBlock[1];
+    try {
+      const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+      let unecryptedItems;
+      if (orderBlock[1] && orderBlock[1].startsWith('0x')) {
+        unecryptedItems = await decrypt(accounts[0], orderBlock[1]);
+      } else {
+        unecryptedItems = orderBlock[1];
+      }
+      const json_obj = JSON.parse(unecryptedItems);
+      setItems(json_obj);
+      setReadMore(true);
+    } catch (err) {
+      // the error itself is not printed: a format error can quote the items
+      const text = detailsErrorText(err);
+      console.error('Could not open the order details:', text);
+      alert(text);
     }
-    let tokenVal = null;
-    if (orderBlock[9]) {
-      tokenVal = orderBlock[9].startsWith('0x')
-        ? await decrypt(accounts[0], orderBlock[9])
-        : orderBlock[9];
-    }
-    setToken(tokenVal);
-    const json_obj = JSON.parse(unecryptedItems);
-    json_obj.map(item=>{console.log(item);})
-    setItems(json_obj);
-    setReadMore(true);
   }
 
   const cancelOrder = async function (order_id) {
     if (window.ethereum){
       setLoading(true);
-      const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
-      let orderAddress = await chain.methods.findAddress(order_id).call({from: accounts[0]});
-      console.log(orderAddress);
-      let result = await chain.methods.cancelOrder(orderAddress)
-      .send({ from: accounts[0], gas: 4000000});
-    
-    
-      console.log(result);
-      setLoading(false);
-      window.location.reload();
+      try {
+        const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+        let orderAddress = await chain.methods.findAddress(order_id).call({from: accounts[0]});
+        const cancellation = chain.methods.cancelOrder(orderAddress);
+        await cancellation.send(await withEstimatedGas(cancellation, { from: accounts[0] }));
+        setLoading(false);
+        window.location.reload();
+      } catch (err) {
+        console.error('Cancelling the order failed:', errorText(err));
+        alert(parseContractError(err));
+        setLoading(false);
+      }
     } else {
       console.log('Connect to MetaMask!');
     }
   }
 
   const addAddress = async function (order_id) {
-    if (window.ethereum && customer_information && readMore){
+    // The items go to the worker with the address, so they must be open here first.
+    if (!readMore) {
+      alert('Nothing was sent. Press "More details" first: your items are sent to the delivery worker together with your address.');
+      return;
+    }
+    if (!customer_information || !customer_information.trim()) {
+      alert('Nothing was sent. Type your name and delivery address in the field next to the button, then press "Send my address" again.');
+      return;
+    }
+    if (window.ethereum){
       setLoading(true);
-      const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
-      let halves = await storage.methods.getDeliveryman(order_id).call({from: accounts[0]});
-      let encryptPublicKey = ethers.utils.parseBytes32String(halves[0]) + ethers.utils.parseBytes32String(halves[1]);
+      let accounts;
+      let encoded;
+      let encoded_items;
 
-      // Include restaurant info in the address payload so the delivery worker
-      // can discover where to pick up (two-phase revelation for stealth privacy)
-      const orderRestaurantInfo = JSON.parse(localStorage.getItem('orderRestaurantInfo') || '{}');
-      const restInfo = orderRestaurantInfo[order_id] || {};
-      const addressPayload = JSON.stringify({
-        deliveryAddress: customer_information,
-        restaurantId: restInfo.id || null,
-      });
+      // Read now, not from the page: the secrets must belong to the order contract
+      // that has this id, and another worker may have committed since the page loaded.
+      // The worker is read before and after their encryption key, so that the key
+      // and the pickup key are of the same worker.
+      let secrets;
+      let restInfo;
+      let current;
+      try {
+        accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+        // the secrets are kept for this chain and Chain contract
+        await loadDeployment(web3);
+        const orderAddress = await chain.methods.findAddress(order_id).call({from: accounts[0]});
+        adoptPendingOrder(order_id, orderAddress, orderBlock[4]);
+        secrets = orderSecretsFor(order_id, orderAddress);
+        // Restaurant info goes in the address payload so the delivery worker
+        // can discover where to pick up (two-phase revelation for stealth privacy)
+        restInfo = orderRestaurantInfoFor(order_id, orderAddress) || {};
+        current = await committedWorkerAndKey(chain, orderAddress, accounts[0], async function () {
+          const halves = await storage.methods.getDeliveryman(order_id).call({from: accounts[0]});
+          return ethers.utils.parseBytes32String(halves[0]) + ethers.utils.parseBytes32String(halves[1]);
+        });
+      } catch (err) {
+        console.error('Could not read the order:', errorText(err));
+        alert(parseContractError(err));
+        setLoading(false);
+        return;
+      }
+      if (current.changed) {
+        alert('The delivery worker of this order changed while your address was being prepared. Nothing was sent. Reload the page and try again.');
+        setLoading(false);
+        return;
+      }
+      if (current.status !== 'WAITING' || !current.worker) {
+        // Also when the worker left and the order is offered again: the details
+        // would go to the worker who left.
+        alert('No delivery worker is committed to this order at the moment. Nothing was sent. Reload the page and try again.');
+        setLoading(false);
+        return;
+      }
+      const encryptPublicKey = current.encryptPublicKey;
 
-      let encoded = ethUtil.bufferToHex(
-        Buffer.from(JSON.stringify(
-          sigUtil.encrypt(
-            encryptPublicKey,
-            { data: addressPayload},
-            'x25519-xsalsa20-poly1305'
-          )
-        ), 'utf8')
-      );
+      // Late release: the worker gets only the establishment now. The address and
+      // the items are sealed for the pickup key, which the establishment shows once
+      // the pickup of the order is recorded.
+      const pickupSecret = pickupSecretOf(secrets);
+      if (pickupSecret) {
+        try {
+          const strings = sealForWorker(encryptPublicKey, pickupSecret, order_id, current.worker,
+            restInfo.id || null, customer_information, items);
+          encoded = strings.first;
+          encoded_items = strings.second;
+        } catch (err) {
+          console.error('Could not seal the delivery details:', err.message);
+          alert('Could not prepare the delivery details. Nothing was sent.');
+          setLoading(false);
+          return;
+        }
+      } else {
+        // No pickup secret here (order placed before the pickup key existed, or in
+        // another browser): the details can only go straight to the worker, as
+        // before. The customer decides.
+        if (!window.confirm(NO_PICKUP_SECRET_WARNING)) {
+          setLoading(false);
+          return;
+        }
+        const addressPayload = JSON.stringify({
+          deliveryAddress: customer_information,
+          restaurantId: restInfo.id || null,
+        });
 
-      let encoded_items = ethUtil.bufferToHex(
-        Buffer.from(JSON.stringify(
-          sigUtil.encrypt(
-            encryptPublicKey,
-            { data: JSON.stringify(items)},
-            'x25519-xsalsa20-poly1305'
-          )
-        ), 'utf8')
-      );
+        encoded = ethUtil.bufferToHex(
+          Buffer.from(JSON.stringify(
+            sigUtil.encrypt(
+              encryptPublicKey,
+              { data: addressPayload},
+              'x25519-xsalsa20-poly1305'
+            )
+          ), 'utf8')
+        );
 
-      await storage.methods.addInformation(order_id, encoded, encoded_items)
-      .send({ from: accounts[0], gas: 4000000});
+        encoded_items = ethUtil.bufferToHex(
+          Buffer.from(JSON.stringify(
+            sigUtil.encrypt(
+              encryptPublicKey,
+              { data: JSON.stringify(items)},
+              'x25519-xsalsa20-poly1305'
+            )
+          ), 'utf8')
+        );
+      }
+
+      try {
+        const details = storage.methods.addInformation(order_id, encoded, encoded_items);
+        await details.send(await withEstimatedGas(details, { from: accounts[0] }));
+      } catch (err) {
+        console.error('Sending the delivery details failed:', errorText(err));
+        alert(parseContractError(err));
+        setLoading(false);
+        return;
+      }
 
       setLoading(false);
       window.location.reload();
-    } else if (!readMore) {
-      console.log('YOU MUST GET MORE DETAILS!');
-    }
-    else {
+    } else {
       console.log('Connect to MetaMask!');
     }
   }
@@ -215,11 +340,17 @@ export default function Orders({ address, restaurant, orderBlock }) {
         <p>Restaurant: {orderBlock[4]}</p>
         <p> Created at: <Moment unix>{orderBlock[6]}</Moment> &middot; 
           Last updated at: <Moment unix>{orderBlock[7]}</Moment></p>
-        <p>My secret code: {orderBlock[5]}</p>
+        {handoverSig ? <div>
+          <p>Delivery confirmation (let the delivery worker scan the QR code, or give them the text, only after you receive your order):</p>
+          <HandoverContainer>
+            <HandoverQR value={handoverSig} />
+            <textarea readOnly rows={3} cols={48} value={handoverSig} onFocus={e => e.target.select()} />
+          </HandoverContainer>
+        </div> : null}
         <p>Status: {orderBlock[3]} </p>
+        {notice ? <p>{notice}</p> : null}
+        {sealedNotice ? <p>{sealedNotice}</p> : null}
         <p>Delivery fee: U${priceUtils.weiToDollars(orderBlock[2])}</p>
-        { readMore ? <p>Rating Token: {token}</p> : <p></p>}
-        {console.log('componente: '+items[0])}
 
           { readMore ? 
         <div>
@@ -244,6 +375,9 @@ export default function Orders({ address, restaurant, orderBlock }) {
           {button_accept}
           {information_text}
         </ButtonsContainer>
+        {cancel_note ? <p>{cancel_note}</p> : null}
+
+        <WorkerRatings workers={workerRatings} busyWorker={ratingWorker} onRate={submitRatingHandler} />
       
         </div>
       </OrderDetails>

@@ -58,6 +58,92 @@ export const Order = styled.div`
     }
   }
 
+  .pickup-key {
+    padding: 12px 16px;
+    border-top: 1px solid #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+
+      span {
+        font-weight: 600;
+        color: #222;
+      }
+    }
+
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    button {
+      font-size: 13px;
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  }
+
+  .worker-ratings {
+    padding: 12px 16px;
+    border-top: 1px solid #f3f3f3;
+
+    p {
+      margin: 0 0 6px;
+      font-size: 13px;
+      color: #666;
+
+      span {
+        font-weight: 600;
+        color: #222;
+      }
+    }
+
+    .worker-rating {
+      margin-top: 8px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 4px;
+
+      button {
+        font-size: 13px;
+        background: none;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+
+        &:disabled { cursor: default; opacity: 0.6; }
+      }
+    }
+  }
+
+  .gas-return {
+    padding: 12px 16px;
+    border-top: 1px solid #f3f3f3;
+
+    .action-hint {
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: #666;
+    }
+  }
+
   .accept-btn {
     padding: 12px 16px;
     border-top: 1px solid #f3f3f3;
@@ -80,6 +166,32 @@ export const Order = styled.div`
       font-size: 12px;
       color: #555;
       margin-right: 4px;
+    }
+
+    .action-hint {
+      width: 100%;
+      margin: 0;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .pickup-confirmation {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      input[type="text"] {
+        width: 100%;
+        box-sizing: border-box;
+        font-family: monospace;
+        font-size: 11px;
+      }
+
+      .pickup-hint {
+        font-size: 12px;
+        color: #dc3545;
+      }
     }
 
     .rep-inputs {
@@ -180,4 +292,5 @@ export const Button = styled.button`
   };
 
   &:hover { opacity: 0.85; }
+  &:disabled { opacity: 0.45; cursor: default; }
 `;

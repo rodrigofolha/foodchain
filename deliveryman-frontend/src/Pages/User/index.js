@@ -9,18 +9,25 @@ import {
   Customer,
   FilterTabs,
   FilterTab,
+  LeftOrder,
 } from './styles';
 
 import { useWeb3 } from '../../services/getWeb3';
-import { REPUTATION_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
+import { SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
+import { ORDER_ACTORS_TOPIC, addressTopic, orderAddressesFromLogs, keepChainOrders } from '../../utils/orderLogs';
+import { workerRecord, averageText } from '../../utils/workerRecord';
+import { isWorkerView, leftOrderText } from '../../utils/leaving';
+import { errorText } from '../../utils/contractErrors';
 
 const ACTIVE_STATUSES = ['WAITING', 'DISPATCHED'];
 
 export default function Orders() {
   const [ordersBlock, setOrdersBlock] = useState([]);
-  const { chain, logWeb3 } = useWeb3();
+  // orders this account committed to and then left (or was replaced on): { id, text }
+  const [leftOrders, setLeftOrders] = useState([]);
+  const { chain, logWeb3, reputation } = useWeb3();
   const [loading, setLoading] = useState(false);
-  const [ownReputation, setOwnReputation] = useState(null);
+  const [record, setRecord] = useState(null);
   const [filterTab, setFilterTab] = useState('active');
 
   useEffect(() => {
@@ -34,32 +41,28 @@ export default function Orders() {
         if (!accounts || accounts.length === 0) { setLoading(false); return; }
         const account = accounts[0];
 
-        // Fetch own reputation
-        if (REPUTATION_ADDRESS) {
-          chain.methods.getWorkerReputation(REPUTATION_ADDRESS, account).call({ from: account })
-            .then(result => setOwnReputation(result))
-            .catch(err => console.log('Reputation fetch error:', err));
+        // Fetch the account's own public record
+        if (reputation) {
+          reputation.methods.workers(account).call({ from: account })
+            .then(result => setRecord(workerRecord(result)))
+            .catch(err => console.log('Reputation fetch error:', errorText(err)));
         }
 
         // Load orders where this account is the deliveryworker
         const set = new Map();
+        const left = [];
         if (SEPOLIA_RPC_URL) {
-          const eventTopic = logWeb3.utils.keccak256('OrderActors(address,address,address,address)');
-          const workerTopic = '0x' + '000000000000000000000000' + account.slice(2).toLowerCase();
+          const eventTopic = ORDER_ACTORS_TOPIC;
+          const workerTopic = addressTopic(account);
           const fromBlock = DEPLOY_BLOCK || 0;
           const logs = await logWeb3.eth.getPastLogs({
             fromBlock,
             toBlock: 'latest',
             topics: [eventTopic, null, null, workerTopic]
-          }).catch(err => { console.error(err); return []; });
-          // Collect unique order addresses, then batch getOrder calls
-          var orderAddresses = [];
-          for (var i = 0; i < logs.length; i++) {
-            var oa = '0x' + logs[i].data.slice(-40);
-            if (!set.has(oa) && orderAddresses.indexOf(oa) === -1) {
-              orderAddresses.push(oa);
-            }
-          }
+          }).catch(err => { console.error('Could not read the order logs:', errorText(err)); return []; });
+          // Collect unique order addresses, then batch getOrder calls. Any contract can
+          // emit an event of this name: only orders created by Chain are kept.
+          var orderAddresses = await keepChainOrders(chain, orderAddressesFromLogs(logs));
           for (var b = 0; b < orderAddresses.length; b += 5) {
             var batch = orderAddresses.slice(b, b + 5);
             var results = await Promise.all(batch.map(function(address) {
@@ -68,7 +71,15 @@ export default function Orders() {
               }).catch(function() { return null; });
             }));
             for (var r = 0; r < results.length; r++) {
-              if (results[r]) set.set(results[r].address, results[r].items);
+              if (!results[r]) continue;
+              if (isWorkerView(results[r].items)) {
+                set.set(results[r].address, results[r].items);
+                // A cancelled order may be one this account left after pickup, or too late
+                if (String(results[r].items[3]).indexOf('CANCELED') === 0) left.push({ ...results[r], listed: true });
+              } else {
+                // The account is no longer the worker of this order: it gets the public view
+                left.push(results[r]);
+              }
             }
           }
         } else {
@@ -82,14 +93,30 @@ export default function Orders() {
           }
         }
         setOrdersBlock([...set.values()]);
+
+        // What the reputation contract reports about each order this account left
+        const leftEntries = [];
+        for (const entry of left) {
+          const ratings = reputation
+            ? await reputation.methods.orderRatings(entry.address, account).call().catch(() => null)
+            : null;
+          const text = leftOrderText(ratings);
+          // An order that is also in the list gets a line only if a leaving was reported
+          if (!text && entry.listed) continue;
+          leftEntries.push({
+            id: entry.items[0],
+            text: text || 'You are no longer the worker of this order.',
+          });
+        }
+        setLeftOrders(leftEntries);
       } catch(e) {
-        console.error(e);
+        console.error('Could not load your orders:', errorText(e));
       }
       setLoading(false);
     }
 
     fetchAll();
-  }, [chain, logWeb3]);
+  }, [chain, logWeb3, reputation]);
   
   return (
     <>
@@ -120,12 +147,14 @@ export default function Orders() {
             </div>
           </div>
 
-          {ownReputation && (
+          {record && (
             <div className="info-container">
               <div>
-                <label>Reputation</label>
-                <h4>{ownReputation[1] > 0 ? `${(ownReputation[0] / 10).toFixed(1)} ★ (${ownReputation[1]} ratings)` : 'No ratings yet'}</h4>
-                <h4>Completed orders: {ownReputation[2]}</h4>
+                <label>Public record</label>
+                <h4>{averageText(record)}</h4>
+                <h4>Completed deliveries: {record.completedOrders}</h4>
+                <h4>Orders you left: {record.leftOrders}</h4>
+                <h4>Ratings received after leaving: {record.ratingsAfterLeaving}</h4>
               </div>
             </div>
           )}
@@ -146,7 +175,13 @@ export default function Orders() {
               ? ACTIVE_STATUSES.includes(ob[3])
               : !ACTIVE_STATUSES.includes(ob[3])
             );
-          if (filtered.length === 0) {
+          const leftRows = filterTab === 'past' ? leftOrders.map(entry => (
+            <LeftOrder key={'left-' + entry.id}>
+              <b>Order {entry.id}</b>
+              <p>{entry.text} It is counted in "Orders you left".</p>
+            </LeftOrder>
+          )) : [];
+          if (filtered.length === 0 && leftRows.length === 0) {
             return (
               <p style={{color:'#aaa', fontSize:'14px', padding:'20px 0'}}>
                 {filterTab === 'active'
@@ -159,7 +194,7 @@ export default function Orders() {
             // Don't pass restaurant data — with stealth addresses, restaurant identity
             // is revealed only via the encrypted payload after confirmIntention
             return <PastOrder restaurant={null} orderBlock={ob} key={ob[0]} />;
-          });
+          }).concat(leftRows);
         })()}
       </div>
       

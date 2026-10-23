@@ -1,0 +1,80 @@
+{
+  "kind": "privacy",
+  "network": "optimismSepolia",
+  "chainId": 11155420,
+  "deployer": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+  "startedAt": "2026-10-14T23:32:50.846Z",
+  "completedAt": null,
+  "atStart": {
+    "block": 50109110,
+    "gasPrice": "1000250",
+    "baseFeePerGas": "250",
+    "maxPriorityFeePerGas": "1000000"
+  },
+  "feeSettings": {
+    "maxFeePerGas": "10000000",
+    "maxPriorityFeePerGas": "1000000"
+  },
+  "deployBlock": null,
+  "contracts": {
+    "Poseidon": "0x374410074EaC98ad374DE1862d795F403b7dC145",
+    "MergeWithdrawVerifier": "0x02A184f71F49b5A95f3668C9d278A5Bf37C32484",
+    "GlobalReputation": "0x141B5C5340FA9CBdc41267dA48ea44c899d3A2EB",
+    "Util": "0xAd36f8f868bF122eD64198d94e9a14D3120f3101",
+    "Storage": "0xFB9a00276eE9D513f725CFbDf42529763Cb39862",
+    "Chain": "0x9D3Be41eA44CDC707c75eF80e4b5F73F724CC77e"
+  },
+  "transactions": [
+    {
+      "name": "Poseidon",
+      "hash": "0x881f1b89e382ca7f9e14dd655c26a676159bd8f1a2c682d5e0818d50355c4cd3",
+      "blockNumber": 50109112,
+      "gasUsed": 2157126,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0x374410074EaC98ad374DE1862d795F403b7dC145"
+    },
+    {
+      "name": "MergeWithdrawVerifier",
+      "hash": "0x2a5fb1ae9c1d2b6163fedec3207105b699630bb16af4119f8c0879c2dad1986e",
+      "blockNumber": 50109114,
+      "gasUsed": 450491,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0x02A184f71F49b5A95f3668C9d278A5Bf37C32484"
+    },
+    {
+      "name": "GlobalReputation",
+      "hash": "0x248e4d87a0e4e5fa2d415db8c012d31dbed488d65e7ea2ae1ff728fd70d3d83b",
+      "blockNumber": 50109115,
+      "gasUsed": 3721625,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0x141B5C5340FA9CBdc41267dA48ea44c899d3A2EB"
+    },
+    {
+      "name": "Util",
+      "hash": "0x19ea4a7c182d2e728f333279cc813920158fdd7b317c07558a852fdd0c079439",
+      "blockNumber": 50109116,
+      "gasUsed": 882183,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0xAd36f8f868bF122eD64198d94e9a14D3120f3101"
+    },
+    {
+      "name": "Storage",
+      "hash": "0x89bb0d0c5f1440eb66df4f6ca987e232c15bff4209df57b4a409d1a0da03ba02",
+      "blockNumber": 50109116,
+      "gasUsed": 489610,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0xFB9a00276eE9D513f725CFbDf42529763Cb39862"
+    },
+    {
+      "name": "Chain",
+      "hash": "0x81e67fbf8a664594d9dba154812af8cde7c4c79ce62fe71e2c89cdbcad3d2b2b",
+      "blockNumber": 50109118,
+      "gasUsed": 4049292,
+      "effectiveGasPrice": "1000250",
+      "contractAddress": "0x9D3Be41eA44CDC707c75eF80e4b5F73F724CC77e"
+    }
+  ],
+  "totalGasUsed": 11750327,
+  "totalFeeWei": "11753264581750",
+  "denomination": "1000000000000000"
+}

@@ -1,0 +1,32 @@
+Network arbitrum-sepolia: chain 421614, endpoint https://sepolia-rollup.arbitrum.io, block 319243849, block gas limit 1125899906842624
+  fork id 0x04ff06b2 (activation 0); base fee 20032000 wei, eth_gasPrice 20000000 wei, suggested tip 0 wei
+Accounts (keys from benchmarking/.env and the repository's .env; addresses only):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d: 0.5175326257652224 ETH, nonce 387 (pending 387)  (the expected account)
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7: 1.4141703052280048 ETH, nonce 161 (pending 161)  (the expected account)
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2: 0.9470534628054232 ETH, nonce 202 (pending 202)  (the expected account)
+  funder         0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  (the customer's account)
+  deployer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  (the customer's account)
+  one-time address keys: the establishment's spend key pair matches
+Order at this price: total 0.001 ETH (ORDER_TOTAL_WEI=1000000000000000) + fee 0.001 ETH; stipend 0.000048 ETH; pool deposit per cycle 0.0010945 ETH
+  rule: ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH
+Fees the scripts would send: tip at least 0 gwei, maximum fee 0.1 gwei; fee cap now 0.1 gwei
+10 cycles, privacy (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.517533 ETH, needs at most 0.022497 ETH (per cycle: value 0.002000 + gas 0.000034; one upfront 0.002154): 23.00x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.414170 ETH, needs at most 0.012358 ETH (per cycle: value 0.001094 + gas 0.000021; one upfront 0.001198): 114.44x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.947053 ETH, needs at most 0.000440 ETH (per cycle: value 0.000000 + gas 0.000031; one upfront 0.000127): 2152.77x
+10 cycles, mechanisms-off (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.517533 ETH, needs at most 0.022182 ETH (per cycle: value 0.002000 + gas 0.000013; one upfront 0.002056): 23.33x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.414170 ETH, needs at most 0.011075 ETH (per cycle: value 0.001000 + gas 0.000006; one upfront 0.001014): 127.69x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.947053 ETH, needs at most 0.000110 ETH (per cycle: value 0.000000 + gas 0.000009; one upfront 0.000024): 8571.32x
+10 cycles, no-privacy (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.517533 ETH, needs at most 0.022170 ETH (per cycle: value 0.002000 + gas 0.000012; one upfront 0.002049): 23.34x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 1.414170 ETH, needs at most 0.011072 ETH (per cycle: value 0.001000 + gas 0.000006; one upfront 0.001013): 127.72x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.947053 ETH, needs at most 0.000065 ETH (per cycle: value 0.000000 + gas 0.000005; one upfront 0.000013): 14635.03x
+The three runs together, against today's balances:
+  customer       needs at most 0.06684999995 ETH, holds 0.5175326257652224 ETH: 7.74x
+  establishment  needs at most 0.0345048363 ETH, holds 1.4141703052280048 ETH: 40.98x
+  worker         needs at most 0.0006151264 ETH, holds 0.9470534628054232 ETH: 1539.61x
+Record (privacy): <repository>/deployments/arbitrumSepolia-2026-10-14/deployment.json, deploy block 319238543, 11989876 gas; code at every address
+Record (no-privacy): <repository>/deployments/arbitrumSepolia-2026-10-14/deployment-no-privacy.json, deploy block 319238570, 4542448 gas; code at every address
+
+Nothing found against sending. Nothing was sent by this check.

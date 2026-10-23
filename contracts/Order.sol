@@ -34,9 +34,6 @@ library Util {
             return true;
     }
     
-    function random(bytes32 blockHash, address sender, uint256 id, uint256 salt) external pure returns (uint256) {
-      return uint256(keccak256(abi.encodePacked(blockHash, sender, id, salt))) % 1000000;
-    }
     
     function whoCancel(address _caller, Order.OrderStep _step, address client, address restaurant, address[] memory deliverymen, uint256 now_time, uint256 timestamp) external pure returns (Order.OrderStep) {
         if (Order.OrderStep.ORDERED == _step && _caller == client) return Order.OrderStep.CANCELEDBYCLIENT;
@@ -44,7 +41,18 @@ library Util {
         else if (Order.OrderStep.PREPARATION == _step && now_time > timestamp+3600) return Order.OrderStep.CANCELEDBYRESTAURANT;
         else if (Order.OrderStep.PREPARATION == _step && _caller == client) return Order.OrderStep.CANCELEDBYCLIENT;
         else if (Order.OrderStep.PREPARATION == _step && _caller == restaurant) return Order.OrderStep.CANCELEDBYRESTAURANT;
-        else if (Order.OrderStep.WAITING == _step && now_time > timestamp+3600 ) return Order.OrderStep.CANCELEDBYRESTAURANT;
+        // A worker that committed but never collected is the party in default,
+        // so both the WAITING timeout and an explicit withdrawal are charged to
+        // that worker, who forfeits the fee. Attributing them to the establishment
+        // (as CANCELEDBYRESTAURANT does) would instead pay the full fee to a worker
+        // that never picked the order up and burn the establishment's collateral.
+        // This mirrors the DISPATCHED rules below.
+        // Exception: when the first worker withdraws before the timeout, the order is
+        // not canceled. The result is PREPARATION, and Order offers it to a second worker.
+        else if (deliverymen.length == 1 && Order.OrderStep.WAITING == _step && now_time > timestamp+3600) return Order.OrderStep.CANCELEDBYFIRSTDELIVERYMAN;
+        else if (deliverymen.length == 2 && Order.OrderStep.WAITING == _step && now_time > timestamp+3600) return Order.OrderStep.CANCELEDBYSECONDDELIVERYMAN;
+        else if (deliverymen.length == 1 && Order.OrderStep.WAITING == _step && _caller == deliverymen[0]) return Order.OrderStep.PREPARATION;
+        else if (deliverymen.length == 2 && Order.OrderStep.WAITING == _step && _caller == deliverymen[1]) return Order.OrderStep.CANCELEDBYSECONDDELIVERYMAN;
         else if (Order.OrderStep.WAITING == _step && _caller == client ) return Order.OrderStep.CANCELEDBYCLIENT;
         else if (Order.OrderStep.WAITING == _step && _caller == restaurant ) return Order.OrderStep.CANCELEDBYRESTAURANT;
         else if (deliverymen.length == 1 && Order.OrderStep.DISPATCHED == _step && now_time > timestamp+3600) return Order.OrderStep.CANCELEDBYFIRSTDELIVERYMAN;
@@ -56,6 +64,8 @@ library Util {
         else return _step;
     }
     
+    // `deliverymen` is the position of the worker committed now: 1 (first), 2 (second),
+    // or 0 when no worker is committed (also after the first one left and before a second commits).
     function payment(Order.OrderStep step, uint256 total, uint256 deliveryPrice, uint256 deliverymen, uint256 restaurantDeposit) external pure returns (uint256, uint256, uint256, uint256) {
         // CONCLUDED: client paid, restaurant gets food+collateral, active deliveryman gets fee
         if (step == Order.OrderStep.CONCLUDED) {
@@ -83,6 +93,8 @@ library Util {
         else if (step == Order.OrderStep.CANCELEDBYRESTAURANT) {
             if (deliverymen == 2) return (total + deliveryPrice, 0, 0, deliveryPrice);
             else if (deliverymen == 1) return (total + deliveryPrice, 0, deliveryPrice, 0);
+            // No worker: the collateral goes back, if one was deposited (none yet at ORDERED)
+            else if (restaurantDeposit == 0) return (total + deliveryPrice, 0, 0, 0);
             else return (total + deliveryPrice, deliveryPrice, 0, 0);
         }
         // CANCELED BY DELIVERYMAN: client full refund, restaurant gets collateral back, deliveryman gets nothing
@@ -95,10 +107,15 @@ library Util {
 
 
 interface IGlobalReputation {
-    function addRatingTicket(address deliveryWorker, uint256 raterCommitment) external;
+    function addCompletedOrder(address deliveryWorker) external;
+    function addLeaving(address deliveryWorker, bool afterPickup) external;
+    function addRating(address deliveryWorker, uint256 score, bool byClient, bool byEstablishment) external;
+    function requireQualified(address worker, uint256 minReputation, uint256 minOrders) external view;
     function getWorkerStats(address worker) external view returns (uint256 avgScore, uint256 totalRatings, uint256 completedOrders);
-    function submitRating(address worker, uint256 score, uint256 nullifierHash, uint256 root, uint[2] calldata a, uint[2][2] calldata b, uint[2] calldata c) external;
     function depositPayment(uint256 commitment) external payable;
+    function noteNextIndex() external view returns (uint32);
+    function NOTE_TREE_DEPTH() external view returns (uint8);
+    function MAX_AMOUNT() external view returns (uint256);
 }
 
 contract Order {
@@ -111,34 +128,53 @@ contract Order {
     uint256 private deliveryPrice;
     uint256 private total;
     OrderStep private step;
+    bool private reoffered; // true while the order is back in PREPARATION after its first worker left (shares the slot of `step`)
     mapping(OrderStep=>uint256) private timestamp ;
     mapping(address => uint256) private payment;
     string private items;
     string private itemsClient;
     
-    uint256 private clientCode;
-    uint256[2] private deliverymenCode;
+    // Handover confirmations are signatures, not stored codes: anything stored in
+    // contract storage is public, and a short code can be guessed from its hash.
+    // Pickup: the committed worker signs; the establishment submits it.
+    // Delivery: the customer signs; the worker submits it.
+    uint8 public constant HANDOVER_PICKUP = 1;
+    uint8 public constant HANDOVER_DELIVERY = 2;
     
     IGlobalReputation public reputationContract;
-    uint256 private clientRatingCommitment;
-    uint256 private restaurantRatingCommitment;
+    // This code is deployed once, by Chain in its constructor (the implementation). Every order is
+    // an EIP-1167 minimal proxy that runs it by DELEGATECALL in its own storage, with its own
+    // address and balance. Immutables and constants are part of the code, so every order reads
+    // the same `chain` and `self`; everything else is the order's own storage, written by initialize().
+    address private immutable chain; // the Chain that deployed this code and creates the orders; the only allowed caller
+    address private immutable self;  // the address of the implementation itself, which is never an order
     uint256 private restaurantPaymentCommitment; // poseidon(nullifier, trapdoor) for ZK payment note
+    uint256 private revenueNoteAmount;           // amount of the note the order deposited for the establishment when it ended (0 before, and 0 if it paid directly)
     uint256 private minReputation; // 0 = no minimum; uses ×10 scale (e.g. 35 = 3.5 stars)
     uint256 private minOrders;     // 0 = no minimum; minimum completed orders required
     
     /// @dev Function cannot be called at this time.
-    string private FunctionInvalidAtThisStep = "Function cannot be called at this step";
+    string private constant FunctionInvalidAtThisStep = "Function cannot be called at this step";
         
     
     /// @dev Sender not authorized for this
     /// operation.
-    string private Unauthorized = "This caller is unauthorized";
+    string private constant Unauthorized = "This caller is unauthorized";
     
     modifier clientRestricted {
         require(client == msg.sender);
         _;
     }
     
+    // Every state-changing function receives the acting account as a parameter.
+    // Only Chain may call them, because Chain always passes its own msg.sender.
+    // The implementation refuses them all: it is never initialized and never an order.
+    modifier onlyChain {
+        if (msg.sender != chain || address(this) == self)
+            revert(Unauthorized);
+        _;
+    }
+
     modifier onlyBy (address _externalAccount, address _account) {
         if (_externalAccount != _account)
             revert(Unauthorized);
@@ -151,13 +187,10 @@ contract Order {
         _;
     }
     
+    // The customer, the establishment and the worker committed now (not a worker that left).
     modifier onlyByMembers (address _caller) {
-        if (deliverymen.length == 0 && _caller != client && _caller != restaurant)
+        if (!relatedTo(_caller))
             revert(Unauthorized);
-        else if (deliverymen.length == 1 && _caller != client && _caller != restaurant && _caller != deliverymen[0])
-            revert(Unauthorized);
-        else if (deliverymen.length == 2 && _caller != client && _caller != restaurant && _caller != deliverymen[1])
-            revert(Unauthorized);            
         _;
     }
     
@@ -168,8 +201,18 @@ contract Order {
     }
 
     
-    constructor (uint256 _id, address _client, address _restaurant, uint256 _deliveryPrice, uint256 _total, string memory _items, string memory _items_client,
-    uint256 _clientCommitment, address _reputationContract) payable {
+    // Runs once, when Chain deploys the implementation. It writes no storage: a proxy shares the
+    // code, not the storage, so anything set here would be invisible to the orders.
+    constructor () {
+        chain = msg.sender;
+        self = address(this);
+    }
+
+    // The former constructor. Chain calls it once, in the transaction that creates the proxy
+    // (Chain.makeOrder). Same storage writes as the constructor made.
+    function initialize (uint256 _id, address _client, address _restaurant, uint256 _deliveryPrice, uint256 _total, string calldata _items, string calldata _items_client,
+    address _reputationContract) external payable onlyChain {
+        require(timestamp[OrderStep.ORDERED] == 0, "Already initialized");
         id = _id;
         client = _client;
         restaurant = _restaurant;
@@ -182,28 +225,26 @@ contract Order {
         require(msg.value >= total + deliveryPrice);
         payment[_client] += msg.value;
         
-        bytes32 prevHash = blockhash(block.number - 1);
-        clientCode = Util.random(prevHash, msg.sender, _id, 1);
-        deliverymenCode[0] = Util.random(prevHash, msg.sender, _id, 2);
-        deliverymenCode[1] = Util.random(prevHash, msg.sender, _id, 3);
         emit OrderActors (_client, address(0), address(0), address(this));
-        clientRatingCommitment = _clientCommitment;
         reputationContract = IGlobalReputation(_reputationContract);
     }
     
     
+    function isClient(address _account) external view returns (bool) {
+        return _account == client;
+    }
+
     function getPayment () public view  returns (uint256, uint256, uint256, uint256){
         uint256 d1 = deliverymen.length >= 1 ? payment[deliverymen[0]] : 0;
         uint256 d2 = deliverymen.length >= 2 ? payment[deliverymen[1]] : 0;
         return (payment[client], payment[restaurant], d1, d2);
     }
     
-    function acceptOrder (address _restaurant, uint256 _restaurantCommitment, uint256 _paymentCommitment, uint256 _minReputation, uint256 _minOrders) onlyBy(_restaurant, restaurant) atStep(OrderStep.ORDERED) external payable returns (bool) {
+    function acceptOrder (address _restaurant, uint256 _paymentCommitment, uint256 _minReputation, uint256 _minOrders) onlyChain onlyBy(_restaurant, restaurant) atStep(OrderStep.ORDERED) external payable returns (bool) {
         require(msg.value >= deliveryPrice, "Insuficient funds to complete a order.");
         payment[_restaurant] += msg.value;
         step = OrderStep.PREPARATION;
         timestamp[OrderStep.PREPARATION] = block.timestamp;
-        restaurantRatingCommitment = _restaurantCommitment;
         restaurantPaymentCommitment = _paymentCommitment;
         minReputation = _minReputation;
         minOrders = _minOrders;
@@ -211,20 +252,13 @@ contract Order {
         return true;
     }    
     
-    function confirmIntention (address _deliveryman) atStep(OrderStep.PREPARATION)  external payable returns (bool) {
-        //require(msg.value >= total);
-        if (minReputation > 0 || minOrders > 0) {
-            (uint256 avgScore, uint256 totalRatings, uint256 completedOrders) = reputationContract.getWorkerStats(_deliveryman);
-            if (minReputation > 0) {
-                require(totalRatings > 0, "Deliveryman has no ratings yet");
-                require(avgScore >= minReputation, "Deliveryman reputation below minimum required");
-            }
-            if (minOrders > 0) {
-                require(completedOrders >= minOrders, "Deliveryman does not have enough completed orders");
-            }
-        }
+    // Not payable: the worker makes no deposit, and no payout rule would return one.
+    function confirmIntention (address _deliveryman) onlyChain atStep(OrderStep.PREPARATION)  external returns (bool) {
+        // The reputation contract reverts if the worker is below the establishment's minimums
+        if (minReputation > 0 || minOrders > 0)
+            reputationContract.requireQualified(_deliveryman, minReputation, minOrders);
         deliverymen.push(_deliveryman);
-        payment[_deliveryman] += msg.value;
+        reoffered = false;
         step = OrderStep.WAITING;
         timestamp[OrderStep.WAITING] = block.timestamp;
         emit OrderActors (client, restaurant, _deliveryman, address(this));
@@ -232,39 +266,102 @@ contract Order {
     }    
     
     
-    function callSecondDeliveryman (address _restaurant) onlyBy(_restaurant, restaurant) atStep(OrderStep.WAITING)  external returns (bool) {
-        step = OrderStep.PREPARATION;
-        timestamp[OrderStep.PREPARATION] = block.timestamp;
+    // The establishment may replace the committed worker at any time in WAITING, once per order.
+    // The replaced worker is reported as having left before pickup, so the establishment can rate
+    // them at once: this is trust placed in the establishment.
+    function callSecondDeliveryman (address _restaurant) onlyChain onlyBy(_restaurant, restaurant) atStep(OrderStep.WAITING)  external returns (bool) {
+        // The payout and cancellation rules of Util cover one or two workers only.
+        require(deliverymen.length < 2, "Second worker already called");
+        _reoffer();
         return true;
     }    
+
+    // Tells the reputation contract that a worker left this order: it counts the leaving and
+    // lets the worker be rated on this order. One function, so that Order holds the call once.
+    function _workerLeft(address _worker, bool _afterPickup) internal {
+        reputationContract.addLeaving(_worker, _afterPickup);
+    }
+
+    // The first worker left before pickup (their own withdrawal, or the establishment's
+    // replacement): the order goes back to PREPARATION for a second worker. Nobody is paid,
+    // the customer's payment and the establishment's collateral stay in the order.
+    function _reoffer() internal {
+        step = OrderStep.PREPARATION;
+        reoffered = true;
+        timestamp[OrderStep.PREPARATION] = block.timestamp;
+        _workerLeft(deliverymen[0], false);
+    }
   
     
-    function pickupOrder (address _restaurant, uint256 _code) onlyBy(_restaurant, restaurant) atStep(OrderStep.WAITING)  external returns (bool) {
-        if (deliverymen.length == 1 ) require(_code == deliverymenCode[0], "Invalid code!");
-        else require(_code == deliverymenCode[1], "Invalid code!");
+    /// @notice Digest a party signs (EIP-191 personal_sign) to confirm a handover.
+    ///         Bound to this chain, this order, the action, the committed worker and the
+    ///         commitment (first or second): a confirmation signed in a worker's first
+    ///         commitment is not valid if the same worker commits again.
+    function handoverDigest(uint8 _action, address _worker) public view returns (bytes32) {
+        return keccak256(abi.encodePacked("DeliveryChain handover", block.chainid, address(this), _action, _worker, deliverymen.length));
+    }
+
+    function _signerOf(bytes32 _digest, bytes memory _sig) internal pure returns (address) {
+        require(_sig.length == 65, "Invalid signature length");
+        bytes32 r;
+        bytes32 s;
+        uint8 v;
+        assembly {
+            r := mload(add(_sig, 32))
+            s := mload(add(_sig, 64))
+            v := byte(0, mload(add(_sig, 96)))
+        }
+        if (v < 27) v += 27;
+        require(v == 27 || v == 28, "Invalid signature v");
+        // Reject the malleable upper half of s
+        require(uint256(s) <= 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0, "Invalid signature s");
+        bytes32 ethSigned = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", _digest));
+        address signer = ecrecover(ethSigned, v, r, s);
+        require(signer != address(0), "Invalid signature");
+        return signer;
+    }
+
+    // The worker committed now. address(0) if there is none: before the first commitment,
+    // or after the first worker left and before a second one commits.
+    function _currentWorker() internal view returns (address) {
+        if (reoffered || deliverymen.length == 0) return address(0);
+        return deliverymen[deliverymen.length - 1];
+    }
+
+    function pickupOrder (address _restaurant, bytes calldata _workerSig) onlyChain onlyBy(_restaurant, restaurant) atStep(OrderStep.WAITING)  external returns (bool) {
+        address worker = _currentWorker();
+        require(_signerOf(handoverDigest(HANDOVER_PICKUP, worker), _workerSig) == worker, "Invalid pickup confirmation");
         step = OrderStep.DISPATCHED;
         timestamp[OrderStep.DISPATCHED] = block.timestamp;
         return true;
     }    
     
     
-    function deliveryOrder (address _deliveryman, uint256 _code) atStep(OrderStep.DISPATCHED)  external returns (bool) {
-        if (deliverymen.length == 1) {
-             require(_deliveryman == deliverymen[0] && _code == clientCode, Unauthorized);
-        } else {
-            require(_deliveryman == deliverymen[1] && _code == clientCode, Unauthorized);
-        }
+    function deliveryOrder (address _deliveryman, bytes calldata _clientSig) onlyChain atStep(OrderStep.DISPATCHED)  external returns (bool) {
+        require(_deliveryman == _currentWorker(), Unauthorized);
+        require(_signerOf(handoverDigest(HANDOVER_DELIVERY, _deliveryman), _clientSig) == client, "Invalid delivery confirmation");
         step = OrderStep.CONCLUDED;
         timestamp[OrderStep.CONCLUDED] = block.timestamp;
 
-        // Register the anonymous tickets in the Global Reputation contract.
-        reputationContract.addRatingTicket(_deliveryman, clientRatingCommitment);
-        reputationContract.addRatingTicket(_deliveryman, restaurantRatingCommitment);
+        // Count the concluded delivery in the Global Reputation contract.
+        reputationContract.addCompletedOrder(_deliveryman);
         _distributePayments();
         return true;
     }    
     
-    function contestOrder (address _restaurant, bool aval) onlyBy(_restaurant, restaurant) atStep(OrderStep.DISPATCHED)  external returns (bool) {
+    /// @notice Rates, in the clear, a worker of this order. Only the customer and the establishment
+    ///         (the order's one-time address) may rate. This order says which of the two the caller
+    ///         is; the reputation contract refuses a caller who is neither and checks the rest:
+    ///         that this order reported the worker as having delivered or left, that this rater
+    ///         may rate in that case, the score (1 to 5), and once per rater and worker.
+    function rateOrder (address _caller, address _worker, uint256 _score) onlyChain  external returns (bool) {
+        reputationContract.addRating(_worker, _score, _caller == client, _caller == restaurant);
+        return true;
+    }
+
+    // The establishment decides a contested delivery at any time in DISPATCHED, also right after
+    // pickup and against the customer: after pickup the establishment is the arbiter.
+    function contestOrder (address _restaurant, bool aval) onlyChain onlyBy(_restaurant, restaurant) atStep(OrderStep.DISPATCHED)  external returns (bool) {
         if (aval) {
             step = OrderStep.CANCELEDBYCLIENT;
             timestamp[OrderStep.CANCELEDBYCLIENT] = block.timestamp;
@@ -277,41 +374,46 @@ contract Order {
         } else {
             return false;
         }
+        if (!aval) _workerLeft(_currentWorker(), true);
         _distributePayments();
         return true;
     }   
     
     
-    function cancelOrder (address _caller) onlyByMembers(_caller)  external returns (bool) {
+    function cancelOrder (address _caller) onlyChain onlyByMembers(_caller)  external returns (bool) {
         OrderStep _step = Util.whoCancel(_caller, step, client, restaurant, deliverymen, block.timestamp, timestamp[step]);
-        if (step!=_step) {
-            timestamp[_step] = block.timestamp;
-            step = _step;
-            _distributePayments();
+        if (step == _step)
+            return true;
+        if (_step == OrderStep.PREPARATION) {
+            // The first worker withdrew in WAITING: the order is offered again
+            _reoffer();
             return true;
         }
-        else
-            return true;
+        // A cancellation charged to the worker: the reputation contract counts it and lets the worker be rated
+        if (_step == OrderStep.CANCELEDBYFIRSTDELIVERYMAN || _step == OrderStep.CANCELEDBYSECONDDELIVERYMAN)
+            _workerLeft(_currentWorker(), step == OrderStep.DISPATCHED);
+        timestamp[_step] = block.timestamp;
+        step = _step;
+        _distributePayments();
+        return true;
     }
     
     
     function getItems(address _caller) external view returns (uint256, string memory, uint256, string memory, address, uint256, uint256, uint256, address, uint256, uint256){
         address address_deliveryman = address(0);
-        if (_caller == client && deliverymen.length == 1) {
-            address_deliveryman = deliverymen[0];
-        } else if (_caller == client && deliverymen.length == 2) {
-            address_deliveryman = deliverymen[1];
+        if (_caller == client) {
+            address_deliveryman = _currentWorker();
         }
         if (_caller==client){
-            return (id, itemsClient, deliveryPrice, Util.getOrderStepValue(step), restaurant, clientCode, timestamp[OrderStep.ORDERED], timestamp[step], address_deliveryman, minReputation, minOrders);
+            return (id, itemsClient, deliveryPrice, Util.getOrderStepValue(step), restaurant, 0, timestamp[OrderStep.ORDERED], timestamp[step], address_deliveryman, minReputation, minOrders);
         } else if (_caller == restaurant) {
-            // Reveal deliveryman address to restaurant so they can submit ZK rating after conclusion
-            address restaurant_deliveryman = deliverymen.length > 0 ? deliverymen[deliverymen.length - 1] : address(0);
-            return (id,items, deliveryPrice, Util.getOrderStepValue(step), address(0), 0, timestamp[OrderStep.ORDERED], timestamp[step], restaurant_deliveryman, minReputation, minOrders);
-        } else if (deliverymen.length == 1 && _caller == deliverymen[0]) {
-            return (id,string(""), deliveryPrice, Util.getOrderStepValue(step), restaurant, deliverymenCode[0], timestamp[OrderStep.ORDERED], timestamp[step], address_deliveryman, minReputation, minOrders);
-        } else if (deliverymen.length == 2 && _caller == deliverymen[1]) {
-            return (id,string(""), deliveryPrice, Util.getOrderStepValue(step), restaurant, deliverymenCode[1], timestamp[OrderStep.ORDERED], timestamp[step], address_deliveryman, minReputation, minOrders);
+            // Reveal deliveryman address to restaurant so they can rate after conclusion
+            address restaurant_deliveryman = _currentWorker();
+            // Field [5] carries the amount of the establishment's note once the order ended (concluded
+            // or not), so the establishment can rebuild the note leaf poseidon(commitment, amount) and spend it.
+            return (id,items, deliveryPrice, Util.getOrderStepValue(step), address(0), revenueNoteAmount, timestamp[OrderStep.ORDERED], timestamp[step], restaurant_deliveryman, minReputation, minOrders);
+        } else if (relatedTo(_caller)) {
+            return (id,string(""), deliveryPrice, Util.getOrderStepValue(step), restaurant, 0, timestamp[OrderStep.ORDERED], timestamp[step], address_deliveryman, minReputation, minOrders);
         } else if (step == OrderStep.PREPARATION) {
             return (id, string(""), deliveryPrice, Util.getOrderStepValue(step), restaurant, total, timestamp[OrderStep.ORDERED], timestamp[step], address_deliveryman, minReputation, minOrders);
         } else {
@@ -320,8 +422,8 @@ contract Order {
 
     }
     
-    function relatedTo(address _caller) external view returns (bool) {
-        return Util.onlyByMembers(_caller, client, restaurant, deliverymen);
+    function relatedTo(address _caller) public view returns (bool) {
+        return _caller == client || _caller == restaurant || (_caller != address(0) && _caller == _currentWorker());
     }
     
     function toBeTaken() external view returns (bool) {
@@ -330,7 +432,7 @@ contract Order {
     
     function _distributePayments() internal {
         (uint256 _client, uint256 _restaurant, uint256 _deliveryman_1, uint256 _deliveryman_2) =
-            Util.payment(step, total, deliveryPrice, deliverymen.length, payment[restaurant]);
+            Util.payment(step, total, deliveryPrice, reoffered ? 0 : deliverymen.length, payment[restaurant]);
 
         if (_client > 0) {
             payment[client] = 0;
@@ -339,9 +441,12 @@ contract Order {
         }
         if (_restaurant > 0) {
             payment[restaurant] = 0;
-            // For CONCLUDED orders with a payment commitment: deposit into ZK payment pool
-            // For cancellations or orders without commitment: direct transfer (fallback)
-            if (step == OrderStep.CONCLUDED && restaurantPaymentCommitment != 0) {
+            // With a payment commitment the establishment is paid by a note in the payment pool,
+            // in every ending: the revenue of a concluded order, and what a cancellation, a timeout
+            // or a contested decision pays or returns to it. Nothing goes to its one-time address.
+            // Without a commitment, or if the pool cannot take the note: direct transfer.
+            if (restaurantPaymentCommitment != 0 && _poolTakes(_restaurant)) {
+                revenueNoteAmount = _restaurant;
                 reputationContract.depositPayment{value: _restaurant}(restaurantPaymentCommitment);
             } else {
                 (bool s2, ) = payable(restaurant).call{value: _restaurant}("");
@@ -360,6 +465,15 @@ contract Order {
         }
     }
     
+    // The conditions of GlobalReputation.depositPayment for a non-zero amount, read from the pool
+    // before the deposit: the amount is below the pool's maximum and the note tree is not full.
+    // The deposit itself is not caught: if it fails for any other reason (out of gas included)
+    // the whole ending reverts, so the sender cannot choose the direct transfer.
+    function _poolTakes(uint256 _amount) internal view returns (bool) {
+        return _amount < reputationContract.MAX_AMOUNT()
+            && reputationContract.noteNextIndex() < uint256(1) << reputationContract.NOTE_TREE_DEPTH();
+    }
+
   //send tips
   
   //rate actors

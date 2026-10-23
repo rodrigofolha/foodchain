@@ -15,11 +15,17 @@ import api from '../../services/api';
 import { useWeb3 } from '../../services/getWeb3';
 import { SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
 import { decrypt } from '../../utils/crypto';
+import { adoptPendingOrder, orderRestaurantInfoFor } from '../../utils/orderSecrets';
+import { loadDeployment } from '../../utils/deploymentStorage';
+import { errorText } from '../../utils/contractErrors';
+import { orderAddressesFromLogs, keepChainOrders, commitmentsFromLogs, readCommitments } from '../../utils/orderWorkers';
 
 export default function Orders() {
   const [customer, setCustomer] = useState({});
   const [restaurants, setRestaurants] = useState([]);
   const [ordersBlock, setOrdersBlock] = useState([]);
+  const [orderAddressOf, setOrderAddressOf] = useState({});
+  const [commitmentsOf, setCommitmentsOf] = useState({});
   const [loading, setLoading] = useState(false);
   const [filterTab, setFilterTab] = useState('active');
   const { chain, logWeb3 } = useWeb3();
@@ -45,6 +51,8 @@ export default function Orders() {
         if (window.ethereum){
           const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
           const set = new Map();
+          // order contract -> the workers who committed to it, from its OrderActors logs
+          const workersOf = {};
           if (SEPOLIA_RPC_URL) {
             // Fast path: single eth_getLogs call via Infura/Alchemy
             const eventTopic = logWeb3.utils.keccak256('OrderActors(address,address,address,address)');
@@ -54,15 +62,12 @@ export default function Orders() {
               fromBlock,
               toBlock: 'latest',
               topics: [eventTopic, clientTopic]
-            }).catch(err => { console.error(err); return []; });
-            // Collect unique order addresses, then batch getOrder calls
-            var orderAddresses = [];
-            for (var i = 0; i < logs.length; i++) {
-              var addr = '0x' + logs[i].data.slice(-40);
-              if (!set.has(addr) && orderAddresses.indexOf(addr) === -1) {
-                orderAddresses.push(addr);
-              }
-            }
+            }).catch(err => { console.error('Could not read the order logs:', errorText(err)); return []; });
+            // Collect unique order addresses, then batch getOrder calls.
+            // Any contract can emit an event with this name: only the addresses
+            // that Chain says are its orders are kept.
+            var orderAddresses = await keepChainOrders(chain, orderAddressesFromLogs(logs));
+            orderAddresses.forEach(function(oa) { workersOf[oa] = commitmentsFromLogs(logs, oa); });
             // Batch: 5 concurrent calls at a time
             for (var b = 0; b < orderAddresses.length; b += 5) {
               var batch = orderAddresses.slice(b, b + 5);
@@ -83,9 +88,24 @@ export default function Orders() {
               const items = await chain.methods.getOrder(orderAddress).call({from: accounts[0]});
               if (items[1] !== '' && items[4] !== '0x0000000000000000000000000000000000000000') {
                 set.set(orderAddress, items);
+                workersOf[orderAddress] = await readCommitments(logWeb3, orderAddress, DEPLOY_BLOCK || 0)
+                  .catch(function() { return []; });
               }
             }
           }
+          // An order placed in this browser that checkout could not match to its id
+          // (tab closed, order mined late) gets its secrets here, by its stealth
+          // address, before the order is shown.
+          // The records are kept for this chain and Chain contract. Without the
+          // chain id nothing is read or adopted, and the orders are still shown.
+          await loadDeployment().catch(function() { return null; });
+          const addressOf = {};
+          set.forEach(function(items, orderAddress) {
+            addressOf[items[0]] = orderAddress;
+            adoptPendingOrder(items[0], orderAddress, items[4]);
+          });
+          setOrderAddressOf(addressOf);
+          setCommitmentsOf(workersOf);
           setOrdersBlock([...set.values()]);
         }
         else {
@@ -160,19 +180,15 @@ export default function Orders() {
           )
           .map(function(orderBlock) {
             // Look up restaurant from stored order info (has restaurant id)
-            var orderRestaurantInfo = JSON.parse(localStorage.getItem('orderRestaurantInfo') || '{}');
-            var info = orderRestaurantInfo[orderBlock[0]];
+            // (not the info another order contract left under the same id)
+            var info = orderRestaurantInfoFor(orderBlock[0], orderAddressOf[orderBlock[0]]);
             var restaurant = null;
 
             // If we have the restaurant id, find it in the API-fetched list
             if (info && info.id && Array.isArray(restaurants)) {
               restaurant = restaurants.find(function(r) { return r.id === info.id; });
             }
-            // Fallback: try matching by digital_address (legacy non-stealth orders)
-            if (!restaurant && Array.isArray(restaurants)) {
-              restaurant = restaurants.find(function(r) { return r.digital_address === orderBlock[4]; });
-            }
-            // Last fallback: use stored name/address only
+            // Fallback: use stored name/address only
             if (!restaurant && info) {
               restaurant = { restaurant_name: info.name, restaurant_address: info.address };
             }
@@ -181,6 +197,8 @@ export default function Orders() {
               <PastOrder
                 restaurant={restaurant || {}}
                 orderBlock={orderBlock}
+                orderAddress={orderAddressOf[orderBlock[0]]}
+                commitments={commitmentsOf[orderAddressOf[orderBlock[0]]]}
                 key={orderBlock[0]}
                 address={customer.address+', '+customer.address_number+'. '+customer.district} />
             );

@@ -1,12 +1,20 @@
 /**
- * Minimal L2 deployment for the concurrent-makeOrder benchmark.
+ * Minimal L2 deployment for the concurrent throughput benchmark.
  *
  * Deploys the contract stack needed by benchmark-concurrent-l2.js
- * (Poseidon, FeedbackVerifier, MergeWithdrawVerifier, GlobalReputation,
- * Util, Chain) on whichever network is passed via --network.
+ * (Poseidon, MergeWithdrawVerifier, GlobalReputation, Util, Storage,
+ * Chain with its Order implementation, StealthAnnouncer) on whichever network is passed via --network.
  *
- * Saves deployed addresses + deployment metadata to:
+ * Saves deployed addresses + deployment metadata (including deployBlock, the
+ * GlobalReputation deployment block the benchmark rebuilds the note tree from) to:
  *   benchmarking/l2-deployments/<network>.json
+ *
+ * (or to $DEPLOY_OUT_DIR/<network>.json when DEPLOY_OUT_DIR is set)
+ *
+ * The file also holds the record that deploy_all.js writes (chain id, prices at the start, every
+ * transaction with its hash, block, gas used and effective gas price), so that
+ * scripts/verify_deployment.js can check it. Optional fee settings for every transaction:
+ * MAX_FEE_GWEI, PRIORITY_FEE_GWEI (see scripts/deploy_common.js). No gas limit is ever set.
  *
  * Usage:
  *   npx hardhat run scripts/deploy_l2.js --network arbitrumSepolia
@@ -17,6 +25,7 @@ const hre = require("hardhat");
 const { poseidonContract } = require("circomlibjs");
 const fs = require("fs");
 const path = require("path");
+const { startRecord } = require("./deploy_common");
 
 async function main() {
   const network = hre.network.name;
@@ -26,100 +35,69 @@ async function main() {
   const bal = await hre.ethers.provider.getBalance(deployer.address);
   console.log(`  Balance:  ${hre.ethers.formatEther(bal)} ETH`);
 
-  const deployed = { network, deployer: deployer.address, startedAt: new Date().toISOString(), contracts: {}, gasUsed: {} };
+  // The record is kept in memory and saved once, at the end, with the fields the benchmark reads
+  const rec = await startRecord(hre, "privacy", deployer);
+  const deployed = rec.data;
+  deployed.gasUsed = {};
 
-  async function deployAndRecord(name, factory, label) {
-    process.stdout.write(`  ${label}... `);
-    const contract = await factory.deploy(...(arguments[3] || []));
-    const tx = contract.deploymentTransaction();
-    await contract.waitForDeployment();
-    const receipt = await tx.wait();
-    const addr = await contract.getAddress();
-    deployed.contracts[name] = addr;
+  async function deployAndRecord(name, factory, args = []) {
+    process.stdout.write(`  ${name}... `);
+    const { contract, address, receipt } = await rec.deploy(name, factory, args);
     deployed.gasUsed[name] = Number(receipt.gasUsed);
-    console.log(`${addr}  (gas ${receipt.gasUsed})`);
-    return contract;
+    console.log(`${address}  (gas ${receipt.gasUsed})`);
+    return { contract, receipt };
   }
 
   // 1. Poseidon (from circomlibjs bytecode, deployed via raw factory)
   const poseidonABI = poseidonContract.generateABI(2);
   const poseidonBytecode = poseidonContract.createCode(2);
-  const PoseidonFactory = new hre.ethers.ContractFactory(poseidonABI, poseidonBytecode, deployer);
-  const poseidon = await PoseidonFactory.deploy();
-  const pTx = poseidon.deploymentTransaction();
-  await poseidon.waitForDeployment();
-  const pReceipt = await pTx.wait();
-  deployed.contracts.Poseidon = await poseidon.getAddress();
-  deployed.gasUsed.Poseidon = Number(pReceipt.gasUsed);
-  console.log(`  Poseidon... ${deployed.contracts.Poseidon}  (gas ${pReceipt.gasUsed})`);
+  await deployAndRecord("Poseidon", new hre.ethers.ContractFactory(poseidonABI, poseidonBytecode, deployer));
 
-  // 2. FeedbackVerifier
-  const FeedbackV = await hre.ethers.getContractFactory("FeedbackVerifier", deployer);
-  const feedbackV = await FeedbackV.deploy();
-  await feedbackV.waitForDeployment();
-  const fvReceipt = await feedbackV.deploymentTransaction().wait();
-  deployed.contracts.FeedbackVerifier = await feedbackV.getAddress();
-  deployed.gasUsed.FeedbackVerifier = Number(fvReceipt.gasUsed);
-  console.log(`  FeedbackVerifier... ${deployed.contracts.FeedbackVerifier}  (gas ${fvReceipt.gasUsed})`);
+  // 2. MergeWithdrawVerifier (ratings are given in the clear: there is no rating verifier)
+  await deployAndRecord("MergeWithdrawVerifier", await hre.ethers.getContractFactory("MergeWithdrawVerifier", deployer));
 
-  // 3. MergeWithdrawVerifier
-  const MergeV = await hre.ethers.getContractFactory("MergeWithdrawVerifier", deployer);
-  const mergeV = await MergeV.deploy();
-  await mergeV.waitForDeployment();
-  const mvReceipt = await mergeV.deploymentTransaction().wait();
-  deployed.contracts.MergeWithdrawVerifier = await mergeV.getAddress();
-  deployed.gasUsed.MergeWithdrawVerifier = Number(mvReceipt.gasUsed);
-  console.log(`  MergeWithdrawVerifier... ${deployed.contracts.MergeWithdrawVerifier}  (gas ${mvReceipt.gasUsed})`);
+  // 3. GlobalReputation
+  const { contract: reputation, receipt: rReceipt } = await deployAndRecord(
+    "GlobalReputation", await hre.ethers.getContractFactory("GlobalReputation", deployer), [
+      deployed.contracts.Poseidon,
+      deployed.contracts.MergeWithdrawVerifier,
+      1,  // denomination: kept for interface compatibility; pool withdrawals are not restricted to it
+    ]);
+  deployed.deployBlock = rReceipt.blockNumber; // the constructor inserts the dummy note here
 
-  // 4. GlobalReputation
-  const Reputation = await hre.ethers.getContractFactory("GlobalReputation", deployer);
-  const reputation = await Reputation.deploy(
-    deployed.contracts.Poseidon,
-    deployed.contracts.FeedbackVerifier,
-    deployed.contracts.MergeWithdrawVerifier,
-    1  // denomination = 1 wei (we don't exercise the pool in this benchmark)
-  );
-  await reputation.waitForDeployment();
-  const rReceipt = await reputation.deploymentTransaction().wait();
-  deployed.contracts.GlobalReputation = await reputation.getAddress();
-  deployed.gasUsed.GlobalReputation = Number(rReceipt.gasUsed);
-  console.log(`  GlobalReputation... ${deployed.contracts.GlobalReputation}  (gas ${rReceipt.gasUsed})`);
+  // 4. Util library
+  await deployAndRecord("Util", await hre.ethers.getContractFactory("Util", deployer));
 
-  // 5. Util library
-  const Util = await hre.ethers.getContractFactory("Util", deployer);
-  const util = await Util.deploy();
-  await util.waitForDeployment();
-  const uReceipt = await util.deploymentTransaction().wait();
-  deployed.contracts.Util = await util.getAddress();
-  deployed.gasUsed.Util = Number(uReceipt.gasUsed);
-  console.log(`  Util... ${deployed.contracts.Util}  (gas ${uReceipt.gasUsed})`);
+  // 5. Storage
+  const { contract: storage } = await deployAndRecord("Storage", await hre.ethers.getContractFactory("Storage", deployer));
 
-  // 6. Storage
-  const StorageF = await hre.ethers.getContractFactory("Storage", deployer);
-  const storage = await StorageF.deploy();
-  await storage.waitForDeployment();
-  const sReceipt = await storage.deploymentTransaction().wait();
-  deployed.contracts.Storage = await storage.getAddress();
-  deployed.gasUsed.Storage = Number(sReceipt.gasUsed);
-  console.log(`  Storage... ${deployed.contracts.Storage}  (gas ${sReceipt.gasUsed})`);
-
-  // 7. Chain (linking Util)
+  // 6. Chain (linking Util). Its constructor takes the reputation and storage addresses and
+  //    deploys the Order implementation, so the gas of Chain includes that deployment.
   const Chain = await hre.ethers.getContractFactory("Chain", {
     libraries: { "contracts/Order.sol:Util": deployed.contracts.Util },
     signer: deployer,
   });
-  const chain = await Chain.deploy();
-  await chain.waitForDeployment();
-  const cReceipt = await chain.deploymentTransaction().wait();
-  deployed.contracts.Chain = await chain.getAddress();
-  deployed.gasUsed.Chain = Number(cReceipt.gasUsed);
-  console.log(`  Chain... ${deployed.contracts.Chain}  (gas ${cReceipt.gasUsed})`);
+  const { contract: chain } = await deployAndRecord("Chain", Chain, [deployed.contracts.GlobalReputation, deployed.contracts.Storage]);
+  deployed.contracts.OrderImplementation = await chain.orderImplementation();
+  console.log(`  Order implementation... ${deployed.contracts.OrderImplementation}  (deployed by Chain)`);
+
+  // Link Reputation and Storage to Chain (one-time access-control setup)
+  await rec.call("GlobalReputation.setChain", (fees) => reputation.setChain(deployed.contracts.Chain, fees));
+  await rec.call("Storage.setChain", (fees) => storage.setChain(deployed.contracts.Chain, fees));
+  console.log(`  Reputation and Storage linked to Chain`);
+
+  // 7. StealthAnnouncer (the benchmark announces every stealth address)
+  await deployAndRecord("StealthAnnouncer", await hre.ethers.getContractFactory("StealthAnnouncer", deployer));
 
   deployed.completedAt = new Date().toISOString();
+  // The seven deployments, as before; totalGasUsed also counts the two setChain calls
   deployed.totalDeployGas = Object.values(deployed.gasUsed).reduce((a, b) => a + b, 0);
 
   // Save JSON
-  const outDir = path.join(__dirname, "..", "benchmarking", "l2-deployments");
+  // DEPLOY_OUT_DIR=<dir> saves the file elsewhere (e.g. for a local trial run)
+  const outDir = process.env.DEPLOY_OUT_DIR
+    ? path.resolve(process.env.DEPLOY_OUT_DIR)
+    : path.join(__dirname, "..", "benchmarking", "l2-deployments");
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, `${network}.json`);
   fs.writeFileSync(outPath, JSON.stringify(deployed, null, 2));

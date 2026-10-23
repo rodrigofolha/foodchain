@@ -23,11 +23,14 @@
     "ethers": "^5.0",
     "ethereumjs-util": "^7.0.10",
     "@material-ui/core": "^4.11.4",
-    "gh-pages": "^3.2.1"
+    "gh-pages": "^3.2.1",
+    "qrcode.react": "^3.2.0",
+    "html5-qrcode": "^2.3.8",
+    "tweetnacl": "^0.14.3"
   },
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,0 +1,44 @@
+{
+  "kind": "no-privacy",
+  "network": "arbitrumSepolia",
+  "chainId": 421614,
+  "deployer": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+  "startedAt": "2026-10-14T23:30:49.769Z",
+  "completedAt": "2026-10-14T23:30:55.775Z",
+  "atStart": {
+    "block": 319238549,
+    "gasPrice": "20308000",
+    "baseFeePerGas": "20340000",
+    "maxPriorityFeePerGas": "0"
+  },
+  "feeSettings": {
+    "maxFeePerGas": "100000000",
+    "maxPriorityFeePerGas": "0"
+  },
+  "deployBlock": 319238570,
+  "contracts": {
+    "No_Util": "0xE45F63e8Afb41d8BDfC8a3e57cFC289Fd0143b0b",
+    "No_Chain": "0x2D545d053302d0D4dAce1A625F242210a682155B",
+    "No_OrderImplementation": "0xB63278c2A02772Dc5D86fB9259436d378fCC66bA"
+  },
+  "transactions": [
+    {
+      "name": "No_Util",
+      "hash": "0xcd8cf4c29f49d8e075d8338bd96c1b57683b75bb45deb109a1edcc860bbcd671",
+      "blockNumber": 319238560,
+      "gasUsed": 882183,
+      "effectiveGasPrice": "20024000",
+      "contractAddress": "0xE45F63e8Afb41d8BDfC8a3e57cFC289Fd0143b0b"
+    },
+    {
+      "name": "No_Chain",
+      "hash": "0x5418429f947e6b9fee517ef3e8a1e295caeb3c48f3d528b38fcb03e5dbf07472",
+      "blockNumber": 319238570,
+      "gasUsed": 3660265,
+      "effectiveGasPrice": "20098000",
+      "contractAddress": "0x2D545d053302d0D4dAce1A625F242210a682155B"
+    }
+  ],
+  "totalGasUsed": 4542448,
+  "totalFeeWei": "91228838362000"
+}

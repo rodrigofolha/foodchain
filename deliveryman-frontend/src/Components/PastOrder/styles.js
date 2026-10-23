@@ -115,3 +115,22 @@ export const ButtonsContainer = styled.div`
   display: flex;
   margin-top: 15px;
 `
+
+export const PickupKeyBox = styled.div`
+  max-width: 560px;
+
+  .pickup-key-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  input {
+    flex: 1;
+    min-width: 200px;
+    font-family: monospace;
+  }
+
+  p.error {
+    color: #db1a3a;
+  }
+`

@@ -1,0 +1,3 @@
+Attempt 1 (23:32 UTC) deployed Poseidon, MergeWithdrawVerifier, GlobalReputation, Util, Storage and Chain (deployer nonces 194 to 199; all six have code) and stopped at the read of Chain.orderImplementation(), which the public endpoint answered with empty data right after the receipt. Those six contracts are not used (record: deployment.attempt1.json). deploy_all.js now retries that read; attempt 2 deploys the whole set again.
+
+Baseline, attempt 1 (23:34 UTC): deploy_no_privacy.js stopped at the same read (No_Chain.orderImplementation()) after deploying its contracts (record deployment-no-privacy.attempt1.json, not used). The script now retries that read; attempt 2 deploys the baseline again.

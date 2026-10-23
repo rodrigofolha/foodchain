@@ -1,0 +1,402 @@
+{
+ "what": "cash-out of the payment pool from the secrets file of a benchmark run: two notes per mergeWithdraw, the whole sum of the pair paid out, change 0",
+ "tool": "benchmarking/pool-cashout.cjs",
+ "mode": "sent",
+ "network": "hoodi",
+ "chainId": "560048",
+ "endpoint": "https://ethereum-hoodi-rpc.publicnode.com",
+ "at": "2026-10-13T19:35:11.203Z",
+ "deploymentRecord": "<repository>/deployments/hoodi-2026-10-13/deployment.json",
+ "pool": "0x2785120d91f169F7d6B196a35730206Bf7fa681f",
+ "secretsFile": "ephemeral-wallets-hoodi-2026-10-13T10-36-02-836Z.json",
+ "recipient": {
+  "role": "funder",
+  "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d"
+ },
+ "sender": {
+  "role": "funder",
+  "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d"
+ },
+ "gasLimitRule": "eth_estimateGas x 1.2",
+ "feeSettings": "tip at least 0.2 gwei, maximum fee 3 gwei",
+ "ethUsd": {
+  "usdPerEth": 2507.445,
+  "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+  "at": "2026-10-13T19:32:01Z"
+ },
+ "tree": {
+  "block": 3810287,
+  "leaves": 196
+ },
+ "notes": {
+  "deposit": {
+   "spent": {
+    "notes": 25,
+    "wei": "149185971788200000"
+   }
+  },
+  "change": {
+   "spent": {
+    "notes": 17,
+    "wei": "0"
+   },
+   "unspent, zero value": {
+    "notes": 8,
+    "wei": "0"
+   }
+  },
+  "revenue": {
+   "spent": {
+    "notes": 2,
+    "wei": "8730464544800000"
+   },
+   "unspent, can be proved": {
+    "notes": 22,
+    "wei": "98976081752800000"
+   }
+  }
+ },
+ "provable": {
+  "notes": 22,
+  "wei": "98976081752800000"
+ },
+ "poolBalanceWeiBefore": "276403872836000000",
+ "plan": {
+  "withdrawals": 11,
+  "ofWhole": 11,
+  "wei": "98976081752800000"
+ },
+ "gasRule": "two-note mergeWithdraw: 1117064 + 2079 x (1 bits of the change note's leaf index - 1) + 17100 when the leaf is 2^k - 1; with the dummy note -22370; calldata zero bytes not counted",
+ "steps": [
+  {
+   "n": 1,
+   "leaves": [
+    41,
+    42
+   ],
+   "withDummy": false,
+   "amountWei": "8818458718400000",
+   "nonce": 200,
+   "status": "mined",
+   "treeLeavesOfTheProof": 196,
+   "proveMs": 988,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 42,
+   "txHash": "0x75b5a73b2ab1b8c99b4280630d5798dbb746d28b50a232f59e3dbcdb46096e6a",
+   "estimate": 1131252,
+   "gasLimit": 1357503,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810292,
+   "gasUsed": 1121186,
+   "effectiveGasPriceWei": "1216400541",
+   "feeWei": "1363811256961626",
+   "changeLeaf": 196,
+   "ruleGas": 1121222,
+   "secondsFromSendToReceipt": 5.299,
+   "secondsOfTheStep": 10.429
+  },
+  {
+   "n": 2,
+   "leaves": [
+    47,
+    56
+   ],
+   "withDummy": false,
+   "amountWei": "8879015024000000",
+   "nonce": 201,
+   "status": "mined",
+   "treeLeavesOfTheProof": 197,
+   "proveMs": 667,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 39,
+   "txHash": "0x3b7dd2412761aeff53f871ab93192eae4ce95bc3f46fc57b9cea0299a691d98d",
+   "estimate": 1133383,
+   "gasLimit": 1360060,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810293,
+   "gasUsed": 1123301,
+   "effectiveGasPriceWei": "1111949428",
+   "feeWei": "1249053904421828",
+   "changeLeaf": 197,
+   "ruleGas": 1123301,
+   "secondsFromSendToReceipt": 9.334,
+   "secondsOfTheStep": 13.414
+  },
+  {
+   "n": 3,
+   "leaves": [
+    57,
+    58
+   ],
+   "withDummy": false,
+   "amountWei": "8890815444800000",
+   "nonce": 202,
+   "status": "mined",
+   "treeLeavesOfTheProof": 198,
+   "proveMs": 664,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 39,
+   "txHash": "0x3019e284f1d3af9a12c9fc36bd9920e21275c3356fdf83b72edf0538aed47979",
+   "estimate": 1133383,
+   "gasLimit": 1360060,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810294,
+   "gasUsed": 1123301,
+   "effectiveGasPriceWei": "1223195661",
+   "feeWei": "1374016909196961",
+   "changeLeaf": 198,
+   "ruleGas": 1123301,
+   "secondsFromSendToReceipt": 4.866,
+   "secondsOfTheStep": 10.555
+  },
+  {
+   "n": 4,
+   "leaves": [
+    59,
+    64
+   ],
+   "withDummy": false,
+   "amountWei": "8739731285600000",
+   "nonce": 203,
+   "status": "mined",
+   "treeLeavesOfTheProof": 199,
+   "proveMs": 682,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 41,
+   "txHash": "0xece182beb77f8a2f2409268ae57860ca164c7395b44ed0d3e4dd9983f6b84664",
+   "estimate": 1135455,
+   "gasLimit": 1362546,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810296,
+   "gasUsed": 1125356,
+   "effectiveGasPriceWei": "1217698864",
+   "feeWei": "1370344722795584",
+   "changeLeaf": 199,
+   "ruleGas": 1125380,
+   "secondsFromSendToReceipt": 18.082,
+   "secondsOfTheStep": 23.039
+  },
+  {
+   "n": 5,
+   "leaves": [
+    65,
+    82
+   ],
+   "withDummy": false,
+   "amountWei": "9017455308800000",
+   "nonce": 204,
+   "status": "mined",
+   "treeLeavesOfTheProof": 200,
+   "proveMs": 652,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 38,
+   "txHash": "0xf57ebf997757fc701970accbeceea69cda9969171c30a75bda09eb3b73d02e60",
+   "estimate": 1131300,
+   "gasLimit": 1357560,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810297,
+   "gasUsed": 1121234,
+   "effectiveGasPriceWei": "1097134994",
+   "feeWei": "1230145057862596",
+   "changeLeaf": 200,
+   "ruleGas": 1121222,
+   "secondsFromSendToReceipt": 5.244,
+   "secondsOfTheStep": 12.386
+  },
+  {
+   "n": 6,
+   "leaves": [
+    83,
+    84
+   ],
+   "withDummy": false,
+   "amountWei": "9400252371200000",
+   "nonce": 205,
+   "status": "mined",
+   "treeLeavesOfTheProof": 201,
+   "proveMs": 650,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 38,
+   "txHash": "0x3bf386fbebaa550875d318f08b4730cb820e7a16fa4ae054a6f33e43c09c9cfa",
+   "estimate": 1133395,
+   "gasLimit": 1360074,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810298,
+   "gasUsed": 1123313,
+   "effectiveGasPriceWei": "1206989156",
+   "feeWei": "1355826609793828",
+   "changeLeaf": 201,
+   "ruleGas": 1123301,
+   "secondsFromSendToReceipt": 5.67,
+   "secondsOfTheStep": 12.158
+  },
+  {
+   "n": 7,
+   "leaves": [
+    85,
+    86
+   ],
+   "withDummy": false,
+   "amountWei": "9400252371200000",
+   "nonce": 206,
+   "status": "mined",
+   "treeLeavesOfTheProof": 202,
+   "proveMs": 662,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 38,
+   "txHash": "0x2ab0ef98f0ac9cf2af17c2f392227fe2a41d265732ef47b9846e7f0c079ed8d6",
+   "estimate": 1133395,
+   "gasLimit": 1360074,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810300,
+   "gasUsed": 1123313,
+   "effectiveGasPriceWei": "1214489914",
+   "feeWei": "1364252308765082",
+   "changeLeaf": 202,
+   "ruleGas": 1123301,
+   "secondsFromSendToReceipt": 29.002,
+   "secondsOfTheStep": 35.712
+  },
+  {
+   "n": 8,
+   "leaves": [
+    87,
+    88
+   ],
+   "withDummy": false,
+   "amountWei": "9400252371200000",
+   "nonce": 207,
+   "status": "mined",
+   "treeLeavesOfTheProof": 203,
+   "proveMs": 656,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 40,
+   "txHash": "0x0ee57654a098238f64ff0671cfdbd3daebd7df3c14d1605268512c9c814d1589",
+   "estimate": 1135467,
+   "gasLimit": 1362561,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810302,
+   "gasUsed": 1125368,
+   "effectiveGasPriceWei": "1201422985",
+   "feeWei": "1352042981783480",
+   "changeLeaf": 203,
+   "ruleGas": 1125380,
+   "secondsFromSendToReceipt": 14.949,
+   "secondsOfTheStep": 22.366
+  },
+  {
+   "n": 9,
+   "leaves": [
+    89,
+    100
+   ],
+   "withDummy": false,
+   "amountWei": "9046070720000000",
+   "nonce": 208,
+   "status": "mined",
+   "treeLeavesOfTheProof": 204,
+   "proveMs": 642,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 40,
+   "txHash": "0xac8dd7894dfaa3f9c6e68535d0ce273d676eca6071ac1ffd0dc91e9735f29173",
+   "estimate": 1133371,
+   "gasLimit": 1360046,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810303,
+   "gasUsed": 1123289,
+   "effectiveGasPriceWei": "1100660468",
+   "feeWei": "1236359796439252",
+   "changeLeaf": 204,
+   "ruleGas": 1123301,
+   "secondsFromSendToReceipt": 6.006,
+   "secondsOfTheStep": 12.977
+  },
+  {
+   "n": 10,
+   "leaves": [
+    101,
+    102
+   ],
+   "withDummy": false,
+   "amountWei": "8691889068800000",
+   "nonce": 209,
+   "status": "mined",
+   "treeLeavesOfTheProof": 205,
+   "proveMs": 649,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 39,
+   "txHash": "0x28e32123046793da4e8eb38c4aefd46b4bc77e0b84460f2dd401f53f66530285",
+   "estimate": 1135479,
+   "gasLimit": 1362575,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810305,
+   "gasUsed": 1125380,
+   "effectiveGasPriceWei": "1089070451",
+   "feeWei": "1225618104146380",
+   "changeLeaf": 205,
+   "ruleGas": 1125380,
+   "secondsFromSendToReceipt": 15.118,
+   "secondsOfTheStep": 23.645
+  },
+  {
+   "n": 11,
+   "leaves": [
+    103,
+    104
+   ],
+   "withDummy": false,
+   "amountWei": "8691889068800000",
+   "nonce": 210,
+   "status": "mined",
+   "treeLeavesOfTheProof": 206,
+   "proveMs": 655,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 39,
+   "txHash": "0xd1ee1d2613aecb3cc32bc5a27b66feda248cefc0a0ba7d3dd72ccd6ed09b1ec1",
+   "estimate": 1135479,
+   "gasLimit": 1362575,
+   "maxFeePerGasWei": "3000000000",
+   "maxPriorityFeePerGasWei": "200000000",
+   "block": 3810307,
+   "gasUsed": 1125380,
+   "effectiveGasPriceWei": "1309966225",
+   "feeWei": "1474209790290500",
+   "changeLeaf": 206,
+   "ruleGas": 1125380,
+   "secondsFromSendToReceipt": 15.345,
+   "secondsOfTheStep": 23.591
+  }
+ ],
+ "balancesWeiBefore": {
+  "pool": "276403872836000000",
+  "recipient": "6909038428729903680",
+  "sender": "6909038428729903680"
+ },
+ "firstNonce": 200,
+ "balancesWeiAfter": {
+  "block": 3810307,
+  "pool": "177427791083200000",
+  "recipient": "6993418829040246563",
+  "sender": "6993418829040246563"
+ },
+ "poolDownByThePayouts": true,
+ "accountsMovedByPayoutsAndFees": true,
+ "totals": {
+  "withdrawalsMined": 11,
+  "gas": "12360421",
+  "feeWei": "14595681442457117",
+  "paidOutWei": "98976081752800000",
+  "netWei": "84380400310342883",
+  "seconds": 205.511
+ }
+}

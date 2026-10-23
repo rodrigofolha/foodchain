@@ -1,19 +1,43 @@
 /**
- * Deploy all FoodChain contracts in the correct order.
+ * Deploy all FoodChain contracts in the correct order:
+ *   Poseidon hasher, MergeWithdrawVerifier, GlobalReputation, Util, Storage,
+ *   Chain (which deploys the Order implementation every order is a proxy of), StealthAnnouncer.
  *
  * Prerequisites:
- *   1. Circuit verifiers compiled: contracts/FeedbackVerifier.sol + contracts/MergeWithdrawVerifier.sol
- *   2. Ganache running on http://127.0.0.1:7545  (or update hardhat.config.js)
- *   3. Private key set in hardhat.config.js
+ *   1. Circuit verifier compiled: contracts/MergeWithdrawVerifier.sol
+ *   2. A node for the chosen network (e.g. "npx hardhat node" on http://127.0.0.1:8545)
+ *   3. PRIVATE_KEY and the network's RPC URL in the root .env (see README)
  *
  * Run with:
- *   npx hardhat run scripts/deploy_all.js --network ganache
+ *   npx hardhat run scripts/deploy_all.js --network localhost
+ *
+ * By default the script rewrites src/services/config.js in the three dApps (addresses, ABIs,
+ * DEPLOY_BLOCK). Environment variables:
+ *   CONFIG_OUT_DIR=<dir>   write the generated config files to
+ *                          <dir>/<dapp>/src/services/config.js and the record of the deployment
+ *                          to <dir>/deployment.json, and leave the dApps' own files untouched
+ *   CONFIG_RPC_URL=<url>   also set SEPOLIA_RPC_URL (the dApps' read-only endpoint) in the
+ *                          generated files, e.g. http://127.0.0.1:8545 for a local node
+ *   SKIP_CONFIG=1          write no config file at all (the record is still written)
+ *   CONFIG_ABIS_ONLY=1     deploy nothing: only refresh the ABIs in the config files from the
+ *                          compiled artifacts (addresses and DEPLOY_BLOCK are kept)
+ *   MAX_FEE_GWEI=<n>       fee settings for every transaction, both optional
+ *   PRIORITY_FEE_GWEI=<n>  (see scripts/deploy_common.js). No gas limit is ever set: each
+ *                          transaction goes out with the node's own estimate.
+ * On the in-process network (no --network) nothing outlives the run, so the dApps' files are
+ * never rewritten there: set CONFIG_OUT_DIR to get the generated files.
+ *
+ * The record of the deployment (network, chain id, deployer, prices at the start, every
+ * transaction with its hash, block, gas used and effective gas price, every address, the deploy
+ * block) is written to deployments/<network>.json, or to <CONFIG_OUT_DIR>/deployment.json.
+ * scripts/verify_deployment.js checks a deployment from it without sending anything.
  */
 
 const hre = require("hardhat");
 const { poseidonContract } = require("circomlibjs");
 const fs = require("fs");
 const path = require("path");
+const { startRecord, recordPath } = require("./deploy_common");
 
 const CONFIG_FILES = [
   "customer-frontend/src/services/config.js",
@@ -29,32 +53,49 @@ function loadABI(contractName, solFile) {
   return JSON.stringify(JSON.parse(fs.readFileSync(artifactPath, "utf8")).abi);
 }
 
-function updateConfig(filePath, addresses, deployBlock) {
+// Line kept in the dApps' config.js while its addresses are older than its ABIs
+// (written by hand or by CONFIG_ABIS_ONLY; removed here when new addresses are written)
+const STALE_ADDRESSES_NOTE = /^\/\/ NOTE: the addresses and DEPLOY_BLOCK[^\n]*\n/m;
+
+// Reads the dApp's config.js at `filePath` and writes it to `outPath` with the given addresses
+// and deploy block (both optional: without `addresses` only the ABIs are refreshed).
+function updateConfig(filePath, addresses, deployBlock, outPath = filePath, rpcUrl) {
   let content = fs.readFileSync(filePath, "utf8");
 
-  // Update addresses
-  content = content.replace(
-    /export const CHAIN_ADDRESS\s*=\s*'[^']*'/,
-    `export const CHAIN_ADDRESS = '${addresses.chain}'`
-  );
-  content = content.replace(
-    /export const REPUTATION_ADDRESS\s*=\s*'[^']*'/,
-    `export const REPUTATION_ADDRESS = '${addresses.reputation}'`
-  );
-  content = content.replace(
-    /export const STORAGE_ADDRESS\s*=\s*'[^']*'/,
-    `export const STORAGE_ADDRESS = '${addresses.storage}'`
-  );
+  if (addresses) {
+    content = content.replace(STALE_ADDRESSES_NOTE, "");
 
-  // Stealth announcer address
-  if (/export const STEALTH_ADDRESS\s*=/.test(content)) {
+    // Update addresses
     content = content.replace(
-      /export const STEALTH_ADDRESS\s*=\s*'[^']*'/,
-      `export const STEALTH_ADDRESS = '${addresses.stealth}'`
+      /export const CHAIN_ADDRESS\s*=\s*'[^']*'/,
+      `export const CHAIN_ADDRESS = '${addresses.chain}'`
     );
-  } else {
-    // Append new exports before the first newline after the last export
-    content += `\nexport const STEALTH_ADDRESS = '${addresses.stealth}';\n`;
+    content = content.replace(
+      /export const REPUTATION_ADDRESS\s*=\s*'[^']*'/,
+      `export const REPUTATION_ADDRESS = '${addresses.reputation}'`
+    );
+    content = content.replace(
+      /export const STORAGE_ADDRESS\s*=\s*'[^']*'/,
+      `export const STORAGE_ADDRESS = '${addresses.storage}'`
+    );
+
+    // Stealth announcer address
+    if (/export const STEALTH_ADDRESS\s*=/.test(content)) {
+      content = content.replace(
+        /export const STEALTH_ADDRESS\s*=\s*'[^']*'/,
+        `export const STEALTH_ADDRESS = '${addresses.stealth}'`
+      );
+    } else {
+      // Append new exports before the first newline after the last export
+      content += `\nexport const STEALTH_ADDRESS = '${addresses.stealth}';\n`;
+    }
+  }
+
+  if (rpcUrl) {
+    content = content.replace(
+      /export const SEPOLIA_RPC_URL\s*=\s*'[^']*'/,
+      `export const SEPOLIA_RPC_URL = '${rpcUrl}'`
+    );
   }
 
   if (deployBlock !== undefined) {
@@ -98,112 +139,154 @@ function updateConfig(filePath, addresses, deployBlock) {
   content = replaceABI(content, "STORAGE_ABI", storageABI);
   content = replaceABI(content, "STEALTH_ABI", stealthABI);
 
-  fs.writeFileSync(filePath, content, "utf8");
-  console.log(`  Updated: ${filePath}`);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, content, "utf8");
+  console.log(`  ${outPath === filePath ? "Updated" : "Written"}: ${outPath}`);
+}
+
+// Writes the config files: into the dApps, or under CONFIG_OUT_DIR when it is set.
+// Returns false when nothing was written.
+function writeConfigs(addresses, deployBlock) {
+  const outDir = process.env.CONFIG_OUT_DIR ? path.resolve(process.env.CONFIG_OUT_DIR) : null;
+  if (process.env.SKIP_CONFIG === "1") {
+    console.log("\nSKIP_CONFIG=1: no config.js written.");
+    return false;
+  }
+  if (addresses && !outDir && hre.network.name === "hardhat") {
+    console.log("\nIn-process network: the dApps' config.js files are left untouched (set CONFIG_OUT_DIR to get the generated files).");
+    return false;
+  }
+  console.log(outDir ? `\nWriting config.js files to ${outDir} (the dApps' own files are not touched)...` : "\nUpdating config.js files...");
+  for (const cfg of CONFIG_FILES) {
+    const abs = path.join(__dirname, "..", cfg);
+    if (fs.existsSync(abs)) {
+      updateConfig(abs, addresses, deployBlock, outDir ? path.join(outDir, cfg) : abs, process.env.CONFIG_RPC_URL);
+    } else {
+      console.warn("  Not found (skipped):", cfg);
+    }
+  }
+  return true;
 }
 
 async function main() {
+  if (process.env.CONFIG_ABIS_ONLY === "1") {
+    writeConfigs(null, undefined);
+    console.log("ABIs refreshed; addresses and DEPLOY_BLOCK kept. Nothing was deployed.");
+    return null;
+  }
+
   const [deployer] = await hre.ethers.getSigners();
   console.log("Deploying with account:", deployer.address);
   console.log("Balance:", hre.ethers.formatEther(await hre.ethers.provider.getBalance(deployer.address)), "ETH\n");
+  const rec = await startRecord(hre, "privacy", deployer, recordPath(hre, "deployment.json"));
+  rec.data.denomination = DENOMINATION.toString();
 
   // ── 1. Poseidon hasher ─────────────────────────────────────────────────────
-  console.log("1/8  Deploying Poseidon hasher...");
+  console.log("1/7  Deploying Poseidon hasher...");
   const poseidonABI = poseidonContract.generateABI(2);
   const poseidonBytecode = poseidonContract.createCode(2);
   const PoseidonFactory = new hre.ethers.ContractFactory(poseidonABI, poseidonBytecode, deployer);
-  const poseidon = await PoseidonFactory.deploy();
-  await poseidon.waitForDeployment();
-  const POSEIDON = await poseidon.getAddress();
+  const POSEIDON = (await rec.deploy("Poseidon", PoseidonFactory)).address;
   console.log("     Poseidon:", POSEIDON);
 
-  // ── 2. FeedbackVerifier ──────────────────────────────────────────────────
-  console.log("2/8  Deploying FeedbackVerifier...");
-  const FeedbackVerifier = await hre.ethers.getContractFactory("FeedbackVerifier");
-  const feedbackVerifier = await FeedbackVerifier.deploy();
-  await feedbackVerifier.waitForDeployment();
-  const FEEDBACK_VERIFIER = await feedbackVerifier.getAddress();
-  console.log("     FeedbackVerifier:", FEEDBACK_VERIFIER);
-
-  // ── 3. MergeWithdrawVerifier ──────────────────────────────────────────────
-  console.log("3/8  Deploying MergeWithdrawVerifier...");
+  // ── 2. MergeWithdrawVerifier ──────────────────────────────────────────────
+  // (Ratings are given in the clear through the order: there is no rating verifier.)
+  console.log("2/7  Deploying MergeWithdrawVerifier...");
   const MWVerifier = await hre.ethers.getContractFactory("MergeWithdrawVerifier");
-  const mwVerifier = await MWVerifier.deploy();
-  await mwVerifier.waitForDeployment();
-  const MW_VERIFIER = await mwVerifier.getAddress();
+  const MW_VERIFIER = (await rec.deploy("MergeWithdrawVerifier", MWVerifier)).address;
   console.log("     MergeWithdrawVerifier:", MW_VERIFIER);
 
-  // ── 4. GlobalReputation ────────────────────────────────────────────────────
-  console.log("4/8  Deploying GlobalReputation (denomination:", hre.ethers.formatEther(DENOMINATION), "ETH)...");
+  // ── 3. GlobalReputation ────────────────────────────────────────────────────
+  // Its constructor checks its zero-hash table against the hasher and inserts the dummy note.
+  console.log("3/7  Deploying GlobalReputation (denomination:", hre.ethers.formatEther(DENOMINATION), "ETH)...");
   const Reputation = await hre.ethers.getContractFactory("GlobalReputation");
-  const reputation = await Reputation.deploy(POSEIDON, FEEDBACK_VERIFIER, MW_VERIFIER, DENOMINATION);
-  await reputation.waitForDeployment();
-  const REPUTATION = await reputation.getAddress();
+  const { contract: reputation, address: REPUTATION } = await rec.deploy("GlobalReputation", Reputation, [POSEIDON, MW_VERIFIER, DENOMINATION]);
   console.log("     GlobalReputation:", REPUTATION);
 
-  // ── 5. Util library ───────────────────────────────────────────────────────
-  console.log("5/8  Deploying Util library...");
+  // ── 4. Util library ───────────────────────────────────────────────────────
+  console.log("4/7  Deploying Util library...");
   const Util = await hre.ethers.getContractFactory("Util");
-  const util = await Util.deploy();
-  await util.waitForDeployment();
-  const UTIL = await util.getAddress();
+  const UTIL = (await rec.deploy("Util", Util)).address;
   console.log("     Util:", UTIL);
 
-  // ── 6. Storage ─────────────────────────────────────────────────────────────
-  console.log("6/8  Deploying Storage...");
+  // ── 5. Storage ─────────────────────────────────────────────────────────────
+  console.log("5/7  Deploying Storage...");
   const Storage = await hre.ethers.getContractFactory("Storage");
-  const storage = await Storage.deploy();
-  await storage.waitForDeployment();
-  const STORAGE = await storage.getAddress();
+  const { contract: storage, address: STORAGE } = await rec.deploy("Storage", Storage);
   console.log("     Storage:", STORAGE);
 
-  // ── 7. Chain (linked with Util) ────────────────────────────────────────────
-  console.log("7/8  Deploying Chain...");
+  // ── 6. Chain (linked with Util) ────────────────────────────────────────────
+  // Chain keeps the reputation and storage addresses fixed. Its constructor deploys the
+  // Order implementation (the code of every order), which is why Chain needs the Util link.
+  console.log("6/7  Deploying Chain...");
   const Chain = await hre.ethers.getContractFactory("Chain", {
     libraries: { "contracts/Order.sol:Util": UTIL }
   });
-  const chain = await Chain.deploy();
-  await chain.waitForDeployment();
-  const CHAIN = await chain.getAddress();
+  const { contract: chain, address: CHAIN } = await rec.deploy("Chain", Chain, [REPUTATION, STORAGE]);
+  // A public endpoint may answer a call against a backend that has not yet applied the
+  // deployment's block (seen on OP Sepolia on 2026-10-14: an empty result right after the
+  // receipt). Read again a few times before giving up.
+  let ORDER_IMPLEMENTATION = null;
+  for (let attempt = 1; attempt <= 15; attempt++) {
+    try { ORDER_IMPLEMENTATION = await chain.orderImplementation(); break; }
+    catch (e) {
+      if (attempt === 15 || !/could not decode result data|BAD_DATA/.test(String(e.message || e))) throw e;
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
+  rec.data.contracts.OrderImplementation = ORDER_IMPLEMENTATION;
   console.log("     Chain:", CHAIN);
+  console.log("     Order implementation:", ORDER_IMPLEMENTATION);
 
-  // ── 8. StealthAnnouncer ────────────────────────────────────────────────────
-  console.log("8/8  Deploying StealthAnnouncer...");
+  // Link Reputation and Storage to Chain (one-time). Only orders created by
+  // Chain can report to Reputation, and only Chain/customers can write Storage.
+  await rec.call("GlobalReputation.setChain", (fees) => reputation.setChain(CHAIN, fees));
+  await rec.call("Storage.setChain", (fees) => storage.setChain(CHAIN, fees));
+  console.log("   Reputation and Storage linked to Chain");
+
+  // ── 7. StealthAnnouncer ────────────────────────────────────────────────────
+  console.log("7/7  Deploying StealthAnnouncer...");
   const StealthAnnouncer = await hre.ethers.getContractFactory("StealthAnnouncer");
-  const stealth = await StealthAnnouncer.deploy();
-  await stealth.waitForDeployment();
-  const STEALTH = await stealth.getAddress();
+  const STEALTH = (await rec.deploy("StealthAnnouncer", StealthAnnouncer)).address;
   console.log("     StealthAnnouncer:", STEALTH);
 
   // ── Summary ────────────────────────────────────────────────────────────────
   console.log("\n========== DEPLOYMENT COMPLETE ==========");
   console.log("Poseidon:              ", POSEIDON);
-  console.log("FeedbackVerifier:      ", FEEDBACK_VERIFIER);
   console.log("MergeWithdrawVerifier: ", MW_VERIFIER);
   console.log("GlobalReputation:      ", REPUTATION);
   console.log("Util:                  ", UTIL);
   console.log("Storage:               ", STORAGE);
   console.log("Chain:                 ", CHAIN);
+  console.log("Order implementation:  ", ORDER_IMPLEMENTATION);
   console.log("StealthAnnouncer:      ", STEALTH);
   console.log("Denomination:          ", hre.ethers.formatEther(DENOMINATION), "ETH");
+  console.log("Gas used:              ", rec.data.totalGasUsed.toLocaleString("en-US"), `in ${rec.data.transactions.length} transactions`);
+  console.log("Fees paid:             ", hre.ethers.formatEther(rec.data.totalFeeWei), "ETH");
 
   // ── Auto-update all three config.js files ─────────────────────────────────
-  console.log("\nUpdating config.js files...");
   const deployBlock = await hre.ethers.provider.getBlockNumber();
   const addresses = { chain: CHAIN, reputation: REPUTATION, storage: STORAGE, stealth: STEALTH };
-  for (const cfg of CONFIG_FILES) {
-    const abs = path.join(__dirname, "..", cfg);
-    if (fs.existsSync(abs)) {
-      updateConfig(abs, addresses, deployBlock);
-    } else {
-      console.warn("  Not found (skipped):", cfg);
-    }
-  }
+  // The record is complete before the config files are touched
+  const deployment = rec.finish(deployBlock);
+  if (rec.file) console.log(`\nRecord of the deployment written: ${rec.file}`);
+  const written = writeConfigs(addresses, deployBlock);
   console.log("     Deploy block:", deployBlock);
-  console.log("\nDone! Restart your frontend dev servers to pick up the new addresses.");
+  if (written && !process.env.CONFIG_OUT_DIR) {
+    console.log("\nDone! Restart your frontend dev servers to pick up the new addresses.");
+  } else {
+    console.log("\nDone!");
+  }
+  return deployment;
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Run directly ("npx hardhat run scripts/deploy_all.js"), or required by another script
+// (scripts/check_deployment.js) that calls main() itself.
+if (require.main === module) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+
+module.exports = { main };

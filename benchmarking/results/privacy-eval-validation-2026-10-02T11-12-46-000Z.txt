@@ -1,0 +1,786 @@
+Privacy evaluation — observer validation printout (2026-10-02T11-12-46-000Z)
+Tiny runs (E = 3-4, N = 3-12) on the in-process Hardhat network, printed by run-one.cjs with "verbose": true,
+with the same observer code as the results files. Each order: the truth (TRUTH: establishment, stealth address,
+customer, worker, revenue, slots), the observer's combined P1 decision with every attack that answered and its
+evidence, the P4 (pre-commitment) decision and the P3 plaintext findings; each rating: the observer's order guess
+next to the truth; the cash-outs of the truth; and the internal transfers reconstructed from balances next to
+those derived from struct-log traces. Addresses are throwaway local accounts (seeded); no keys are printed.
+See benchmarking/privacy-eval/README.md.
+
+################ PE_CONFIG={"arm":"FULL","strategy":"S1","E":3,"N":4,"seed":3,"verbose":true,"witnessCheck":true}
+[FULL S1 E=3 N=4] workload...
+[FULL S1 E=3 N=4] workload done: 4 orders, 8 ratings, 4 cash-out txs, slots 0-184 (63 chain blocks), 2 s, peak RSS 1.1 GB
+[FULL S1 E=3 N=4] observer: collecting public data...
+[FULL S1 E=3 N=4]     observer: 63 blocks with transactions, 63 receipts, 16 internal transfers (214 balance queries) in 0.2 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0xAF0f7784 customer=0x131395C4 worker=0xf67C2E00 revenue=36.83 USD delivered@slot 104 cashed out@slot 111
+  observer P1 = E1 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E1   cash-out of 36825869652800000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245047) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 27) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0xE7bDf682 customer=0x63ac3796 worker=0xd572D578 revenue=26.64 USD delivered@slot 126 cashed out@slot 135
+  observer P1 = E2 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E2   cash-out of 26641982884800000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245071) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 32) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0xB11D3057 customer=0x32DF58eC worker=0x75C546af revenue=25.33 USD delivered@slot 114 cashed out@slot 120
+  observer P1 = E2 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E2   cash-out of 25329145520000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245056) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 41) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #4 0xc8cb5439  TRUTH: E1 stealth=0xCab82ec3 customer=0xcE9c70Ec worker=0xc819c3fD revenue=15.64 USD delivered@slot 142 cashed out@slot 151
+  observer P1 = E1 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E1   cash-out of 15636302926400000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245087) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 40) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0x73cfe288 by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0xc00f360b by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0x3e42a463 by 0xaf0f7784 (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x6e88efa3 by 0xcab82ec3 (TRUTH: establishment of order #4) -> observer: order #4 via sender=establishment account (unique) CORRECT
+  rating 0x72234886 by 0xb11d3057 (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0xb5dd7a90 by 0xce9c70ec (TRUTH: customer of order #4) -> observer: order #4 via sender=customer (unique) CORRECT
+  rating 0x3c14a009 by 0xe7bdf682 (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0x13adc597 by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 36.83 USD @slot 111 (S1)
+  E2 withdraw 25.33 USD @slot 120 (S1)
+  E2 withdraw 26.64 USD @slot 135 (S1)
+  E1 withdraw 15.64 USD @slot 151 (S1)
+amount attack stats: {"cashouts":4,"exact":4,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1,"candidatesMax":1,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0xd0daa011 struct-log (to EOAs): 0xaf0f7784+2.43 | reconstructed: 0xaf0f7784+2.43 | trace 149 ms
+  funding       0x4718e57a struct-log (to EOAs): 0xaf0f7784+12.03 | reconstructed: 0xaf0f7784+12.03 | trace 2328 ms
+  deliveryOrder 0xb8a06a2d struct-log (to EOAs): 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00 | trace 17404 ms
+  makeOrder     0xe457334c struct-log (to EOAs): 0xe7bdf682+2.46 | reconstructed: 0xe7bdf682+2.46 | trace 195 ms
+  funding       0x6eb0f840 struct-log (to EOAs): 0xe7bdf682+9.02 | reconstructed: 0xe7bdf682+9.02 | trace 2307 ms
+  deliveryOrder 0x0c63cf0a struct-log (to EOAs): 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00 | trace 20025 ms
+  cash-out      0xae9de0eb struct-log (to EOAs): 0xbd624b6d+36.83 | reconstructed: 0xbd624b6d+36.83 | trace 2226 ms
+
+================================================================================
+
+[FULL S1 E=3 N=4] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/4 | P4 recall 0.0% | P5 cust 100.0% est 100.0% | total 48 s
+################ PE_CONFIG={"arm":"FULL","strategy":"S2:3","E":3,"N":12,"seed":5,"verbose":true,"witnessCheck":true}
+[FULL S2:3 E=3 N=12] workload...
+[FULL S2:3 E=3 N=12] workload done: 12 orders, 24 ratings, 7 cash-out txs, slots 0-318 (146 chain blocks), 4 s, peak RSS 1.4 GB
+[FULL S2:3 E=3 N=12] observer: collecting public data...
+[FULL S2:3 E=3 N=12]     observer: 146 blocks with transactions, 146 receipts, 39 internal transfers (556 balance queries) in 0.4 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0xA28CBb2F E1=0xF41Bf062 E2=0xd7377Ad8
+
+order #1 0x3b02ff1e  TRUTH: E0 stealth=0x5d3a1e23 customer=0xAEF0ECfb worker=0x66AAE9c2 revenue=36.12 USD delivered@slot 89 cashed out@slot 144
+  observer P1 = E0 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E0   cash-out of 76665678496000000 wei to 0xa28cbb2f2b6b00ed40d10638ada175c66c127383 (slot 149245084) = revenue of 3 order(s) among 4 candidates
+  observer P4 (before commit, block 28) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E0 stealth=0x9F4698a9 customer=0xf5AfF49c worker=0x95842E48 revenue=17.53 USD delivered@slot 100 cashed out@slot 144
+  observer P1 = E0 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E0   cash-out of 76665678496000000 wei to 0xa28cbb2f2b6b00ed40d10638ada175c66c127383 (slot 149245084) = revenue of 3 order(s) among 4 candidates
+  observer P4 (before commit, block 30) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0xb727CE2F customer=0xAEF0ECfb worker=0x52Db0EEc revenue=15.36 USD delivered@slot 143 cashed out@slot 248
+  observer P1 = E2 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E2   cash-out of 53260678103200000 wei to 0xd7377ad8139fb7329926d30941e9acca65a8b1da (slot 149245188) = revenue of 3 order(s) among 5 candidates
+  observer P4 (before commit, block 38) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #4 0xc8cb5439  TRUTH: E0 stealth=0x8f19E237 customer=0x2B8CF8C6 worker=0x3133f718 revenue=23.01 USD delivered@slot 135 cashed out@slot 144
+  observer P1 = E0 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E0   cash-out of 76665678496000000 wei to 0xa28cbb2f2b6b00ed40d10638ada175c66c127383 (slot 149245084) = revenue of 3 order(s) among 4 candidates
+  observer P4 (before commit, block 55) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #5 0xd79ae87f  TRUTH: E1 stealth=0xD7421405 customer=0x11aD19E6 worker=0x8398Ea7E revenue=36.65 USD delivered@slot 162 cashed out@slot 219
+  observer P1 = E1 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E1   cash-out of 98367586241600000 wei to 0xf41bf0625c061334f5cb6d90bbb1a6e28eacaddb (slot 149245159) = revenue of 4 order(s) among 8 candidates
+  observer P4 (before commit, block 57) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #6 0xb7aa4c31  TRUTH: E0 stealth=0x1bEF15c1 customer=0x8b37E3C1 worker=0x35A49B2C revenue=68.94 USD delivered@slot 165 (not cashed out)
+  observer P1 = abstain (candidates E0,E1,E2) 
+  observer P4 (before commit, block 62) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #7 0x12653a08  TRUTH: E2 stealth=0x45b9f693 customer=0x36b71518 worker=0x714e4509 revenue=17.18 USD delivered@slot 170 cashed out@slot 248
+  observer P1 = E2 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E2   cash-out of 53260678103200000 wei to 0xd7377ad8139fb7329926d30941e9acca65a8b1da (slot 149245188) = revenue of 3 order(s) among 5 candidates
+  observer P4 (before commit, block 69) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #8 0xcaa29b65  TRUTH: E1 stealth=0xa812349a customer=0x0c1DF5A7 worker=0x95842E48 revenue=27.96 USD delivered@slot 165 cashed out@slot 219
+  observer P1 = E1 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E1   cash-out of 98367586241600000 wei to 0xf41bf0625c061334f5cb6d90bbb1a6e28eacaddb (slot 149245159) = revenue of 4 order(s) among 8 candidates
+  observer P4 (before commit, block 77) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #9 0x09f428b7  TRUTH: E0 stealth=0x0f3524d4 customer=0x11aD19E6 worker=0xCb99C4C4 revenue=35.96 USD delivered@slot 211 (not cashed out)
+  observer P1 = abstain (candidates E0,E1,E2) 
+  observer P4 (before commit, block 88) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #10 0xd6a92bca  TRUTH: E1 stealth=0xfeE9483f customer=0xAEF0ECfb worker=0xDA9EecCE revenue=19.42 USD delivered@slot 214 cashed out@slot 219
+  observer P1 = E1 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E1   cash-out of 98367586241600000 wei to 0xf41bf0625c061334f5cb6d90bbb1a6e28eacaddb (slot 149245159) = revenue of 4 order(s) among 8 candidates
+  observer P4 (before commit, block 86) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #11 0x333008b4  TRUTH: E1 stealth=0x2B824C32 customer=0x2B8CF8C6 worker=0x02C9E7E5 revenue=14.35 USD delivered@slot 208 cashed out@slot 219
+  observer P1 = E1 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E1   cash-out of 98367586241600000 wei to 0xf41bf0625c061334f5cb6d90bbb1a6e28eacaddb (slot 149245159) = revenue of 4 order(s) among 8 candidates
+  observer P4 (before commit, block 99) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #12 0xa886b057  TRUTH: E2 stealth=0x8778eE12 customer=0x2B8CF8C6 worker=0x3133f718 revenue=20.72 USD delivered@slot 239 cashed out@slot 248
+  observer P1 = E2 via amountSubset (candidates E0,E1,E2) CORRECT
+    amountSubset  -> E2   cash-out of 53260678103200000 wei to 0xd7377ad8139fb7329926d30941e9acca65a8b1da (slot 149245188) = revenue of 3 order(s) among 5 candidates
+  observer P4 (before commit, block 120) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0x68363c7a by 0xaef0ecfb (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0x38a13f88 by 0xf5aff49c (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+  rating 0xe316a969 by 0x9f4698a9 (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0x4dfdb9e4 by 0x5d3a1e23 (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x9bc7acb0 by 0x8f19e237 (TRUTH: establishment of order #4) -> observer: order #4 via sender=establishment account (unique) CORRECT
+  rating 0xb7cd4589 by 0xb727ce2f (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0x7071e19f by 0x2b8cf8c6 (TRUTH: customer of order #4) -> observer: order #4 via sender=customer (unique) CORRECT
+  rating 0x89ed696a by 0xaef0ecfb (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0x8d27c2b0 by 0xd7421405 (TRUTH: establishment of order #5) -> observer: order #5 via sender=establishment account (unique) CORRECT
+  rating 0x08d4d86e by 0x1bef15c1 (TRUTH: establishment of order #6) -> observer: order #6 via sender=establishment account (unique) CORRECT
+  rating 0x43a0719f by 0x0c1df5a7 (TRUTH: customer of order #8) -> observer: order #8 via sender=customer (unique) CORRECT
+  rating 0x94fda063 by 0x45b9f693 (TRUTH: establishment of order #7) -> observer: order #7 via sender=establishment account (unique) CORRECT
+  rating 0x07942915 by 0xa812349a (TRUTH: establishment of order #8) -> observer: order #8 via sender=establishment account (unique) CORRECT
+  rating 0x8d6de136 by 0x11ad19e6 (TRUTH: customer of order #5) -> observer: order #5 via sender=customer (unique) CORRECT
+  rating 0x66f00355 by 0x8b37e3c1 (TRUTH: customer of order #6) -> observer: order #6 via sender=customer (unique) CORRECT
+  rating 0x19dfd855 by 0xfee9483f (TRUTH: establishment of order #10) -> observer: order #10 via sender=establishment account (unique) CORRECT
+  rating 0x976ebf68 by 0x11ad19e6 (TRUTH: customer of order #9) -> observer: order #9 via sender=customer (unique) CORRECT
+  rating 0x9af288a1 by 0x2b8cf8c6 (TRUTH: customer of order #12) -> observer: order #12 via sender=customer (1 of 2) CORRECT
+  rating 0x4db3eae8 by 0x2b824c32 (TRUTH: establishment of order #11) -> observer: order #11 via sender=establishment account (unique) CORRECT
+  rating 0x2d6e39b8 by 0x2b8cf8c6 (TRUTH: customer of order #11) -> observer: order #11 via sender=customer (unique) CORRECT
+  rating 0x6c82ba60 by 0xaef0ecfb (TRUTH: customer of order #10) -> observer: order #10 via sender=customer (unique) CORRECT
+  rating 0xebb730aa by 0x36b71518 (TRUTH: customer of order #7) -> observer: order #7 via sender=customer (unique) CORRECT
+  rating 0x075afd2b by 0x8778ee12 (TRUTH: establishment of order #12) -> observer: order #12 via sender=establishment account (unique) CORRECT
+  rating 0xbeb9c9ba by 0x0f3524d4 (TRUTH: establishment of order #9) -> observer: order #9 via sender=establishment account (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E0 merge 0.00 USD @slot 143 (S2 batch)
+  E0 withdraw 76.67 USD @slot 144 (S2 batch)
+  E1 merge 0.00 USD @slot 217 (S2 batch)
+  E1 merge 0.00 USD @slot 218 (S2 batch)
+  E1 withdraw 98.37 USD @slot 219 (S2 batch)
+  E2 merge 0.00 USD @slot 247 (S2 batch)
+  E2 withdraw 53.26 USD @slot 248 (S2 batch)
+amount attack stats: {"cashouts":3,"exact":0,"subset":3,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":5.666666666666667,"candidatesMax":8,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x1532b023 struct-log (to EOAs): 0x5d3a1e23+2.38 | reconstructed: 0x5d3a1e23+2.38 | trace 168 ms
+  funding       0xd048abb7 struct-log (to EOAs): 0x5d3a1e23+8.94 | reconstructed: 0x5d3a1e23+8.94 | trace 2090 ms
+  makeOrder     0x18f721f3 struct-log (to EOAs): 0x9f4698a9+2.35 | reconstructed: 0x9f4698a9+2.35 | trace 160 ms
+  funding       0x5968028f struct-log (to EOAs): 0x9f4698a9+7.94 | reconstructed: 0x9f4698a9+7.94 | trace 2013 ms
+  cash-out      0xdf7f3ada struct-log (to EOAs): 0xa28cbb2f+76.67 | reconstructed: 0xa28cbb2f+76.67 | trace 2382 ms
+
+================================================================================
+
+[FULL S2:3 E=3 N=12] P1 combined: precision 100.0% recall 83.3% forced 88.9% (baseline 33.3%) | P2 flow recall 83.3% | P3 address 0/12 | P4 recall 0.0% | P5 cust 100.0% est 100.0% | total 13 s
+################ PE_CONFIG={"arm":"FULL","strategy":"S3:10","E":3,"N":5,"seed":7,"verbose":true}
+[FULL S3:10 E=3 N=5] workload...
+[FULL S3:10 E=3 N=5] workload done: 5 orders, 10 ratings, 22 cash-out txs, slots 0-196 (91 chain blocks), 3 s, peak RSS 1.2 GB
+[FULL S3:10 E=3 N=5] observer: collecting public data...
+[FULL S3:10 E=3 N=5]     observer: 91 blocks with transactions, 91 receipts, 37 internal transfers (292 balance queries) in 0.2 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x1BfD3099 E1=0xDa12e895 E2=0x7913A0a4
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0x89947BC7 customer=0xaD2CCB50 worker=0xeef06B01 revenue=61.97 USD delivered@slot 121 cashed out@slot 129
+  observer P1 = E1 via timing (candidates E0,E1,E2) CORRECT
+    timing        -> E1   2 wallet(s) start a withdrawal burst within 20 slots; closest value at 0xda12e895a715b477db1c24fb7e9cb6e37edae600
+  observer P4 (before commit, block 35) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E0 stealth=0x15eA76b7 customer=0x229135FB worker=0x91962E9a revenue=21.00 USD delivered@slot 124 cashed out@slot 127
+  observer P1 = E0 via timing (candidates E0,E1,E2) CORRECT
+    timing        -> E0   3 wallet(s) start a withdrawal burst within 20 slots; closest value at 0x1bfd3099c0c8deef6eb67e7e32671b43fcec198b
+  observer P4 (before commit, block 30) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E1 stealth=0xbC93cC13 customer=0xf68c5965 worker=0x77B4eF64 revenue=35.13 USD delivered@slot 158 cashed out@slot 169
+  observer P1 = E1 via timing (candidates E0,E1,E2) CORRECT
+    timing        -> E1   2 wallet(s) start a withdrawal burst within 20 slots; closest value at 0xda12e895a715b477db1c24fb7e9cb6e37edae600
+  observer P4 (before commit, block 40) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #4 0xc8cb5439  TRUTH: E2 stealth=0x5B4e06E8 customer=0x229135FB worker=0xb1e45ecA revenue=28.13 USD delivered@slot 132 cashed out@slot 142
+  observer P1 = E2 via timing (candidates E0,E1,E2) CORRECT
+    timing        -> E2   1 wallet(s) start a withdrawal burst within 20 slots; closest value at 0x7913a0a471369353ab539ceb91ce79acbf97e1f2
+  observer P4 (before commit, block 42) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #5 0xd79ae87f  TRUTH: E0 stealth=0xa7F0e700 customer=0x6dB40d8C worker=0x59afb852 revenue=90.79 USD delivered@slot 158 cashed out@slot 167
+  observer P1 = E0 via timing (candidates E0,E1,E2) CORRECT
+    timing        -> E0   2 wallet(s) start a withdrawal burst within 20 slots; closest value at 0x1bfd3099c0c8deef6eb67e7e32671b43fcec198b
+  observer P4 (before commit, block 49) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0xeeb8d0ec by 0x89947bc7 (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x5d95980d by 0x15ea76b7 (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0xe543a682 by 0x5b4e06e8 (TRUTH: establishment of order #4) -> observer: order #4 via sender=establishment account (unique) CORRECT
+  rating 0x6f6c718c by 0xad2ccb50 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0xef43b13b by 0x229135fb (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+  rating 0xb35eff49 by 0xf68c5965 (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0x1b06e023 by 0x229135fb (TRUTH: customer of order #4) -> observer: order #4 via sender=customer (unique) CORRECT
+  rating 0x14e97c9e by 0xa7f0e700 (TRUTH: establishment of order #5) -> observer: order #5 via sender=establishment account (unique) CORRECT
+  rating 0x2541623a by 0x6db40d8c (TRUTH: customer of order #5) -> observer: order #5 via sender=customer (unique) CORRECT
+  rating 0xa241e55b by 0xbc93cc13 (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E0 withdraw 10.00 USD @slot 127 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 128 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 129 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 130 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 131 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 132 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 133 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 134 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 142 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 143 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 167 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 168 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 169 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 169 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 170 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 170 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 171 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 171 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 172 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 173 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 174 (S3 10.00)
+  E0 withdraw 10.00 USD @slot 175 (S3 10.00)
+amount attack stats: {"cashouts":22,"exact":0,"subset":0,"ambiguous":0,"none":22,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":5,"candidatesMean":2.5,"candidatesMax":5,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x85ba731d struct-log (to EOAs): 0x89947bc7+2.39 | reconstructed: 0x89947bc7+2.39 | trace 157 ms
+  funding       0x70e69f29 struct-log (to EOAs): 0x89947bc7+6.08 | reconstructed: 0x89947bc7+6.08 | trace 2139 ms
+  makeOrder     0xc3d9c551 struct-log (to EOAs): 0x15ea76b7+2.43 | reconstructed: 0x15ea76b7+2.43 | trace 236 ms
+  funding       0xf32554b9 struct-log (to EOAs): 0x15ea76b7+10.07 | reconstructed: 0x15ea76b7+10.07 | trace 2052 ms
+  cash-out      0xc0f82ed1 struct-log (to EOAs): 0x1bfd3099+10.00 | reconstructed: 0x1bfd3099+10.00 | trace 2285 ms
+
+================================================================================
+
+[FULL S3:10 E=3 N=5] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/5 | P4 recall 0.0% | P5 cust 100.0% est 100.0% | total 11 s
+################ PE_CONFIG={"arm":"FULL","strategy":"S3:10","E":4,"N":6,"seed":7,"zones":2,"verbose":true}
+[FULL S3:10 E=4 N=6] workload...
+[FULL S3:10 E=4 N=6] workload done: 6 orders, 12 ratings, 20 cash-out txs, slots 0-201 (102 chain blocks), 3 s, peak RSS 1.3 GB
+[FULL S3:10 E=4 N=6] observer: collecting public data...
+[FULL S3:10 E=4 N=6]     observer: 102 blocks with transactions, 102 receipts, 38 internal transfers (336 balance queries) in 0.3 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x1BfD3099 E1=0xDa12e895 E2=0x7913A0a4 E3=0xF9E0DAc8
+
+order #1 0x3b02ff1e  TRUTH: E3 stealth=0x8fC97EBB customer=0xaD2CCB50 worker=0x67644D21 revenue=34.33 USD delivered@slot 112 cashed out@slot 117
+  observer P1 = E3 via timing (candidates E1,E3) CORRECT
+    timing        -> E3   2 wallet(s) start a withdrawal burst within 20 slots; closest value at 0xf9e0dac89e1ac56391e04e18ab6557e6fe56ac59
+  observer P4 (before commit, block 27) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0xCEd32110 customer=0xf68c5965 worker=0x4F1EC481 revenue=31.74 USD delivered@slot 121 cashed out@slot 123
+  observer P1 = E2 via timing (candidates E0,E2) CORRECT
+    timing        -> E2   1 wallet(s) start a withdrawal burst within 20 slots; closest value at 0x7913a0a471369353ab539ceb91ce79acbf97e1f2
+  observer P4 (before commit, block 37) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E1 stealth=0x604D6D5c customer=0x6dB40d8C worker=0xeef06B01 revenue=51.35 USD delivered@slot 119 cashed out@slot 125
+  observer P1 = E1 via timing (candidates E1,E3) CORRECT
+    timing        -> E1   1 wallet(s) start a withdrawal burst within 20 slots; closest value at 0xda12e895a715b477db1c24fb7e9cb6e37edae600
+  observer P4 (before commit, block 49) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #4 0xc8cb5439  TRUTH: E1 stealth=0x37Ead08B customer=0xaD2CCB50 worker=0xb1e45ecA revenue=43.23 USD delivered@slot 135 cashed out@slot 139
+  observer P1 = E1 via timing (candidates E1,E3) CORRECT
+    timing        -> E1   1 wallet(s) start a withdrawal burst within 20 slots; closest value at 0xda12e895a715b477db1c24fb7e9cb6e37edae600
+  observer P4 (before commit, block 44) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #5 0xd79ae87f  TRUTH: E2 stealth=0x679f3fA4 customer=0xFA66c710 worker=0xDe1A8Fa6 revenue=29.44 USD delivered@slot 156 cashed out@slot 158
+  observer P1 = E2 via timing (candidates E0,E2) CORRECT
+    timing        -> E2   1 wallet(s) start a withdrawal burst within 20 slots; closest value at 0x7913a0a471369353ab539ceb91ce79acbf97e1f2
+  observer P4 (before commit, block 53) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #6 0xb7aa4c31  TRUTH: E3 stealth=0x9CF54f9b customer=0xaD2CCB50 worker=0x9Db1D607 revenue=21.01 USD delivered@slot 179 cashed out@slot 186
+  observer P1 = E3 via timing (candidates E1,E3) CORRECT
+    timing        -> E3   1 wallet(s) start a withdrawal burst within 20 slots; closest value at 0xf9e0dac89e1ac56391e04e18ab6557e6fe56ac59
+  observer P4 (before commit, block 72) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0x5e5d8232 by 0x8fc97ebb (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x7b94f33d by 0xced32110 (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0xdf1099f2 by 0x604d6d5c (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0xc73a76e4 by 0xad2ccb50 (TRUTH: customer of order #4) -> observer: order #4 via sender=customer (unique) CORRECT
+  rating 0x698a7097 by 0x6db40d8c (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0xe4bbc5c5 by 0xf68c5965 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+  rating 0xfd49127d by 0xfa66c710 (TRUTH: customer of order #5) -> observer: order #5 via sender=customer (unique) CORRECT
+  rating 0xf35f8fb4 by 0x679f3fa4 (TRUTH: establishment of order #5) -> observer: order #5 via sender=establishment account (unique) CORRECT
+  rating 0x0721e470 by 0xad2ccb50 (TRUTH: customer of order #6) -> observer: order #6 via sender=customer (unique) CORRECT
+  rating 0x07885cba by 0xad2ccb50 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0x94c01ac1 by 0x9cf54f9b (TRUTH: establishment of order #6) -> observer: order #6 via sender=establishment account (unique) CORRECT
+  rating 0x587d1dd6 by 0x37ead08b (TRUTH: establishment of order #4) -> observer: order #4 via sender=establishment account (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E3 withdraw 10.00 USD @slot 117 (S3 10.00)
+  E3 withdraw 10.00 USD @slot 118 (S3 10.00)
+  E3 withdraw 10.00 USD @slot 119 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 123 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 124 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 125 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 125 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 126 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 127 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 128 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 129 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 139 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 140 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 141 (S3 10.00)
+  E1 withdraw 10.00 USD @slot 142 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 158 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 159 (S3 10.00)
+  E2 withdraw 10.00 USD @slot 160 (S3 10.00)
+  E3 withdraw 10.00 USD @slot 186 (S3 10.00)
+  E3 withdraw 10.00 USD @slot 187 (S3 10.00)
+amount attack stats: {"cashouts":20,"exact":0,"subset":0,"ambiguous":0,"none":20,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":6,"candidatesMean":1.9,"candidatesMax":4,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x4626bfa5 struct-log (to EOAs): 0x8fc97ebb+2.39 | reconstructed: 0x8fc97ebb+2.39 | trace 152 ms
+  funding       0x5dc8699a struct-log (to EOAs): 0x8fc97ebb+13.02 | reconstructed: 0x8fc97ebb+13.02 | trace 2093 ms
+  makeOrder     0xddc7ee36 struct-log (to EOAs): 0xced32110+2.52 | reconstructed: 0xced32110+2.52 | trace 162 ms
+  funding       0x3bcf6bd6 struct-log (to EOAs): 0xced32110+6.09 | reconstructed: 0xced32110+6.09 | trace 2073 ms
+  cash-out      0x3c02cdb1 struct-log (to EOAs): 0xf9e0dac8+10.00 | reconstructed: 0xf9e0dac8+10.00 | trace 2345 ms
+
+================================================================================
+
+[FULL S3:10 E=4 N=6] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 50.0%) | P2 flow recall 100.0% | P3 address 0/6 | P4 recall 0.0% | P5 cust 100.0% est 100.0% | total 11 s
+################ PE_CONFIG={"arm":"OLD_FUNDING","strategy":"S1","E":3,"N":3,"seed":3,"verbose":true}
+[OLD_FUNDING S1 E=3 N=3] workload...
+[OLD_FUNDING S1 E=3 N=3] workload done: 3 orders, 6 ratings, 3 cash-out txs, slots 0-184 (52 chain blocks), 1 s, peak RSS 1.0 GB
+[OLD_FUNDING S1 E=3 N=3] observer: collecting public data...
+[OLD_FUNDING S1 E=3 N=3]     observer: 52 blocks with transactions, 52 receipts, 12 internal transfers (176 balance queries) in 0.1 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0xbD893580 customer=0x131395C4 worker=0xf67C2E00 revenue=36.83 USD delivered@slot 104 cashed out@slot 111
+  observer P1 = E1 via funding (candidates E0,E1,E2) CORRECT
+    funding       -> E1   internal of 12031155734000000 wei into 0xbd89358067382e31dd3d5e2f6afa69786fedd477 in a transaction sent by main wallet 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149244967)
+    amountExact   -> E1   cash-out of 36825869652800000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245055) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 27) = E1 via funding
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0x426DDB4D customer=0x63ac3796 worker=0xd572D578 revenue=26.64 USD delivered@slot 126 cashed out@slot 135
+  observer P1 = E2 via funding (candidates E0,E1,E2) CORRECT
+    funding       -> E2   internal of 9019397662000000 wei into 0x426ddb4d7f94c1939f2fc1f51cda1291ff585ba7 in a transaction sent by main wallet 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149244981)
+    amountExact   -> E2   cash-out of 26641982884800000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245079) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 32) = E2 via funding
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0xa929d0dd customer=0x32DF58eC worker=0x75C546af revenue=25.33 USD delivered@slot 114 cashed out@slot 120
+  observer P1 = E2 via funding (candidates E0,E1,E2) CORRECT
+    funding       -> E2   internal of 12033247446000000 wei into 0xa929d0dd2c5e34e545f55f4ef46c27d582a139c6 in a transaction sent by main wallet 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149244994)
+    amountExact   -> E2   cash-out of 25329145520000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245064) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 36) = E2 via funding
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0x5187c945 by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0x564db7ef by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0x23eeac65 by 0xbd893580 (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x0205943a by 0xa929d0dd (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0xcc6900a1 by 0x426ddb4d (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0x7cabffbe by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 36.83 USD @slot 111 (S1)
+  E2 withdraw 25.33 USD @slot 120 (S1)
+  E2 withdraw 26.64 USD @slot 135 (S1)
+amount attack stats: {"cashouts":3,"exact":3,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1,"candidatesMax":1,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0xdbfaab67 struct-log (to EOAs): 0xbd893580+2.43 | reconstructed: 0xbd893580+2.43 | trace 123 ms
+  funding       0xb0845f94 struct-log (to EOAs): 0xbd893580+12.03 | reconstructed: 0xbd893580+12.03 | trace 2208 ms
+  deliveryOrder 0xb8a06a2d struct-log (to EOAs): 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00 | trace 17469 ms
+  makeOrder     0xdc809e55 struct-log (to EOAs): 0x426ddb4d+2.46 | reconstructed: 0x426ddb4d+2.46 | trace 153 ms
+  funding       0x8d51ce35 struct-log (to EOAs): 0x426ddb4d+9.02 | reconstructed: 0x426ddb4d+9.02 | trace 2095 ms
+  deliveryOrder 0x0c63cf0a struct-log (to EOAs): 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00 | trace 17779 ms
+  cash-out      0xfa832aa9 struct-log (to EOAs): 0xbd624b6d+36.83 | reconstructed: 0xbd624b6d+36.83 | trace 2053 ms
+
+================================================================================
+
+[OLD_FUNDING S1 E=3 N=3] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/3 | P4 recall 100.0% | P5 cust 100.0% est 100.0% | total 45 s
+################ PE_CONFIG={"arm":"NO_POOL","strategy":"S1","E":3,"N":3,"seed":3,"verbose":true}
+[NO_POOL S1 E=3 N=3] workload...
+[NO_POOL S1 E=3 N=3] workload done: 3 orders, 6 ratings, 3 cash-out txs, slots 0-184 (43 chain blocks), 1 s, peak RSS 0.7 GB
+[NO_POOL S1 E=3 N=3] observer: collecting public data...
+[NO_POOL S1 E=3 N=3]     observer: 43 blocks with transactions, 43 receipts, 9 internal transfers (164 balance queries) in 0.1 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0x10792E1C customer=0x131395C4 worker=0xf67C2E00 revenue=36.85 USD delivered@slot 104 cashed out@slot 142
+  observer P1 = E1 via funding (candidates E0,E1,E2) CORRECT
+    funding       -> E1   transfer of 12003574006000000 wei into 0x10792e1ced84b020bf0439f4988405267d7d2d49 in a transaction sent by main wallet 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149244971)
+    revenueTrace  -> E1   revenue paid to 0x10792e1ced84b020bf0439f4988405267d7d2d49, forwarded to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989
+  observer P4 (before commit, block 19) = E1 via funding
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0x1D48fbfA customer=0x63ac3796 worker=0xd572D578 revenue=26.66 USD delivered@slot 126 cashed out@slot 180
+  observer P1 = E2 via funding (candidates E0,E1,E2) CORRECT
+    funding       -> E2   transfer of 9016013694000000 wei into 0x1d48fbfa990d8d8ee5043fea98887d8c00e6c4d9 in a transaction sent by main wallet 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149244985)
+    revenueTrace  -> E2   revenue paid to 0x1d48fbfa990d8d8ee5043fea98887d8c00e6c4d9, forwarded to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197
+  observer P4 (before commit, block 23) = E2 via funding
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0x5fae00Dd customer=0x32DF58eC worker=0x75C546af revenue=25.28 USD delivered@slot 114 cashed out@slot 170
+  observer P1 = E2 via funding (candidates E0,E1,E2) CORRECT
+    funding       -> E2   transfer of 12002525282000000 wei into 0x5fae00dd95f0413e0c6f58584b2029a95e33b809 in a transaction sent by main wallet 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149244998)
+    revenueTrace  -> E2   revenue paid to 0x5fae00dd95f0413e0c6f58584b2029a95e33b809, forwarded to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197
+  observer P4 (before commit, block 27) = E2 via funding
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0xa74e5aba by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0x753c2fe7 by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0x33b0fa05 by 0x10792e1c (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0xefee3d56 by 0x5fae00dd (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0x9a8e8aff by 0x1d48fbfa (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0x60e42fd0 by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 sweep 40.76 USD @slot 142 (NO_POOL sweep)
+  E2 sweep 29.24 USD @slot 170 (NO_POOL sweep)
+  E2 sweep 30.58 USD @slot 180 (NO_POOL sweep)
+amount attack stats: {"cashouts":0,"exact":0,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":0,"candidatesMax":0,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x6d1ffddc struct-log (to EOAs): 0x10792e1c+2.41 | reconstructed: 0x10792e1c+2.41 | trace 121 ms
+  funding       0x689ab257 struct-log (to EOAs): none | reconstructed: none | trace 1 ms
+  deliveryOrder 0xbcd7c12b struct-log (to EOAs): 0x10792e1c+36.85, 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00, 0x10792e1c+36.85 | trace 2308 ms
+  makeOrder     0xab8b7f1a struct-log (to EOAs): 0x1d48fbfa+2.44 | reconstructed: 0x1d48fbfa+2.44 | trace 125 ms
+  funding       0xc2c82e57 struct-log (to EOAs): none | reconstructed: none | trace 1 ms
+  deliveryOrder 0xe03e700b struct-log (to EOAs): 0x1d48fbfa+26.66, 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00, 0x1d48fbfa+26.66 | trace 2354 ms
+  cash-out      0x92adde31 struct-log (to EOAs): none | reconstructed: none | trace 1 ms
+
+================================================================================
+
+[NO_POOL S1 E=3 N=3] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/3 | P4 recall 100.0% | P5 cust 100.0% est 100.0% | total 7 s
+################ PE_CONFIG={"arm":"NO_STEALTH","strategy":"S1","E":3,"N":3,"seed":3,"verbose":true}
+[NO_STEALTH S1 E=3 N=3] workload...
+[NO_STEALTH S1 E=3 N=3] workload done: 3 orders, 6 ratings, 3 cash-out txs, slots 0-182 (37 chain blocks), 1 s, peak RSS 0.8 GB
+[NO_STEALTH S1 E=3 N=3] observer: collecting public data...
+[NO_STEALTH S1 E=3 N=3]     observer: 37 blocks with transactions, 37 receipts, 6 internal transfers (134 balance queries) in 0.1 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=- customer=0x131395C4 worker=0xf67C2E00 revenue=39.26 USD delivered@slot 102 cashed out@slot 109
+  observer P1 = E1 via direct (candidates E0,E1,E2) CORRECT
+    direct        -> E1   establishment account 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 is the listed main wallet
+    amountExact   -> E1   cash-out of 39260000000000000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245057) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 15) = E1 via direct
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=- customer=0x63ac3796 worker=0xd572D578 revenue=29.10 USD delivered@slot 124 cashed out@slot 133
+  observer P1 = E2 via direct (candidates E0,E1,E2) CORRECT
+    direct        -> E2   establishment account 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 is the listed main wallet
+    amountExact   -> E2   cash-out of 29100000000000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245081) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 17) = E2 via direct
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=- customer=0x32DF58eC worker=0x75C546af revenue=27.74 USD delivered@slot 112 cashed out@slot 118
+  observer P1 = E2 via direct (candidates E0,E1,E2) CORRECT
+    direct        -> E2   establishment account 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 is the listed main wallet
+    amountExact   -> E2   cash-out of 27740000000000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245066) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 21) = E2 via direct
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0xf99670e2 by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0x185c10da by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0xc4158f99 by 0xbd624b6d (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x77548ab7 by 0xb8d19a61 (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0x6a109c91 by 0xb8d19a61 (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0x5f02d987 by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 39.26 USD @slot 109 (S1)
+  E2 withdraw 27.74 USD @slot 118 (S1)
+  E2 withdraw 29.10 USD @slot 133 (S1)
+amount attack stats: {"cashouts":3,"exact":3,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1,"candidatesMax":1,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x23da2b98 struct-log (to EOAs): none | reconstructed: none | trace 119 ms
+  deliveryOrder 0xec2e76a6 struct-log (to EOAs): 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00 | trace 14636 ms
+  makeOrder     0x35662588 struct-log (to EOAs): none | reconstructed: none | trace 143 ms
+  deliveryOrder 0x1043666d struct-log (to EOAs): 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00 | trace 18064 ms
+  cash-out      0x8753de40 struct-log (to EOAs): 0xbd624b6d+39.26 | reconstructed: 0xbd624b6d+39.26 | trace 2599 ms
+
+================================================================================
+
+[NO_STEALTH S1 E=3 N=3] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/3 | P4 recall 100.0% | P5 cust 100.0% est 100.0% | total 37 s
+################ PE_CONFIG={"arm":"NO_AEAD","strategy":"S1","E":3,"N":3,"seed":3,"verbose":true}
+[NO_AEAD S1 E=3 N=3] workload...
+[NO_AEAD S1 E=3 N=3] workload done: 3 orders, 6 ratings, 3 cash-out txs, slots 0-184 (52 chain blocks), 1 s, peak RSS 1.0 GB
+[NO_AEAD S1 E=3 N=3] observer: collecting public data...
+[NO_AEAD S1 E=3 N=3]     observer: 52 blocks with transactions, 52 receipts, 12 internal transfers (170 balance queries) in 0.1 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0xc7989251 customer=0x131395C4 worker=0xf67C2E00 revenue=36.83 USD delivered@slot 104 cashed out@slot 111
+  observer P1 = E1 via plaintextId (candidates E1) CORRECT
+    menu          -> E1   makeOrder._items: plaintext items match 1 menu(s)
+    plaintextId   -> E1   Storage.addInformation.address: plaintext pickup address or establishment id
+    amountExact   -> E1   cash-out of 36825869652800000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245063) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 27) = E1 via menu
+  observer P3: address "Rua das Flores, 1390, apt 234", items ["Feijoada","Tacos (3)"]; plaintext fields: makeOrder._items, makeOrder._items_client, makeOrder._zone, Storage.addInformation.address, Storage.addInformation.items, Storage.readInformation.address, Storage.readInformation.items, Order.getItems(establishment).items
+
+order #2 0xba12646c  TRUTH: E2 stealth=0x31A7CB5c customer=0x63ac3796 worker=0xd572D578 revenue=26.64 USD delivered@slot 126 cashed out@slot 135
+  observer P1 = E2 via plaintextId (candidates E2) CORRECT
+    menu          -> E2   makeOrder._items: plaintext items match 1 menu(s)
+    plaintextId   -> E2   Storage.addInformation.address: plaintext pickup address or establishment id
+    amountExact   -> E2   cash-out of 26641982884800000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245087) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 32) = E2 via menu
+  observer P3: address "Rua XV de Novembro, 782, apt 41", items ["Cheeseburger","Poke bowl"]; plaintext fields: makeOrder._items, makeOrder._items_client, makeOrder._zone, Storage.addInformation.address, Storage.addInformation.items, Storage.readInformation.address, Storage.readInformation.items, Order.getItems(establishment).items
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0xD5aAFe1E customer=0x32DF58eC worker=0x75C546af revenue=25.33 USD delivered@slot 114 cashed out@slot 120
+  observer P1 = E2 via plaintextId (candidates E2) CORRECT
+    menu          -> E2   makeOrder._items: plaintext items match 1 menu(s)
+    plaintextId   -> E2   Storage.addInformation.address: plaintext pickup address or establishment id
+    amountExact   -> E2   cash-out of 25329145520000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245072) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 36) = E2 via menu
+  observer P3: address "Avenida Reboucas, 585, apt 115", items ["Brownie","Iced tea","Sparkling water","Fried rice"]; plaintext fields: makeOrder._items, makeOrder._items_client, makeOrder._zone, Storage.addInformation.address, Storage.addInformation.items, Storage.readInformation.address, Storage.readInformation.items, Order.getItems(establishment).items
+
+ratings:
+  rating 0x4041c848 by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0x93468430 by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0xb35cb318 by 0xc7989251 (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0xdcf8db7d by 0xd5aafe1e (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0x04d4ac02 by 0x31a7cb5c (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0xc1249c15 by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 36.83 USD @slot 111 (S1)
+  E2 withdraw 25.33 USD @slot 120 (S1)
+  E2 withdraw 26.64 USD @slot 135 (S1)
+amount attack stats: {"cashouts":3,"exact":3,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1,"candidatesMax":1,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x7c97732c struct-log (to EOAs): 0xc7989251+2.43 | reconstructed: 0xc7989251+2.43 | trace 53 ms
+  funding       0x2cff8a8d struct-log (to EOAs): 0xc7989251+12.03 | reconstructed: 0xc7989251+12.03 | trace 2156 ms
+  deliveryOrder 0xb8a06a2d struct-log (to EOAs): 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00 | trace 17142 ms
+  makeOrder     0xa4876723 struct-log (to EOAs): 0x31a7cb5c+2.46 | reconstructed: 0x31a7cb5c+2.46 | trace 60 ms
+  funding       0xf9484a99 struct-log (to EOAs): 0x31a7cb5c+9.02 | reconstructed: 0x31a7cb5c+9.02 | trace 1972 ms
+  deliveryOrder 0x0c63cf0a struct-log (to EOAs): 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00 | trace 14948 ms
+  cash-out      0x89621a9c struct-log (to EOAs): 0xbd624b6d+36.83 | reconstructed: 0xbd624b6d+36.83 | trace 1826 ms
+
+================================================================================
+
+[NO_AEAD S1 E=3 N=3] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 3/3 | P4 recall 100.0% | P5 cust 100.0% est 100.0% | total 41 s
+################ PE_CONFIG={"arm":"NO_TWO_PHASE","strategy":"S1","E":3,"N":3,"seed":3,"verbose":true}
+[NO_TWO_PHASE S1 E=3 N=3] workload...
+[NO_TWO_PHASE S1 E=3 N=3] workload done: 3 orders, 6 ratings, 3 cash-out txs, slots 0-184 (52 chain blocks), 1 s, peak RSS 0.9 GB
+[NO_TWO_PHASE S1 E=3 N=3] observer: collecting public data...
+[NO_TWO_PHASE S1 E=3 N=3]     observer: 52 blocks with transactions, 52 receipts, 12 internal transfers (170 balance queries) in 0.1 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0x78F5192c customer=0x131395C4 worker=0xf67C2E00 revenue=36.83 USD delivered@slot 104 cashed out@slot 111
+  observer P1 = E1 via plaintextId (candidates E0,E1,E2) CORRECT
+    plaintextId   -> E1   makeOrder._zone: plaintext pickup address or establishment id
+    amountExact   -> E1   cash-out of 36825869652800000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245066) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 27) = E1 via plaintextId
+  observer P3: address "Rua das Flores, 1390, apt 234", items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0xd3b569B2 customer=0x63ac3796 worker=0xd572D578 revenue=26.64 USD delivered@slot 126 cashed out@slot 135
+  observer P1 = E2 via plaintextId (candidates E0,E1,E2) CORRECT
+    plaintextId   -> E2   makeOrder._zone: plaintext pickup address or establishment id
+    amountExact   -> E2   cash-out of 26641982884800000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245090) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 32) = E2 via plaintextId
+  observer P3: address "Rua XV de Novembro, 782, apt 41", items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0x2e8972C3 customer=0x32DF58eC worker=0x75C546af revenue=25.33 USD delivered@slot 114 cashed out@slot 120
+  observer P1 = E2 via plaintextId (candidates E0,E1,E2) CORRECT
+    plaintextId   -> E2   makeOrder._zone: plaintext pickup address or establishment id
+    amountExact   -> E2   cash-out of 25329145520000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245075) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 36) = E2 via plaintextId
+  observer P3: address "Avenida Reboucas, 585, apt 115", items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0xe7bc671c by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via sender=customer (unique) CORRECT
+  rating 0xc8dbcff0 by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via sender=customer (unique) CORRECT
+  rating 0xf3ed2dec by 0x78f5192c (TRUTH: establishment of order #1) -> observer: order #1 via sender=establishment account (unique) CORRECT
+  rating 0x91d87e6d by 0x2e8972c3 (TRUTH: establishment of order #3) -> observer: order #3 via sender=establishment account (unique) CORRECT
+  rating 0x94a82b73 by 0xd3b569b2 (TRUTH: establishment of order #2) -> observer: order #2 via sender=establishment account (unique) CORRECT
+  rating 0x182aa961 by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via sender=customer (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 36.83 USD @slot 111 (S1)
+  E2 withdraw 25.33 USD @slot 120 (S1)
+  E2 withdraw 26.64 USD @slot 135 (S1)
+amount attack stats: {"cashouts":3,"exact":3,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1,"candidatesMax":1,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0xda534319 struct-log (to EOAs): 0x78f5192c+2.43 | reconstructed: 0x78f5192c+2.43 | trace 126 ms
+  funding       0x492c2def struct-log (to EOAs): 0x78f5192c+12.03 | reconstructed: 0x78f5192c+12.03 | trace 2042 ms
+  deliveryOrder 0xb8a06a2d struct-log (to EOAs): 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00 | trace 14760 ms
+  makeOrder     0xf8f81a66 struct-log (to EOAs): 0xd3b569b2+2.46 | reconstructed: 0xd3b569b2+2.46 | trace 133 ms
+  funding       0x9c7f1507 struct-log (to EOAs): 0xd3b569b2+9.02 | reconstructed: 0xd3b569b2+9.02 | trace 1780 ms
+  deliveryOrder 0x0c63cf0a struct-log (to EOAs): 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00 | trace 17269 ms
+  cash-out      0xe9f64344 struct-log (to EOAs): 0xbd624b6d+36.83 | reconstructed: 0xbd624b6d+36.83 | trace 2188 ms
+
+================================================================================
+
+[NO_TWO_PHASE S1 E=3 N=3] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 3/3 | P4 recall 100.0% | P5 cust 100.0% est 100.0% | total 41 s
+################ PE_CONFIG={"arm":"NO_ANON_REP","strategy":"S1","E":3,"N":3,"seed":3,"verbose":true}
+[NO_ANON_REP S1 E=3 N=3] workload...
+[NO_ANON_REP S1 E=3 N=3] workload done: 3 orders, 6 ratings, 3 cash-out txs, slots 0-184 (52 chain blocks), 1 s, peak RSS 1.0 GB
+[NO_ANON_REP S1 E=3 N=3] observer: collecting public data...
+[NO_ANON_REP S1 E=3 N=3]     observer: 52 blocks with transactions, 52 receipts, 12 internal transfers (182 balance queries) in 0.1 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x61106e8E E1=0xbD624b6d E2=0xB8d19A61
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0xe67631EA customer=0x131395C4 worker=0xf67C2E00 revenue=36.83 USD delivered@slot 104 cashed out@slot 111
+  observer P1 = E1 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E1   cash-out of 36825869652800000 wei to 0xbd624b6d03cf9f8641d8b4d2239a3c578da51989 (slot 149245070) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 27) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0x470B6803 customer=0x63ac3796 worker=0xd572D578 revenue=26.64 USD delivered@slot 126 cashed out@slot 135
+  observer P1 = E2 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E2   cash-out of 26641982884800000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245094) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 32) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E2 stealth=0x414375bC customer=0x32DF58eC worker=0x75C546af revenue=25.33 USD delivered@slot 114 cashed out@slot 120
+  observer P1 = E2 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E2   cash-out of 25329145520000000 wei to 0xb8d19a61c39e2329df1f4dd1e0718a7415886197 (slot 149245079) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 36) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0x5cbd0a14 by 0x131395c4 (TRUTH: customer of order #1) -> observer: order #1 via calldata (unique) CORRECT
+  rating 0x3ae75e80 by 0x32df58ec (TRUTH: customer of order #3) -> observer: order #3 via calldata (unique) CORRECT
+  rating 0x511bb3e2 by 0xe67631ea (TRUTH: establishment of order #1) -> observer: order #1 via calldata (unique) CORRECT
+  rating 0xe71e3058 by 0x414375bc (TRUTH: establishment of order #3) -> observer: order #3 via calldata (unique) CORRECT
+  rating 0x67d5c048 by 0x470b6803 (TRUTH: establishment of order #2) -> observer: order #2 via calldata (unique) CORRECT
+  rating 0xfec345b2 by 0x63ac3796 (TRUTH: customer of order #2) -> observer: order #2 via calldata (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 36.83 USD @slot 111 (S1)
+  E2 withdraw 25.33 USD @slot 120 (S1)
+  E2 withdraw 26.64 USD @slot 135 (S1)
+amount attack stats: {"cashouts":3,"exact":3,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1,"candidatesMax":1,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x3690067c struct-log (to EOAs): 0xe67631ea+2.43 | reconstructed: 0xe67631ea+2.43 | trace 113 ms
+  funding       0x33515c6e struct-log (to EOAs): 0xe67631ea+12.03 | reconstructed: 0xe67631ea+12.03 | trace 2148 ms
+  deliveryOrder 0xb8a06a2d struct-log (to EOAs): 0xf67c2e00+10.00 | reconstructed: 0xf67c2e00+10.00 | trace 16833 ms
+  makeOrder     0x3c470a9c struct-log (to EOAs): 0x470b6803+2.46 | reconstructed: 0x470b6803+2.46 | trace 139 ms
+  funding       0xbd3297ed struct-log (to EOAs): 0x470b6803+9.02 | reconstructed: 0x470b6803+9.02 | trace 2082 ms
+  deliveryOrder 0x0c63cf0a struct-log (to EOAs): 0xd572d578+7.00 | reconstructed: 0xd572d578+7.00 | trace 17634 ms
+  cash-out      0xbd539129 struct-log (to EOAs): 0xbd624b6d+36.83 | reconstructed: 0xbd624b6d+36.83 | trace 2528 ms
+
+================================================================================
+
+[NO_ANON_REP S1 E=3 N=3] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/3 | P4 recall 0.0% | P5 cust 100.0% est 100.0% | total 44 s
+################ PE_CONFIG={"arm":"RELAYER","strategy":"S1","E":3,"N":6,"seed":9,"verbose":true}
+[RELAYER S1 E=3 N=6] workload...
+[RELAYER S1 E=3 N=6] workload done: 6 orders, 12 ratings, 6 cash-out txs, slots 0-230 (85 chain blocks), 2 s, peak RSS 1.3 GB
+[RELAYER S1 E=3 N=6] observer: collecting public data...
+[RELAYER S1 E=3 N=6]     observer: 85 blocks with transactions, 85 receipts, 24 internal transfers (302 balance queries) in 0.2 s
+
+================ VALIDATION: observer decisions vs ground truth ================
+listing (public): E0=0x65F28c22 E1=0x143984F9 E2=0xE815777c
+
+order #1 0x3b02ff1e  TRUTH: E1 stealth=0x5682c6B6 customer=0x4927B036 worker=0x5DEdda13 revenue=45.71 USD delivered@slot 102 cashed out@slot 107
+  observer P1 = E1 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E1   cash-out of 45713790156800000 wei to 0x143984f9f81e28155af289d3e51a81a5723c1eeb (slot 149245070) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 24) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #2 0xba12646c  TRUTH: E2 stealth=0xdD565289 customer=0x83F890A5 worker=0xa08461C4 revenue=26.31 USD delivered@slot 124 cashed out@slot 134
+  observer P1 = E2 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E2   cash-out of 26310474115200000 wei to 0xe815777c2662b66c646c9d59dfa086a77550b3af (slot 149245097) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 35) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #3 0x7ab4c480  TRUTH: E1 stealth=0x41eC409b customer=0x459C2308 worker=0x549B2fDD revenue=34.28 USD delivered@slot 121 cashed out@slot 129
+  observer P1 = E1 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E1   cash-out of 34280474115200000 wei to 0x143984f9f81e28155af289d3e51a81a5723c1eeb (slot 149245092) = revenue of 1 order(s) among 2 candidates
+  observer P4 (before commit, block 37) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #4 0xc8cb5439  TRUTH: E1 stealth=0x028a046a customer=0xb60FfB88 worker=0xa166d43e revenue=48.18 USD delivered@slot 184 cashed out@slot 190
+  observer P1 = E1 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E1   cash-out of 48175861904800000 wei to 0x143984f9f81e28155af289d3e51a81a5723c1eeb (slot 149245153) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 53) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #5 0xd79ae87f  TRUTH: E2 stealth=0x431b26Bc customer=0x8C18fdAC worker=0x8CEe813B revenue=32.43 USD delivered@slot 181 cashed out@slot 187
+  observer P1 = E2 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E2   cash-out of 32429850888000000 wei to 0xe815777c2662b66c646c9d59dfa086a77550b3af (slot 149245150) = revenue of 1 order(s) among 2 candidates
+  observer P4 (before commit, block 67) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+order #6 0xb7aa4c31  TRUTH: E0 stealth=0x742eCc9b customer=0xb60FfB88 worker=0x45c7A187 revenue=52.21 USD delivered@slot 209 cashed out@slot 220
+  observer P1 = E0 via amountExact (candidates E0,E1,E2) CORRECT
+    amountExact   -> E0   cash-out of 52206701277600000 wei to 0x65f28c22b7b180e3f8752d4ea64615bfa094f3e7 (slot 149245183) = revenue of 1 order(s) among 1 candidates
+  observer P4 (before commit, block 65) = abstain
+  observer P3: address not readable, items not readable; plaintext fields: makeOrder._zone
+
+ratings:
+  rating 0xcac6a81d by 0xf8cef69e (TRUTH: establishment of order #3) -> observer: order #3 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x86319633 by 0xf8cef69e (TRUTH: customer of order #1) -> observer: order #1 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0xc76c241c by 0xf8cef69e (TRUTH: establishment of order #2) -> observer: order #2 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0xdac51246 by 0xf8cef69e (TRUTH: establishment of order #1) -> observer: order #1 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x9924144e by 0xf8cef69e (TRUTH: customer of order #3) -> observer: order #3 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x342dd732 by 0xf8cef69e (TRUTH: customer of order #2) -> observer: order #2 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0xc306f536 by 0xf8cef69e (TRUTH: establishment of order #5) -> observer: order #5 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x65c7abdc by 0xf8cef69e (TRUTH: establishment of order #4) -> observer: order #4 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x104dcde9 by 0xf8cef69e (TRUTH: customer of order #4) -> observer: order #4 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0xc85238c2 by 0xf8cef69e (TRUTH: customer of order #5) -> observer: order #5 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x5436d536 by 0xf8cef69e (TRUTH: customer of order #6) -> observer: order #6 via timing (latest conclusion of the worker) (unique) CORRECT
+  rating 0x8f79ba13 by 0xf8cef69e (TRUTH: establishment of order #6) -> observer: order #6 via timing (latest conclusion of the worker) (unique) CORRECT
+
+cash-outs (truth) vs MergeWithdrawal events:
+  E1 withdraw 45.71 USD @slot 107 (S1)
+  E1 withdraw 34.28 USD @slot 129 (S1)
+  E2 withdraw 26.31 USD @slot 134 (S1)
+  E2 withdraw 32.43 USD @slot 187 (S1)
+  E1 withdraw 48.18 USD @slot 190 (S1)
+  E0 withdraw 52.21 USD @slot 220 (S1)
+amount attack stats: {"cashouts":6,"exact":6,"subset":0,"ambiguous":0,"none":0,"budgetExceeded":0,"unmatchedWithHint":0,"unmatchedUniqueExpected":0,"bursts":0,"candidatesMean":1.3333333333333333,"candidatesMax":2,"log10SpuriousMedian":null}
+
+internal transfers: reconstruction vs struct-log trace
+  makeOrder     0x8c563bf5 struct-log (to EOAs): 0x5682c6b6+2.52 | reconstructed: 0x5682c6b6+2.52 | trace 122 ms
+  funding       0xa0a632a0 struct-log (to EOAs): 0x5682c6b6+5.09 | reconstructed: 0x5682c6b6+5.09 | trace 2032 ms
+  makeOrder     0xe5e29950 struct-log (to EOAs): 0xdd565289+2.43 | reconstructed: 0xdd565289+2.43 | trace 160 ms
+  funding       0x80958975 struct-log (to EOAs): 0xdd565289+3.98 | reconstructed: 0xdd565289+3.98 | trace 1828 ms
+  cash-out      0x19b18756 struct-log (to EOAs): 0x143984f9+45.71 | reconstructed: 0x143984f9+45.71 | trace 1785 ms
+
+================================================================================
+
+[RELAYER S1 E=3 N=6] P1 combined: precision 100.0% recall 100.0% forced 100.0% (baseline 33.3%) | P2 flow recall 100.0% | P3 address 0/6 | P4 recall 0.0% | P5 cust 100.0% est 100.0% | total 9 s

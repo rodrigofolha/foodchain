@@ -11,8 +11,7 @@ class signupController {
       restaurant_name: Yup.string().required(),
       restaurant_address: Yup.string().required(),
       restaurant_city: Yup.string().required(),
-      culinary: Yup.string().required(),
-      digital_address: Yup.string().required()
+      culinary: Yup.string().required()
     });
 
     if(!(await schema.isValid(req.body))) {
@@ -31,8 +30,7 @@ class signupController {
       restaurant_name, 
       restaurant_address, 
       restaurant_city,
-      culinary,
-      digital_address
+      culinary
     } = req.body;
 
     const restaurant = await Restaurant.create({
@@ -42,8 +40,7 @@ class signupController {
       restaurant_name,
       restaurant_address,
       restaurant_city,
-      culinary,
-      digital_address
+      culinary
     });
 
     await Dashboard.create({

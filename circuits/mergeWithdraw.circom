@@ -2,8 +2,12 @@ pragma circom 2.0.0;
 
 include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/comparators.circom";
+include "../node_modules/circomlib/circuits/bitify.circom";
 
-// Merkle proof checker — same template used in feedback.circom
+// A note leaf is poseidon(poseidon(nullifier, trapdoor), amount); the note tree holds
+// only payment notes and is shared by all establishments.
+
+// Merkle proof checker
 template MerkleTreeChecker(levels) {
     signal input leaf;
     signal input pathElements[levels];
@@ -16,6 +20,7 @@ template MerkleTreeChecker(levels) {
     currentLevelHash[0] <== leaf;
 
     for (var i = 0; i < levels; i++) {
+        pathIndices[i] * (1 - pathIndices[i]) === 0;
         hashers[i] = Poseidon(2);
         hashers[i].inputs[0] <== currentLevelHash[i] + (pathElements[i] - currentLevelHash[i]) * pathIndices[i];
         hashers[i].inputs[1] <== currentLevelHash[i] + (pathElements[i] - currentLevelHash[i]) * (1 - pathIndices[i]);
@@ -34,7 +39,7 @@ template MerkleTreeChecker(levels) {
 //   - Proves sum of amounts >= withdrawAmount
 //   - Computes change = sum - withdrawAmount
 //   - Outputs changeCommitment for reinsertion into tree
-//   - withdrawAmount must be 0 (pure merge) or the contract's denomination
+//   - withdrawAmount is 0 (pure merge) or any amount up to the sum; the contract does not fix it
 template MergeWithdraw(levels) {
     // ----------------------------------------------------------------
     // PRIVATE INPUTS — note 1
@@ -63,8 +68,8 @@ template MergeWithdraw(levels) {
     // ----------------------------------------------------------------
     // PUBLIC INPUTS
     // ----------------------------------------------------------------
-    signal input root;              // Merkle root (any recent root accepted by contract)
-    signal input withdrawAmount;    // 0 (pure merge) or denomination
+    signal input root;              // Merkle root (any root the contract has registered)
+    signal input withdrawAmount;    // 0 (pure merge) or the amount paid out
     signal input recipient;         // Address receiving the withdrawal (uint256)
 
     // ----------------------------------------------------------------
@@ -73,6 +78,17 @@ template MergeWithdraw(levels) {
     signal output nullifierHash1;   // Spent marker for note 1
     signal output nullifierHash2;   // Spent marker for note 2
     signal output changeCommitment; // Commitment for the change note
+
+    // ================================================================
+    // 0. Range checks: every amount is below 2^128
+    //    (keeps the comparison below sound: comparators need bounded inputs)
+    // ================================================================
+    component amount1Bits = Num2Bits(128);
+    amount1Bits.in <== amount1;
+    component amount2Bits = Num2Bits(128);
+    amount2Bits.in <== amount2;
+    component withdrawBits = Num2Bits(128);
+    withdrawBits.in <== withdrawAmount;
 
     // ================================================================
     // 1. Compute leaf1 = poseidon(poseidon(nullifier1, trapdoor1), amount1)
@@ -123,7 +139,7 @@ template MergeWithdraw(levels) {
     // ================================================================
     // 5. Verify amount1 + amount2 >= withdrawAmount
     // ================================================================
-    component gte = GreaterEqThan(252);
+    component gte = GreaterEqThan(130); // inputs are below 2^129 after the range checks
     gte.in[0] <== amount1 + amount2;
     gte.in[1] <== withdrawAmount;
     gte.out === 1;
@@ -134,6 +150,8 @@ template MergeWithdraw(levels) {
     //    changeCommitment = poseidon(poseidon(changeNullifier, changeTrapdoor), changeAmount)
     // ================================================================
     signal changeAmount <== amount1 + amount2 - withdrawAmount;
+    component changeBits = Num2Bits(128);
+    changeBits.in <== changeAmount;
 
     component changeInnerHash = Poseidon(2);
     changeInnerHash.inputs[0] <== changeNullifier;
@@ -165,5 +183,5 @@ template MergeWithdraw(levels) {
     signal recipientSquare <== recipient * recipient;
 }
 
-// Instantiate with depth 25 (shared tree with ratings)
+// Instantiate with depth 25 (note tree, shared by all establishments)
 component main {public [root, withdrawAmount, recipient]} = MergeWithdraw(25);

@@ -8,8 +8,8 @@ services:
     volumes:
       - /mnt/volumes/chain_db/postgres:/var/lib/postgresql/data
     env_file:
-      - config/.env
+      - api/.env
 networks:
   default:
-    external:
-      name: chain
+    name: chain
+    external: true

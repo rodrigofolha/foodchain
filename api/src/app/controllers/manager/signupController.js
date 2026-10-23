@@ -14,7 +14,6 @@ module.exports = {
       culinary: Yup.string().required(),
       latitude: Yup.number().required(),
       longitude: Yup.number().required(),
-      digital_address: Yup.string().required(),
       public_key: Yup.string().required(),
       spend_public_key: Yup.string().required(),
       view_public_key: Yup.string().required()
@@ -39,7 +38,6 @@ module.exports = {
       culinary,
       latitude,
       longitude,
-      digital_address,
       public_key,
       spend_public_key,
       view_public_key
@@ -55,7 +53,6 @@ module.exports = {
       culinary,
       latitude,
       longitude,
-      digital_address,
       public_key,
       spend_public_key,
       view_public_key

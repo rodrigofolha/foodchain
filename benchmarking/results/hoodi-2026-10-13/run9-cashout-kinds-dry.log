@@ -1,0 +1,63 @@
+Pool cash-out, every kind, on Hoodi (chain 560048, https://ethereum-hoodi-rpc.publicnode.com)  DRY RUN: nothing is sent, no key is read
+  deployment record <repository>/deployments/hoodi-2026-10-13/deployment.json
+  pool (GlobalReputation) 0x2785120d91f169F7d6B196a35730206Bf7fa681f, deploy block 3807607
+  secrets file ephemeral-wallets-privacy-run-hoodi-2026-10-13T09-29-09-980Z.json
+  the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7 sends, pays the gas and receives
+(node:3438987) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 3810634: 222 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.0590665352275 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  unspent, can be proved     10 notes  0.0456026158456 ETH
+Unspent notes of the file that can be proved: 10, 0.0456026158456 ETH (45602615845600000 wei); the pool holds 0.0456026158456 ETH (45602615845600000 wei)
+
+Plan: 10 withdrawals over the 10 notes, 0.0456026158456 ETH (45602615845600000 wei) to the establishment; nothing of the file stays in the pool
+   1  2F0  two notes, the whole paid out, change 0                            inputs leaf 9 + leaf 24                     payout 0.0087761114144    change 0.0
+   2  2MV  two notes, nothing paid out (pure merge), change with value        inputs leaf 21 + leaf 18                    payout 0.0                change 0.0094621270448
+   3  2PV  two notes, a part paid out, change with value                      inputs change of step 2 + leaf 27           payout 0.01               change 0.0041316707336
+   4  2MV  two notes, nothing paid out (pure merge), change with value        inputs leaf 3 + leaf 15                     payout 0.0                change 0.0092400622064
+   5  2PV  two notes, a part paid out, change with value                      inputs change of step 4 + leaf 12           payout 0.01               change 0.0038010163616
+   6  1PV  one note + the zero-value note, a part paid out, change with value inputs change of step 3 + zero-value note   payout 0.002              change 0.0021316707336
+   7  1F0  one note + the zero-value note, the whole paid out, change 0       inputs change of step 6 + zero-value note   payout 0.0021316707336    change 0.0
+   8  1PV  one note + the zero-value note, a part paid out, change with value inputs leaf 6 + zero-value note             payout 0.002              change 0.002462497412
+   9  2F0  two notes, the whole paid out, change 0                            inputs change of step 8 + leaf 30           payout 0.006893817336     change 0.0
+  10  1F0  one note + the zero-value note, the whole paid out, change 0       inputs change of step 5 + zero-value note   payout 0.0038010163616    change 0.0
+  steps 2 to 5 are what the dApp's planner (cashout.js planAmounts) gives for two withdrawals of its denomination, 0.01 ETH
+
+Proving 10 withdrawal(s): the first against the tree at block 3810634, each next one against that tree with the change notes before it appended (real proofs; nothing is sent)
+  eth_simulateV1 on the state of block 3810634, validation on: 10 withdrawal(s) in order, one per simulated block, then the balances and the spent flags
+
+   #  kind  inputs (leaves)                               payout ETH          change ETH          change leaf   rule gas   node gas  zero bytes  prove ms
+   1  2F0   9 + 24                                       0.0087761114144     0.0                      222     1127423    1127423     42/452    1041
+   2  2MV   21 + 18                                      0.0                 0.0094621270448          223     1120502    1120502     47/452     653
+   3  2PV   223 (change of 2) + 27                       0.01                0.0041316707336          224     1121186    1121186     42/452     648
+   4  2MV   3 + 15                                       0.0                 0.0092400622064          225     1114253    1114253     48/452     677
+   5  2PV   225 (change of 4) + 12                       0.01                0.0038010163616          226     1123277    1123277     41/452     654
+   6  1PV   224 (change of 3) + 0 (zero-value)           0.002               0.0021316707336          227     1102986    1102986     41/452     684
+   7  1F0   227 (change of 6) + 0 (zero-value)           0.0021316707336     0.0                      228     1100919    1100919     40/452     654
+   8  1PV   6 + 0 (zero-value)                           0.002               0.002462497412           229     1102998    1102998     40/452     643
+   9  2F0   229 (change of 8) + 30                       0.006893817336      0.0                      230     1125368    1125368     40/452     653
+  10  1F0   226 (change of 5) + 0 (zero-value)           0.0038010163616     0.0                      231     1105077    1105077     40/452     680
+
+By kind:
+  1F0  one note + the zero-value note, the whole paid out, change 0       2 x, mean gas 1,102,998, fee each 0.001382599922363634 ETH = 3.4668 USD
+  1PV  one note + the zero-value note, a part paid out, change with value 2 x, mean gas 1,102,992, fee each 0.001382592401407536 ETH = 3.4668 USD
+  2F0  two notes, the whole paid out, change 0                            2 x, mean gas 1,126,396, fee each 0.001411929144160468 ETH = 3.5403 USD
+  2PV  two notes, a part paid out, change with value                      2 x, mean gas 1,122,232, fee each 0.001406709600628456 ETH = 3.5272 USD
+  2MV  two notes, nothing paid out (pure merge), change with value        2 x, mean gas 1,117,378, fee each 0.001400625147145174 ETH = 3.5120 USD
+
+Gas of the 10 withdrawal(s): 11,143,989 (simulated gas used); by the gas rule 11,143,989
+  the first one alone: eth_estimateGas 1,137,538, gas limit x 1.2 = 1,365,046
+Price now (block 3810636): base fee 1.053492683 gwei + tip 0.2 gwei = 1.253492683 gwei; maximum fee 3.0 gwei (tip at least 0.2 gwei, maximum fee 3 gwei)
+Fees at that price: 0.013968908670932487 ETH = 35.0263 USD, paid by the establishment; at the maximum fee 0.033431967 ETH
+The establishment holds 0.301358280490560656 ETH; the fees of all the steps at the maximum fee need 0.033431967 ETH and one withdrawal locks at most 0.004101924 ETH  enough
+Paid out to the establishment: 0.0456026158456 ETH (45602615845600000 wei); net of the fees: 0.031633707174667513 ETH = 79.3198 USD
+After the simulated sequence: pool 45602615845600000 -> 0 wei (down by exactly the payouts: yes); establishment 301358280490560656 -> 332991987665228169 wei (up by exactly the payouts less the fees: yes); input notes spent 16 of 16
+
+Nothing was sent. Run again with --yes to send the 10 withdrawals.
+exit=0

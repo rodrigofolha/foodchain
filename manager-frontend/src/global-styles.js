@@ -100,3 +100,9 @@ export const ErrorText = styled.p`
   color: red;
 `;
 
+export const HintText = styled.p`
+  font-size: 11px;
+  color: #555;
+  margin: 4px 0 8px;
+`;
+

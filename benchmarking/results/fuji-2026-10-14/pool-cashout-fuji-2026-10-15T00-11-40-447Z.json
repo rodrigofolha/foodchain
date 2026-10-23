@@ -1,0 +1,202 @@
+{
+ "what": "cash-out of the payment pool from the secrets file of a benchmark run: two notes per mergeWithdraw, the whole sum of the pair paid out, change 0",
+ "tool": "benchmarking/pool-cashout.cjs",
+ "mode": "sent",
+ "network": "fuji",
+ "chainId": "43113",
+ "endpoint": "https://api.avax-test.network",
+ "at": "2026-10-15T00:11:40.096Z",
+ "deploymentRecord": "<repository>/deployments/fuji-2026-10-14/deployment.json",
+ "pool": "0x26b6d893358996ec2a5cCee3Fb12d14982ef4CF5",
+ "secretsFile": "ephemeral-wallets-privacy-run-fuji-2026-10-14T23-35-26-178Z.json",
+ "recipient": {
+  "role": "establishment",
+  "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7"
+ },
+ "sender": {
+  "role": "establishment",
+  "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7"
+ },
+ "gasLimitRule": "eth_estimateGas x 1.2",
+ "feeSettings": "tip at least 0.00000015 gwei, maximum fee 0.001 gwei",
+ "ethUsd": null,
+ "tree": {
+  "block": 59473887,
+  "leaves": 32
+ },
+ "notes": {
+  "deposit": {
+   "spent": {
+    "notes": 10,
+    "wei": "10000007560000000"
+   }
+  },
+  "change": {
+   "spent": {
+    "notes": 9,
+    "wei": "0"
+   },
+   "unspent, zero value": {
+    "notes": 1,
+    "wei": "0"
+   }
+  },
+  "revenue": {
+   "spent": {
+    "notes": 2,
+    "wei": "3999999232000000"
+   },
+   "unspent, can be proved": {
+    "notes": 8,
+    "wei": "15999996928000000"
+   }
+  }
+ },
+ "provable": {
+  "notes": 8,
+  "wei": "15999996928000000"
+ },
+ "poolBalanceWeiBefore": "15999996928000000",
+ "plan": {
+  "withdrawals": 4,
+  "ofWhole": 4,
+  "wei": "15999996928000000"
+ },
+ "gasRule": "two-note mergeWithdraw: 1117064 + 2079 x (1 bits of the change note's leaf index - 1) + 17100 when the leaf is 2^k - 1; with the dummy note -22370; calldata zero bytes not counted",
+ "steps": [
+  {
+   "n": 1,
+   "leaves": [
+    9,
+    12
+   ],
+   "withDummy": false,
+   "amountWei": "3999999232000000",
+   "nonce": 295,
+   "status": "mined",
+   "treeLeavesOfTheProof": 32,
+   "proveMs": 1156,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 41,
+   "txHash": "0xb733d1058e01b26208a20f66d6f1489abd3a14c59982bedc8be3857e197fcf79",
+   "estimate": 1127073,
+   "gasLimit": 1352488,
+   "maxFeePerGasWei": "1000000",
+   "maxPriorityFeePerGasWei": "150",
+   "block": 59473900,
+   "gasUsed": 1117040,
+   "effectiveGasPriceWei": "160",
+   "feeWei": "178726400",
+   "changeLeaf": 32,
+   "ruleGas": 1117064,
+   "secondsFromSendToReceipt": 4.564,
+   "secondsOfTheStep": 7.594
+  },
+  {
+   "n": 2,
+   "leaves": [
+    15,
+    18
+   ],
+   "withDummy": false,
+   "amountWei": "3999999232000000",
+   "nonce": 296,
+   "status": "mined",
+   "treeLeavesOfTheProof": 33,
+   "proveMs": 779,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 40,
+   "txHash": "0x80640610367bba911fc37b1c69743c83caf4a169fba8c203d5e57ce05ac9bbdd",
+   "estimate": 1129180,
+   "gasLimit": 1355016,
+   "maxFeePerGasWei": "1000000",
+   "maxPriorityFeePerGasWei": "150",
+   "block": 59473907,
+   "gasUsed": 1119131,
+   "effectiveGasPriceWei": "160",
+   "feeWei": "179060960",
+   "changeLeaf": 33,
+   "ruleGas": 1119143,
+   "secondsFromSendToReceipt": 4.53,
+   "secondsOfTheStep": 7.218
+  },
+  {
+   "n": 3,
+   "leaves": [
+    21,
+    24
+   ],
+   "withDummy": false,
+   "amountWei": "3999999232000000",
+   "nonce": 297,
+   "status": "mined",
+   "treeLeavesOfTheProof": 34,
+   "proveMs": 800,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 42,
+   "txHash": "0xea5aaa34318c156ae97370c9a426abfc7a4a980a6e0ae9468653edeeb0c3c3be",
+   "estimate": 1129156,
+   "gasLimit": 1354988,
+   "maxFeePerGasWei": "1000000",
+   "maxPriorityFeePerGasWei": "150",
+   "block": 59473913,
+   "gasUsed": 1119107,
+   "effectiveGasPriceWei": "160",
+   "feeWei": "179057120",
+   "changeLeaf": 34,
+   "ruleGas": 1119143,
+   "secondsFromSendToReceipt": 4.545,
+   "secondsOfTheStep": 7.36
+  },
+  {
+   "n": 4,
+   "leaves": [
+    27,
+    30
+   ],
+   "withDummy": false,
+   "amountWei": "3999999232000000",
+   "nonce": 298,
+   "status": "mined",
+   "treeLeavesOfTheProof": 35,
+   "proveMs": 767,
+   "calldataBytes": 452,
+   "calldataZeroBytes": 43,
+   "txHash": "0x4ec50c99a79d412356e67a3b3837ef15a9bd2ac9c88349c4e451f888b9bd308c",
+   "estimate": 1131239,
+   "gasLimit": 1357487,
+   "maxFeePerGasWei": "1000000",
+   "maxPriorityFeePerGasWei": "150",
+   "block": 59473919,
+   "gasUsed": 1121174,
+   "effectiveGasPriceWei": "160",
+   "feeWei": "179387840",
+   "changeLeaf": 35,
+   "ruleGas": 1121222,
+   "secondsFromSendToReceipt": 5.038,
+   "secondsOfTheStep": 7.807
+  }
+ ],
+ "balancesWeiBefore": {
+  "pool": "15999996928000000",
+  "recipient": "1205999998414913184",
+  "sender": "1205999998414913184"
+ },
+ "firstNonce": 295,
+ "balancesWeiAfter": {
+  "block": 59473919,
+  "pool": "0",
+  "recipient": "1221999994626680864",
+  "sender": "1221999994626680864"
+ },
+ "poolDownByThePayouts": true,
+ "accountsMovedByPayoutsAndFees": true,
+ "totals": {
+  "withdrawalsMined": 4,
+  "gas": "4476452",
+  "feeWei": "716232320",
+  "paidOutWei": "15999996928000000",
+  "netWei": "15999996211767680",
+  "seconds": 31.633
+ }
+}

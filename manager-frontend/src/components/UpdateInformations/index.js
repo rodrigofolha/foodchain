@@ -7,6 +7,8 @@ import { ErrorText, SubmitBtn, AlignBtn} from '../../global-styles';
 
 import api from '../../services/api';
 import { getOrCreateSpendKey } from '../../utils/stealth';
+import { getEncryptionPublicKey } from '../../utils/crypto';
+import { readStoredSpendKey, settingsAccess, isPublishedEncryptionKey } from '../../utils/establishmentKeys';
 
 var validationUpdateInformations = Yup.object().shape({
   restaurant_city: Yup.string().required('City is required'),
@@ -19,37 +21,51 @@ var validationUpdateInformations = Yup.object().shape({
 });
 
 export default function UpdateInformation(props) {
-  var [walletMatch, setWalletMatch] = useState(null); // null = checking, true = match, false = mismatch
+  // 'loading', 'open' or 'wallet' (see settingsAccess)
+  var [access, setAccess] = useState('loading');
+  var [verifying, setVerifying] = useState(false);
+  var [verifyError, setVerifyError] = useState('');
 
+  // No wallet address is stored for the establishment. The form opens when this
+  // browser holds the published stealth keys; otherwise the connected account has
+  // to show the published encryption key (asked on a click, never on page load).
   useEffect(function() {
-    async function checkWallet() {
-      if (!window.ethereum || !props.response.digital_address) {
-        setWalletMatch(false);
-        return;
-      }
-      var accounts = await window.ethereum.request({ method: 'eth_accounts' }).catch(function() { return []; });
-      if (accounts && accounts.length > 0) {
-        setWalletMatch(accounts[0].toLowerCase() === props.response.digital_address.toLowerCase());
-      } else {
-        setWalletMatch(false);
-      }
+    setVerifyError('');
+    setAccess(settingsAccess(readStoredSpendKey(), props.response));
+  }, [props.response]);
+
+  async function verifyWallet() {
+    if (!window.ethereum) {
+      setVerifyError('MetaMask is not installed. Please install it to continue.');
+      return;
     }
-    checkWallet();
-  }, [props.response.digital_address]);
+    setVerifying(true);
+    setVerifyError('');
+    try {
+      var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      var accountKey = await getEncryptionPublicKey(accounts[0]);
+      if (isPublishedEncryptionKey(accountKey, props.response)) {
+        setAccess('open');
+      } else {
+        setVerifyError('This account is not the one used to register this restaurant. Switch the account in MetaMask and try again.');
+      }
+    } catch (err) {
+      setVerifyError('The wallet could not be checked. Approve the encryption key request in MetaMask and try again.');
+    }
+    setVerifying(false);
+  }
 
   async function handleSubmit(values, { setSubmitting }) {
     try {
-      console.log(values);
-      var response = await api.put('/manager/update-restaurant', values, {
+      await api.put('/manager/update-restaurant', values, {
         headers: {
           authorization: localStorage.getItem('authorization')
         }
       });
-      console.log(response.data);
       setSubmitting(false);
       alert('Changes saved successfully!');
     } catch (err) {
-      console.log(err);
+      console.error('Restaurant update failed:', (err && err.message) || 'unknown error');
       setSubmitting(false);
     }
   }
@@ -58,6 +74,8 @@ export default function UpdateInformation(props) {
     var spendKey = getOrCreateSpendKey();
     setFieldValue('spend_public_key', spendKey.publicKeyCompressed);
     setFieldTouched('spend_public_key', true, false);
+    // The customer derives the stealth address from both keys
+    setFieldValue('view_public_key', spendKey.viewPublicKeyCompressed);
   }
 
   function fillCurrentLocation(setFieldValue, setFieldTouched) {
@@ -75,17 +93,22 @@ export default function UpdateInformation(props) {
     }
   }
 
-  if (walletMatch === false) {
-    return (
-      <div style={{padding: '15px', background: '#f8d7da', borderRadius: '8px', marginBottom: '20px'}}>
-        <p style={{color: '#721c24', fontWeight: 'bold'}}>Wallet mismatch</p>
-        <p style={{color: '#721c24'}}>Connect MetaMask with the wallet address registered for this restaurant ({props.response.digital_address}) to edit.</p>
-      </div>
-    );
+  if (access === 'loading') {
+    return <p>Loading...</p>;
   }
 
-  if (walletMatch === null) {
-    return <p>Checking wallet...</p>;
+  if (access === 'wallet') {
+    return (
+      <div style={{padding: '15px', background: '#f8d7da', borderRadius: '8px', marginBottom: '20px'}}>
+        <p style={{color: '#721c24', fontWeight: 'bold'}}>Wallet check needed</p>
+        <p style={{color: '#721c24'}}>This browser does not hold the stealth keys published for this restaurant. To edit, connect MetaMask with the account used to register it.</p>
+        <button type="button" onClick={verifyWallet} disabled={verifying}
+          style={{marginTop: '10px', padding: '8px 16px', cursor: 'pointer'}}>
+          {verifying ? 'Checking wallet...' : 'Check wallet'}
+        </button>
+        {verifyError && <ErrorText>{verifyError}</ErrorText>}
+      </div>
+    );
   }
 
   return (
@@ -99,6 +122,7 @@ export default function UpdateInformation(props) {
           latitude: props.response.latitude || '',
           longitude: props.response.longitude || '',
           spend_public_key: props.response.spend_public_key || '',
+          view_public_key: props.response.view_public_key || '',
         }}
         enableReinitialize
         onSubmit={handleSubmit}

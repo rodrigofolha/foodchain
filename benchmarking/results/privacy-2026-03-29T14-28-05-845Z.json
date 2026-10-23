@@ -25,7 +25,7 @@
       "txHash": null,
       "result": {
         "stealthAddress": "0x3324eb92c02169f815620b3790aBE39705Af3EBe",
-        "stealthPrivateKey": "9627c7fc739120c8b009070a3c388ab6579d6a622efa9f6e0c8698c43347c49c",
+        "stealthPrivateKey": "<redacted>",
         "ephemeralPubKey": "0x031afa6bbcc4cebfcd7a78823040265fbc0cc2ed8bd14bc4e79796a325926a914c",
         "viewTag": 4
       }
@@ -166,7 +166,7 @@
       "txHash": null,
       "result": {
         "stealthAddress": "0x6Caef74AD276E1583f276EAD4592445AA54dD5fc",
-        "stealthPrivateKey": "d9d86be6b5a2256b174a11094b243c3883c5596d0519f7fa8a9ecd8fd7645911",
+        "stealthPrivateKey": "<redacted>",
         "ephemeralPubKey": "0x029658e8e870b117f1dd08801c621269177a8bf27db6af4f7c49f3ecef2d6d960f",
         "viewTag": 4
       }
@@ -307,7 +307,7 @@
       "txHash": null,
       "result": {
         "stealthAddress": "0xF429a074Fb5E6825174a8C58784faD9401F23daA",
-        "stealthPrivateKey": "6563055ccb6801b797b718ae30600cb16af948df570619ed77e5bdf3be5f1018",
+        "stealthPrivateKey": "<redacted>",
         "ephemeralPubKey": "0x03cb64d8362aec6e5306183e397cb1ded90e1788d10bfb70ede0e688c57db20579",
         "viewTag": 4
       }
@@ -448,7 +448,7 @@
       "txHash": null,
       "result": {
         "stealthAddress": "0xC727c2ED9EF7C9E86d861954Ff4210A6159e0765",
-        "stealthPrivateKey": "cacc63208e1bd378d0c86da53c77405b35d06b09e9c05b224465c4719bf1ef00",
+        "stealthPrivateKey": "<redacted>",
         "ephemeralPubKey": "0x039331f91db42226558a6f858eceb080ee8a01f11146d2ba15612a91fbf4300c1c",
         "viewTag": 4
       }
@@ -589,7 +589,7 @@
       "txHash": null,
       "result": {
         "stealthAddress": "0xaa75c3E5bE547c7ed5E96E8d83AF5f6Ec806863E",
-        "stealthPrivateKey": "2fe9f01a24765c5232e6fecb2f05e12200acc1b8a4a9e7e36804b8fff653cf62",
+        "stealthPrivateKey": "<redacted>",
         "ephemeralPubKey": "0x025602ed2bc2b2d335790537f1100bf96fdbbed413839e89091bde69527fd4e6e4",
         "viewTag": 4
       }

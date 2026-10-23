@@ -24,9 +24,10 @@ import {
 import { AiFillTag } from 'react-icons/ai';
 
 import api from '../../services/api';
+import { loadRestaurantInfo } from '../../utils/restaurantInfo';
 
 export default function Restaurant(props) {
-  const restaurantInfo = JSON.parse(localStorage.getItem('restaurantInfo')) || []
+  const restaurantInfo = loadRestaurantInfo() || []
 
   const { id } = props.match.params
   const [restaurant, setRestaurant] = useState({});
@@ -46,7 +47,6 @@ export default function Restaurant(props) {
     id: restaurant.id,
     name: restaurant.restaurant_name,
     delivery: restaurant.delivery_price,
-    digital_address: restaurant.digital_address,
     public_key: restaurant.public_key,
     spend_public_key: restaurant.spend_public_key,
     view_public_key: restaurant.view_public_key,

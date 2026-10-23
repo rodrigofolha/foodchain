@@ -4,7 +4,6 @@ const signupController = require('../app/controllers/customer/signupController')
 const sessionController = require('../app/controllers/customer/sessionController');
 const restaurantsController = require('../app/controllers/customer/restaurantsController');
 const menuController = require('../app/controllers/customer/menuController');
-const orderController = require('../app/controllers/customer/orderController');
 const customerController = require('../app/controllers/customer/customerController');
 
 //const authMiddleware = require('../app/middlewares/auth');
@@ -21,7 +20,7 @@ routes.get('/restaurants/:id/menu', menuController.index);
 
 //routes.use(authMiddleware);
 
-routes.post('/restaurants/:id/order', orderController.store);
+// Orders are not sent to the API: they exist only on-chain, in encrypted form.
 routes.get('/informations', customerController.index)
 
 module.exports = routes;

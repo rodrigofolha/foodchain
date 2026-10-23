@@ -1,0 +1,724 @@
+{
+  "version": "privacy-v4-separate-trees",
+  "network": "sepolia",
+  "contracts": {
+    "chain": "0x97D8ecEde5E592042f4FBf1e934D1FE201f3f74f",
+    "storage": "0xAAaC2CAdF2317a9A89aC750CdB92Cd2Cc09795e7",
+    "reputation": "0xC2fEe08df38ba9e6D44f09a25f209bB375126F24",
+    "stealth": "0x3e278bC8F56cd993F62fE624175a87cde5F2C537"
+  },
+  "config": {
+    "noteTreeDepth": 25,
+    "ticketTreeDepth": 16,
+    "trees": "global note tree (payment pool) + one ticket tree per worker (ratings)",
+    "weiPerDollar": "1000000000000000",
+    "deployBlock": 11828916,
+    "gasStipend": "gasPrice * 1600000 * 1.5",
+    "poolWithdrawSender": "stealth",
+    "handover": "EIP-191 signatures over Chain.handoverDigest"
+  },
+  "iterations": 5,
+  "timestamp": "2026-10-02T12:35:17.108Z",
+  "results": [
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 45.88513699999976,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 5090.40625,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0xb964137a6FeF0935F41655C6178e09652Cc5f7f1",
+        "ephemeralPubKey": "0x0202d46c8a31e54172d2ff13cad2a0d7ed2a8417e4ce4c0425ec498d389f1097b9",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "latencyMs": 5617.4313440000005,
+      "sendTimeMs": 890.1871639999999,
+      "costETH": 0.00002815878162072,
+      "memDeltaKB": -17603.546875,
+      "txHash": "0xd7654197298b8f65e3c7b30069ca2f0347b4e808b349c0bfab1c2c45751e4132"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3423235,
+      "latencyMs": 22698.023895,
+      "sendTimeMs": 1256.2495400000007,
+      "costETH": 0.0037888064419967,
+      "memDeltaKB": 1761.7421875,
+      "txHash": "0x0751617d608962cfda994def75331d19782a9e6ba43ff33850cb8beeca77f931"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1019159,
+      "latencyMs": 31057.473698999995,
+      "sendTimeMs": 8692.562029,
+      "costETH": 0.001104315437663764,
+      "memDeltaKB": 3127.5078125,
+      "txHash": "0x84c50b469de8d8906e29f83ba037aa21ad88aa4d1f865fd476476afb5bcdcbed"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1436.0012570000108,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -2331.984375,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1277850,
+      "latencyMs": 16108.521385999993,
+      "sendTimeMs": 1621.9198400000023,
+      "costETH": 0.0014325460456398,
+      "memDeltaKB": 11018.59375,
+      "txHash": "0xc8385dcd72242c613999774a19cd9ea3d5fdfdc202b015958c1f7f5f3a4695dc"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 157356,
+      "latencyMs": 7056.875597000006,
+      "sendTimeMs": 1333.7804219999962,
+      "costETH": 0.00016675798244778,
+      "memDeltaKB": -10889.453125,
+      "txHash": "0x2113dfc1a27e96807b73b39fcba2f90d7af5bbc89745b2fa94e47974a6ee7ca3"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 229736,
+      "latencyMs": 10087.35547699999,
+      "sendTimeMs": 1177.5864179999917,
+      "costETH": 0.000236595325849272,
+      "memDeltaKB": 35.7265625,
+      "txHash": "0x78a0cc5bca51bfbbc0daa86c1a525cc0092b21af1ba7af983d3324ea2cb25113"
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 786704,
+      "latencyMs": 18633.88438199999,
+      "sendTimeMs": 1370.1841050000075,
+      "costETH": 0.000844085605238928,
+      "memDeltaKB": 133.2890625,
+      "txHash": "0x83864481d212c334c13ccdfd875a7a706c821df0c878c45516989d7d7a672189"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 65662,
+      "latencyMs": 10436.34883600002,
+      "sendTimeMs": 1441.1985149999964,
+      "costETH": 0.00006862647744317,
+      "memDeltaKB": 171.2578125,
+      "txHash": "0xff7b0d3e977abaae7c3754a471339aad045db6059b6d67e5b60afcc20a85545f"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 2637585,
+      "latencyMs": 22951.29376500001,
+      "sendTimeMs": 1481.328433000017,
+      "costETH": 0.00287519906115756,
+      "memDeltaKB": 349.2421875,
+      "txHash": "0x8e08fe2fb9e814d0a504bdb4e6a0a512b42006ff4013b98a483e4d0cd0b5daee"
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 1079.3911889999872,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -177.9609375,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 318613,
+      "latencyMs": 15113.748387,
+      "sendTimeMs": 1173.578410999995,
+      "costETH": 0.000311002359452182,
+      "memDeltaKB": 11310.59375,
+      "txHash": "0x4053d1c5030658c2f9c8a712d5ef1bbc0ec7777cda82ded7b01d2d0f629ab66d"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 940.7286479999893,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -10942.359375,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 284401,
+      "latencyMs": 19543.323547000007,
+      "sendTimeMs": 1340.4306030000153,
+      "costETH": 0.00026997522853665,
+      "memDeltaKB": 8334.5,
+      "txHash": "0x3bbcc9d35b1f2c4196841b93052b7d3b033dd78b462bd6f599e2860bcf36b57e"
+    },
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 8.385691999981645,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 683.8984375,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0x900D7aB713E2c64DcCDA2331a2B3F43e37f80555",
+        "ephemeralPubKey": "0x026e4c480ee6aec7a4f8df6aced1edd9e100ea89882019e2f34c266d1203dbff44",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26233,
+      "latencyMs": 26891.681196999998,
+      "sendTimeMs": 1332.5111139999935,
+      "costETH": 0.000028710855696042,
+      "memDeltaKB": 869.453125,
+      "txHash": "0x162c2db92f4f2ac9385692b4744735cbfa515402a1806dc08b1b9c6d5c685f36"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3406135,
+      "latencyMs": 10086.085620999977,
+      "sendTimeMs": 1236.530999999959,
+      "costETH": 0.003497741737148915,
+      "memDeltaKB": -8670.859375,
+      "txHash": "0x4ec025f433f47d696a199d90c97b85af1746c6566f1f144df288f165ffc146c2"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1014108,
+      "latencyMs": 42994.60013600002,
+      "sendTimeMs": 20787.56616300001,
+      "costETH": 0.001124793908840208,
+      "memDeltaKB": 5442.3203125,
+      "txHash": "0x9d3d854b5542f063a8ee58d92612a5eeabf47f24fa93281b5c3dab3e44e41ef3"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1190.7684840000002,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -6095.390625,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1272835,
+      "latencyMs": 27456.623411999957,
+      "sendTimeMs": 1207.4416029999848,
+      "costETH": 0.00140240334574314,
+      "memDeltaKB": 3375.484375,
+      "txHash": "0x6c586924acfe9d6fa75893effa416baa9af076f86ae524a636ae7a6c31f260d9"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 157368,
+      "latencyMs": 6534.194021000003,
+      "sendTimeMs": 1211.9531950000091,
+      "costETH": 0.000168821200078536,
+      "memDeltaKB": 1589.71875,
+      "txHash": "0x8d777affffd54742b88cebb3b4735ebc84d2aa78cfa4bf605c54903dd6fd2cc7"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 229736,
+      "latencyMs": 22359.897927999962,
+      "sendTimeMs": 1003.8747649999568,
+      "costETH": 0.00025591194868668,
+      "memDeltaKB": 4093.8359375,
+      "txHash": "0x7b8b2608248719885ee8b32476805ec6fb2fab4f79fe511e90ddac2665ba2ac8"
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 786704,
+      "latencyMs": 10040.524729000055,
+      "sendTimeMs": 1206.778580000042,
+      "costETH": 0.000829403347700224,
+      "memDeltaKB": -4073.8515625,
+      "txHash": "0x05af2506756f26a191f43b3fccc03e33b22b8500a8e80166f0b4f0b50db3aa15"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 65679,
+      "latencyMs": 22763.511946000042,
+      "sendTimeMs": 1369.164048000006,
+      "costETH": 0.000071646914059446,
+      "memDeltaKB": 324.8203125,
+      "txHash": "0xad1c2ffc30f1c10a4496418f6a72ac6dcbd4a42806bb1e21de2c804aac55a924"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 2309466,
+      "latencyMs": 6026.2236339999945,
+      "sendTimeMs": 1350.5435380000272,
+      "costETH": 0.002424407804113692,
+      "memDeltaKB": 189.1328125,
+      "txHash": "0xa63fa1e7d4c84338bcfc37ab85e2040879d68bc750078d4db12e70ee2ba67965"
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 841.9757729999837,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -4375.65625,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 284401,
+      "latencyMs": 18902.851637999993,
+      "sendTimeMs": 1127.561527999991,
+      "costETH": 0.000318351632445925,
+      "memDeltaKB": 7820.515625,
+      "txHash": "0xa5e0f2226b86edb31d004407fe814a76d31320b0de0a49f2bbc5cb24e55a7e26"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 817.7898839999689,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -8126.96875,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 284425,
+      "latencyMs": 14709.319648000004,
+      "sendTimeMs": 1032.5952350000152,
+      "costETH": 0.0002788528605429,
+      "memDeltaKB": 13473.8828125,
+      "txHash": "0xbac4522df079b1a6640b3cc20bdaba08625511af5f468aaf1e3c524da4063147"
+    },
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 6.965989000047557,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 2428.4921875,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0x248E76c75f60e8720c8eAFE0c06fC4546Ad5CDc3",
+        "ephemeralPubKey": "0x0286d4057d6240ff93eebe65d6ce8a4f7c41c4add732cbe108a62bcb08626db7f9",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "latencyMs": 5821.216821999988,
+      "sendTimeMs": 1144.6202899999917,
+      "costETH": 0.000028942450260815,
+      "memDeltaKB": -11354.1484375,
+      "txHash": "0x6752585f12352626c42d601e434320a2ac0587a9423e83d51f51c52ccc2f37c3"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3406135,
+      "latencyMs": 10159.133169000037,
+      "sendTimeMs": 1274.2115240000421,
+      "costETH": 0.003540860538283245,
+      "memDeltaKB": 179.53125,
+      "txHash": "0x688b9e6dd913035dd6d0c6b9799c9327ee55420fa03d59f80fa7a4f4713f2066"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1014108,
+      "latencyMs": 30678.703926000046,
+      "sendTimeMs": 8338.376308000064,
+      "costETH": 0.001046994616841556,
+      "memDeltaKB": 767.953125,
+      "txHash": "0x68493fba3e1403d5b3c22303ab37baade8b68dfee1e359a9574fbd097215ce28"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1097.8885940000182,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -5376.9609375,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1272835,
+      "latencyMs": 27722.659362000064,
+      "sendTimeMs": 1254.6826280000387,
+      "costETH": 0.001327488245069835,
+      "memDeltaKB": 7213.5703125,
+      "txHash": "0xe9ba889ceb10189430e8303fb86b066d01656c94a969a9c6b10e2c25908659ab"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 157356,
+      "latencyMs": 18975.827968999976,
+      "sendTimeMs": 1127.0093189999461,
+      "costETH": 0.000174677333532228,
+      "memDeltaKB": 1232.8671875,
+      "txHash": "0xc9d038bf15ae0116d9f6da50784c46e300bd831f0b0a03798547086919d74718"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 229736,
+      "latencyMs": 9980.623092999915,
+      "sendTimeMs": 1056.316718999995,
+      "costETH": 0.000244216710592296,
+      "memDeltaKB": -8119.96875,
+      "txHash": "0x0af49f09cecb3aa88436a2df5f925e0b0765820e6c3ce4e94e9a4ce14468d30c"
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 786704,
+      "latencyMs": 10110.349213999929,
+      "sendTimeMs": 1237.0800649999874,
+      "costETH": 0.000789025322772576,
+      "memDeltaKB": -26.9296875,
+      "txHash": "0x93a6841637087ab4077e7697185fed45b306ff0533127a8888fb156f0edeaff7"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 65679,
+      "latencyMs": 22622.58734999993,
+      "sendTimeMs": 1215.4393210000126,
+      "costETH": 0.000068576606483979,
+      "memDeltaKB": 258.3515625,
+      "txHash": "0x1b8ff9fff7998ea29f523c9ebdb00831837a65c445921a96b0650fa1106e1e04"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 2304415,
+      "latencyMs": 18774.321640999988,
+      "sendTimeMs": 1516.5581139998976,
+      "costETH": 0.002529071913683115,
+      "memDeltaKB": 96.5625,
+      "txHash": "0x08ee57cba91b4988cf53e454b4777f6e958b03115996c00aaa9294c33ed57868"
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 894.4886900000274,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -86.7109375,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 284425,
+      "latencyMs": 6376.447150000022,
+      "sendTimeMs": 1048.610129000037,
+      "costETH": 0.000295993269270725,
+      "memDeltaKB": 8694.1484375,
+      "txHash": "0x765fa7810f1c228aab4bc2bd0ebaa4bf1a268a3cd642c989ac4ab451bff29f15"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 919.32180600008,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -8338.0078125,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 284425,
+      "latencyMs": 15004.254573000013,
+      "sendTimeMs": 1248.9329839999555,
+      "costETH": 0.000308385928760575,
+      "memDeltaKB": 726.6875,
+      "txHash": "0x60b183837866202d080391b6df797d84f22fb17c9dd8aecb008433a685b2807a"
+    },
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 6.420873000053689,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": 2422.1953125,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0x521a1B9Fbe018f3bA87f2b08F474cA33385A2834",
+        "ephemeralPubKey": "0x0242340e13182065c932aebb829ba266792b4e7328890e3ba6b0ee535d6e73f37d",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "latencyMs": 6066.0788119999925,
+      "sendTimeMs": 1382.9672240000218,
+      "costETH": 0.000026331792818635,
+      "memDeltaKB": 3765.8046875,
+      "txHash": "0xd534f1a55c7fc3620cd6d264fbeea77518227cf7ce7f0dfc2b627808e44ebefd"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3406135,
+      "latencyMs": 22624.539620999945,
+      "sendTimeMs": 1257.5480319999624,
+      "costETH": 0.003545043564990855,
+      "memDeltaKB": -5740.1171875,
+      "txHash": "0xc9f0b9408fb0009fb5187a91ea49372fc6e3209d7d5433fd29d260cec086be67"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1009057,
+      "latencyMs": 30213.095820000046,
+      "sendTimeMs": 20414.035690000048,
+      "costETH": 0.001029322474965946,
+      "memDeltaKB": 10603.5390625,
+      "txHash": "0x85dd7262f8db8c8a4e33ce1a2ae80866eec7f95418332e63a61c5674d483cad9"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1089.8235529999947,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -11032.515625,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1267748,
+      "latencyMs": 15069.905395000009,
+      "sendTimeMs": 1262.2031430000206,
+      "costETH": 0.0013804106095884,
+      "memDeltaKB": 10016.8359375,
+      "txHash": "0x1efb42ffc5ac7410426e541d0e7e8e1e78951af55e5341e2c5b21c04684136d1"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 157356,
+      "latencyMs": 10596.894108000095,
+      "sendTimeMs": 1032.9161420000019,
+      "costETH": 0.000160702538517648,
+      "memDeltaKB": -9774.8359375,
+      "txHash": "0xbc82b1b25c7be4e4bbba43da3873381abb1489c8e619d2db350a1344ee3884b6"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 229736,
+      "latencyMs": 22456.623395000002,
+      "sendTimeMs": 1083.400893000071,
+      "costETH": 0.000238924562178744,
+      "memDeltaKB": 140.6328125,
+      "txHash": "0xdde42bf7fb2e1492a99844b1c52ec18f21d32f185cec7424fe7eb17a018b8073"
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 786704,
+      "latencyMs": 18409.92281800008,
+      "sendTimeMs": 1200.7548980000429,
+      "costETH": 0.000847867872741184,
+      "memDeltaKB": -265.7265625,
+      "txHash": "0xc8f88a3761b1dbfbd9e8837dfced75ace164fb9d00d282e3114569d299b15a23"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 65662,
+      "latencyMs": 10105.548754999996,
+      "sendTimeMs": 1276.0975320000434,
+      "costETH": 0.000066110583939006,
+      "memDeltaKB": 256.8125,
+      "txHash": "0x205ef6318bb2aacc9ed6737f66df8b8bede0659742bad901aff3b28b6f53a3a7"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 2306281,
+      "latencyMs": 31113.162638999987,
+      "sendTimeMs": 1426.1353780000936,
+      "costETH": 0.00237314449118671,
+      "memDeltaKB": 407.3984375,
+      "txHash": "0x355ff90bd0553898746eeb9b0c199a4a9b928863361598f32112190efce9aa27"
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 984.1236899999203,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -242.8515625,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 284401,
+      "latencyMs": 19001.635922000045,
+      "sendTimeMs": 1023.1718600000022,
+      "costETH": 0.000316684809661506,
+      "memDeltaKB": 13167.109375,
+      "txHash": "0xba473c87edb83264cdd678d5bc4f79dade1963640f0c4505c1e605cd04eee3d7"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 842.7598670000443,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -13988.15625,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 284413,
+      "latencyMs": 27465.574560999987,
+      "sendTimeMs": 1210.6180419999873,
+      "costETH": 0.00031609566394884,
+      "memDeltaKB": 6495.7109375,
+      "txHash": "0x2beed87df4006890bb338dbcde55fa9905a6695a9e43a58aeb73dc142f5222a7"
+    },
+    {
+      "label": "stealthDerivation",
+      "gasUsed": 0,
+      "latencyMs": 6.48626100004185,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -307,
+      "txHash": null,
+      "result": {
+        "stealthAddress": "0x7224A275348D51681f8318B7faC28c1e4F63D316",
+        "ephemeralPubKey": "0x03c4c2b3eb27a5f846bd73eb4cfb32bde8daf3f4befc315e2a2585ba84ded9b2cd",
+        "viewTag": 4
+      }
+    },
+    {
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "latencyMs": 5835.8800899999915,
+      "sendTimeMs": 1170.2206419999711,
+      "costETH": 0.00002719639064571,
+      "memDeltaKB": 184.453125,
+      "txHash": "0x7e7176499ecea631f9d6293959d5b06aae506365a42ad87625c7b9710409bdb4"
+    },
+    {
+      "label": "makeOrder",
+      "gasUsed": 3406123,
+      "latencyMs": 22526.55541599996,
+      "sendTimeMs": 1182.7989649999654,
+      "costETH": 0.003636005640580754,
+      "memDeltaKB": 597,
+      "txHash": "0xc5d184f58c2d24f52624f79ed6c07bef503e83f01f19b0c4dca0b2c85e3aeb25"
+    },
+    {
+      "label": "poolDeposit",
+      "gasUsed": 1014108,
+      "latencyMs": 30753.7394069999,
+      "sendTimeMs": 8386.686338,
+      "costETH": 0.001081965937526928,
+      "memDeltaKB": -4144.671875,
+      "txHash": "0x31abfe8387b9feb1ec3b2a831b0768c94326fb7ec04648f7feb4306d3dd7b03d"
+    },
+    {
+      "label": "zkProof_mergeWithdraw",
+      "gasUsed": 0,
+      "latencyMs": 1124.2707380000502,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -2246.453125,
+      "txHash": null
+    },
+    {
+      "label": "poolWithdraw",
+      "gasUsed": 1272763,
+      "latencyMs": 27367.484551000176,
+      "sendTimeMs": 1228.97222100012,
+      "costETH": 0.001339192445262537,
+      "memDeltaKB": 7192.5625,
+      "txHash": "0x666fb0e0c5ea40ecd2c15dc8f3ec14d8147db387b9812bd8f4d2b666e1950f80"
+    },
+    {
+      "label": "prepareOrder",
+      "gasUsed": 157368,
+      "latencyMs": 19014.255885999883,
+      "sendTimeMs": 1115.6856639999896,
+      "costETH": 0.000173063724906216,
+      "memDeltaKB": 2851.984375,
+      "txHash": "0xa90667840f5126d1b57049eb57c2a2cf60412839b316f69a78b767935e3c7a98"
+    },
+    {
+      "label": "confirmIntention",
+      "gasUsed": 229736,
+      "latencyMs": 9893.730537999887,
+      "sendTimeMs": 998.7015139998402,
+      "costETH": 0.000235789162467976,
+      "memDeltaKB": -1590.7265625,
+      "txHash": "0x2712e130659b603285ccac803c3a9134e6e1deae50c8db691427bea7a65d5b9d"
+    },
+    {
+      "label": "addInformation",
+      "gasUsed": 786704,
+      "latencyMs": 22636.05766499997,
+      "sendTimeMs": 1256.7634099998977,
+      "costETH": 0.000825492661783824,
+      "memDeltaKB": -2565.6796875,
+      "txHash": "0xaeb7b9992abb5f1313da353c2cc324e2aca6fc40f9789ab4c2c267b588d32f44"
+    },
+    {
+      "label": "pickupOrder",
+      "gasUsed": 65679,
+      "latencyMs": 18425.271693000104,
+      "sendTimeMs": 1255.086225999985,
+      "costETH": 0.000072226687681824,
+      "memDeltaKB": 108.734375,
+      "txHash": "0xcf1789c1608eeba790216f0f0e6f55bcab3caa8a8b6daf8817063062492c13e0"
+    },
+    {
+      "label": "deliveryOrder",
+      "gasUsed": 2306432,
+      "latencyMs": 10323.089884999907,
+      "sendTimeMs": 1436.1574559998699,
+      "costETH": 0.002343176905262976,
+      "memDeltaKB": 238.125,
+      "txHash": "0xa98ad5c2435f7235307fab2e318551329925f13a0e769cb1ebe59f1eda450a48"
+    },
+    {
+      "label": "zkProof_client",
+      "gasUsed": 0,
+      "latencyMs": 947.2211569999345,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -6839.6796875,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_client",
+      "gasUsed": 284413,
+      "latencyMs": 14781.43694299995,
+      "sendTimeMs": 1106.755968999816,
+      "costETH": 0.000302473233179151,
+      "memDeltaKB": 11709.203125,
+      "txHash": "0xe77a20fdcdb9eb9e664f948972b2cf8038a92b360276f357b6e17c9f8b1c9255"
+    },
+    {
+      "label": "zkProof_restaurant",
+      "gasUsed": 0,
+      "latencyMs": 875.7665510000661,
+      "sendTimeMs": 0,
+      "costETH": 0,
+      "memDeltaKB": -5475.2578125,
+      "txHash": null
+    },
+    {
+      "label": "submitRating_restaurant",
+      "gasUsed": 284377,
+      "latencyMs": 19088.14797699987,
+      "sendTimeMs": 1106.4853129999246,
+      "costETH": 0.000311998007931272,
+      "memDeltaKB": 65.765625,
+      "txHash": "0xbdb97d11e5b895ff1cb8e7e306055d8cc46b6fb0e7a81b0a19503846f5615400"
+    }
+  ]
+}

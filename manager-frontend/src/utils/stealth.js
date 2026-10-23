@@ -168,7 +168,8 @@ export async function scanAnnouncements(stealthContract, spendPrivateKey, viewPr
         });
       }
     } catch (e) {
-      console.warn('Failed to process stealth announcement:', e);
+      // the error is not printed: it can quote a key the derivation was working with
+      console.warn('Failed to process a stealth announcement');
     }
   }
 

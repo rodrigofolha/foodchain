@@ -4,22 +4,31 @@
  *
  * Handles:
  *   - Generating MergeWithdraw proofs in-browser via snarkjs
- *   - Managing payment notes in localStorage (UTXO model)
+ *   - Managing payment notes in localStorage (UTXO model), per deployment
  *   - Auto-batching merge + withdrawal operations
  *
- * Uses window.snarkjs (loaded via UMD script tag, same pattern as rating proofs).
+ * Uses window.snarkjs (loaded via UMD script tag in public/index.html).
  */
 
 import { poseidon2 } from '../utils/poseidon';
+import { computeZeros, buildLayers, getRoot, getMerklePath, computeRootFromPath, decodeLeafLog, orderLeaves } from './merkleTree';
+import { readDeployment, writeDeployment } from './deploymentStorage';
 
 const PAYMENT_NOTES_KEY = 'restaurantPaymentNotes';
-const MERGE_WITHDRAW_WASM = '/circuits/mergeWithdraw.wasm';
-const MERGE_WITHDRAW_ZKEY = '/circuits/mergeWithdraw_0001.zkey';
+const MERGE_WITHDRAW_WASM = process.env.PUBLIC_URL + '/circuits/mergeWithdraw.wasm';
+const MERGE_WITHDRAW_ZKEY = process.env.PUBLIC_URL + '/circuits/mergeWithdraw_0001.zkey';
+
+// Depth of the payment pool's note tree (Reputation.NOTE_TREE_DEPTH, MergeWithdraw(25) circuit)
+export const NOTE_TREE_DEPTH = 25;
+
+// NoteAdded(uint32 leafIndex, uint256 leaf) — topic hash
+export const NOTE_ADDED_TOPIC = '0xb4e8ce87d291434ce9d769aec519af2f38b6cda474f670051a09f975ee0579fb';
 
 // ─── Note Management (localStorage) ─────────────────────────────────────────
 
 /**
- * Store a new payment note (created when an order concludes).
+ * Store a new payment note (a deposit, the change of a withdrawal, or what an order paid
+ * to the establishment when it ended).
  *
  * @param {Object} note - { nullifier, trapdoor, amount, leafIndex, commitment }
  *   All values as BigInt-compatible strings or BigInts.
@@ -34,14 +43,14 @@ export function storePaymentNote(note) {
     commitment: note.commitment.toString(),
     spent: false,
   });
-  localStorage.setItem(PAYMENT_NOTES_KEY, JSON.stringify(notes));
+  writeDeployment(PAYMENT_NOTES_KEY, notes);
 }
 
 /**
  * Get all payment notes (both spent and unspent).
  */
 export function getPaymentNotes() {
-  return JSON.parse(localStorage.getItem(PAYMENT_NOTES_KEY) || '[]');
+  return readDeployment(PAYMENT_NOTES_KEY, []);
 }
 
 /**
@@ -65,7 +74,7 @@ export function markNoteSpent(nullifier) {
   const notes = getPaymentNotes();
   const note = notes.find(n => n.nullifier === nullifier.toString());
   if (note) note.spent = true;
-  localStorage.setItem(PAYMENT_NOTES_KEY, JSON.stringify(notes));
+  writeDeployment(PAYMENT_NOTES_KEY, notes);
 }
 
 /**
@@ -114,64 +123,36 @@ export function computeNullifierHash(amount, nullifier) {
 }
 
 /**
- * Build a Merkle proof for a given leaf index from the tree state.
- *
- * @param {number} leafIndex - Index of the leaf in the tree
- * @param {Array} filledSubtrees - The globalFilledSubtrees array from the contract
- * @param {Array} allLeaves - All leaves inserted into the tree (from TicketAdded events)
- * @param {number} treeDepth - Depth of the tree (25)
- * @returns {Object} { pathIndices, siblings }
+ * Leaf of a stored note: poseidon(poseidon(nullifier, trapdoor), amount)
  */
-export function buildMerkleProof(leafIndex, allLeaves, zeros, treeDepth = 25) {
-  // Build tree only up to actual leaf count (NOT 2^25 = 33M)
-  // Pad to next power of 2 for balanced tree, but only as large as needed
-  var n = allLeaves.length;
-  if (n === 0) n = 1;
-  // Round up to next power of 2, but cap at 2^treeDepth
-  var size = 1;
-  while (size < n) size *= 2;
+export function computeNoteLeaf(note) {
+  return computePaymentLeaf(computePaymentCommitment(note.nullifier, note.trapdoor), note.amount);
+}
 
-  // Layer 0: actual leaves + zeros padding
-  var layers = [[]];
-  for (var i = 0; i < size; i++) {
-    layers[0].push(i < allLeaves.length ? BigInt(allLeaves[i]) : BigInt(zeros[0]));
+/**
+ * Find a note in the rebuilt note tree. The stored leafIndex is used when it holds the note's
+ * leaf; otherwise the note is looked up by its leaf (older notes may have no or a wrong index).
+ */
+export function findNoteIndex(note, allLeaves) {
+  var leaf = computeNoteLeaf(note);
+  var stored = note.leafIndex === null || note.leafIndex === undefined ? -1 : Number(note.leafIndex);
+  if (stored >= 0 && stored < allLeaves.length && BigInt(allLeaves[stored]) === leaf) return stored;
+  for (var i = 0; i < allLeaves.length; i++) {
+    if (BigInt(allLeaves[i]) === leaf) return i;
   }
+  throw new Error('Payment note not found in the note tree (its deposit may not be indexed by the RPC yet). Please try again in a moment.');
+}
 
-  // Build intermediate layers — only as many nodes as needed
-  for (var level = 1; level <= treeDepth; level++) {
-    layers.push([]);
-    var prevLayer = layers[level - 1];
-    if (prevLayer.length === 0) {
-      layers[level].push(BigInt(zeros[level]));
-    } else {
-      for (var j = 0; j < prevLayer.length; j += 2) {
-        var left = prevLayer[j];
-        var right = j + 1 < prevLayer.length ? prevLayer[j + 1] : BigInt(zeros[level - 1]);
-        layers[level].push(poseidon2([left, right]));
-      }
-    }
-    // Once we've reduced to 1 node and remaining levels use zeros, we can shortcut
-    // but still need to build all 25 levels for the proof path
+/**
+ * Merkle path of a note in the rebuilt note tree, checked against the tree's root.
+ */
+export function getNotePath(note, treeState) {
+  var leafIndex = findNoteIndex(note, treeState.allLeaves);
+  var path = getMerklePath(treeState.layers, leafIndex, NOTE_TREE_DEPTH, treeState.zeros);
+  if (computeRootFromPath(computeNoteLeaf(note), path.pathIndices, path.siblings) !== BigInt(treeState.root)) {
+    throw new Error('Merkle path of note ' + leafIndex + ' does not reach the note-tree root');
   }
-
-  // Extract proof path
-  var pathIndices = [];
-  var siblings = [];
-  var idx = leafIndex;
-
-  for (var lv = 0; lv < treeDepth; lv++) {
-    var isRight = idx % 2;
-    pathIndices.push(isRight);
-    var siblingIdx = isRight ? idx - 1 : idx + 1;
-    if (lv < layers.length && siblingIdx < layers[lv].length) {
-      siblings.push(layers[lv][siblingIdx]);
-    } else {
-      siblings.push(BigInt(zeros[lv]));
-    }
-    idx = Math.floor(idx / 2);
-  }
-
-  return { pathIndices: pathIndices, siblings: siblings };
+  return path;
 }
 
 /**
@@ -180,46 +161,30 @@ export function buildMerkleProof(leafIndex, allLeaves, zeros, treeDepth = 25) {
  * @param {Object} params
  * @param {Object} params.note1 - { nullifier, trapdoor, amount, leafIndex }
  * @param {Object} params.note2 - { nullifier, trapdoor, amount, leafIndex } (use dummy for single-note)
- * @param {BigInt} params.withdrawAmount - 0n for pure merge, denomination for withdrawal
+ * @param {BigInt} params.withdrawAmount - 0n for pure merge, otherwise the amount to pay out
  * @param {string} params.recipient - Address to receive withdrawn ETH
- * @param {BigInt} params.root - Merkle root
- * @param {Array} params.allLeaves - All tree leaves (from events)
- * @param {Array} params.zeros - Zero hashes for each level
+ * @param {Object} params.treeState - Rebuilt note tree from fetchTreeState() ({ allLeaves, layers, zeros, root });
+ *   its root is the public root of the proof, so check it with isKnownNoteRoot() first
  * @param {Object} params.changeSecrets - { nullifier, trapdoor } for the change note
  * @returns {Promise<Object>} { proof, publicSignals, changeNote }
  */
 export async function generateMergeWithdrawProof(params) {
   const {
-    note1, note2, withdrawAmount, recipient, root, allLeaves, zeros, changeSecrets,
+    note1, note2, withdrawAmount, recipient, treeState, changeSecrets,
   } = params;
 
-  const treeDepth = 25;
-
-  // Build Merkle proofs using incremental tree algorithm (matches contract)
-  const proof1 = buildMerkleProofFromLeaves(note1.leafIndex, allLeaves, zeros, treeDepth);
-  const proof2 = buildMerkleProofFromLeaves(note2.leafIndex, allLeaves, zeros, treeDepth);
-
-  // Debug: verify root locally
-  var leaf1Inner = poseidon2([BigInt(note1.nullifier), BigInt(note1.trapdoor)]);
-  var leaf1Computed = poseidon2([leaf1Inner, BigInt(note1.amount)]);
-  var localRoot = leaf1Computed;
-  for (var dbg = 0; dbg < treeDepth; dbg++) {
-    if (proof1.pathIndices[dbg] === 0) {
-      localRoot = poseidon2([localRoot, proof1.siblings[dbg]]);
-    } else {
-      localRoot = poseidon2([proof1.siblings[dbg], localRoot]);
-    }
-  }
-  console.log('[ZK] local root:', localRoot.toString());
-  console.log('[ZK] contract root:', root.toString());
-  console.log('[ZK] roots match:', localRoot.toString() === root.toString());
+  // Merkle paths in the note tree (each one is checked to reach treeState.root)
+  const proof1 = getNotePath(note1, treeState);
+  const proof2 = getNotePath(note2, treeState);
+  const root = treeState.root;
+  console.log('[ZK] note-tree root:', root.toString());
 
   // Compute change amount
   const changeAmount = BigInt(note1.amount) + BigInt(note2.amount) - BigInt(withdrawAmount);
 
   // Compute change commitment
   const changeInner = poseidon2([BigInt(changeSecrets.nullifier), BigInt(changeSecrets.trapdoor)]);
-  const changeCommitment = poseidon2([changeInner, changeAmount]);
+  const changeCommitment = computePaymentLeaf(changeInner, changeAmount);
 
   // Circuit inputs
   const input = {
@@ -276,30 +241,23 @@ export async function generateMergeWithdrawProof(params) {
 // ─── Tree State from Events ──────────────────────────────────────────────────
 
 /**
- * Fetch tree state by querying TicketAdded events from the Reputation contract.
- * Reconstructs the allLeaves array needed for Merkle proof generation.
+ * Rebuild the note tree from the NoteAdded events of the Reputation contract.
  *
  * @param {Object} logWeb3 - web3 instance connected to RPC (for reading events)
  * @param {string} reputationAddress - Reputation contract address
  * @param {number} fromBlock - DEPLOY_BLOCK to start scanning from
- * @returns {Promise<Object>} { allLeaves, zeros }
+ * @returns {Promise<Object>} { allLeaves, layers, zeros, root } — root is computed locally
  */
-/**
- * Fetch tree state from events AND contract state.
- * Returns allLeaves (from events), zeros, filledSubtrees, and root (from contract).
- */
-export async function fetchTreeState(logWeb3, reputationAddress, fromBlock, web3) {
-  var eventTopic = logWeb3.utils.keccak256('TicketAdded(uint32,uint256)');
-
+export async function fetchTreeState(logWeb3, reputationAddress, fromBlock) {
   // Retry up to 5 times with increasing delay (Infura rate limits)
-  var logs = [];
+  var logs = null;
   for (var attempt = 0; attempt < 5; attempt++) {
     try {
       logs = await logWeb3.eth.getPastLogs({
         address: reputationAddress,
         fromBlock: fromBlock,
         toBlock: 'latest',
-        topics: [eventTopic]
+        topics: [NOTE_ADDED_TOPIC]
       });
       if (logs.length > 0) break;
       // If 0 logs but no error, might be legitimate (empty tree) or rate limited
@@ -310,111 +268,108 @@ export async function fetchTreeState(logWeb3, reputationAddress, fromBlock, web3
       if (attempt < 4) await new Promise(function(r) { setTimeout(r, 2000 * (attempt + 1)); });
     }
   }
-
-  // The dummy zero-note at index 0 is always poseidon(poseidon(0,0), 0)
-  // Its constructor event may not be captured if DEPLOY_BLOCK is after the deployment tx
-  var innerCommit = poseidon2([0n, 0n]);
-  var dummyLeaf = poseidon2([innerCommit, 0n]);
-  var allLeaves = [dummyLeaf.toString()]; // index 0 = dummy note
-
-  for (var i = 0; i < logs.length; i++) {
-    var log = logs[i];
-    var decoded = logWeb3.eth.abi.decodeParameters(['uint32', 'uint256'], log.data);
-    var leafIndex = parseInt(decoded[0]);
-    var leaf = decoded[1];
-    while (allLeaves.length <= leafIndex) {
-      allLeaves.push('0');
-    }
-    allLeaves[leafIndex] = BigInt(leaf).toString();
+  if (logs === null) {
+    throw new Error('Failed to fetch the note tree (RPC rate limited). Please wait a moment and try again.');
   }
 
-  // Compute zeros array matching the contract
-  var TREE_DEPTH = 25;
-  var zeros = [];
-  zeros[0] = '0';
-  for (var level = 1; level < TREE_DEPTH; level++) {
-    zeros[level] = poseidon2([BigInt(zeros[level - 1]), BigInt(zeros[level - 1])]).toString();
-  }
+  // The dummy zero-note at index 0 is always poseidon(poseidon(0,0), 0).
+  // Its constructor event is not captured when DEPLOY_BLOCK is after the deployment tx.
+  var allLeaves = orderLeaves(
+    logs.map(function(log) { return decodeLeafLog(log.data); }),
+    [computeNoteLeaf(getDummyNote())]
+  );
 
-  console.log('[TreeState] allLeaves count:', allLeaves.length);
-  console.log('[TreeState] allLeaves FULL:', allLeaves);
+  var zeros = computeZeros(NOTE_TREE_DEPTH);
+  var layers = buildLayers(allLeaves, NOTE_TREE_DEPTH, zeros);
+  var root = getRoot(layers, NOTE_TREE_DEPTH, zeros);
+
   console.log('[TreeState] raw logs count:', logs.length);
-  for (var dl = 0; dl < logs.length; dl++) {
-    var dd = logWeb3.eth.abi.decodeParameters(['uint32', 'uint256'], logs[dl].data);
-    console.log('[TreeState] event', dl, 'leafIndex:', dd[0], 'leaf:', dd[1]);
-  }
+  console.log('[TreeState] allLeaves count:', allLeaves.length);
+  console.log('[TreeState] computed root:', root.toString());
 
-  return { allLeaves: allLeaves, zeros: zeros };
+  return { allLeaves: allLeaves, layers: layers, zeros: zeros, root: root };
 }
 
 /**
- * Build a Merkle proof by re-computing the tree from all leaves.
- * Uses the same algorithm as the contract's incremental Merkle tree.
+ * Store the note an order paid to the establishment, once. At acceptance the dApp keeps the
+ * note's secrets (paymentSecrets.js); in the transaction that ends the order, whatever the
+ * ending, the order deposits what it pays the establishment into the pool under that commitment:
+ * the payment plus the collateral, or the collateral alone (`amount`: field 5 of Chain.getOrder
+ * for the establishment). Finds the leaf in the note tree and stores the note so it can be
+ * withdrawn later. A record that is claimed is never stored again.
+ * @returns {boolean} true if a note was stored now
  */
-export function buildMerkleProofFromLeaves(leafIndex, allLeaves, zeros, treeDepth) {
-  treeDepth = treeDepth || 25;
-  var n = allLeaves.length;
-
-  // Simulate incremental tree: insert leaves one by one, tracking filledSubtrees
-  var filledSubtrees = [];
-  for (var z = 0; z < treeDepth; z++) {
-    filledSubtrees[z] = BigInt(zeros[z]);
+export function claimRevenueNote(orderId, amount, treeState) {
+  var all = readDeployment('paymentNoteSecrets', {});
+  var secrets = all[orderId];
+  if (!secrets || secrets.claimed || !amount || BigInt(amount) === 0n) return false;
+  var leaf = computePaymentLeaf(secrets.commitment, amount).toString();
+  var leafIndex = treeState.allLeaves.findIndex(function(l) { return l.toString() === leaf; });
+  if (leafIndex < 0) return false;
+  var alreadyStored = getPaymentNotes().some(function(n) { return n.commitment === secrets.commitment.toString(); });
+  if (!alreadyStored) {
+    storePaymentNote({
+      nullifier: secrets.nullifier,
+      trapdoor: secrets.trapdoor,
+      amount: BigInt(amount).toString(),
+      leafIndex: leafIndex,
+      commitment: secrets.commitment,
+    });
   }
+  all[orderId] = Object.assign({}, secrets, { claimed: true });
+  writeDeployment('paymentNoteSecrets', all);
+  return !alreadyStored;
+}
 
-  // We need to track the full tree nodes at each level for the proof
-  // Store all nodes: layers[level][index] = hash
-  var layers = [];
-  for (var l = 0; l < treeDepth + 1; l++) {
-    layers.push({});
+/**
+ * Leaf index of a note just inserted, read from the NoteAdded log of its transaction receipt
+ * (ethers: receipt.logs; web3: receipt.events, raw logs). Returns null when no log matches.
+ */
+export function findNoteLeafIndex(receipt, leaf) {
+  var target = BigInt(leaf);
+  var logs = receipt && receipt.logs ? receipt.logs.slice() : [];
+  if (receipt && receipt.events) {
+    Object.keys(receipt.events).forEach(function(key) {
+      [].concat(receipt.events[key]).forEach(function(ev) {
+        if (ev && ev.raw) logs.push(ev.raw);
+      });
+    });
   }
-
-  // Insert each leaf using the same algorithm as the contract
-  for (var li = 0; li < n; li++) {
-    var currentIndex = li;
-    var currentLevelHash = BigInt(allLeaves[li]);
-    layers[0][li] = currentLevelHash;
-
-    for (var lv = 0; lv < treeDepth; lv++) {
-      var left, right;
-      if (currentIndex % 2 === 0) {
-        left = currentLevelHash;
-        right = BigInt(zeros[lv]);
-        filledSubtrees[lv] = currentLevelHash;
-      } else {
-        left = filledSubtrees[lv];
-        right = currentLevelHash;
-      }
-      currentLevelHash = poseidon2([left, right]);
-      currentIndex = Math.floor(currentIndex / 2);
-      layers[lv + 1][currentIndex] = currentLevelHash;
+  for (var i = 0; i < logs.length; i++) {
+    var topics = logs[i].topics || [];
+    if (topics[0] && topics[0].toLowerCase() === NOTE_ADDED_TOPIC) {
+      var decoded = decodeLeafLog(logs[i].data);
+      if (decoded.leaf === target) return decoded.leafIndex;
     }
   }
+  return null;
+}
 
-  // Now extract the proof path for the target leaf
-  var pathIndices = [];
-  var siblings = [];
-  var idx = leafIndex;
-
-  for (var plv = 0; plv < treeDepth; plv++) {
-    var isRight = idx % 2;
-    pathIndices.push(isRight);
-    var siblingIdx = isRight ? idx - 1 : idx + 1;
-    if (layers[plv][siblingIdx] !== undefined) {
-      siblings.push(layers[plv][siblingIdx]);
-    } else {
-      siblings.push(BigInt(zeros[plv]));
+/**
+ * Mark local notes that the contract already counts as spent (e.g. withdrawn from another
+ * browser), using the pool's own spent set (spentNoteNullifiers). Returns the unspent notes.
+ *
+ * @param {Object} reputationContract - web3 contract instance of the Reputation contract
+ */
+export async function syncSpentNotes(reputationContract) {
+  var notes = getUnspentNotes();
+  for (var i = 0; i < notes.length; i++) {
+    var nullHash = computeNullifierHash(notes[i].amount, notes[i].nullifier).toString();
+    var spent = await reputationContract.methods.spentNoteNullifiers(nullHash).call();
+    if (spent) {
+      console.warn('[Notes] note', notes[i].leafIndex, 'is already spent on-chain; marking it spent');
+      markNoteSpent(notes[i].nullifier);
     }
-    idx = Math.floor(idx / 2);
   }
-
-  return { pathIndices: pathIndices, siblings: siblings };
+  return getUnspentNotes();
 }
 
 // ─── Dummy Note ──────────────────────────────────────────────────────────────
 
 /**
- * Get the dummy zero-note (pre-inserted at index 0 in the tree).
- * Used as the second input for single-note withdrawals.
+ * Get the dummy zero-note (pre-inserted at index 0 in the note tree).
+ * Used as the second input for single-note withdrawals. The contract never marks its
+ * nullifier hash (dummyNoteNullifierHash = poseidon(0, 0)) as spent, so it can always be reused.
  */
 export function getDummyNote() {
   return {
@@ -423,6 +378,29 @@ export function getDummyNote() {
     amount: 0n,
     leafIndex: 0,
   };
+}
+
+/**
+ * Pick the two inputs of a single mergeWithdraw that pays out targetAmount:
+ * the two largest notes (the withdrawal also merges them), or the only note plus the dummy note.
+ *
+ * @returns {Object|null} { note1, note2 }, or null when no such pair covers targetAmount
+ */
+export function selectWithdrawalNotes(unspentNotes, targetAmount) {
+  var target = BigInt(targetAmount);
+  var notes = unspentNotes.slice().sort(function(a, b) {
+    return Number(BigInt(b.amount) - BigInt(a.amount));
+  });
+
+  if (notes.length >= 2) {
+    if (BigInt(notes[0].amount) + BigInt(notes[1].amount) < target) return null;
+    return { note1: notes[0], note2: notes[1] };
+  }
+  if (notes.length === 1) {
+    if (BigInt(notes[0].amount) < target) return null;
+    return { note1: notes[0], note2: getDummyNote() };
+  }
+  return null;
 }
 
 // ─── Auto-Batch Withdrawal ──────────────────────────────────────────────────

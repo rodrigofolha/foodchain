@@ -3,6 +3,7 @@ import React from 'react';
 import { useBasket } from '../../Context/BasketContext';
 
 import { isAuthenticated } from '../../utils/auth';
+import { loadRestaurantInfo } from '../../utils/restaurantInfo';
 
 import { 
   Container, 
@@ -45,7 +46,7 @@ export default function Basket({ restaurant, history }) {
     }
   }
 
-  const restaurantOrdered = JSON.parse(localStorage.getItem('restaurantInfo'));
+  const restaurantOrdered = loadRestaurantInfo();
 
   if (basket.length > 0 && !restaurantOrdered) {
     localStorage.setItem('restaurantInfo', JSON.stringify(restaurant));

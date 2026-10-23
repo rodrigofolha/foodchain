@@ -1,0 +1,32 @@
+Network optimism-sepolia: chain 11155420, endpoint https://sepolia.optimism.io, block 50109226, block gas limit 40000000
+  fork id not answered (activation null); base fee 250 wei, eth_gasPrice 1000250 wei, suggested tip 1000000 wei
+Accounts (keys from benchmarking/.env and the repository's .env; addresses only):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d: 0.431842868946701245 ETH, nonce 213 (pending 213)  (the expected account)
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7: 0.747939447127578477 ETH, nonce 92 (pending 92)  (the expected account)
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2: 0.814952632435557168 ETH, nonce 63 (pending 63)  (the expected account)
+  funder         0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  (the customer's account)
+  deployer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  (the customer's account)
+  one-time address keys: the establishment's spend key pair matches
+Order at this price: total 0.001 ETH (ORDER_TOTAL_WEI=1000000000000000) + fee 0.001 ETH; stipend 0.0000024006 ETH; pool deposit per cycle 0.00100472618125 ETH
+  rule: ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH
+Fees the scripts would send: tip at least 0.001 gwei, maximum fee 0.01 gwei; fee cap now 0.01 gwei
+10 cycles, privacy (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.431843 ETH, needs at most 0.022033 ETH (per cycle: value 0.002000 + gas 0.000002; one upfront 0.002015): 19.60x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 0.747939 ETH, needs at most 0.011073 ETH (per cycle: value 0.001005 + gas 0.000001; one upfront 0.001015): 67.55x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.814953 ETH, needs at most 0.000028 ETH (per cycle: value 0.000000 + gas 0.000002; one upfront 0.000013): 28723.01x
+10 cycles, mechanisms-off (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.431843 ETH, needs at most 0.022012 ETH (per cycle: value 0.002000 + gas 0.000001; one upfront 0.002006): 19.62x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 0.747939 ETH, needs at most 0.011004 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001001): 67.97x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.814953 ETH, needs at most 0.000007 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000002): 121406.13x
+10 cycles, no-privacy (upper bound: income during the run is not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.431843 ETH, needs at most 0.022011 ETH (per cycle: value 0.002000 + gas 0.000001; one upfront 0.002005): 19.62x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 0.747939 ETH, needs at most 0.011004 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001001): 67.97x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.814953 ETH, needs at most 0.000004 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000001): 208830.69x
+The three runs together, against today's balances:
+  customer       needs at most 0.06605544721071656 ETH, holds 0.431842868946701245 ETH: 6.54x
+  establishment  needs at most 0.03308177882879496 ETH, holds 0.747939447127578477 ETH: 22.61x
+  worker         needs at most 0.0000389878885816 ETH, holds 0.814952632435557168 ETH: 20902.71x
+Record (privacy): <repository>/deployments/optimismSepolia-2026-10-14/deployment.json, deploy block 50109169, 11989804 gas; code at every address
+Record (no-privacy): <repository>/deployments/optimismSepolia-2026-10-14/deployment-no-privacy.json, deploy block 50109207, 4542448 gas; code at every address
+
+Nothing found against sending. Nothing was sent by this check.

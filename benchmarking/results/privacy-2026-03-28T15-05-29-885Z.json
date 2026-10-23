@@ -25,7 +25,7 @@
       "txHash": null,
       "result": {
         "stealthAddress": "0xc8e56A18B7e1b97FfFFa908d454e69e60db5bB25",
-        "stealthPrivateKey": "0109bcf61794d55ac92b4d1501063a3971fbb8b0de48305148d6f2ff3cab9b8b",
+        "stealthPrivateKey": "<redacted>",
         "ephemeralPubKey": "0x032af8183953d5a7e658fcc80a081b6955bd904558d1c38b9077076575d60a956b",
         "viewTag": 4
       }

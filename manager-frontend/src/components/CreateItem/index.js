@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import { ErrorText, AlignBtn, SubmitBtn } from '../../global-styles';
+import { ErrorText, HintText, AlignBtn, SubmitBtn } from '../../global-styles';
 import { NewItems } from './styles';
 
 import api from '../../services/api';
+import { WHOLE_PRICE_HINT, NOT_WHOLE_PRICE_NOTICE, isWholePrice } from '../../utils/priceHint';
 
 const validationNewItem = Yup.object().shape({
   item_title: Yup.string().required("Item name is required"),
@@ -36,7 +37,8 @@ export default function CreateItem() {
       })
       setSubmitting(false);
     } catch (err) {
-      console.log(err)
+      // the error object of the API client carries the request with the session token
+      console.log('Create item failed:', (err && err.message) || 'unknown error')
       setFieldError('item_thumbnail', 'Fill out your restaurant settings before create items');
       setSubmitting(false)
     }
@@ -81,10 +83,12 @@ export default function CreateItem() {
       <input 
         name="item_price"
         type="text"
-        placeholder="ex: 7.98"
+        placeholder="ex: 8"
         value={values.item_price}
         onChange={handleChange}
       />
+      <HintText>{WHOLE_PRICE_HINT}</HintText>
+      {!isWholePrice(values.item_price) && <HintText>{NOT_WHOLE_PRICE_NOTICE}</HintText>}
       {errors.item_price && touched.item_price && <ErrorText>{errors.item_price}</ErrorText>}
 
       <label className="file-input" id="display-name">

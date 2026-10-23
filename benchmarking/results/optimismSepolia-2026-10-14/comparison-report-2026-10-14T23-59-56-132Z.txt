@@ -1,0 +1,276 @@
+=========================================================================================================
+  FOODCHAIN — Privacy cycle against two baselines: empirical evaluation report
+=========================================================================================================
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 1 — Experimental Infrastructure                                                                                     │
+├──────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Parameter            │ Value                                                                                               │
+├──────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Network              │ optimism-sepolia (chain id 11155420)                                                                │
+│ Solidity Version     │ 0.8.20 (optimizer: 200 runs, EVM target paris)                                                      │
+│ ZK Proving System    │ Groth16 (snarkjs 0.7.6, circom 2.0): one proof per cycle, the pool withdrawal                       │
+│ Hash Function        │ Poseidon (BN254, t=3, nRoundsF=8, nRoundsP=57)                                                      │
+│ Merkle Tree          │ Incremental note tree, depth 25 (payment pool)                                                      │
+│ Data Encryption      │ x25519-xsalsa20-poly1305 (NaCl); worker's details sealed for the pickup key                         │
+│ Stealth Scheme       │ secp256k1 ECDH (one-time addresses)                                                                 │
+│ Ratings              │ Chain.rateOrder, in the clear                                                                       │
+│ Privacy Contracts    │ Poseidon, MergeWithdrawVerifier, GlobalReputation, Util, Storage, Chain (+ Order), StealthAnnouncer │
+│ Baseline (a)         │ No_Util, No_Chain (+ Order): items and delivery address in the clear, transfers at delivery         │
+│ Baseline (b)         │ the privacy contracts, every mechanism switched off (same plain string)                             │
+│ Gas limits           │ eth_estimateGas x 1.25 (customer, worker), x 1.2 (establishment)                                    │
+├──────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Privacy run          │ 2026-10-14T23:36:55Z, blocks 50109237 to 50109655, fork id not answered                             │
+│   gas prices         │ eth_gasPrice 0.001000 -> 0.001000 gwei, base fee 2.500e-7 -> 2.500e-7 gwei                          │
+│ Baseline (a) run     │ 2026-10-14T23:52:13Z, blocks 50109694 to 50109921, fork id 0x91620456                               │
+│   gas prices         │ eth_gasPrice 0.001000 -> 0.001000 gwei, base fee 2.500e-7 -> 2.500e-7 gwei                          │
+│ Baseline (b) run     │ not run                                                                                             │
+│   gas prices         │ not run                                                                                             │
+│ Complete cycles      │ privacy 10 of 10, (a) 10 of 10                                                                      │
+└──────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 2 — Gas per operation (mean ± standard deviation over the complete cycles)                                       │
+├───────────────────────────┬─────────────────────┬───────────────────┬───────────────────┬───────────────┬───────────────┤
+│ Operation                 │ Privacy             │ Baseline (a)      │ Baseline (b)      │ Privacy / (a) │ Privacy / (b) │
+├───────────────────────────┼─────────────────────┼───────────────────┼───────────────────┼───────────────┼───────────────┤
+│ stealthAnnounce           │     26243 ± 5       │ —                 │ —                 │ —             │ —             │
+│ makeOrder                 │   1215003 ± 5130    │    376106 ± 0     │ —                 │ 3.23x         │ —             │
+│ poolDeposit               │    859422 ± 6783    │ —                 │ —                 │ —             │ —             │
+│ poolWithdraw              │   1117943 ± 7977    │ —                 │ —                 │ —             │ —             │
+│ prepareOrder              │    137388 ± 5       │    109989 ± 5     │ —                 │ 1.25x         │ —             │
+│ confirmIntention          │    230256 ± 4       │    106597 ± 5     │ —                 │ 2.16x         │ —             │
+│ addInformation            │     60130 ± 0       │ —                 │ —                 │ —             │ —             │
+│ pickupOrder               │     68779 ± 10      │     68431 ± 9     │ —                 │ 1.01x         │ —             │
+│ deliveryOrder             │   1002868 ± 11072   │     98933 ± 8     │ —                 │ 10.14x        │ —             │
+│ rateOrder_client          │     57956 ± 4       │     76760 ± 5131  │ —                 │ 0.76x         │ —             │
+│ rateOrder_restaurant      │     57931 ± 4       │     57964 ± 5     │ —                 │ 1.00x         │ —             │
+├───────────────────────────┼─────────────────────┼───────────────────┼───────────────────┼───────────────┼───────────────┤
+│ TOTAL / cycle             │   4833919           │    894779         │ —                 │ 5.40x         │ —             │
+│ TOTAL without poolDeposit │   3974496           │    894779         │ —                 │ 4.44x         │ —             │
+└───────────────────────────┴─────────────────────┴───────────────────┴───────────────────┴───────────────┴───────────────┘
+
+  The ratios stop at delivery on every side: they do not include the cash-out that turns the establishment's
+  notes into money, nor the fill level of the note tree (later notes cost a little more to insert).
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 3 — Latency per operation (ms, from the start of the client's preparation to the mined receipt)  │
+├────────────────────────────────────┬───────────────────────┬──────────────────────┬─────────────────────┤
+│ Operation                          │ Privacy               │ Baseline (a)         │ Baseline (b)        │
+├────────────────────────────────────┼───────────────────────┼──────────────────────┼─────────────────────┤
+│ stealthDerivation (off-chain)      │        10 ± 9         │ —                    │ —                   │
+│ stealthAnnounce                    │      2335 ± 163       │ —                    │ —                   │
+│ makeOrder                          │      2955 ± 160       │      5821 ± 1666     │ —                   │
+│ poolDeposit                        │      2864 ± 176       │ —                    │ —                   │
+│ zkProof_mergeWithdraw (off-chain)  │      1476 ± 179       │ —                    │ —                   │
+│ poolWithdraw                       │      3142 ± 122       │ —                    │ —                   │
+│ prepareOrder                       │      2763 ± 267       │      6673 ± 1517     │ —                   │
+│ confirmIntention                   │      2635 ± 147       │      6890 ± 319      │ —                   │
+│ sealDetails (off-chain)            │       659 ± 66        │ —                    │ —                   │
+│ addInformation                     │      2304 ± 110       │ —                    │ —                   │
+│ openDetails (off-chain)            │      1060 ± 161       │ —                    │ —                   │
+│ pickupOrder                        │      2665 ± 214       │      6260 ± 1880     │ —                   │
+│ deliveryOrder                      │      3270 ± 106       │      7002 ± 1526     │ —                   │
+│ rateOrder_client                   │      2920 ± 218       │      6472 ± 1774     │ —                   │
+│ rateOrder_restaurant               │      2630 ± 113       │      6527 ± 1464     │ —                   │
+├────────────────────────────────────┼───────────────────────┼──────────────────────┼─────────────────────┤
+│ TOTAL / cycle                      │     33686 ms          │     45646 ms         │ —                   │
+└────────────────────────────────────┴───────────────────────┴──────────────────────┴─────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 4 — Cost of a cycle per party (gas used x effective gas price of each transaction; x the rate)                                                                           │
+├──────────────────────────────────┬────────────────────────────────────────────────┬──────────────────────────────────────────────┬──────────────────────────────────────────────┤
+│ Party                            │ Privacy                                        │ Baseline (a)                                 │ Baseline (b)                                 │
+├──────────────────────────────────┼────────────────────────────────────────────────┼──────────────────────────────────────────────┼──────────────────────────────────────────────┤
+│ customer                         │ 1,359,331 gas, 0.000001360 ETH = 0.0033 USD    │ 452,866 gas, 0.000000453 ETH = 0.0011 USD    │ —                                            │
+│ establishment (own wallet)       │ 859,422 gas, 0.000000860 ETH = 0.0021 USD      │ 236,384 gas, 0.000000236 ETH = 0.0006 USD    │ —                                            │
+│ establishment (one-time address) │ 1,382,041 gas, 0.000001382 ETH = 0.0033 USD    │ —                                            │ —                                            │
+│ worker                           │ 1,233,124 gas, 0.000001233 ETH = 0.0030 USD    │ 205,530 gas, 0.000000206 ETH = 0.0005 USD    │ —                                            │
+│ all parties                      │ 4,833,919 gas, 0.000004835 ETH = 0.0117 USD    │ 894,779 gas, 0.000000895 ETH = 0.0022 USD    │ —                                            │
+└──────────────────────────────────┴────────────────────────────────────────────────┴──────────────────────────────────────────────┴──────────────────────────────────────────────┘
+
+  Privacy: mean effective gas price 1000250 wei; 2413.47 USD per ETH (Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot, 2026-10-14T23:32:19Z)
+  Baseline (a): mean effective gas price 1000250 wei; 2413.47 USD per ETH (Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot, 2026-10-14T23:32:19Z)
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 5 — Summary                                                                                      │
+├──────────────────────────────────┬───────────────────────────────┬───────────────────┬──────────────────┤
+│ Metric                           │ Privacy                       │ Baseline (a)      │ Baseline (b)     │
+├──────────────────────────────────┼───────────────────────────────┼───────────────────┼──────────────────┤
+│ Operations per cycle             │ 15 (11 on-chain, 4 off-chain) │ 7 on-chain        │ —                │
+│ Avg gas per cycle                │ 4833919                       │ 894779            │ —                │
+│ Avg gas without poolDeposit      │ 3974496                       │ 894779            │ —                │
+│ Privacy cycle / this baseline    │ —                             │ 5.40x             │ —                │
+│   without poolDeposit            │ —                             │ 4.44x             │ —                │
+│ Avg latency per cycle (ms)       │ 33686                         │ 45646             │ —                │
+│ Sequential cycles per second     │ 0.0297                        │ 0.0219            │ —                │
+└──────────────────────────────────┴───────────────────────────────┴───────────────────┴──────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 6 — Privacy Features Comparison (baseline (b) has the privacy contracts and uses none of the features)  │
+├────────────────────────────────────────┬───────────────────────┬───────────────────────────────────────────────┤
+│ Feature                                │ Privacy-Enabled       │ Baseline (a)                                  │
+├────────────────────────────────────────┼───────────────────────┼───────────────────────────────────────────────┤
+│ Order items encryption                 │ ✓ (x25519)            │ ✗ (plaintext)                                 │
+│ Delivery address encryption            │ ✓ (x25519, sealed)    │ ✗ (plaintext)                                 │
+│ Late release of the worker's details   │ ✓ (pickup key)        │ ✗ (public at once)                            │
+│ Stealth addresses (one-time)           │ ✓ (secp256k1 ECDH)    │ ✗ (fixed address)                             │
+│ ZK payment pool (UTXO)                 │ ✓ (MergeWithdraw)     │ ✗ (direct transfer)                           │
+│ Ratings                                │ in the clear          │ in the clear                                  │
+│ Merkle tree commitment                 │ ✓ (Poseidon depth 25) │ ✗ (none)                                      │
+│ On-chain proof verifiers               │ ✓ (1 Groth16)         │ ✗ (none)                                      │
+│ Reputation requirements                │ ✓ (min score/orders)  │ ✗ (none)                                      │
+│ Payment of the establishment           │ note in the pool      │ transfer at delivery                          │
+└────────────────────────────────────────┴───────────────────────┴───────────────────────────────────────────────┘
+
+  NOTE — The scores of the sections below (privacy precision framework, feature and risk ranks) were set for
+  the contracts of 2026-10-02, which had anonymous ratings with zero-knowledge proofs. The final contracts
+  rate in the clear. The fixed scores were not revised; only the measured inputs (gas, time) are current.
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 7 — Privacy Attributes (Junejo et al., 2021, Eq. 1–8)                                          │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  WA = (3, 2, 2, 3, 2)  |  Max PA = 12  |  Scoring: comparative overhead                               │
+├──────────────────────────────┬──────────────┬──────────────┬──────────────┬────────────────────────────┤
+│ Attribute (Ai)               │ Wi           │ Privacy      │ No-Privacy   │ Scoring basis              │
+├──────────────────────────────┼──────────────┼──────────────┼──────────────┼────────────────────────────┤
+│ A1: Encryption               │ 3            │ An=2.4836    │ An=0.0000    │ Enc. Time overhead (R=-1)  │
+│                              │              │ [100.0, 48.4, 100.0]│ [0.0, 0.0, 0.0]│ Ai: P=82.8 NP=0.0          │
+│ A2: Tx Anonymity             │ 2            │ An=0.9677    │ An=0.0000    │ ZK proof time overhead (R= │
+│                              │              │ [96.8, 0.0]  │ [0.0, 0.0]   │ Ai: P=48.4 NP=0.0          │
+│ A3: Pseudonymous ID          │ 2            │ An=2.0000    │ An=0.7917    │ Key Length: P=256b NP=160b │
+│                              │              │ [100.0, 100.0]│ [62.5, 16.7] │ Ai: P=100.0 NP=39.6        │
+│ A4: Anonymity Group          │ 3            │ An=3.0000    │ An=0.0000    │ Group size: P=2^25 NP=1 (R │
+│                              │              │ [100.0]      │ [0.0]        │ Ai: P=100.0 NP=0.0         │
+│ A5: IP Protection            │ 2            │ An=1.6000    │ An=0.0000    │ Readable content: P=20% NP │
+│                              │              │ [80.0]       │ [0.0]        │ Ai: P=80.0 NP=0.0          │
+├──────────────────────────────┼──────────────┼──────────────┼──────────────┼────────────────────────────┤
+│ PA = Σ An_i                  │              │ 10.0512      │ 0.7917       │ Eq. (8)                    │
+└──────────────────────────────┴──────────────┴──────────────┴──────────────┴────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 8 — Privacy Risks (Junejo et al., 2021, Eq. 9–16)                                              │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  VR = (1, 1, 1, 1)  |  Max PR = 4  |  Scoring: comparative max                                        │
+├──────────────────────────────┬──────────────┬──────────────┬──────────────┬────────────────────────────┤
+│ Risk (Ri)                    │ vi           │ Privacy      │ No-Privacy   │ Scoring basis              │
+├──────────────────────────────┼──────────────┼──────────────┼──────────────┼────────────────────────────┤
+│ R1: Linkability              │ 1            │ Rn=0.3095    │ Rn=1.0000    │ Readable fields: P=2 NP=7  │
+│                              │              │ [28.6, 33.3] │ [100.0, 100.0]│ Ri: P=31.0 NP=100.0        │
+│ R2: Insider Adversary        │ 1            │ Rn=0.2857    │ Rn=1.0000    │ Data leakage (readable %)  │
+│                              │              │ [28.6, 28.6] │ [100.0, 100.0]│ Ri: P=28.6 NP=100.0        │
+│ R3: Performance              │ 1            │ Rn=1.0000    │ Rn=0.2935    │ Gas burden (comparative)   │
+│                              │              │ [100.0, 100.0]│ [18.5, 40.2] │ Ri: P=100.0 NP=29.3        │
+│ R4: Scalability              │ 1            │ Rn=0.0000    │ Rn=0.5304    │ TPS deficit (comparative)  │
+│                              │              │ [0.0]        │ [53.0]       │ Ri: P=0.0 NP=53.0          │
+├──────────────────────────────┼──────────────┼──────────────┼──────────────┼────────────────────────────┤
+│ PR = Σ Rn_i                  │              │ 1.5952       │ 2.8238       │ Eq. (16)                   │
+└──────────────────────────────┴──────────────┴──────────────┴──────────────┴────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 9 — Privacy Precision (Junejo et al., 2021, Eq. 17–18)                                         │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  Privacy Precision = (R + 4) / 16,  where R = PA − PR                                                 │
+│  Grading: Poor [0, 0.3]  |  Good [0.31, 0.6]  |  Excellent [0.61, 1.0]                                │
+├────────────────────────────────────────┬──────────────────────┬───────────────────────────────────────┤
+│ Metric                                 │ Privacy-Enabled      │ No-Privacy                            │
+├────────────────────────────────────────┼──────────────────────┼───────────────────────────────────────┤
+│ PA (Privacy Attribute Score)           │ 10.0512              │ 0.7917                                │
+│   Max possible PA                      │ 12                   │ 12                                    │
+│ PR (Privacy Risk Score)                │ 1.5952               │ 2.8238                                │
+│   Max possible PR                      │ 4                    │ 4                                     │
+│ R = PA − PR (Privacy Resultant)        │ 8.4560               │ -2.0322                               │
+│   Range: [−4, 12]                      │                      │                                       │
+│ Privacy Precision = (R + 4) / 16       │ 0.7785               │ 0.1230                                │
+│ Grade                                  │ Excellent            │ Poor                                  │
+└────────────────────────────────────────┴──────────────────────┴───────────────────────────────────────┘
+
+
+=========================================================================================================
+  FIROOZJAEI et al. (2020) — Privacy Rank Framework
+=========================================================================================================
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 10 — Privacy Features (Firoozjaei et al., 2020, Table 1)                                       │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  Wf = (2,3,3,3,2,3,2,2,2,3,2,1)  |  Max Privacy = 28  |  Scoring: binary (0/1)                        │
+├──────────────────┬───────────────────────────────────┬──────┬──────────┬────────────┬───────────────────┤
+│ Group            │ Criterion                         │ Wi   │ Privacy  │ No-Privacy │ Justification     │
+├──────────────────┼───────────────────────────────────┼──────┼──────────┼────────────┼───────────────────┤
+│ User anonymity   │ Pseudonymous ID                   │ 2    │ ✓        │ ✓          │ Ethereum addresse │
+│ User anonymity   │ Ephemeral ID                      │ 3    │ ✓        │ ✗          │ Stealth addresses │
+│ User anonymity   │ Anonymity group                   │ 3    │ ✓        │ ✗          │ Merkle tree depth │
+│ Asset anonymity  │ Device un-identifying             │ 3    │ ✗        │ ✗          │ N/A for food deli │
+│ Asset anonymity  │ Ownership un-identifying          │ 2    │ ✓        │ ✗          │ Stealth hides res │
+│ Tx privacy       │ Confidentiality—encryption        │ 3    │ ✓        │ ✗          │ x25519-xsalsa20-p │
+│ Tx privacy       │ Confidentiality—obfuscation       │ 2    │ ✗        │ ✗          │ Not used          │
+│ Tx privacy       │ Confidentiality—data separation   │ 2    │ ✓        │ ✗          │ Storage.sol separ │
+│ Tx privacy       │ Confidentiality—data suppression  │ 2    │ ✗        │ ✗          │ Not used          │
+│ Tx privacy       │ Transaction untraceability        │ 3    │ ✓        │ ✗          │ ZK-SNARK ratings  │
+│ Tx privacy       │ Transaction anonymity             │ 2    │ ✓        │ ✗          │ ZK payment pool h │
+│ Tx privacy       │ Anonymous trading                 │ 1    │ ✓        │ ✗          │ Pool withdrawal t │
+├──────────────────┼───────────────────────────────────┼──────┼──────────┼────────────┼───────────────────┤
+│ Pf · Wf          │                                   │ 28   │ 21       │ 2          │ Max = 28          │
+└──────────────────┴───────────────────────────────────┴──────┴──────────┴────────────┴───────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 11 — Privacy Risks (Firoozjaei et al., 2020, Table 2)                                          │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  Vr = (1,1,...,1)  |  Max Risk = 12  |  Scoring: binary (0/1)                                         │
+├──────────────────┬───────────────────────────────────┬──────┬──────────┬────────────┬───────────────────┤
+│ Group            │ Criterion                         │ vi   │ Privacy  │ No-Privacy │ Justification     │
+├──────────────────┼───────────────────────────────────┼──────┼──────────┼────────────┼───────────────────┤
+│ Linkability      │ Traffic correlation               │ 1    │ ✗        │ ✓          │ P: stealth+encryp │
+│ Linkability      │ Address/ID correlation            │ 1    │ ✗        │ ✓          │ P: stealth unlink │
+│ Linkability      │ Device linkability                │ 1    │ ✗        │ ✗          │ N/A for food deli │
+│ 3rd party dep.   │ System operator                   │ 1    │ ✓        │ ✓          │ Both depend on AP │
+│ 3rd party dep.   │ Trusted third party (TTP)         │ 1    │ ✗        │ ✗          │ No TTP — decentra │
+│ 3rd party dep.   │ Intermediate controller           │ 1    │ ✗        │ ✗          │ No intermediate c │
+│ Insider adversary│ Data leakage                      │ 1    │ ✗        │ ✓          │ P: encrypted. NP: │
+│ Insider adversary│ Signature/token reuse             │ 1    │ ✗        │ ✗          │ ZK nullifiers pre │
+│ Insider adversary│ Transaction misrouting            │ 1    │ ✗        │ ✗          │ Smart contract en │
+│ Performance      │ Capacity issue (bandwidth)        │ 1    │ ✓        │ ✗          │ P: 15 ops/cycle.  │
+│ Performance      │ Memory issue                      │ 1    │ ✓        │ ✗          │ Groth16 witness u │
+│ Performance      │ Computational burden              │ 1    │ ✓        │ ✗          │ P: +440.2% gas vs │
+├──────────────────┼───────────────────────────────────┼──────┼──────────┼────────────┼───────────────────┤
+│ Pr · Vr          │                                   │ 12   │ 4        │ 4          │ Max = 12          │
+└──────────────────┴───────────────────────────────────┴──────┴──────────┴────────────┴───────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 12 — Privacy Rank (Firoozjaei et al., 2020, Eq. 7–9, 12)                                       │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  Privacy Rank = (Pf·Wf − Pr·Vr + 12) / 40                                                             │
+│  Rating: Poor [0,0.2) | Fair [0.2,0.4) | Good [0.4,0.6) | Very Good [0.6,0.8) | Excellent [0.8,1]     │
+├────────────────────────────────────────┬──────────────────────┬───────────────────────────────────────┤
+│ Metric                                 │ Privacy-Enabled      │ No-Privacy                            │
+├────────────────────────────────────────┼──────────────────────┼───────────────────────────────────────┤
+│ Pf · Wf (Privacy Feature Score)        │ 21                   │ 2                                     │
+│   Max possible                         │ 28                   │ 28                                    │
+│ Pr · Vr (Privacy Risk Score)           │ 4                    │ 4                                     │
+│   Max possible                         │ 12                   │ 12                                    │
+│ Privacy Resultant = Pf·Wf − Pr·Vr      │ 17                   │ -2                                    │
+│   Range: [−12, 28]                     │                      │                                       │
+│ Privacy Rank = (R + 12) / 40           │ 0.7250               │ 0.2500                                │
+│ Grade                                  │ Very Good            │ Fair                                  │
+└────────────────────────────────────────┴──────────────────────┴───────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TABLE 13 — Comparison with Firoozjaei Baseline Solutions (Table 7 of paper)                          │
+├────────────────────────────────────────┬────────────────┬─────────────────────────────────────────────┤
+│ Solution                               │ Privacy Rank   │ Rating                                      │
+├────────────────────────────────────────┼────────────────┼─────────────────────────────────────────────┤
+│ FoodChain (no-privacy)                 │ 0.2500 ◀       │ Fair ◀                                      │
+│ Key management                         │ 0.3750         │ Fair                                        │
+│ Multisignature                         │ 0.4000         │ Good                                        │
+│ Ephemeral pseudonym                    │ 0.4250         │ Good                                        │
+│ Route hiding                           │ 0.4750         │ Good                                        │
+│ Off/on-chain                           │ 0.4750         │ Good                                        │
+│ Sidechain                              │ 0.4750         │ Good                                        │
+│ Partner matching                       │ 0.4750         │ Good                                        │
+│ Secret sharing                         │ 0.5000         │ Good                                        │
+│ Data hiding                            │ 0.5250         │ Good                                        │
+│ Subnetwork                             │ 0.5250         │ Good                                        │
+│ Ring signature                         │ 0.5250         │ Good                                        │
+│ Zero-knowledge (standalone)            │ 0.6250         │ Very Good                                   │
+│ FoodChain (privacy-enabled)            │ 0.7250 ◀       │ Very Good ◀                                 │
+└────────────────────────────────────────┴────────────────┴─────────────────────────────────────────────┘

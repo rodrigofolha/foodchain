@@ -17,7 +17,9 @@ import {
 } from './styles';
 
 import { useWeb3 } from '../../services/getWeb3';
-import { REPUTATION_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
+import { CHAIN_ADDRESS, REPUTATION_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
+import { ORDER_ACTORS_TOPIC, orderAddressesFromLogs, keepChainOrders } from '../../utils/orderLogs';
+import { errorText } from '../../utils/contractErrors';
 
 export default function Home({ history }) {
   const [orders, setOrders] = useState([]);
@@ -39,20 +41,20 @@ export default function Home({ history }) {
         try {
           const rep = await chain.methods.getWorkerReputation(REPUTATION_ADDRESS, addr).call({from: addr});
           setOwnReputation(rep);
-        } catch(e) { console.log('Reputation fetch:', e); }
+        } catch(e) { console.log('Reputation fetch:', errorText(e)); }
       }
 
       // Load available orders in PREPARATION state
       var set = new Map();
       var fromBlock = DEPLOY_BLOCK || 0;
       if (SEPOLIA_RPC_URL) {
-        var eventTopic = logWeb3.utils.keccak256('OrderActors(address,address,address,address)');
+        var eventTopic = ORDER_ACTORS_TOPIC;
         var zoneTopic = logWeb3.utils.keccak256('OrderZone(address,string)');
 
         // Fetch OrderActors + OrderZone events in parallel (2 RPC calls instead of 3+)
         var logResults = await Promise.all([
           logWeb3.eth.getPastLogs({ fromBlock: fromBlock, toBlock: 'latest', topics: [eventTopic] }).catch(function() { return []; }),
-          logWeb3.eth.getPastLogs({ fromBlock: fromBlock, toBlock: 'latest', topics: [zoneTopic] }).catch(function() { return []; })
+          logWeb3.eth.getPastLogs({ address: CHAIN_ADDRESS, fromBlock: fromBlock, toBlock: 'latest', topics: [zoneTopic] }).catch(function() { return []; })
         ]);
         var logs = logResults[0];
         var zoneLogs = logResults[1];
@@ -64,14 +66,9 @@ export default function Home({ history }) {
           zoneMap[zOrderAddr.toLowerCase()] = logWeb3.eth.abi.decodeParameter('string', zoneLogs[z].data);
         }
 
-        // Collect unique order addresses
-        var orderAddresses = [];
-        for (var l = 0; l < logs.length; l++) {
-          var oa = '0x' + logs[l].data.slice(-40);
-          if (!set.has(oa) && orderAddresses.indexOf(oa) === -1) {
-            orderAddresses.push(oa);
-          }
-        }
+        // Collect unique order addresses. Any contract can emit an event of this
+        // name: only orders created by Chain are kept.
+        var orderAddresses = await keepChainOrders(chain, orderAddressesFromLogs(logs));
 
         // Batch getOrder: 5 concurrent calls at a time
         for (var b = 0; b < orderAddresses.length; b += 5) {
@@ -107,7 +104,7 @@ export default function Home({ history }) {
       }
       setOrders(enriched);
     } catch(e) {
-      console.error(e);
+      console.error('Could not load the open orders:', errorText(e));
     }
     setLoading(false);
   }, [chain, logWeb3, web3]);

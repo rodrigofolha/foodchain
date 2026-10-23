@@ -1,0 +1,30 @@
+Pool cash-out on fuji (chain 43113, https://api.avax-test.network)
+  deployment record <repository>/deployments/fuji-2026-10-14/deployment.json
+  pool (GlobalReputation) 0x26b6d893358996ec2a5cCee3Fb12d14982ef4CF5, deploy block 59472434
+  secrets file ephemeral-wallets-privacy-run-fuji-2026-10-14T23-35-26-178Z.json
+  recipient: the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7; sender (pays the gas): the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7
+(node:3779444) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 59473876: 31 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.01000000756 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  unspent, can be proved     10 notes  0.01999999616 ETH
+Unspent notes that can be proved: 10, 0.01999999616 ETH (19999996160000000 wei); the pool holds 0.01999999616 ETH (19999996160000000 wei)
+
+Plan: 1 withdrawal(s) of 5 (--max 1), two notes each; 0.003999999232 ETH (3999999232000000 wei) to the establishment
+
+Sending 1 withdrawal(s) from the establishment, nonces 294 to 294; result file <repository>/benchmarking/results/fuji-2026-10-14/pool-cashout-fuji-2026-10-15T00-11-15-363Z.json
+   1/1  leaves 3 + 6                   0.003999999232       ETH  0xcdbe868756537abaa448f3e7f2c0def881733c42cb47ec6378139e7fc08c009f  block 59473884  gas 1142480 (limit 1383258)  0.00000016 gwei  fee 0.0000000001827968 ETH  change note at leaf 31  proof 1103 ms
+
+Withdrawals mined: 1 of 1 in 9 s; gas 1,142,480; fees 0.0000000001827968 ETH paid by the establishment; paid out 0.003999999232 ETH (3999999232000000 wei) to the establishment
+Balances before and at block 59473884:
+  pool                              19999996160000000 ->      15999996928000000 wei  (-3999999232000000)
+  establishment (sends and receives)    1201999999365709984 ->    1205999998414913184 wei  (+3999999049203200)
+  the pool is down by exactly what was paid out: yes; the accounts moved by exactly the payouts and the fees: yes
+Result written to <repository>/benchmarking/results/fuji-2026-10-14/pool-cashout-fuji-2026-10-15T00-11-15-363Z.json
+exit=0

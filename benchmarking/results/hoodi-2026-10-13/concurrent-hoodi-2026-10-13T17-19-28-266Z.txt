@@ -1,0 +1,79 @@
+==============================================================================================================
+FoodChain — concurrent throughput (hoodi, privacy, block time 12000 ms)
+==============================================================================================================
+
+Experimental variables
+  Started at:          2026-10-13T17:19:16.649Z
+  Network:             hoodi (chainId 560048)  RPC https://ethereum-hoodi-rpc.publicnode.com
+  Block timing:        network (~12000 ms)
+  Block gas limit:     60,000,000
+  Contracts:           Chain 0xAa5FDAB5D55D76da97C15D435f5b0C059e72BF07, GlobalReputation 0x2785120d91f169F7d6B196a35730206Bf7fa681f
+                       Storage 0x56bAA20bE01075979A598acD02f666fAeA14e7d7, StealthAnnouncer 0xe4D8ebC06747594C6F7c3F9f414f89fD058Ae457
+  Tree:                note tree depth 25; every past root stays valid (mapping, O(1)). Ratings: Chain.rateOrder, in the clear
+  Privacy:             stealth address derived and announced per order, stipend in makeOrder, stealth wallet sends poolWithdraw/prepareOrder/pickupOrder/rating (legacy gasPrice), one real Groth16 proof per cycle (the withdrawal)
+  Concurrency levels:  {1, 2, 4, 8} clients; units per client: makeOrder 2, cycle 2
+  Client model:        closed loop (next tx after the previous receipt), clients start together
+  Prover:              snarkjs 0.7.6 groth16.fullProve, 1 concurrent proofs on 16 CPUs (12th Gen Intel(R) Core(TM) i5-12500H)
+  Receipt polling:     1000 ms
+  Host:                Node v20.20.2 on linux x64
+
+Definitions
+  window      wall clock from the level start to the last receipt of the level
+  units/s     completed units (orders or cycles) / window;  tx/s = mined transactions / window
+  unit lat.   one unit's wall clock (makeOrder: derivation + announce + makeOrder; cycle: all its steps)
+  incl. lat.  sendTransaction returned -> block containing the tx observed
+  blk/util    blocks spanned by the level / mean and max gasUsed/gasLimit over those blocks
+  root age    note-tree insertions between a withdrawal proof's snapshot and its on-chain check
+              (every past root stays valid: mapping, O(1)); stale = proofs regenerated because the dry run
+              reported their root as not known
+
+── Workload: cycle (2 cycles per client) ────────────────────────────────────────
+| k | units ok | window s | units/s | tx/s | proofs/s | unit lat. ms p50/p90/p99 | incl. lat. ms p50/p95/p99 | blk / util mean / max | max tx/blk | base fee gwei | root age max / stale |
+|---|----------|----------|---------|------|----------|--------------------------|---------------------------|-----------------------|------------|---------------|----------------------|
+| 1 |      2/2 |   299.81 |    0.01 | 0.07 |     0.01 | 146245 / 153562 / 153562 |      8484 / 18246 / 21015 |       24 / 53% / 100% |          1 | 0.7919-1.0957 |                0 / 0 |
+| 2 |      4/4 |   320.21 |    0.01 | 0.14 |     0.01 | 140556 / 163628 / 163628 |      9611 / 19840 / 21808 |       26 / 51% / 100% |          2 | 0.8966-1.0784 |                1 / 0 |
+| 4 |      8/8 |   367.67 |    0.02 | 0.24 |     0.02 | 164024 / 204753 / 204753 |      9292 / 31421 / 46330 |       27 / 51% / 100% |          4 | 0.7780-1.1177 |                3 / 0 |
+| 8 |    16/16 |   346.05 |    0.05 | 0.51 |     0.05 | 165306 / 181896 / 190261 |      8284 / 20115 / 34929 |       27 / 51% / 100% |          8 | 0.9336-1.1162 |                8 / 0 |
+
+| operation             |  n | mean gasUsed | gas limit | latency ms p50/p95 (tx: inclusion) | tx prep or prove ms p50/p95 | prover wait ms p50/p95 |
+|-----------------------|----|--------------|-----------|------------------------------------|-----------------------------|------------------------|
+| stealthDerivation     | 30 |    off-chain |         - |                             9 / 42 |                           - |                      - |
+| stealthAnnounce       | 30 |       26,242 |   200,000 |                       7215 / 10150 |                 1706 / 2294 |                      - |
+| makeOrder             | 30 |    1,213,291 | 5,000,000 |                       9078 / 11663 |                 1693 / 2988 |                      - |
+| poolDeposit           | 30 |      860,232 | 1,041,034 |                      10103 / 20888 |                 1817 / 3028 |                      - |
+| zkProof_mergeWithdraw | 30 |    off-chain |         - |                        3038 / 8608 |                   661 / 706 |            1248 / 7126 |
+| poolWithdraw          | 30 |    1,118,255 | 1,332,960 |                       7631 / 21055 |                 2210 / 3537 |                      - |
+| prepareOrder          | 30 |      137,390 |   400,000 |                       8879 / 21015 |                 2369 / 3032 |                      - |
+| confirmIntention      | 30 |      230,257 | 4,000,000 |                       8943 / 22533 |                 2193 / 2702 |                      - |
+| sealDetails           | 30 |    off-chain |         - |                        1011 / 2565 |                           - |                      - |
+| addInformation        | 30 |       60,130 | 4,000,000 |                       9002 / 31421 |                 1452 / 3241 |                      - |
+| openDetails           | 30 |    off-chain |         - |                        1513 / 2083 |                           - |                      - |
+| pickupOrder           | 30 |       68,776 |   400,000 |                       8121 / 17131 |                 2364 / 2866 |                      - |
+| deliveryOrder         | 30 |    1,005,144 | 4,000,000 |                       9781 / 20115 |                 1946 / 2547 |                      - |
+| rateOrder_client      | 30 |       57,957 | 4,000,000 |                       8740 / 19459 |                 1399 / 2220 |                      - |
+| rateOrder_restaurant  | 30 |       57,932 |   400,000 |                      10464 / 45774 |                 2195 / 3167 |                      - |
+
+  Gas per cycle: 4,835,841; gas-bound ceiling 12.4 cycles per block = 1.0 cycles/s at 12000 ms blocks.
+  Closed-loop bound: 11 sequential transactions per cycle, so one client completes at most 1/(11 x 12 s + proving time) cycles/s.
+  Per cycle (mean): k=1 on-chain 137,890 ms, proving 829 ms, prover queue 0 ms; k=2 on-chain 136,354 ms, proving 656 ms, prover queue 260 ms; k=4 on-chain 152,278 ms, proving 679 ms, prover queue 880 ms; k=8 on-chain 132,843 ms, proving 659 ms, prover queue 3,331 ms
+  All clients share this host's prover (1 proofs at a time), so at high k the measured cycles/s is bounded by this host, not by the chain.
+  Projection, NOT measured (one prover per client, uncontended k=1 cycle latency 146.25 s, capped by the gas ceiling): k=1: 0.01, k=2: 0.01, k=4: 0.03, k=8: 0.05 cycles/s.
+
+Notes
+  - Hoodi: other users share the blocks; block packing and base fee include their transactions.
+
+Run
+  Date 2026-10-13T17:19:16.649Z, chainId 560048, blocks 3809686 to 3809812, fork id 0x23aa1351
+  At the start: block 3809682, eth_gasPrice 1093837957 wei, base fee 1019106804 wei
+  At the end:   block 3809830, eth_gasPrice 1108394506 wei, base fee 1017501964 wei
+  Gas schedule: main; gas table of the estimate: built-in, main-network schedule (local Hardhat, hardfork osaka, 2026-10-12, final contracts)
+  Fees: tip at least 0.2 gwei, maximum fee 2 x base fee + tip; one-time addresses: capped; order total 0.006000 ETH
+  Funding: with room (deposits at the fee cap, reserve x 1.5; deposit gas limit: estimate x 1.2); nonces: kept per sender; the node answered below the book 0 time(s)
+  cycle:
+  Cost of a cycle (mean of 30 complete cycles; gas used x effective gas price of each transaction, summed; x the ETH/USD rate)
+    customer                              1,357,619 gas  0.001653754 ETH = 4.1447 USD
+    establishment (own wallet)              860,232 gas  0.001055829 ETH = 2.6462 USD
+    establishment (one-time address)      1,382,353 gas  0.001681943 ETH = 4.2154 USD
+    worker                                1,235,401 gas  0.001472709 ETH = 3.6910 USD
+    all parties                           4,835,605 gas  0.005864235 ETH = 14.6972 USD
+    rate: 2506.245 USD per ETH (Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot, 2026-10-13T17:18:44Z)

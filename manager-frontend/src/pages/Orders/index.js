@@ -9,11 +9,16 @@ import { OrdersContainer, TitleSection, FilterTabs, FilterTab } from './styles';
 
 import api from '../../services/api';
 import {useWeb3 } from '../../services/getWeb3';
-import { CHAIN_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK, STEALTH_ADDRESS, STEALTH_ABI } from '../../services/config'
+import { CHAIN_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK, STEALTH_ADDRESS, STEALTH_ABI, REPUTATION_ADDRESS } from '../../services/config'
 import { Button, CircularProgress } from '@material-ui/core';
 import {decrypt} from '../../utils/crypto';
 import { getOrCreateSpendKey, scanAnnouncements, storeStealthKey } from '../../utils/stealth';
-import { storePaymentNote } from '../../utils/zkWithdraw';
+import { fetchTreeState, claimRevenueNote } from '../../utils/zkWithdraw';
+import { ordersWithUnclaimedNote } from '../../utils/paymentSecrets';
+import { hasPendingGasReturns, reconcileGasReturns } from '../../utils/gasReturn';
+import { hasPendingPoolDeposits, reconcilePoolDeposits } from '../../utils/poolDeposit';
+import { keepChainOrders } from '../../utils/orderCheck';
+import { candidateOrdersFromLogs } from '../../utils/orderLogs';
 
 
 export default function Orders() {
@@ -28,11 +33,36 @@ export default function Orders() {
 
   const ACTIVE_STATUSES = ['ORDERED', 'PREPARATION', 'WAITING', 'DISPATCHED'];
 
+  // Store the note of each order that paid the establishment (read-only calls, no wallet
+  // popup). An order pays in the transaction that ends it, in any ending: the payment plus the
+  // collateral, or the returned collateral alone, as a note in the pool. Field 5 of
+  // Chain.getOrder holds the amount. Every order is looked at on each load, so a note is
+  // found also when the page was closed while the order ended; a note is stored once.
+  // The notes of returned gas money and of wallet deposits that were not recorded yet are
+  // looked for too.
+  useEffect(() => {
+    const withNote = ordersWithUnclaimedNote(ordersBlock);
+    if (!logWeb3 || (withNote.length === 0 && !hasPendingGasReturns() && !hasPendingPoolDeposits())) return;
+    (async () => {
+      try {
+        const treeState = await fetchTreeState(logWeb3, REPUTATION_ADDRESS, DEPLOY_BLOCK);
+        withNote.forEach(order => {
+          if (claimRevenueNote(order.orderId, order.amount, treeState)) {
+            console.log('[Orders] Stored the note of order', order.orderId);
+          }
+        });
+        reconcileGasReturns(treeState);
+        reconcilePoolDeposits(treeState);
+      } catch (err) {
+        console.warn('[Orders] Could not store the notes of the orders yet:', err.message || err);
+      }
+    })();
+  }, [ordersBlock, logWeb3]);
+
   const setUserAccount = async () => {
     if (window.ethereum){
       await window.ethereum.enable();
       web3.eth.getAccounts().then(accounts => {
-        console.log(accounts[0])
         setAccount(accounts[0])
         setUserBalance(accounts[0])
       })
@@ -76,21 +106,7 @@ export default function Orders() {
           const set = new Map();
           if (SEPOLIA_RPC_URL) {
             const eventTopic = logWeb3.utils.keccak256('OrderActors(address,address,address,address)');
-            const establishmentTopic = '0x' + '000000000000000000000000' + accounts[0].slice(2).toLowerCase();
-            const zeroAddressTopic = '0x' + '0'.repeat(64);
             const fromBlock = DEPLOY_BLOCK || 0;
-
-            // Query 1: orders already accepted by this restaurant (PREPARATION and beyond)
-            const logsAccepted = await logWeb3.eth.getPastLogs({
-              fromBlock, toBlock: 'latest',
-              topics: [eventTopic, null, establishmentTopic]
-            }).catch(err => { console.error(err); return []; });
-
-            // Query 2: newly placed orders (establishment = address(0), not yet accepted)
-            const logsNew = await logWeb3.eth.getPastLogs({
-              fromBlock, toBlock: 'latest',
-              topics: [eventTopic, null, zeroAddressTopic]
-            }).catch(err => { console.error(err); return []; });
 
             // Stealth scanning: find orders addressed to stealth addresses belonging to this restaurant
             if (STEALTH_ADDRESS && STEALTH_ADDRESS !== '0x0000000000000000000000000000000000000000') {
@@ -102,9 +118,9 @@ export default function Orders() {
                 var stealthContract = new ethers.Contract(STEALTH_ADDRESS, STEALTH_ABI, rpcProvider);
 
                 // 1. Scan announcements to find our stealth addresses (1 RPC call)
-                console.log('[Orders] Scanning announcements with spend key:', spendKey.publicKeyCompressed);
                 var matches = await scanAnnouncements(stealthContract, spendKey.privateKey, spendKey.viewPrivateKey, fromBlock);
-                console.log('[Orders] Stealth matches found:', matches.length, matches);
+                // only the number is logged: each match holds the key of a one-time address
+                console.log('[Orders] Stealth matches found:', matches.length);
                 var stealthMap = {}; // stealthAddress → stealthPrivateKey
                 for (var m = 0; m < matches.length; m++) {
                   stealthMap[matches[m].stealthAddress.toLowerCase()] = matches[m].stealthPrivateKey;
@@ -112,7 +128,6 @@ export default function Orders() {
                 }
 
                 var stealthAddrs = Object.keys(stealthMap);
-                console.log('[Orders] Stealth addresses in map:', stealthAddrs);
                 if (stealthAddrs.length > 0) {
                   // 2. Fetch ALL OrderActors events in one call
                   var allLogs = await logWeb3.eth.getPastLogs({
@@ -122,25 +137,17 @@ export default function Orders() {
 
                   console.log('[Orders] Total OrderActors events:', allLogs.length);
 
-                  // Collect unique order addresses from events where:
-                  // - establishment matches a stealth address (accepted orders), OR
-                  // - establishment is address(0) (new orders, not yet accepted — restaurant is in contract state)
-                  var zeroAddr = '0x' + '0'.repeat(40);
-                  var candidateOrders = []; // {orderAddress, stealthPrivateKey or null}
-                  for (var l = 0; l < allLogs.length; l++) {
-                    var restaurantAddr = '0x' + allLogs[l].topics[2].slice(26).toLowerCase();
-                    var orderAddr = '0x' + allLogs[l].data.slice(-40);
-                    if (set.has(orderAddr)) continue;
+                  // Orders whose establishment is one of our one-time addresses (accepted), and
+                  // orders not accepted yet (the establishment is in the order's state only: each
+                  // one-time key is tried). Logs without the expected shape, and logs whose
+                  // emitter is not the order they name, are skipped.
+                  var candidateOrders = candidateOrdersFromLogs(allLogs, stealthMap, function(address) { return set.has(address); });
 
-                    if (stealthMap[restaurantAddr]) {
-                      // Direct match — this order's event has our stealth address
-                      candidateOrders.push({ orderAddress: orderAddr, stealthPrivateKey: stealthMap[restaurantAddr] });
-                    } else if (restaurantAddr === zeroAddr) {
-                      // New order — restaurant stored in contract, not in event yet.
-                      // We'll try each stealth key to see if we're the restaurant.
-                      candidateOrders.push({ orderAddress: orderAddr, stealthPrivateKey: null });
-                    }
-                  }
+                  // An OrderActors log can come from any contract: keep only the orders of Chain
+                  var loggedAddresses = candidateOrders.map(function(entry) { return entry.orderAddress; })
+                    .filter(function(address, i, all) { return all.indexOf(address) === i; });
+                  var chainOrders = await keepChainOrders(chain, loggedAddresses);
+                  candidateOrders = candidateOrders.filter(function(entry) { return chainOrders.indexOf(entry.orderAddress) >= 0; });
 
                   console.log('[Orders] Candidate orders:', candidateOrders.length);
 
@@ -187,7 +194,7 @@ export default function Orders() {
                   }
                 }
               } catch (err) {
-                console.warn('Stealth scanning error (non-fatal):', err);
+                console.warn('Stealth scanning error (non-fatal):', (err && err.message) || 'unknown error');
               }
             }
           } else {

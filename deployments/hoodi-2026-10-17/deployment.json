@@ -1,0 +1,106 @@
+{
+  "kind": "privacy",
+  "network": "hoodi",
+  "chainId": 560048,
+  "deployer": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+  "startedAt": "2026-10-17T18:01:40.688Z",
+  "completedAt": "2026-10-17T18:03:20.416Z",
+  "atStart": {
+    "block": 3835127,
+    "gasPrice": "973731342",
+    "baseFeePerGas": "963731342",
+    "maxPriorityFeePerGas": "10000000"
+  },
+  "feeSettings": {
+    "maxFeePerGas": "3000000000",
+    "maxPriorityFeePerGas": "200000000"
+  },
+  "deployBlock": 3835137,
+  "contracts": {
+    "Poseidon": "0x524d8412063C4821bAE70559d7eeD74cb68c3349",
+    "MergeWithdrawVerifier": "0x9746bD16266810aDfb9238999B2a11e22E51c73f",
+    "GlobalReputation": "0xa41Ed474Aad9Bc16e21b73b69BDF7e9f1e02E919",
+    "Util": "0x5530C36a037BE7cBf123d5b9C031A87C77215f38",
+    "Storage": "0x9E4f155f0D2aD5F532c0F1E60DB60B85ceF40e03",
+    "Chain": "0x21F713C3388f4b3A395c1cAB2d8ffa2D5011DEC2",
+    "OrderImplementation": "0xCf50DF00Dd5696E583D81f89a4Ee78192D5aD0f9",
+    "StealthAnnouncer": "0xA96bB7125A6E345b11F9044652C974acb1F075D3"
+  },
+  "transactions": [
+    {
+      "name": "Poseidon",
+      "hash": "0x6583a640d7008ca9a7ffb28454875843f792e07aa2adc83b772ce29348de627d",
+      "blockNumber": 3835129,
+      "gasUsed": 2157126,
+      "effectiveGasPrice": "1184456593",
+      "contractAddress": "0x524d8412063C4821bAE70559d7eeD74cb68c3349"
+    },
+    {
+      "name": "MergeWithdrawVerifier",
+      "hash": "0x87f968fba45c6ca88e5cf9045ddabc0b1f3b7156da7b90d0b6cf0efa6d2ac179",
+      "blockNumber": 3835130,
+      "gasUsed": 450491,
+      "effectiveGasPrice": "1307241723",
+      "contractAddress": "0x9746bD16266810aDfb9238999B2a11e22E51c73f"
+    },
+    {
+      "name": "GlobalReputation",
+      "hash": "0x5ceb194a688ebd3fb2a9c05b07bab9ca781205b06d54a32d96afc2ccac5c1c47",
+      "blockNumber": 3835131,
+      "gasUsed": 3721625,
+      "effectiveGasPrice": "1194923008",
+      "contractAddress": "0xa41Ed474Aad9Bc16e21b73b69BDF7e9f1e02E919"
+    },
+    {
+      "name": "Util",
+      "hash": "0x6d8d7aa5ce36fa460c22c0535b00a077d5c8da30b510f899289a39eb20bf37cc",
+      "blockNumber": 3835132,
+      "gasUsed": 882183,
+      "effectiveGasPrice": "1183867329",
+      "contractAddress": "0x5530C36a037BE7cBf123d5b9C031A87C77215f38"
+    },
+    {
+      "name": "Storage",
+      "hash": "0x6b690ebec5ed9c85de4d365b53f9a53147872b64c074f900bf06012188984ef0",
+      "blockNumber": 3835133,
+      "gasUsed": 489610,
+      "effectiveGasPrice": "1306064958",
+      "contractAddress": "0x9E4f155f0D2aD5F532c0F1E60DB60B85ceF40e03"
+    },
+    {
+      "name": "Chain",
+      "hash": "0xc555d760d5b37adcc6b0f2f6004d75ca47f77e8b0d421707e5d2ec96a4b6fed0",
+      "blockNumber": 3835134,
+      "gasUsed": 4049304,
+      "effectiveGasPrice": "1196610996",
+      "contractAddress": "0x21F713C3388f4b3A395c1cAB2d8ffa2D5011DEC2"
+    },
+    {
+      "name": "GlobalReputation.setChain",
+      "hash": "0x59b8592ae48e92305462680e14c89459504b53d59b6f98fb5206b92270ffc5b0",
+      "blockNumber": 3835135,
+      "gasUsed": 44156,
+      "effectiveGasPrice": "1320385621",
+      "contractAddress": null
+    },
+    {
+      "name": "Storage.setChain",
+      "hash": "0x258139951fbb9bab373191bb944dda1b9e659ea594f58e3f92a6f24056ddc2b9",
+      "blockNumber": 3835136,
+      "gasUsed": 44088,
+      "effectiveGasPrice": "1198990299",
+      "contractAddress": null
+    },
+    {
+      "name": "StealthAnnouncer",
+      "hash": "0x626968d062cc8d1e74d54da3eacc9966b6211001034fd9d3da1074322f301a14",
+      "blockNumber": 3835137,
+      "gasUsed": 151293,
+      "effectiveGasPrice": "1318309679",
+      "contractAddress": "0xA96bB7125A6E345b11F9044652C974acb1F075D3"
+    }
+  ],
+  "totalGasUsed": 11989876,
+  "totalFeeWei": "14430884929896217",
+  "denomination": "1000000000000000"
+}

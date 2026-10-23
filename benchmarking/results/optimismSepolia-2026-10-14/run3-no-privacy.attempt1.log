@@ -1,0 +1,45 @@
+Startup complete. Network: optimism-sepolia (chainId 11155420)
+Mode: optimism-sepolia (https://sepolia.optimism.io; actors' keys from benchmarking/.env)
+No-Privacy contract: 0xFCdFD6a5e43B26c23F4976203B2130E99847Ec87 from <repository>/deployments/optimismSepolia-2026-10-14/deployment-no-privacy.json (NO_PRIVACY_DEPLOYMENT_RECORD)
+Gas limits: eth_estimateGas x 1.25 (customer, worker), x 1.2 (establishment)
+No_Chain ABI: <repository>/artifacts/contracts/contracts_no_privacy/No_Chain.sol/No_Chain.json
+Order: total 0.001 ETH + fee 0.001 ETH (rule: ORDER_TOTAL_WEI (given); default rule: smallest multiple of 0.001 ETH that is at least 2 x the gas stipend (eth_gasPrice at the start x 2,400,000), at least 0.001 ETH)
+Fees: tip at least 0.001 gwei, maximum fee 0.01 gwei | receipt timeout: 300 s | stop at the first failed step: yes
+Accounts: customer 0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d | establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7 | worker 0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2
+Balances against the need of 10 cycles (gas table of the main schedule, gas at 1.25 x eth_gasPrice 1000250 wei, fee cap 10000000 wei; income during the run not counted):
+  customer       0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d  holds 0.411829 ETH, needs at most 0.022011 ETH (per cycle: value 0.002000 + gas 0.000001; one upfront 0.002005): 18.71x
+  establishment  0xEd2794006D72C83E42B5B7253144359E0947b9E7  holds 0.737884 ETH, needs at most 0.011004 ETH (per cycle: value 0.001000 + gas 0.000000; one upfront 0.001001): 67.05x
+  worker         0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2  holds 0.824940 ETH, needs at most 0.000004 ETH (per cycle: value 0.000000 + gas 0.000000; one upfront 0.000001): 211390.02x
+Network at the start: block 50109660, eth_gasPrice 1000250 wei, base fee 250 wei, fork id not answered (eth_config)
+
+=== NO-PRIVACY BENCHMARK — 10 iterations ===
+
+--- Iteration 1/10 ---
+  makeOrder: gas=393206 (limit 502229) | latency=2994ms | cost=0.000000393 ETH
+  prepareOrder: FAILED — missing revert data (action="call", data=null, reason=null, transaction={ "data": "0x6eba2b130000000000000000000000000000000000000000000000000000000000000000", "from": "0xEd2794006D72C83E42B5B72531443
+STOPPED in cycle 1 at prepareOrder: missing revert data (action="call", data=null, reason=null, transaction={ "data": "0x6eba2b130000000000000000000000000000000000000000000000000000000000000000", "from": "0xEd2794006D72C83E42B5B7253144359E0947b9E7", "to": "0xFCdFD6a5e43B26c23F4976203B2130E99847Ec87" }, invocation=null, revert=null, co
+  TOTAL: gas=393206 | latency=2994ms
+
+
+=== NO-PRIVACY RESULTS SUMMARY ===
+
+Operation          | Avg Gas     | Avg Latency (ms) | Avg Cost (ETH)
+-------------------+-------------+------------------+----------------
+makeOrder          |      393206 |          2994.35 | 0.000000393
+-------------------+-------------+------------------+----------------
+Completed cycles: 0
+Failed or skipped steps: 6
+Total gas: 393206
+Total time: 2.99 sec
+Throughput: 0.0000 cycles/sec
+
+Cost of a cycle (mean of 0 complete cycles; gas used x effective gas price of each transaction, summed; x the ETH/USD rate)
+  all parties                                   0 gas  0.000000000 ETH = 0.0000 USD
+  rate: 2413.47 USD per ETH (Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot, 2026-10-14T23:32:19Z)
+Network at the end: block 50109663, eth_gasPrice 1000250 wei, base fee 250 wei
+
+Raw data saved to: results/optimismSepolia-2026-10-14/no-privacy-2026-10-14T23-51-16-880Z.json
+Benchmark failed: Error: the run stopped in cycle 1 at prepareOrder: missing revert data (action="call", data=null, reason=null, transaction={ "data": "0x6eba2b130000000000000000000000000000000000000000000000000000000000000000", "from": "0xEd2794006D72C83E42B5B7253144359E0947b9E7", "to": "0xFCdFD6a5e43B26c23F4976203B2130E99847Ec87" }, invocation=null, revert=null, co
+    at main (file://<repository>/benchmarking/benchmark-no-privacy.js:582:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+exit=1

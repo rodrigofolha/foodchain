@@ -1,0 +1,1932 @@
+{
+  "computedAt": "2026-10-15T00:13:39.884Z",
+  "script": "cost-table.cjs",
+  "method": {
+    "priceRule": "production network's 1,024-block median base fee + 1,024-block median tip (50th reward percentile) at the table's reading; Arbitrum One pays no tip",
+    "l1Rule": "Arbitrum One: NodeInterface.gasEstimateL1Component (L2 gas units) x the table's price; OP Mainnet: GasPriceOracle.getL1Fee (wei); both from the -table read-backs made right after the reading",
+    "rateRule": "Coinbase spot ETH-USD and AVAX-USD at the table's reading",
+    "gasRule": "Ethereum: the local later cycle (confirmed on Hoodi); the others: the later-cycle mean of the receipts on the test network",
+    "roundingRule": "two significant digits in USD below 1 USD, two decimals above; full precision in this file",
+    "cashoutGas": 3740000,
+    "orderUSD": 25
+  },
+  "tableReading": {
+    "readAt": "2026-10-15T00:07:46.804Z",
+    "file": "prices-table-2026-10-15.json"
+  },
+  "rows": [
+    {
+      "network": "Ethereum",
+      "measuredOn": "Hoodi (gas of the local measurement, confirmed call by call on Hoodi)",
+      "token": "ETH",
+      "reading": {
+        "endpoint": "ethereum-rpc.publicnode.com",
+        "at": "2026-10-15T00:07:46.804Z",
+        "block": 26194226,
+        "blockTime": "2026-10-15T00:07:35.000Z",
+        "feeHistoryBlocks": 1024,
+        "oldestBlock": 26193203
+      },
+      "gas": {
+        "privacy": 4833322.3,
+        "baseline": 893072.3,
+        "source": "benchmarking/results/local-gas-final-2026-10-12.md (later cycles, mean of cycles 2 to 10; confirmed call by call on Hoodi, hoodi-final-2026-10-13.md)"
+      },
+      "price": {
+        "rule": "1,024-block median base fee + 1,024-block median tip (50th percentile)",
+        "medianBaseFeeWei": 117972780,
+        "medianTipWei": 20000000,
+        "priceWei": 137972780,
+        "priceGwei": 0.13797278,
+        "instantaneous": {
+          "baseFeeWei": 95811917,
+          "suggestedTipWei": 0,
+          "ethGasPriceWei": 95811917,
+          "priceWei": 95811917
+        }
+      },
+      "l1DataComponent": null,
+      "rate": {
+        "pair": "ETH-USD",
+        "usd": 2421.375,
+        "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+        "at": "2026-10-15T00:08:03.990Z"
+      },
+      "cost": {
+        "execution": {
+          "privacyWei": 666866914366994,
+          "baselineWei": 123219667971994
+        },
+        "totalWei": {
+          "privacy": 666866914366994,
+          "baseline": 123219667971994
+        },
+        "totalToken": {
+          "privacy": 0.000666866914366994,
+          "baseline": 0.000123219667971994
+        },
+        "usd": {
+          "privacy": 1.6147348747753802,
+          "baseline": 0.298361023535687
+        },
+        "shareOf25USD": {
+          "privacy": 0.06458939499101521,
+          "baseline": 0.01193444094142748
+        },
+        "gasRatioPrivacyToBaseline": 5.412016809837232,
+        "ratioToEthereum": {
+          "privacy": 1,
+          "baseline": 1
+        }
+      },
+      "withCashout": {
+        "gasPerOrder": 8573322.3,
+        "cashoutGas": 3740000,
+        "note": "the cash-out's gas is a model's figure; its L1 data component on the rollups is not included (not measured)",
+        "wei": 1182885111566994,
+        "usd": 2.86420843702053,
+        "shareOf25USD": 0.11456833748082121
+      },
+      "atInstantaneousPrice": {
+        "priceWei": 95811917,
+        "usdPrivacy": 1.1213142461794572,
+        "note": "base fee of the latest block + the node's suggested tip at the same reading (computed, not the table's figure)"
+      },
+      "atDaysRange": {
+        "note": "the table's gas and tip at the lowest and the highest instantaneous base fee of the day's nine readings (computed)",
+        "baseFeeMinWei": 60426810,
+        "baseFeeMaxWei": 220733879,
+        "usdPrivacyMin": 0.9412579421385384,
+        "usdPrivacyMax": 2.8173773838669955
+      }
+    },
+    {
+      "network": "Arbitrum One",
+      "measuredOn": "Arbitrum Sepolia",
+      "token": "ETH",
+      "reading": {
+        "endpoint": "arb1.arbitrum.io",
+        "at": "2026-10-15T00:07:50.534Z",
+        "block": 514895536,
+        "blockTime": "2026-10-15T00:07:41.000Z",
+        "feeHistoryBlocks": 1024,
+        "oldestBlock": 514894515
+      },
+      "gas": {
+        "privacy": 4830503.111111111,
+        "baseline": 893077.4444444445,
+        "source": "readback-arbitrumSepolia-2026-10-14-privacy-table.json and readback-arbitrumSepolia-2026-10-14-no-privacy-table.json (receipts of Arbitrum Sepolia; later cycles, mean of cycles 2 to 10)"
+      },
+      "price": {
+        "rule": "1,024-block median base fee (Arbitrum pays no tip)",
+        "medianBaseFeeWei": 20016000,
+        "medianTipWei": 0,
+        "priceWei": 20016000,
+        "priceGwei": 0.020016,
+        "instantaneous": {
+          "baseFeeWei": 20066000,
+          "suggestedTipWei": 0,
+          "ethGasPriceWei": 20014000,
+          "priceWei": 20066000
+        }
+      },
+      "l1DataComponent": {
+        "method": "NodeInterface.gasEstimateL1Component of each transaction's calldata on Arbitrum One (L2 gas units), later-cycle mean, times the table's price",
+        "privacyUnits": 5483.333333333333,
+        "baselineUnits": 2452.222222222222,
+        "privacyWei": 109754400000,
+        "baselineWei": 49083680000,
+        "readbackPrivacyWeiAtOracleL2BaseFee": 109869747111.11111,
+        "readbackBaselineWeiAtOracleL2BaseFee": 49104523777.77778,
+        "oracle": {
+          "privacy": {
+            "network": "chain 42161",
+            "at": "2026-10-15T00:08:24.080Z",
+            "l2BaseFeeWei": "20006000",
+            "l1BaseFeeEstimateWei": "1369240"
+          },
+          "baseline": {
+            "network": "chain 42161",
+            "at": "2026-10-15T00:09:14.446Z",
+            "l2BaseFeeWei": "20000000",
+            "l1BaseFeeEstimateWei": "1369240"
+          }
+        },
+        "privacyUSD": 0.0002657565603,
+        "baselineUSD": 0.00011884999566,
+        "shareOfPrivacyCost": 0.001133860360512912
+      },
+      "rate": {
+        "pair": "ETH-USD",
+        "usd": 2421.375,
+        "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+        "at": "2026-10-15T00:08:03.990Z"
+      },
+      "cost": {
+        "execution": {
+          "privacyWei": 96687350272000,
+          "baselineWei": 17875838128000
+        },
+        "totalWei": {
+          "privacy": 96797104672000,
+          "baseline": 17924921808000
+        },
+        "totalToken": {
+          "privacy": 0.000096797104672,
+          "baseline": 0.000017924921808
+        },
+        "usd": {
+          "privacy": 0.23438208932516402,
+          "baseline": 0.043402957542846
+        },
+        "shareOf25USD": {
+          "privacy": 0.00937528357300656,
+          "baseline": 0.0017361183017138401
+        },
+        "gasRatioPrivacyToBaseline": 5.408828922015846,
+        "ratioToEthereum": {
+          "privacy": 0.14515205745944396,
+          "baseline": 0.145471271778415
+        }
+      },
+      "withCashout": {
+        "gasPerOrder": 8570503.111111112,
+        "cashoutGas": 3740000,
+        "note": "the cash-out's gas is a model's figure; its L1 data component on the rollups is not included (not measured)",
+        "wei": 171656944672000.03,
+        "usd": 0.41564583440516406,
+        "shareOf25USD": 0.016625833376206562
+      },
+      "atInstantaneousPrice": {
+        "priceWei": 20066000,
+        "usdPrivacy": 0.23496691229869732,
+        "note": "base fee of the latest block + the node's suggested tip at the same reading (computed, not the table's figure)"
+      },
+      "atDaysRange": {
+        "note": "the table's gas and tip at the lowest and the highest instantaneous base fee of the day's nine readings (computed)",
+        "baseFeeMinWei": 20000000,
+        "baseFeeMaxWei": 20120000,
+        "usdPrivacyMin": 0.23419494597363333,
+        "usdPrivacyMax": 0.23559852111011334
+      }
+    },
+    {
+      "network": "OP Mainnet",
+      "measuredOn": "OP Sepolia",
+      "token": "ETH",
+      "reading": {
+        "endpoint": "mainnet.optimism.io",
+        "at": "2026-10-15T00:07:53.162Z",
+        "block": 158212043,
+        "blockTime": "2026-10-15T00:07:43.000Z",
+        "feeHistoryBlocks": 1024,
+        "oldestBlock": 158211021
+      },
+      "gas": {
+        "privacy": 4830505.777777778,
+        "baseline": 893066.1111111111,
+        "source": "readback-optimismSepolia-2026-10-14-privacy-table.json and readback-optimismSepolia-2026-10-14-no-privacy-table.json (receipts of OP Sepolia; later cycles, mean of cycles 2 to 10)"
+      },
+      "price": {
+        "rule": "1,024-block median base fee + 1,024-block median tip (50th percentile)",
+        "medianBaseFeeWei": 987,
+        "medianTipWei": 1500,
+        "priceWei": 2487,
+        "priceGwei": 0.000002487,
+        "instantaneous": {
+          "baseFeeWei": 1074,
+          "suggestedTipWei": 1000000,
+          "ethGasPriceWei": 1001074,
+          "priceWei": 1001074
+        }
+      },
+      "l1DataComponent": {
+        "method": "GasPriceOracle.getL1Fee of each transaction's unsigned RLP on OP Mainnet (wei), later-cycle mean",
+        "privacyWei": 34114079198.11111,
+        "baselineWei": 9570494112.11111,
+        "oracle": {
+          "privacy": {
+            "network": "chain 10",
+            "at": "2026-10-15T00:10:12.874Z",
+            "l1BaseFeeWei": "79480088",
+            "blobBaseFeeWei": "5076528",
+            "baseFeeScalar": "5227",
+            "blobBaseFeeScalar": "1014213"
+          },
+          "baseline": {
+            "network": "chain 10",
+            "at": "2026-10-15T00:11:36.520Z",
+            "l1BaseFeeWei": "77428334",
+            "blobBaseFeeWei": "4371306",
+            "baseFeeScalar": "5227",
+            "blobBaseFeeScalar": "1014213"
+          }
+        },
+        "privacyUSD": 0.0000826029785183263,
+        "baselineUSD": 0.00002317375518071304,
+        "shareOfPrivacyCost": 0.739559793808934
+      },
+      "rate": {
+        "pair": "ETH-USD",
+        "usd": 2421.375,
+        "source": "Coinbase spot price API, api.coinbase.com/v2/prices/ETH-USD/spot",
+        "at": "2026-10-15T00:08:03.990Z"
+      },
+      "cost": {
+        "execution": {
+          "privacyWei": 12013467869.333334,
+          "baselineWei": 2221055418.3333335
+        },
+        "totalWei": {
+          "privacy": 46127547067.44444,
+          "baseline": 11791549530.444445
+        },
+        "totalToken": {
+          "privacy": 4.612754706744444e-8,
+          "baseline": 1.1791549530444445e-8
+        },
+        "usd": {
+          "privacy": 0.00011169208928043328,
+          "baseline": 0.000028551763244279916
+        },
+        "shareOf25USD": {
+          "privacy": 0.000004467683571217331,
+          "baseline": 0.0000011420705297711966
+        },
+        "gasRatioPrivacyToBaseline": 5.408900547987303,
+        "ratioToEthereum": {
+          "privacy": 0.00006917054373769585,
+          "baseline": 0.000095695352247861
+        }
+      },
+      "withCashout": {
+        "gasPerOrder": 8570505.777777778,
+        "cashoutGas": 3740000,
+        "note": "the cash-out's gas is a model's figure; its L1 data component on the rollups is not included (not measured)",
+        "wei": 55428927067.44444,
+        "usd": 0.00013421421827793328,
+        "shareOf25USD": 0.000005368568731117332
+      },
+      "atInstantaneousPrice": {
+        "priceWei": 1001074,
+        "usdPrivacy": 0.01179163091059131,
+        "note": "base fee of the latest block + the node's suggested tip at the same reading (computed, not the table's figure)"
+      },
+      "atDaysRange": {
+        "note": "the table's gas and tip at the lowest and the highest instantaneous base fee of the day's nine readings (computed)",
+        "baseFeeMinWei": 974,
+        "baseFeeMaxWei": 2415,
+        "usdPrivacyMin": 0.00011154003522337364,
+        "usdPrivacyMax": 0.0001283946426251413
+      }
+    },
+    {
+      "network": "Avalanche C-Chain",
+      "measuredOn": "Avalanche Fuji",
+      "token": "AVAX",
+      "reading": {
+        "endpoint": "api.avax.network",
+        "at": "2026-10-15T00:07:58.659Z",
+        "block": 97570126,
+        "blockTime": "2026-10-15T00:07:46.000Z",
+        "feeHistoryBlocks": 1024,
+        "oldestBlock": 97569103
+      },
+      "gas": {
+        "privacy": 4835270.666666667,
+        "baseline": 897892.1111111111,
+        "source": "readback-fuji-2026-10-14-privacy-table.json and readback-fuji-2026-10-14-no-privacy-table.json (receipts of Avalanche Fuji; later cycles, mean of cycles 2 to 10)"
+      },
+      "price": {
+        "rule": "1,024-block median base fee + 1,024-block median tip (50th percentile)",
+        "medianBaseFeeWei": 5000000000,
+        "medianTipWei": 1500000000,
+        "priceWei": 6500000000,
+        "priceGwei": 6.5,
+        "instantaneous": {
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "ethGasPriceWei": 5000000150,
+          "priceWei": 5000000150
+        }
+      },
+      "l1DataComponent": null,
+      "rate": {
+        "pair": "AVAX-USD",
+        "usd": 10.0145,
+        "source": "Coinbase spot price API, api.coinbase.com/v2/prices/AVAX-USD/spot",
+        "at": "2026-10-15T00:08:04.244Z"
+      },
+      "cost": {
+        "execution": {
+          "privacyWei": 31429259333333336,
+          "baselineWei": 5836298722222222
+        },
+        "totalWei": {
+          "privacy": 31429259333333336,
+          "baseline": 5836298722222222
+        },
+        "totalToken": {
+          "privacy": 0.031429259333333334,
+          "baseline": 0.005836298722222222
+        },
+        "usd": {
+          "privacy": 0.31474831759366667,
+          "baseline": 0.05844761355369445
+        },
+        "shareOf25USD": {
+          "privacy": 0.012589932703746667,
+          "baseline": 0.002337904542147778
+        },
+        "gasRatioPrivacyToBaseline": 5.385135482127338,
+        "ratioToEthereum": {
+          "privacy": 0.1949225984466646,
+          "baseline": 0.19589560613872717
+        }
+      },
+      "withCashout": {
+        "gasPerOrder": 8575270.666666668,
+        "cashoutGas": 3740000,
+        "note": "the cash-out's gas is a model's figure; its L1 data component on the rollups is not included (not measured)",
+        "wei": 55739259333333340,
+        "usd": 0.5582008125936668,
+        "shareOf25USD": 0.022328032503746674
+      },
+      "atInstantaneousPrice": {
+        "priceWei": 5000000150,
+        "usdPrivacy": 0.2421140977200894,
+        "note": "base fee of the latest block + the node's suggested tip at the same reading (computed, not the table's figure)"
+      },
+      "atDaysRange": {
+        "note": "the table's gas and tip at the lowest and the highest instantaneous base fee of the day's nine readings (computed)",
+        "baseFeeMinWei": 5000000000,
+        "baseFeeMaxWei": 5063234803,
+        "usdPrivacyMin": 0.31474831759366667,
+        "usdPrivacyMax": 0.31781032495637696
+      }
+    }
+  ],
+  "factor": {
+    "dearest": "Ethereum",
+    "cheapest": "OP Mainnet",
+    "factor": 14457.020950885344,
+    "factorEthereumToArbitrumOne": 6.889327078807711,
+    "factorEthereumToAvalanche": 5.130241480305443
+  },
+  "callDifferences": {
+    "privacy": {
+      "fuji": {
+        "deliveryOrder": {
+          "laterMean": 1004603,
+          "laterMeanOpSepolia": 999800,
+          "differenceLaterMean": 4803,
+          "first": 1035297,
+          "firstOpSepolia": 1030480,
+          "differenceFirst": 4817,
+          "range": [
+            1001080,
+            1022355
+          ],
+          "rangeOpSepolia": [
+            996280,
+            1017526
+          ]
+        }
+      }
+    },
+    "no-privacy": {
+      "arbitrumSepolia": {
+        "makeOrder": {
+          "laterMean": 376106,
+          "laterMeanOpSepolia": 376106,
+          "differenceLaterMean": 0,
+          "first": 393206,
+          "firstOpSepolia": 376106,
+          "differenceFirst": 17100,
+          "range": [
+            376106,
+            376106
+          ],
+          "rangeOpSepolia": [
+            376106,
+            376106
+          ]
+        }
+      },
+      "fuji": {
+        "makeOrder": {
+          "laterMean": 376106,
+          "laterMeanOpSepolia": 376106,
+          "differenceLaterMean": 0,
+          "first": 393206,
+          "firstOpSepolia": 376106,
+          "differenceFirst": 17100,
+          "range": [
+            376106,
+            376106
+          ],
+          "rangeOpSepolia": [
+            376106,
+            376106
+          ]
+        },
+        "deliveryOrder": {
+          "laterMean": 103738.11111111111,
+          "laterMeanOpSepolia": 98931.66666666667,
+          "differenceLaterMean": 4806.444444444438,
+          "first": 103730,
+          "firstOpSepolia": 98947,
+          "differenceFirst": 4783,
+          "range": [
+            103730,
+            103747
+          ],
+          "rangeOpSepolia": [
+            98918,
+            98947
+          ]
+        }
+      }
+    }
+  },
+  "feesPaidOnTestNetworks": {
+    "arbitrumSepolia": {
+      "token": "ETH",
+      "privacy": {
+        "laterCycleMeanWei": 97037084750222.22,
+        "tenCyclesWei": 970960172428000,
+        "l1FeeWei": 0,
+        "gasUsedForL1": 0
+      },
+      "baseline": {
+        "laterCycleMeanWei": 17928392951333.332,
+        "tenCyclesWei": 179949248192000,
+        "l1FeeWei": 0,
+        "gasUsedForL1": 0
+      },
+      "deployments": {
+        "privacyWei": "240321342152000",
+        "baselineWei": "91228838362000"
+      }
+    },
+    "optimismSepolia": {
+      "token": "ETH",
+      "privacy": {
+        "laterCycleMeanWei": 4831713412363.667,
+        "tenCyclesWei": 48351270878124,
+        "l1FeeWei": 81624,
+        "gasUsedForL1": 0
+      },
+      "baseline": {
+        "laterCycleMeanWei": 893289380139.4445,
+        "tenCyclesWei": 8950026972500,
+        "l1FeeWei": 25000,
+        "gasUsedForL1": 0
+      },
+      "deployments": {
+        "privacyWei": "11992801451000",
+        "baselineWei": "4543583612000"
+      }
+    },
+    "fuji": {
+      "token": "AVAX",
+      "privacy": {
+        "laterCycleMeanWei": 773643306.6666666,
+        "tenCyclesWei": 7741901120,
+        "l1FeeWei": 0,
+        "gasUsedForL1": 0
+      },
+      "baseline": {
+        "laterCycleMeanWei": 143662737.7777778,
+        "tenCyclesWei": 1442097120,
+        "l1FeeWei": 0,
+        "gasUsedForL1": 0
+      },
+      "deployments": {
+        "privacyWei": "1918380160",
+        "baselineWei": "726791680"
+      }
+    }
+  },
+  "readbacks": {
+    "arbitrumSepolia": {
+      "privacy": {
+        "file": "privacy-2026-10-14T23-47-41-283Z.json",
+        "readAt": "2026-10-15T00:09:13.772Z",
+        "endpoint": "sepolia-rollup.arbitrum.io",
+        "transactions": 110,
+        "statusNot1": 0,
+        "cycles": 10,
+        "firstCycleGas": 4864687,
+        "laterMeanGas": 4830503.111111111,
+        "laterMinGas": 4820683,
+        "laterMaxGas": 4848214,
+        "allCyclesMeanGas": 4833921.5,
+        "totalGas": 48339215,
+        "gasUsedForL1Total": 0,
+        "calldataBytesPerCycle": 4044,
+        "feeLaterMeanWei": 97037084750222.22,
+        "feeAllWei": 970960172428000,
+        "l1FeeAllWei": 0,
+        "prodL1GasUnitsLaterMean": 5483.333333333333,
+        "prodL1FeeWeiLaterMean": 109869747111.11111,
+        "production": {
+          "network": "chain 42161",
+          "at": "2026-10-15T00:08:24.080Z",
+          "l2BaseFeeWei": "20006000",
+          "l1BaseFeeEstimateWei": "1369240"
+        },
+        "calls": {
+          "stealthAnnounce": {
+            "first": 26245,
+            "laterMean": 26242.333333333332,
+            "min": 26233,
+            "max": 26245,
+            "calldataBytes": 228
+          },
+          "makeOrder": {
+            "first": 1230393,
+            "laterMean": 1213289,
+            "min": 1213281,
+            "max": 1213293,
+            "calldataBytes": 1572
+          },
+          "poolDeposit": {
+            "first": 870391,
+            "laterMean": 858206,
+            "min": 853303,
+            "max": 874561,
+            "calldataBytes": 36
+          },
+          "poolWithdraw": {
+            "first": 1094706,
+            "laterMean": 1120525,
+            "min": 1117040,
+            "max": 1123313,
+            "calldataBytes": 452
+          },
+          "prepareOrder": {
+            "first": 137392,
+            "laterMean": 137392,
+            "min": 137392,
+            "max": 137392,
+            "calldataBytes": 132
+          },
+          "confirmIntention": {
+            "first": 230257,
+            "laterMean": 230257,
+            "min": 230257,
+            "max": 230257,
+            "calldataBytes": 164
+          },
+          "addInformation": {
+            "first": 60130,
+            "laterMean": 60130,
+            "min": 60130,
+            "max": 60130,
+            "calldataBytes": 868
+          },
+          "pickupOrder": {
+            "first": 68787,
+            "laterMean": 68773.55555555556,
+            "min": 68758,
+            "max": 68787,
+            "calldataBytes": 196
+          },
+          "deliveryOrder": {
+            "first": 1030497,
+            "laterMean": 999799.2222222222,
+            "min": 996268,
+            "max": 1017555,
+            "calldataBytes": 196
+          },
+          "rateOrder_client": {
+            "first": 57957,
+            "laterMean": 57957,
+            "min": 57957,
+            "max": 57957,
+            "calldataBytes": 100
+          },
+          "rateOrder_restaurant": {
+            "first": 57932,
+            "laterMean": 57932,
+            "min": 57932,
+            "max": 57932,
+            "calldataBytes": 100
+          }
+        },
+        "balances": {
+          "customer": {
+            "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+            "error": "eth_getBalance: {\"code\":-32000,\"message\":\"missing trie node 909edcffd95c56376f14c7b096b6b53bd474eeb2"
+          },
+          "establishment (own wallet)": {
+            "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+            "error": "eth_getBalance: {\"code\":-32000,\"message\":\"historical state 909edcffd95c56376f14c7b096b6b53bd474eeb27"
+          },
+          "establishment (one-time address)": {
+            "address": "0x25021377C14Fff4A50CD356d11F84b7E4e5C18cc",
+            "error": "eth_getBalance: {\"code\":-32000,\"message\":\"historical state 909edcffd95c56376f14c7b096b6b53bd474eeb27"
+          },
+          "worker": {
+            "address": "0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2",
+            "error": "eth_getBalance: {\"code\":-32000,\"message\":\"historical state 909edcffd95c56376f14c7b096b6b53bd474eeb27"
+          }
+        },
+        "readbackFile": "readback-arbitrumSepolia-2026-10-14-privacy-table.json"
+      },
+      "no-privacy": {
+        "file": "no-privacy-2026-10-14T23-54-59-595Z.json",
+        "readAt": "2026-10-15T00:10:12.453Z",
+        "endpoint": "sepolia-rollup.arbitrum.io",
+        "transactions": 70,
+        "statusNot1": 0,
+        "cycles": 10,
+        "firstCycleGas": 927295,
+        "laterMeanGas": 893077.4444444445,
+        "laterMinGas": 893040,
+        "laterMaxGas": 893112,
+        "allCyclesMeanGas": 896499.2,
+        "totalGas": 8964992,
+        "gasUsedForL1Total": 0,
+        "calldataBytesPerCycle": 1084,
+        "feeLaterMeanWei": 17928392951333.332,
+        "feeAllWei": 179949248192000,
+        "l1FeeAllWei": 0,
+        "prodL1GasUnitsLaterMean": 2452.222222222222,
+        "prodL1FeeWeiLaterMean": 49104523777.77778,
+        "production": {
+          "network": "chain 42161",
+          "at": "2026-10-15T00:09:14.446Z",
+          "l2BaseFeeWei": "20000000",
+          "l1BaseFeeEstimateWei": "1369240"
+        },
+        "calls": {
+          "makeOrder": {
+            "first": 393206,
+            "laterMean": 376106,
+            "min": 376106,
+            "max": 376106,
+            "calldataBytes": 292
+          },
+          "prepareOrder": {
+            "first": 109991,
+            "laterMean": 109988.33333333333,
+            "min": 109979,
+            "max": 109991,
+            "calldataBytes": 36
+          },
+          "confirmIntention": {
+            "first": 106599,
+            "laterMean": 106596.33333333333,
+            "min": 106587,
+            "max": 106599,
+            "calldataBytes": 164
+          },
+          "pickupOrder": {
+            "first": 68434,
+            "laterMean": 68440,
+            "min": 68422,
+            "max": 68451,
+            "calldataBytes": 196
+          },
+          "deliveryOrder": {
+            "first": 98947,
+            "laterMean": 98934.11111111111,
+            "min": 98918,
+            "max": 98947,
+            "calldataBytes": 196
+          },
+          "rateOrder_client": {
+            "first": 92152,
+            "laterMean": 75049.33333333333,
+            "min": 75040,
+            "max": 75052,
+            "calldataBytes": 100
+          },
+          "rateOrder_restaurant": {
+            "first": 57966,
+            "laterMean": 57963.333333333336,
+            "min": 57954,
+            "max": 57966,
+            "calldataBytes": 100
+          }
+        },
+        "balances": {
+          "customer": {
+            "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+            "beforeWei": "537623873031942400",
+            "afterWei": "517532625765222400",
+            "differenceWei": "-20091247266720000"
+          },
+          "establishment (own wallet)": {
+            "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+            "beforeWei": "1404217734519656800",
+            "afterWei": "1414170305228004800",
+            "differenceWei": "9952570708348000"
+          },
+          "worker": {
+            "address": "0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2",
+            "beforeWei": "937094735495243200",
+            "afterWei": "947053462805423200",
+            "differenceWei": "9958727310180000"
+          }
+        },
+        "readbackFile": "readback-arbitrumSepolia-2026-10-14-no-privacy-table.json"
+      }
+    },
+    "optimismSepolia": {
+      "privacy": {
+        "file": "privacy-2026-10-14T23-51-06-898Z.json",
+        "readAt": "2026-10-15T00:11:36.087Z",
+        "endpoint": "sepolia.optimism.io",
+        "transactions": 110,
+        "statusNot1": 0,
+        "cycles": 10,
+        "firstCycleGas": 4864634,
+        "laterMeanGas": 4830505.777777778,
+        "laterMinGas": 4820712,
+        "laterMaxGas": 4848149,
+        "allCyclesMeanGas": 4833918.6,
+        "totalGas": 48339186,
+        "gasUsedForL1Total": 0,
+        "calldataBytesPerCycle": 4044,
+        "feeLaterMeanWei": 4831713412363.667,
+        "feeAllWei": 48351270878124,
+        "l1FeeAllWei": 81624,
+        "prodL1GasUnitsLaterMean": 0,
+        "prodL1FeeWeiLaterMean": 34114079198.11111,
+        "production": {
+          "network": "chain 10",
+          "at": "2026-10-15T00:10:12.874Z",
+          "l1BaseFeeWei": "79480088",
+          "blobBaseFeeWei": "5076528",
+          "baseFeeScalar": "5227",
+          "blobBaseFeeScalar": "1014213"
+        },
+        "calls": {
+          "stealthAnnounce": {
+            "first": 26245,
+            "laterMean": 26242.333333333332,
+            "min": 26233,
+            "max": 26245,
+            "calldataBytes": 228
+          },
+          "makeOrder": {
+            "first": 1230393,
+            "laterMean": 1213293,
+            "min": 1213293,
+            "max": 1213293,
+            "calldataBytes": 1572
+          },
+          "poolDeposit": {
+            "first": 870391,
+            "laterMean": 858203.3333333334,
+            "min": 853303,
+            "max": 874561,
+            "calldataBytes": 36
+          },
+          "poolWithdraw": {
+            "first": 1094670,
+            "laterMean": 1120529,
+            "min": 1117064,
+            "max": 1123301,
+            "calldataBytes": 452
+          },
+          "prepareOrder": {
+            "first": 137392,
+            "laterMean": 137388,
+            "min": 137380,
+            "max": 137392,
+            "calldataBytes": 132
+          },
+          "confirmIntention": {
+            "first": 230257,
+            "laterMean": 230255.66666666666,
+            "min": 230245,
+            "max": 230257,
+            "calldataBytes": 164
+          },
+          "addInformation": {
+            "first": 60130,
+            "laterMean": 60130,
+            "min": 60130,
+            "max": 60130,
+            "calldataBytes": 868
+          },
+          "pickupOrder": {
+            "first": 68787,
+            "laterMean": 68778.11111111111,
+            "min": 68758,
+            "max": 68787,
+            "calldataBytes": 196
+          },
+          "deliveryOrder": {
+            "first": 1030480,
+            "laterMean": 999800,
+            "min": 996280,
+            "max": 1017526,
+            "calldataBytes": 196
+          },
+          "rateOrder_client": {
+            "first": 57957,
+            "laterMean": 57955.666666666664,
+            "min": 57945,
+            "max": 57957,
+            "calldataBytes": 100
+          },
+          "rateOrder_restaurant": {
+            "first": 57932,
+            "laterMean": 57930.666666666664,
+            "min": 57920,
+            "max": 57932,
+            "calldataBytes": 100
+          }
+        },
+        "balances": {
+          "customer": {
+            "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+            "beforeWei": "431842868946701245",
+            "afterWei": "411829272234324181",
+            "differenceWei": "-20013596712377064"
+          },
+          "establishment (own wallet)": {
+            "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+            "beforeWei": "747939447127578477",
+            "afterWei": "737883588945520487",
+            "differenceWei": "-10055858182057990"
+          },
+          "establishment (one-time address)": {
+            "address": "0xF935c7f5923199eade0F31F76025eCAfaeeD0201",
+            "beforeWei": "0",
+            "afterWei": "5767660552501",
+            "differenceWei": "5767660552501"
+          },
+          "worker": {
+            "address": "0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2",
+            "beforeWei": "814952632435557168",
+            "afterWei": "824940298114739316",
+            "differenceWei": "9987665679182148"
+          }
+        },
+        "readbackFile": "readback-optimismSepolia-2026-10-14-privacy-table.json"
+      },
+      "no-privacy": {
+        "file": "no-privacy-2026-10-14T23-59-56-086Z.json",
+        "readAt": "2026-10-15T00:12:30.821Z",
+        "endpoint": "sepolia.optimism.io",
+        "transactions": 70,
+        "statusNot1": 0,
+        "cycles": 10,
+        "firstCycleGas": 910195,
+        "laterMeanGas": 893066.1111111111,
+        "laterMinGas": 893023,
+        "laterMaxGas": 893095,
+        "allCyclesMeanGas": 894779,
+        "totalGas": 8947790,
+        "gasUsedForL1Total": 0,
+        "calldataBytesPerCycle": 1084,
+        "feeLaterMeanWei": 893289380139.4445,
+        "feeAllWei": 8950026972500,
+        "l1FeeAllWei": 25000,
+        "prodL1GasUnitsLaterMean": 0,
+        "prodL1FeeWeiLaterMean": 9570494112.11111,
+        "production": {
+          "network": "chain 10",
+          "at": "2026-10-15T00:11:36.520Z",
+          "l1BaseFeeWei": "77428334",
+          "blobBaseFeeWei": "4371306",
+          "baseFeeScalar": "5227",
+          "blobBaseFeeScalar": "1014213"
+        },
+        "calls": {
+          "makeOrder": {
+            "first": 376106,
+            "laterMean": 376106,
+            "min": 376106,
+            "max": 376106,
+            "calldataBytes": 292
+          },
+          "prepareOrder": {
+            "first": 109991,
+            "laterMean": 109988.33333333333,
+            "min": 109979,
+            "max": 109991,
+            "calldataBytes": 36
+          },
+          "confirmIntention": {
+            "first": 106599,
+            "laterMean": 106596.33333333333,
+            "min": 106587,
+            "max": 106599,
+            "calldataBytes": 164
+          },
+          "pickupOrder": {
+            "first": 68434,
+            "laterMean": 68431.11111111111,
+            "min": 68415,
+            "max": 68451,
+            "calldataBytes": 196
+          },
+          "deliveryOrder": {
+            "first": 98947,
+            "laterMean": 98931.66666666667,
+            "min": 98918,
+            "max": 98947,
+            "calldataBytes": 196
+          },
+          "rateOrder_client": {
+            "first": 92152,
+            "laterMean": 75049.33333333333,
+            "min": 75040,
+            "max": 75052,
+            "calldataBytes": 100
+          },
+          "rateOrder_restaurant": {
+            "first": 57966,
+            "laterMean": 57963.333333333336,
+            "min": 57954,
+            "max": 57966,
+            "calldataBytes": 100
+          }
+        },
+        "balances": {
+          "customer": {
+            "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+            "beforeWei": "409828878930022120",
+            "afterWei": "389824349141849615",
+            "differenceWei": "-20004529788172505"
+          },
+          "establishment (own wallet)": {
+            "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+            "beforeWei": "737883588945520487",
+            "afterWei": "747881224518551822",
+            "differenceWei": "9997635573031335"
+          },
+          "worker": {
+            "address": "0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2",
+            "beforeWei": "824940298114739316",
+            "afterWei": "834938242302907986",
+            "differenceWei": "9997944188168670"
+          }
+        },
+        "readbackFile": "readback-optimismSepolia-2026-10-14-no-privacy-table.json"
+      }
+    },
+    "fuji": {
+      "privacy": {
+        "file": "privacy-2026-10-14T23-56-07-721Z.json",
+        "readAt": "2026-10-15T00:13:00.723Z",
+        "endpoint": "api.avax-test.network",
+        "transactions": 110,
+        "statusNot1": 0,
+        "cycles": 10,
+        "firstCycleGas": 4869446,
+        "laterMeanGas": 4835270.666666667,
+        "laterMinGas": 4825459,
+        "laterMaxGas": 4852947,
+        "allCyclesMeanGas": 4838688.2,
+        "totalGas": 48386882,
+        "gasUsedForL1Total": 0,
+        "calldataBytesPerCycle": 4044,
+        "feeLaterMeanWei": 773643306.6666666,
+        "feeAllWei": 7741901120,
+        "l1FeeAllWei": 0,
+        "prodL1GasUnitsLaterMean": 0,
+        "prodL1FeeWeiLaterMean": 0,
+        "production": null,
+        "calls": {
+          "stealthAnnounce": {
+            "first": 26245,
+            "laterMean": 26242.333333333332,
+            "min": 26233,
+            "max": 26245,
+            "calldataBytes": 228
+          },
+          "makeOrder": {
+            "first": 1230369,
+            "laterMean": 1213266.3333333333,
+            "min": 1213245,
+            "max": 1213269,
+            "calldataBytes": 1572
+          },
+          "poolDeposit": {
+            "first": 870403,
+            "laterMean": 858206,
+            "min": 853303,
+            "max": 874561,
+            "calldataBytes": 36
+          },
+          "poolWithdraw": {
+            "first": 1094694,
+            "laterMean": 1120517,
+            "min": 1117052,
+            "max": 1123289,
+            "calldataBytes": 452
+          },
+          "prepareOrder": {
+            "first": 137392,
+            "laterMean": 137388,
+            "min": 137380,
+            "max": 137392,
+            "calldataBytes": 132
+          },
+          "confirmIntention": {
+            "first": 230257,
+            "laterMean": 230255.66666666666,
+            "min": 230245,
+            "max": 230257,
+            "calldataBytes": 164
+          },
+          "addInformation": {
+            "first": 60130,
+            "laterMean": 60130,
+            "min": 60130,
+            "max": 60130,
+            "calldataBytes": 868
+          },
+          "pickupOrder": {
+            "first": 68770,
+            "laterMean": 68776,
+            "min": 68758,
+            "max": 68787,
+            "calldataBytes": 196
+          },
+          "deliveryOrder": {
+            "first": 1035297,
+            "laterMean": 1004603,
+            "min": 1001080,
+            "max": 1022355,
+            "calldataBytes": 196
+          },
+          "rateOrder_client": {
+            "first": 57957,
+            "laterMean": 57955.666666666664,
+            "min": 57945,
+            "max": 57957,
+            "calldataBytes": 100
+          },
+          "rateOrder_restaurant": {
+            "first": 57932,
+            "laterMean": 57930.666666666664,
+            "min": 57920,
+            "max": 57932,
+            "calldataBytes": 100
+          }
+        },
+        "balances": {
+          "customer": {
+            "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+            "beforeWei": "1147999996869791970",
+            "afterWei": "1127999994694903970",
+            "differenceWei": "-20000002174888000"
+          },
+          "establishment (own wallet)": {
+            "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+            "beforeWei": "1201999999538320224",
+            "afterWei": "1191999990603239104",
+            "differenceWei": "-10000008935081120"
+          },
+          "establishment (one-time address)": {
+            "address": "0x32fE53503d5376239d7fcf0A431164097cce85C5",
+            "beforeWei": "0",
+            "afterWei": "922593920",
+            "differenceWei": "922593920"
+          },
+          "worker": {
+            "address": "0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2",
+            "beforeWei": "1392999999630904928",
+            "afterWei": "1402999997650219808",
+            "differenceWei": "9999998019314880"
+          }
+        },
+        "readbackFile": "readback-fuji-2026-10-14-privacy-table.json"
+      },
+      "no-privacy": {
+        "file": "no-privacy-2026-10-15T00-03-44-811Z.json",
+        "readAt": "2026-10-15T00:13:16.019Z",
+        "endpoint": "api.avax-test.network",
+        "transactions": 70,
+        "statusNot1": 0,
+        "cycles": 10,
+        "firstCycleGas": 932078,
+        "laterMeanGas": 897892.1111111111,
+        "laterMinGas": 897866,
+        "laterMaxGas": 897912,
+        "allCyclesMeanGas": 901310.7,
+        "totalGas": 9013107,
+        "gasUsedForL1Total": 0,
+        "calldataBytesPerCycle": 1084,
+        "feeLaterMeanWei": 143662737.7777778,
+        "feeAllWei": 1442097120,
+        "l1FeeAllWei": 0,
+        "prodL1GasUnitsLaterMean": 0,
+        "prodL1FeeWeiLaterMean": 0,
+        "production": null,
+        "calls": {
+          "makeOrder": {
+            "first": 393206,
+            "laterMean": 376106,
+            "min": 376106,
+            "max": 376106,
+            "calldataBytes": 292
+          },
+          "prepareOrder": {
+            "first": 109991,
+            "laterMean": 109991,
+            "min": 109991,
+            "max": 109991,
+            "calldataBytes": 36
+          },
+          "confirmIntention": {
+            "first": 106599,
+            "laterMean": 106599,
+            "min": 106599,
+            "max": 106599,
+            "calldataBytes": 164
+          },
+          "pickupOrder": {
+            "first": 68434,
+            "laterMean": 68440,
+            "min": 68422,
+            "max": 68451,
+            "calldataBytes": 196
+          },
+          "deliveryOrder": {
+            "first": 103730,
+            "laterMean": 103738.11111111111,
+            "min": 103730,
+            "max": 103747,
+            "calldataBytes": 196
+          },
+          "rateOrder_client": {
+            "first": 92152,
+            "laterMean": 75052,
+            "min": 75052,
+            "max": 75052,
+            "calldataBytes": 100
+          },
+          "rateOrder_restaurant": {
+            "first": 57966,
+            "laterMean": 57966,
+            "min": 57966,
+            "max": 57966,
+            "calldataBytes": 100
+          }
+        },
+        "balances": {
+          "customer": {
+            "address": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+            "beforeWei": "1127999994694903970",
+            "afterWei": "1107999993967579170",
+            "differenceWei": "-20000000727324800"
+          },
+          "establishment (own wallet)": {
+            "address": "0xEd2794006D72C83E42B5B7253144359E0947b9E7",
+            "beforeWei": "1191999990603239104",
+            "afterWei": "1201999990225004864",
+            "differenceWei": "9999999621765760"
+          },
+          "worker": {
+            "address": "0xb89b76494aDE7C1180fFb4D23829c45D7deB8EE2",
+            "beforeWei": "1402999997650219808",
+            "afterWei": "1412999997313681728",
+            "differenceWei": "9999999663461920"
+          }
+        },
+        "readbackFile": "readback-fuji-2026-10-14-no-privacy-table.json"
+      }
+    }
+  },
+  "deployments": {
+    "arbitrumSepolia": {
+      "privacy": {
+        "file": "deployment.json",
+        "chainId": 421614,
+        "transactions": 9,
+        "totalGasUsed": 11989876,
+        "totalFeeWei": "240321342152000",
+        "deployBlock": 319238543,
+        "startedAt": "2026-10-14T23:30:21.783Z",
+        "completedAt": "2026-10-14T23:30:47.365Z",
+        "feeSettings": {
+          "maxFeePerGas": "100000000",
+          "maxPriorityFeePerGas": "0"
+        }
+      },
+      "no-privacy": {
+        "file": "deployment-no-privacy.json",
+        "chainId": 421614,
+        "transactions": 2,
+        "totalGasUsed": 4542448,
+        "totalFeeWei": "91228838362000",
+        "deployBlock": 319238570,
+        "startedAt": "2026-10-14T23:30:49.769Z",
+        "completedAt": "2026-10-14T23:30:55.775Z",
+        "feeSettings": {
+          "maxFeePerGas": "100000000",
+          "maxPriorityFeePerGas": "0"
+        }
+      }
+    },
+    "optimismSepolia": {
+      "privacy": {
+        "file": "deployment.json",
+        "chainId": 11155420,
+        "transactions": 9,
+        "totalGasUsed": 11989804,
+        "totalFeeWei": "11992801451000",
+        "deployBlock": 50109169,
+        "startedAt": "2026-10-14T23:34:27.747Z",
+        "completedAt": "2026-10-14T23:34:48.167Z",
+        "feeSettings": {
+          "maxFeePerGas": "10000000",
+          "maxPriorityFeePerGas": "1000000"
+        }
+      },
+      "no-privacy": {
+        "file": "deployment-no-privacy.json",
+        "chainId": 11155420,
+        "transactions": 2,
+        "totalGasUsed": 4542448,
+        "totalFeeWei": "4543583612000",
+        "deployBlock": 50109207,
+        "startedAt": "2026-10-14T23:35:58.953Z",
+        "completedAt": "2026-10-14T23:36:03.484Z",
+        "feeSettings": {
+          "maxFeePerGas": "10000000",
+          "maxPriorityFeePerGas": "1000000"
+        }
+      }
+    },
+    "fuji": {
+      "privacy": {
+        "file": "deployment.json",
+        "chainId": 43113,
+        "transactions": 9,
+        "totalGasUsed": 11989876,
+        "totalFeeWei": "1918380160",
+        "deployBlock": 59472434,
+        "startedAt": "2026-10-14T23:33:55.735Z",
+        "completedAt": "2026-10-14T23:34:22.374Z",
+        "feeSettings": {
+          "maxFeePerGas": "1000000",
+          "maxPriorityFeePerGas": "150"
+        }
+      },
+      "no-privacy": {
+        "file": "deployment-no-privacy.json",
+        "chainId": 43113,
+        "transactions": 2,
+        "totalGasUsed": 4542448,
+        "totalFeeWei": "726791680",
+        "deployBlock": 59472441,
+        "startedAt": "2026-10-14T23:34:24.603Z",
+        "completedAt": "2026-10-14T23:34:29.833Z",
+        "feeSettings": {
+          "maxFeePerGas": "1000000",
+          "maxPriorityFeePerGas": "150"
+        }
+      }
+    }
+  },
+  "runs": {
+    "arbitrumSepolia": {
+      "privacy": {
+        "file": "privacy-2026-10-14T23-47-41-283Z.json",
+        "startedAt": "2026-10-14T23:31:58.911Z",
+        "endedAt": "2026-10-14T23:47:40.841Z",
+        "endpoint": "https://sepolia-rollup.arbitrum.io",
+        "chainId": "421614",
+        "blocks": {
+          "first": 319238823,
+          "last": 319242218
+        },
+        "fees": "tip at least 0 gwei, maximum fee 0.1 gwei",
+        "orderTotalWei": "1000000000000000",
+        "iterations": 10,
+        "results": 150,
+        "failed": 0
+      },
+      "no-privacy": {
+        "file": "no-privacy-2026-10-14T23-54-59-595Z.json",
+        "startedAt": "2026-10-14T23:47:43.974Z",
+        "endedAt": "2026-10-14T23:54:59.584Z",
+        "endpoint": "https://sepolia-rollup.arbitrum.io",
+        "chainId": "421614",
+        "blocks": {
+          "first": 319242265,
+          "last": 319243828
+        },
+        "fees": "tip at least 0 gwei, maximum fee 0.1 gwei",
+        "orderTotalWei": "1000000000000000",
+        "iterations": 10,
+        "results": 70,
+        "failed": 0
+      }
+    },
+    "optimismSepolia": {
+      "privacy": {
+        "file": "privacy-2026-10-14T23-51-06-898Z.json",
+        "startedAt": "2026-10-14T23:36:55.692Z",
+        "endedAt": "2026-10-14T23:51:06.514Z",
+        "endpoint": "https://sepolia.optimism.io",
+        "chainId": "11155420",
+        "blocks": {
+          "first": 50109237,
+          "last": 50109655
+        },
+        "fees": "tip at least 0.001 gwei, maximum fee 0.01 gwei",
+        "orderTotalWei": "1000000000000000",
+        "iterations": 10,
+        "results": 150,
+        "failed": 0
+      },
+      "no-privacy": {
+        "file": "no-privacy-2026-10-14T23-59-56-086Z.json",
+        "startedAt": "2026-10-14T23:52:13.087Z",
+        "endedAt": "2026-10-14T23:59:56.076Z",
+        "endpoint": "https://optimism-sepolia-rpc.publicnode.com",
+        "chainId": "11155420",
+        "blocks": {
+          "first": 50109694,
+          "last": 50109921
+        },
+        "fees": "tip at least 0.001 gwei, maximum fee 0.01 gwei",
+        "orderTotalWei": "1000000000000000",
+        "iterations": 10,
+        "results": 70,
+        "failed": 0
+      }
+    },
+    "fuji": {
+      "privacy": {
+        "file": "privacy-2026-10-14T23-56-07-721Z.json",
+        "startedAt": "2026-10-14T23:35:26.177Z",
+        "endedAt": "2026-10-14T23:56:07.371Z",
+        "endpoint": "https://api.avax-test.network",
+        "chainId": "43113",
+        "blocks": {
+          "first": 59472480,
+          "last": 59473265
+        },
+        "fees": "tip at least 0.00000015 gwei, maximum fee 0.001 gwei",
+        "orderTotalWei": "1000000000000000",
+        "iterations": 10,
+        "results": 150,
+        "failed": 0
+      },
+      "no-privacy": {
+        "file": "no-privacy-2026-10-15T00-03-44-811Z.json",
+        "startedAt": "2026-10-14T23:56:09.902Z",
+        "endedAt": "2026-10-15T00:03:44.800Z",
+        "endpoint": "https://api.avax-test.network",
+        "chainId": "43113",
+        "blocks": {
+          "first": 59473275,
+          "last": 59473582
+        },
+        "fees": "tip at least 0.00000015 gwei, maximum fee 0.001 gwei",
+        "orderTotalWei": "1000000000000000",
+        "iterations": 10,
+        "results": 70,
+        "failed": 0
+      }
+    }
+  },
+  "daysRange": {
+    "ethereum": {
+      "readings": 9,
+      "firstAt": "2026-10-14T18:36:22.334Z",
+      "lastAt": "2026-10-15T00:07:46.804Z",
+      "instantaneousBaseFeeMinWei": 60426810,
+      "instantaneousBaseFeeMaxWei": 220733879,
+      "medianBaseFeeMinWei": 117972780,
+      "medianBaseFeeMaxWei": 320835605,
+      "medianTipMinWei": 20000000,
+      "medianTipMaxWei": 150000000,
+      "windowBaseFeeMinWei": 54579020,
+      "windowBaseFeeMaxWei": 1795528349,
+      "perReading": [
+        {
+          "file": "prices-readings-2026-10-14.json",
+          "at": "2026-10-14T18:36:22.334Z",
+          "block": 26192573,
+          "baseFeeWei": 220733879,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 320835605,
+          "medianTipWei": 150000000,
+          "windowMinWei": 185545516,
+          "windowMaxWei": 1795528349,
+          "oldestBlock": 26191551
+        },
+        {
+          "file": "prices-readings-2026-10-14-2315utc.json",
+          "at": "2026-10-14T23:17:49.307Z",
+          "block": 26193976,
+          "baseFeeWei": 70061012,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 129128496,
+          "medianTipWei": 31430121,
+          "windowMinWei": 55693862,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26192953
+        },
+        {
+          "file": "prices-before-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:29:38.486Z",
+          "block": 26194035,
+          "baseFeeWei": 88646528,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 130659287,
+          "medianTipWei": 29802639,
+          "windowMinWei": 55693862,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193012
+        },
+        {
+          "file": "prices-before-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:32:00.461Z",
+          "block": 26194047,
+          "baseFeeWei": 110407171,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 130311440,
+          "medianTipWei": 28750000,
+          "windowMinWei": 55693862,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193024
+        },
+        {
+          "file": "prices-before-fuji-2026-10-14.json",
+          "at": "2026-10-14T23:32:47.773Z",
+          "block": 26194051,
+          "baseFeeWei": 103440623,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 130311440,
+          "medianTipWei": 28750000,
+          "windowMinWei": 55693862,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193028
+        },
+        {
+          "file": "prices-after-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:55:08.034Z",
+          "block": 26194162,
+          "baseFeeWei": 60426810,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 122864890,
+          "medianTipWei": 20637992,
+          "windowMinWei": 54939578,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193139
+        },
+        {
+          "file": "prices-after-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-15T00:00:04.417Z",
+          "block": 26194187,
+          "baseFeeWei": 63894774,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 121459336,
+          "medianTipWei": 20524584,
+          "windowMinWei": 54579020,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193164
+        },
+        {
+          "file": "prices-after-fuji-2026-10-14.json",
+          "at": "2026-10-15T00:03:49.427Z",
+          "block": 26194206,
+          "baseFeeWei": 71838012,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 119826458,
+          "medianTipWei": 20210374,
+          "windowMinWei": 54579020,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193183
+        },
+        {
+          "file": "prices-table-2026-10-15.json",
+          "at": "2026-10-15T00:07:46.804Z",
+          "block": 26194226,
+          "baseFeeWei": 95811917,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 117972780,
+          "medianTipWei": 20000000,
+          "windowMinWei": 54579020,
+          "windowMaxWei": 378894992,
+          "oldestBlock": 26193203
+        }
+      ]
+    },
+    "arbitrumOne": {
+      "readings": 9,
+      "firstAt": "2026-10-14T18:36:25.430Z",
+      "lastAt": "2026-10-15T00:07:50.534Z",
+      "instantaneousBaseFeeMinWei": 20000000,
+      "instantaneousBaseFeeMaxWei": 20120000,
+      "medianBaseFeeMinWei": 20010000,
+      "medianBaseFeeMaxWei": 20020000,
+      "medianTipMinWei": 0,
+      "medianTipMaxWei": 0,
+      "windowBaseFeeMinWei": 20000000,
+      "windowBaseFeeMaxWei": 20962000,
+      "perReading": [
+        {
+          "file": "prices-readings-2026-10-14.json",
+          "at": "2026-10-14T18:36:25.430Z",
+          "block": 514824189,
+          "baseFeeWei": 20076000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20020000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20756000,
+          "oldestBlock": 514823167
+        },
+        {
+          "file": "prices-readings-2026-10-14-2315utc.json",
+          "at": "2026-10-14T23:17:55.223Z",
+          "block": 514884930,
+          "baseFeeWei": 20030000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20012000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20698000,
+          "oldestBlock": 514883909
+        },
+        {
+          "file": "prices-before-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:29:42.216Z",
+          "block": 514887412,
+          "baseFeeWei": 20000000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20012000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20582000,
+          "oldestBlock": 514886391
+        },
+        {
+          "file": "prices-before-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:32:04.566Z",
+          "block": 514887953,
+          "baseFeeWei": 20120000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20012000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20636000,
+          "oldestBlock": 514886932
+        },
+        {
+          "file": "prices-before-fuji-2026-10-14.json",
+          "at": "2026-10-14T23:32:51.483Z",
+          "block": 514888124,
+          "baseFeeWei": 20022000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20014000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20636000,
+          "oldestBlock": 514887104
+        },
+        {
+          "file": "prices-after-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:55:13.225Z",
+          "block": 514892825,
+          "baseFeeWei": 20020000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20010000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20642000,
+          "oldestBlock": 514891804
+        },
+        {
+          "file": "prices-after-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-15T00:00:07.573Z",
+          "block": 514893847,
+          "baseFeeWei": 20010000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20010000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20720000,
+          "oldestBlock": 514892826
+        },
+        {
+          "file": "prices-after-fuji-2026-10-14.json",
+          "at": "2026-10-15T00:03:53.079Z",
+          "block": 514894674,
+          "baseFeeWei": 20004000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20016000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20962000,
+          "oldestBlock": 514893653
+        },
+        {
+          "file": "prices-table-2026-10-15.json",
+          "at": "2026-10-15T00:07:50.534Z",
+          "block": 514895536,
+          "baseFeeWei": 20066000,
+          "suggestedTipWei": 0,
+          "medianBaseFeeWei": 20016000,
+          "medianTipWei": 0,
+          "windowMinWei": 20000000,
+          "windowMaxWei": 20962000,
+          "oldestBlock": 514894515
+        }
+      ]
+    },
+    "opMainnet": {
+      "readings": 9,
+      "firstAt": "2026-10-14T18:36:27.941Z",
+      "lastAt": "2026-10-15T00:07:53.162Z",
+      "instantaneousBaseFeeMinWei": 974,
+      "instantaneousBaseFeeMaxWei": 2415,
+      "medianBaseFeeMinWei": 987,
+      "medianBaseFeeMaxWei": 2607,
+      "medianTipMinWei": 710,
+      "medianTipMaxWei": 3000,
+      "windowBaseFeeMinWei": 965,
+      "windowBaseFeeMaxWei": 3040,
+      "perReading": [
+        {
+          "file": "prices-readings-2026-10-14.json",
+          "at": "2026-10-14T18:36:27.941Z",
+          "block": 158202101,
+          "baseFeeWei": 2415,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 2607,
+          "medianTipWei": 3000,
+          "windowMinWei": 2399,
+          "windowMaxWei": 3040,
+          "oldestBlock": 158201078
+        },
+        {
+          "file": "prices-readings-2026-10-14-2315utc.json",
+          "at": "2026-10-14T23:17:58.849Z",
+          "block": 158210546,
+          "baseFeeWei": 1143,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 1144,
+          "medianTipWei": 760,
+          "windowMinWei": 1088,
+          "windowMaxWei": 1220,
+          "oldestBlock": 158209524
+        },
+        {
+          "file": "prices-before-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:29:44.702Z",
+          "block": 158210899,
+          "baseFeeWei": 1003,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 1124,
+          "medianTipWei": 710,
+          "windowMinWei": 1003,
+          "windowMaxWei": 1189,
+          "oldestBlock": 158209876
+        },
+        {
+          "file": "prices-before-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:32:07.130Z",
+          "block": 158210970,
+          "baseFeeWei": 1006,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 1115,
+          "medianTipWei": 942,
+          "windowMinWei": 999,
+          "windowMaxWei": 1168,
+          "oldestBlock": 158209948
+        },
+        {
+          "file": "prices-before-fuji-2026-10-14.json",
+          "at": "2026-10-14T23:32:54.042Z",
+          "block": 158210994,
+          "baseFeeWei": 1001,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 1112,
+          "medianTipWei": 942,
+          "windowMinWei": 999,
+          "windowMaxWei": 1161,
+          "oldestBlock": 158209971
+        },
+        {
+          "file": "prices-after-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:55:16.052Z",
+          "block": 158211665,
+          "baseFeeWei": 981,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 990,
+          "medianTipWei": 1000,
+          "windowMinWei": 965,
+          "windowMaxWei": 1118,
+          "oldestBlock": 158210642
+        },
+        {
+          "file": "prices-after-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-15T00:00:10.257Z",
+          "block": 158211812,
+          "baseFeeWei": 1007,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 989,
+          "medianTipWei": 1191,
+          "windowMinWei": 965,
+          "windowMaxWei": 1047,
+          "oldestBlock": 158210789
+        },
+        {
+          "file": "prices-after-fuji-2026-10-14.json",
+          "at": "2026-10-15T00:03:55.615Z",
+          "block": 158211925,
+          "baseFeeWei": 974,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 988,
+          "medianTipWei": 1338,
+          "windowMinWei": 965,
+          "windowMaxWei": 1011,
+          "oldestBlock": 158210902
+        },
+        {
+          "file": "prices-table-2026-10-15.json",
+          "at": "2026-10-15T00:07:53.162Z",
+          "block": 158212043,
+          "baseFeeWei": 1074,
+          "suggestedTipWei": 1000000,
+          "medianBaseFeeWei": 987,
+          "medianTipWei": 1500,
+          "windowMinWei": 965,
+          "windowMaxWei": 1075,
+          "oldestBlock": 158211021
+        }
+      ]
+    },
+    "avalanche": {
+      "readings": 9,
+      "firstAt": "2026-10-14T18:36:33.482Z",
+      "lastAt": "2026-10-15T00:07:58.659Z",
+      "instantaneousBaseFeeMinWei": 5000000000,
+      "instantaneousBaseFeeMaxWei": 5063234803,
+      "medianBaseFeeMinWei": 5000000000,
+      "medianBaseFeeMaxWei": 5000000000,
+      "medianTipMinWei": 1300000000,
+      "medianTipMaxWei": 2000000000,
+      "windowBaseFeeMinWei": 4999037388,
+      "windowBaseFeeMaxWei": 5302472222,
+      "perReading": [
+        {
+          "file": "prices-readings-2026-10-14.json",
+          "at": "2026-10-14T18:36:33.482Z",
+          "block": 97551666,
+          "baseFeeWei": 5063234803,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1300000000,
+          "windowMinWei": 4999037388,
+          "windowMaxWei": 5148521378,
+          "oldestBlock": 97550643
+        },
+        {
+          "file": "prices-readings-2026-10-14-2315utc.json",
+          "at": "2026-10-14T23:18:04.577Z",
+          "block": 97567345,
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1500000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5286719016,
+          "oldestBlock": 97566323
+        },
+        {
+          "file": "prices-before-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:29:50.812Z",
+          "block": 97567939,
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1887367736,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5286719016,
+          "oldestBlock": 97566918
+        },
+        {
+          "file": "prices-before-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:32:13.152Z",
+          "block": 97568077,
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 2000000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5286719016,
+          "oldestBlock": 97567055
+        },
+        {
+          "file": "prices-before-fuji-2026-10-14.json",
+          "at": "2026-10-14T23:32:59.759Z",
+          "block": 97568111,
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 2000000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5286719016,
+          "oldestBlock": 97567089
+        },
+        {
+          "file": "prices-after-arbitrumSepolia-2026-10-14.json",
+          "at": "2026-10-14T23:55:21.798Z",
+          "block": 97569326,
+          "baseFeeWei": 5043884732,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1800000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5187959808,
+          "oldestBlock": 97568303
+        },
+        {
+          "file": "prices-after-optimismSepolia-2026-10-14.json",
+          "at": "2026-10-15T00:00:16.572Z",
+          "block": 97569599,
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1800000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5302472222,
+          "oldestBlock": 97568577
+        },
+        {
+          "file": "prices-after-fuji-2026-10-14.json",
+          "at": "2026-10-15T00:04:01.677Z",
+          "block": 97569860,
+          "baseFeeWei": 5047137491,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1500000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5302472222,
+          "oldestBlock": 97568837
+        },
+        {
+          "file": "prices-table-2026-10-15.json",
+          "at": "2026-10-15T00:07:58.659Z",
+          "block": 97570126,
+          "baseFeeWei": 5000000000,
+          "suggestedTipWei": 150,
+          "medianBaseFeeWei": 5000000000,
+          "medianTipWei": 1500000000,
+          "windowMinWei": 5000000000,
+          "windowMaxWei": 5302472222,
+          "oldestBlock": 97569103
+        }
+      ]
+    }
+  },
+  "markdown": "| Network (measured on) | Gas per cycle, privacy / baseline | Price per gas (gwei): median base fee + median tip | Instantaneous base fee + suggested tip (gwei) | L1 data per cycle (USD) | Rate (USD) | Cost per cycle (USD), privacy / baseline | Share of 25 USD | Ratio to Ethereum | With cash-out (USD; share) |\n|---|---:|---|---|---:|---:|---:|---:|---:|---:|\n| Ethereum (Hoodi) | 4,833,322 / 893,072 | 0.1380 = 0.1180 + 0.0200 | 0.0958 + 0.00 | — | 2421.375 per ETH | 1.61 / 0.3 | 6.46 % | 1.0 | 2.86; 11.46 % |\n| Arbitrum One (Arbitrum Sepolia) | 4,830,503 / 893,077 | 0.0200 = 0.0200 + 0.00 | 0.0201 + 0.00 | 0.00027 | 2421.375 per ETH | 0.23 / 0.043 | 0.94 % | 0.15 | 0.42; 1.66 % |\n| OP Mainnet (OP Sepolia) | 4,830,506 / 893,066 | 0.00000249 = 9.87e-7 + 0.00000150 | 0.00000107 + 0.00100 | 0.000083 | 2421.375 per ETH | 0.00011 / 0.000029 | 0.00045 % | 0.000069 | 0.00013; 0.00054 % |\n| Avalanche C-Chain (Avalanche Fuji) | 4,835,271 / 897,892 | 6.50 = 5.00 + 1.50 | 5.00 + 1.50e-7 | — | 10.0145 per AVAX | 0.31 / 0.058 | 1.26 % | 0.19 | 0.56; 2.23 % |"
+}

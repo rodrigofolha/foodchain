@@ -1,0 +1,1677 @@
+{
+  "generatedAt": "2026-10-12T22:44:59.138Z",
+  "script": "benchmarking/benchmark-hardhat.cjs",
+  "env": {
+    "network": "hardhat",
+    "hardhatVersion": "2.28.6",
+    "hardfork": "osaka",
+    "chainId": "31337",
+    "blockGasLimit": "60000000",
+    "node": "v20.20.2"
+  },
+  "settings": {
+    "iterations": 10,
+    "warmupNotes": 0,
+    "warmupDeliveries": 0,
+    "noteStartIndex": 33554368,
+    "endingOrders": 3,
+    "plainOrderChars": 113,
+    "totalPriceWei": "10000000000000000",
+    "deliveryFeeWei": "1000000000000000",
+    "poolDepositWei": "20000000000000000",
+    "cashoutDenominationWei": "10000000000000000",
+    "denominationWei": "1000000000000000",
+    "orderGasBudget": "3150000",
+    "oneTimeGasMarginPercent": "120",
+    "scores": {
+      "client": 4,
+      "restaurant": 5
+    },
+    "payloadChars": {
+      "makeOrder": {
+        "establishment": 612,
+        "client": 508
+      },
+      "addInformation": {
+        "first": 492,
+        "second": 177
+      }
+    }
+  },
+  "deployGas": {
+    "privacy": [
+      {
+        "label": "Poseidon",
+        "gasUsed": 2157126
+      },
+      {
+        "label": "MergeWithdrawVerifier",
+        "gasUsed": 450071
+      },
+      {
+        "label": "GlobalReputation",
+        "gasUsed": 3721625
+      },
+      {
+        "label": "Util",
+        "gasUsed": 882183
+      },
+      {
+        "label": "Storage",
+        "gasUsed": 489610
+      },
+      {
+        "label": "Chain (with the Order implementation)",
+        "gasUsed": 4049292
+      },
+      {
+        "label": "GlobalReputation.setChain",
+        "gasUsed": 44156
+      },
+      {
+        "label": "Storage.setChain",
+        "gasUsed": 44088
+      },
+      {
+        "label": "StealthAnnouncer",
+        "gasUsed": 151293
+      }
+    ],
+    "noPrivacy": [
+      {
+        "label": "No_Util",
+        "gasUsed": 882183
+      },
+      {
+        "label": "No_Chain",
+        "gasUsed": 3660265
+      }
+    ]
+  },
+  "privacy": {
+    "operations": {
+      "stealthDerivation": {
+        "unit": "ms",
+        "perIteration": [
+          40.40534899999989,
+          11.186722000000373,
+          9.83974599999965,
+          9.441575999999259,
+          9.578638999999384,
+          9.98920299999918,
+          9.232782999999472,
+          9.747930999998061,
+          9.52925999999934,
+          8.395704999998998
+        ],
+        "first": 40.40534899999989,
+        "later": {
+          "mean": 9.66017388888819,
+          "median": 9.578638999999384,
+          "stddev": 0.6937556974299466,
+          "min": 8.395704999998998,
+          "max": 11.186722000000373,
+          "n": 9
+        },
+        "all": {
+          "mean": 12.73469139999936,
+          "median": 9.663284999998723,
+          "stddev": 9.247004304427888,
+          "min": 8.395704999998998,
+          "max": 40.40534899999989,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 12.73469139999936,
+          "median": 9.663284999998723,
+          "stddev": 9.247004304427888,
+          "min": 8.395704999998998,
+          "max": 40.40534899999989,
+          "n": 10
+        }
+      },
+      "stealthAnnounce": {
+        "unit": "gas",
+        "perIteration": [
+          26245,
+          26245,
+          26233,
+          26245,
+          26245,
+          26245,
+          26245,
+          26245,
+          26245,
+          26245
+        ],
+        "first": 26245,
+        "later": {
+          "mean": 26243.666666666668,
+          "median": 26245,
+          "stddev": 3.7712361663282534,
+          "min": 26233,
+          "max": 26245,
+          "n": 9
+        },
+        "all": {
+          "mean": 26243.8,
+          "median": 26245,
+          "stddev": 3.6000000000000005,
+          "min": 26233,
+          "max": 26245,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2.5104685999996716,
+          "median": 2.2841739999985293,
+          "stddev": 0.606310422300894,
+          "min": 2.142510999998194,
+          "max": 4.282429999999977,
+          "n": 10
+        }
+      },
+      "makeOrder": {
+        "unit": "gas",
+        "perIteration": [
+          1230393,
+          1213293,
+          1213293,
+          1213293,
+          1213293,
+          1213293,
+          1213293,
+          1213293,
+          1213293,
+          1213293
+        ],
+        "first": 1230393,
+        "later": {
+          "mean": 1213293,
+          "median": 1213293,
+          "stddev": 0,
+          "min": 1213293,
+          "max": 1213293,
+          "n": 9
+        },
+        "all": {
+          "mean": 1215003,
+          "median": 1213293,
+          "stddev": 5130,
+          "min": 1213293,
+          "max": 1230393,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 7.015601800000695,
+          "median": 6.975704500000575,
+          "stddev": 0.5516047526820066,
+          "min": 6.098253000000113,
+          "max": 8.249252999999953,
+          "n": 10
+        }
+      },
+      "poolDeposit": {
+        "unit": "gas",
+        "perIteration": [
+          892804,
+          892804,
+          896962,
+          894883,
+          896962,
+          892804,
+          896962,
+          896962,
+          896962,
+          896962
+        ],
+        "first": 892804,
+        "later": {
+          "mean": 895807,
+          "median": 896962,
+          "stddev": 1728.645712689561,
+          "min": 892804,
+          "max": 896962,
+          "n": 9
+        },
+        "all": {
+          "mean": 895506.7,
+          "median": 896962,
+          "stddev": 1871.1,
+          "min": 892804,
+          "max": 896962,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 12.206379400000447,
+          "median": 12.333692999999585,
+          "stddev": 1.2111513259154447,
+          "min": 9.9620010000001,
+          "max": 14.128442000001087,
+          "n": 10
+        }
+      },
+      "zkProof_mergeWithdraw": {
+        "unit": "ms",
+        "perIteration": [
+          3289.0005499999997,
+          1842.8227820000002,
+          2130.991073,
+          1893.9313090000014,
+          2081.1004790000006,
+          2266.181606,
+          2330.166600999997,
+          1790.206385999998,
+          1908.372723999997,
+          2002.1882069999992
+        ],
+        "first": 3289.0005499999997,
+        "later": {
+          "mean": 2027.329018555555,
+          "median": 2002.1882069999992,
+          "stddev": 178.02797997704766,
+          "min": 1790.206385999998,
+          "max": 2330.166600999997,
+          "n": 9
+        },
+        "all": {
+          "mean": 2153.4961716999996,
+          "median": 2041.644343,
+          "stddev": 414.47306339785297,
+          "min": 1790.206385999998,
+          "max": 3289.0005499999997,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2153.4961716999996,
+          "median": 2041.644343,
+          "stddev": 414.47306339785297,
+          "min": 1790.206385999998,
+          "max": 3289.0005499999997,
+          "n": 10
+        }
+      },
+      "poolWithdraw": {
+        "unit": "gas",
+        "perIteration": [
+          1156565,
+          1158620,
+          1156565,
+          1160735,
+          1160711,
+          1158668,
+          1158656,
+          1162814,
+          1160735,
+          1162802
+        ],
+        "first": 1156565,
+        "later": {
+          "mean": 1160034,
+          "median": 1160711,
+          "stddev": 1961.5626423848921,
+          "min": 1156565,
+          "max": 1162814,
+          "n": 9
+        },
+        "all": {
+          "mean": 1159687.1,
+          "median": 1159689.5,
+          "stddev": 2132.137821530306,
+          "min": 1156565,
+          "max": 1162814,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 164.0629633999989,
+          "median": 139.9257624999991,
+          "stddev": 37.17138565545398,
+          "min": 129.099084999998,
+          "max": 236.4901919999993,
+          "n": 10
+        }
+      },
+      "prepareOrder": {
+        "unit": "gas",
+        "perIteration": [
+          137392,
+          137392,
+          137392,
+          137392,
+          137392,
+          137380,
+          137392,
+          137392,
+          137392,
+          137392
+        ],
+        "first": 137392,
+        "later": {
+          "mean": 137390.66666666666,
+          "median": 137392,
+          "stddev": 3.7712361663282534,
+          "min": 137380,
+          "max": 137392,
+          "n": 9
+        },
+        "all": {
+          "mean": 137390.8,
+          "median": 137392,
+          "stddev": 3.6,
+          "min": 137380,
+          "max": 137392,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 9.56050550000018,
+          "median": 9.48670299999958,
+          "stddev": 0.8722862776301958,
+          "min": 8.233823999999004,
+          "max": 10.667574000002787,
+          "n": 10
+        }
+      },
+      "confirmIntention": {
+        "unit": "gas",
+        "perIteration": [
+          230245,
+          230245,
+          230245,
+          230245,
+          230245,
+          230245,
+          230245,
+          230245,
+          230245,
+          230245
+        ],
+        "first": 230245,
+        "later": {
+          "mean": 230245,
+          "median": 230245,
+          "stddev": 0,
+          "min": 230245,
+          "max": 230245,
+          "n": 9
+        },
+        "all": {
+          "mean": 230245,
+          "median": 230245,
+          "stddev": 0,
+          "min": 230245,
+          "max": 230245,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 4.551933699999518,
+          "median": 2.5973030000004655,
+          "stddev": 5.695679858832562,
+          "min": 2.3959990000003017,
+          "max": 21.62684199999967,
+          "n": 10
+        }
+      },
+      "sealDetails": {
+        "unit": "ms",
+        "perIteration": [
+          10.92527599999994,
+          2.204914999999346,
+          2.1727409999984957,
+          2.003731999999218,
+          2.0260030000008555,
+          1.8780469999983325,
+          1.8879850000012084,
+          1.9376589999992575,
+          2.1627880000014557,
+          1.8028850000009697
+        ],
+        "first": 10.92527599999994,
+        "later": {
+          "mean": 2.0085283333332375,
+          "median": 2.003731999999218,
+          "stddev": 0.13683958686383518,
+          "min": 1.8028850000009697,
+          "max": 2.204914999999346,
+          "n": 9
+        },
+        "all": {
+          "mean": 2.9002030999999078,
+          "median": 2.0148675000000367,
+          "stddev": 2.6781724311310326,
+          "min": 1.8028850000009697,
+          "max": 10.92527599999994,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2.9002030999999078,
+          "median": 2.0148675000000367,
+          "stddev": 2.6781724311310326,
+          "min": 1.8028850000009697,
+          "max": 10.92527599999994,
+          "n": 10
+        }
+      },
+      "addInformation": {
+        "unit": "gas",
+        "perIteration": [
+          60130,
+          60130,
+          60130,
+          60130,
+          60130,
+          60130,
+          60130,
+          60130,
+          60130,
+          60130
+        ],
+        "first": 60130,
+        "later": {
+          "mean": 60130,
+          "median": 60130,
+          "stddev": 0,
+          "min": 60130,
+          "max": 60130,
+          "n": 9
+        },
+        "all": {
+          "mean": 60130,
+          "median": 60130,
+          "stddev": 0,
+          "min": 60130,
+          "max": 60130,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2.588968499999646,
+          "median": 2.3719334999996136,
+          "stddev": 0.5620863503630772,
+          "min": 1.9518449999995937,
+          "max": 3.6115700000009383,
+          "n": 10
+        }
+      },
+      "openDetails": {
+        "unit": "ms",
+        "perIteration": [
+          3.0777369999996154,
+          2.8771569999998974,
+          3.9784700000000157,
+          3.14730100000088,
+          3.708654000000024,
+          3.0889290000013716,
+          3.0290749999985565,
+          2.844781999996485,
+          2.6230189999987488,
+          2.932820999998512
+        ],
+        "first": 3.0777369999996154,
+        "later": {
+          "mean": 3.136689777777166,
+          "median": 3.0290749999985565,
+          "stddev": 0.4092946784573847,
+          "min": 2.6230189999987488,
+          "max": 3.9784700000000157,
+          "n": 9
+        },
+        "all": {
+          "mean": 3.1307944999994106,
+          "median": 3.053405999999086,
+          "stddev": 0.38869359286316074,
+          "min": 2.6230189999987488,
+          "max": 3.9784700000000157,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 3.1307944999994106,
+          "median": 3.053405999999086,
+          "stddev": 0.38869359286316074,
+          "min": 2.6230189999987488,
+          "max": 3.9784700000000157,
+          "n": 10
+        }
+      },
+      "pickupOrder": {
+        "unit": "gas",
+        "perIteration": [
+          68770,
+          68787,
+          68770,
+          68787,
+          68770,
+          68770,
+          68787,
+          68770,
+          68770,
+          68770
+        ],
+        "first": 68770,
+        "later": {
+          "mean": 68775.66666666667,
+          "median": 68770,
+          "stddev": 8.013876853447538,
+          "min": 68770,
+          "max": 68787,
+          "n": 9
+        },
+        "all": {
+          "mean": 68775.1,
+          "median": 68770,
+          "stddev": 7.790378681424927,
+          "min": 68770,
+          "max": 68787,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 9.49639240000015,
+          "median": 9.506873000002088,
+          "stddev": 0.639470043735327,
+          "min": 8.622298000000228,
+          "max": 10.772659000000203,
+          "n": 10
+        }
+      },
+      "deliveryOrder": {
+        "unit": "gas",
+        "perIteration": [
+          1052898,
+          1035798,
+          1035798,
+          1035786,
+          1039939,
+          1035798,
+          1037860,
+          1035786,
+          1039927,
+          1039956
+        ],
+        "first": 1052898,
+        "later": {
+          "mean": 1037405.3333333334,
+          "median": 1035798,
+          "stddev": 1899.8811073912552,
+          "min": 1035786,
+          "max": 1039956,
+          "n": 9
+        },
+        "all": {
+          "mean": 1038954.6,
+          "median": 1036829,
+          "stddev": 4985.041448172723,
+          "min": 1035786,
+          "max": 1052898,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 13.206968099999903,
+          "median": 12.184056999999484,
+          "stddev": 2.1462128202914994,
+          "min": 11.280480000001262,
+          "max": 17.906495999999606,
+          "n": 10
+        }
+      },
+      "rateOrder_client": {
+        "unit": "gas",
+        "perIteration": [
+          57957,
+          57957,
+          57957,
+          57957,
+          57957,
+          57957,
+          57957,
+          57957,
+          57957,
+          57957
+        ],
+        "first": 57957,
+        "later": {
+          "mean": 57957,
+          "median": 57957,
+          "stddev": 0,
+          "min": 57957,
+          "max": 57957,
+          "n": 9
+        },
+        "all": {
+          "mean": 57957,
+          "median": 57957,
+          "stddev": 0,
+          "min": 57957,
+          "max": 57957,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2.0721023999997668,
+          "median": 2.015573000000586,
+          "stddev": 0.1968826105024845,
+          "min": 1.8230810000004567,
+          "max": 2.446130999998786,
+          "n": 10
+        }
+      },
+      "rateOrder_restaurant": {
+        "unit": "gas",
+        "perIteration": [
+          57932,
+          57932,
+          57932,
+          57932,
+          57932,
+          57932,
+          57932,
+          57932,
+          57932,
+          57932
+        ],
+        "first": 57932,
+        "later": {
+          "mean": 57932,
+          "median": 57932,
+          "stddev": 0,
+          "min": 57932,
+          "max": 57932,
+          "n": 9
+        },
+        "all": {
+          "mean": 57932,
+          "median": 57932,
+          "stddev": 0,
+          "min": 57932,
+          "max": 57932,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 8.587667199999851,
+          "median": 8.303370999998151,
+          "stddev": 0.7702615471194353,
+          "min": 7.603514000000359,
+          "max": 10.054683000000296,
+          "n": 10
+        }
+      }
+    },
+    "cycleGas": {
+      "first": 4971331,
+      "later": {
+        "mean": 4945213.333333333,
+        "median": 4945459,
+        "stddev": 4426.016267480272,
+        "min": 4939203,
+        "max": 4951684,
+        "n": 9
+      },
+      "all": {
+        "mean": 4947825.1,
+        "median": 4946492.5,
+        "stddev": 8889.464780851544,
+        "min": 4939203,
+        "max": 4971331,
+        "n": 10
+      }
+    },
+    "cycleGasWithoutPoolDeposit": {
+      "first": 4078527,
+      "later": {
+        "mean": 4049406.3333333335,
+        "median": 4048502,
+        "stddev": 3262.453984349818,
+        "min": 4044315,
+        "max": 4054722,
+        "n": 9
+      },
+      "all": {
+        "mean": 4052318.4,
+        "median": 4049533,
+        "stddev": 9268.248801149008,
+        "min": 4044315,
+        "max": 4078527,
+        "n": 10
+      }
+    }
+  },
+  "noPrivacy": {
+    "payload": "items and delivery address",
+    "payloadChars": 113,
+    "operations": {
+      "makeOrder": {
+        "unit": "gas",
+        "perIteration": [
+          393194,
+          376094,
+          376094,
+          376094,
+          376094,
+          376094,
+          376094,
+          376094,
+          376094,
+          376094
+        ],
+        "first": 393194,
+        "later": {
+          "mean": 376094,
+          "median": 376094,
+          "stddev": 0,
+          "min": 376094,
+          "max": 376094,
+          "n": 9
+        },
+        "all": {
+          "mean": 377804,
+          "median": 376094,
+          "stddev": 5130,
+          "min": 376094,
+          "max": 393194,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 1.9951657000001433,
+          "median": 1.8870820000011008,
+          "stddev": 0.3037940284835914,
+          "min": 1.638477000000421,
+          "max": 2.616610999997647,
+          "n": 10
+        }
+      },
+      "prepareOrder": {
+        "unit": "gas",
+        "perIteration": [
+          109991,
+          109991,
+          109991,
+          109991,
+          109991,
+          109991,
+          109979,
+          109991,
+          109991,
+          109991
+        ],
+        "first": 109991,
+        "later": {
+          "mean": 109989.66666666667,
+          "median": 109991,
+          "stddev": 3.7712361663282534,
+          "min": 109979,
+          "max": 109991,
+          "n": 9
+        },
+        "all": {
+          "mean": 109989.8,
+          "median": 109991,
+          "stddev": 3.6,
+          "min": 109979,
+          "max": 109991,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 1.7068794000002527,
+          "median": 1.6164745000005496,
+          "stddev": 0.30882855369032697,
+          "min": 1.4406989999988582,
+          "max": 2.5922969999992347,
+          "n": 10
+        }
+      },
+      "confirmIntention": {
+        "unit": "gas",
+        "perIteration": [
+          106599,
+          106599,
+          106599,
+          106599,
+          106599,
+          106599,
+          106587,
+          106599,
+          106599,
+          106599
+        ],
+        "first": 106599,
+        "later": {
+          "mean": 106597.66666666667,
+          "median": 106599,
+          "stddev": 3.7712361663282534,
+          "min": 106587,
+          "max": 106599,
+          "n": 9
+        },
+        "all": {
+          "mean": 106597.8,
+          "median": 106599,
+          "stddev": 3.6,
+          "min": 106587,
+          "max": 106599,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2.0835791999998037,
+          "median": 2.0964659999990545,
+          "stddev": 0.23190784557887603,
+          "min": 1.817721999999776,
+          "max": 2.46250499999951,
+          "n": 10
+        }
+      },
+      "pickupOrder": {
+        "unit": "gas",
+        "perIteration": [
+          68434,
+          68451,
+          68451,
+          68434,
+          68434,
+          68422,
+          68422,
+          68439,
+          68451,
+          68434
+        ],
+        "first": 68434,
+        "later": {
+          "mean": 68437.55555555556,
+          "median": 68434,
+          "stddev": 10.884352796674184,
+          "min": 68422,
+          "max": 68451,
+          "n": 9
+        },
+        "all": {
+          "mean": 68437.2,
+          "median": 68434,
+          "stddev": 10.380751417888783,
+          "min": 68422,
+          "max": 68451,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 2.9374393999994934,
+          "median": 2.938543500000378,
+          "stddev": 0.17668481064274136,
+          "min": 2.6171880000001693,
+          "max": 3.34887499999968,
+          "n": 10
+        }
+      },
+      "deliveryOrder": {
+        "unit": "gas",
+        "perIteration": [
+          98947,
+          98947,
+          98947,
+          98930,
+          98947,
+          98947,
+          98918,
+          98930,
+          98930,
+          98947
+        ],
+        "first": 98947,
+        "later": {
+          "mean": 98938.11111111111,
+          "median": 98947,
+          "stddev": 10.524515765524106,
+          "min": 98918,
+          "max": 98947,
+          "n": 9
+        },
+        "all": {
+          "mean": 98939,
+          "median": 98947,
+          "stddev": 10.334408546211051,
+          "min": 98918,
+          "max": 98947,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 3.013321999999971,
+          "median": 2.8957135000000562,
+          "stddev": 0.3961826868528795,
+          "min": 2.5601449999994657,
+          "max": 3.680295999998634,
+          "n": 10
+        }
+      },
+      "rateOrder_client": {
+        "unit": "gas",
+        "perIteration": [
+          92152,
+          75052,
+          75052,
+          75052,
+          75052,
+          75052,
+          75040,
+          75052,
+          75052,
+          75052
+        ],
+        "first": 92152,
+        "later": {
+          "mean": 75050.66666666667,
+          "median": 75052,
+          "stddev": 3.7712361663282534,
+          "min": 75040,
+          "max": 75052,
+          "n": 9
+        },
+        "all": {
+          "mean": 76760.8,
+          "median": 75052,
+          "stddev": 5130.401247465932,
+          "min": 75040,
+          "max": 92152,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 1.8782002999989345,
+          "median": 1.807944000000134,
+          "stddev": 0.24941137939287222,
+          "min": 1.613216999998258,
+          "max": 2.547817999999097,
+          "n": 10
+        }
+      },
+      "rateOrder_restaurant": {
+        "unit": "gas",
+        "perIteration": [
+          57966,
+          57966,
+          57966,
+          57966,
+          57966,
+          57966,
+          57954,
+          57966,
+          57966,
+          57966
+        ],
+        "first": 57966,
+        "later": {
+          "mean": 57964.666666666664,
+          "median": 57966,
+          "stddev": 3.771236166328254,
+          "min": 57954,
+          "max": 57966,
+          "n": 9
+        },
+        "all": {
+          "mean": 57964.8,
+          "median": 57966,
+          "stddev": 3.6,
+          "min": 57954,
+          "max": 57966,
+          "n": 10
+        },
+        "latencyMs": {
+          "mean": 1.7367772000001422,
+          "median": 1.6976845000008325,
+          "stddev": 0.1290024229212215,
+          "min": 1.5715210000016668,
+          "max": 2.004140000000916,
+          "n": 10
+        }
+      }
+    },
+    "cycleGas": {
+      "first": 927283,
+      "later": {
+        "mean": 893072.3333333334,
+        "median": 893083,
+        "stddev": 29.91097903223274,
+        "min": 892994,
+        "max": 893100,
+        "n": 9
+      },
+      "all": {
+        "mean": 896493.4,
+        "median": 893083,
+        "stddev": 10263.239227456408,
+        "min": 892994,
+        "max": 927283,
+        "n": 10
+      }
+    }
+  },
+  "noPrivacyItemsOnly": null,
+  "variants": {},
+  "endings": [],
+  "paths": [
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "makeOrder",
+      "gasUsed": 1213293,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "prepareOrder",
+      "gasUsed": 137380,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "confirmIntention_first",
+      "gasUsed": 230245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "addInformation_first",
+      "gasUsed": 60130,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "leave_beforePickup (first worker's cancelOrder in WAITING)",
+      "gasUsed": 111877,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "rateOrder_restaurant, worker who left before pickup",
+      "gasUsed": 58487,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "confirmIntention_second",
+      "gasUsed": 139936,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "addInformation_second",
+      "gasUsed": 60141,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "pickupOrder_second",
+      "gasUsed": 68775,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "deliveryOrder_second",
+      "gasUsed": 1059118,
+      "noteLeafIndex": 33554399
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "rateOrder_client, second worker",
+      "gasUsed": 57957,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 1,
+      "label": "rateOrder_restaurant, second worker",
+      "gasUsed": 57932,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "makeOrder",
+      "gasUsed": 1213293,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "prepareOrder",
+      "gasUsed": 137392,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "confirmIntention_first",
+      "gasUsed": 230245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "addInformation_first",
+      "gasUsed": 60130,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "replacement (callSecondDeliveryman)",
+      "gasUsed": 100617,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "rateOrder_restaurant, replaced worker",
+      "gasUsed": 58487,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "confirmIntention_second",
+      "gasUsed": 139936,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "addInformation_second",
+      "gasUsed": 60141,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "pickupOrder_second",
+      "gasUsed": 68775,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "leave_afterPickup (second worker's cancelOrder in DISPATCHED)",
+      "gasUsed": 1055076,
+      "noteLeafIndex": 33554400
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "rateOrder_client, worker who left after pickup",
+      "gasUsed": 58512,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 1,
+      "label": "rateOrder_restaurant, worker who left after pickup",
+      "gasUsed": 58487,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "makeOrder",
+      "gasUsed": 1213293,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "prepareOrder",
+      "gasUsed": 137392,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "confirmIntention_first",
+      "gasUsed": 230245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "addInformation_first",
+      "gasUsed": 60130,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "leave_beforePickup (first worker's cancelOrder in WAITING)",
+      "gasUsed": 94777,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "rateOrder_restaurant, worker who left before pickup",
+      "gasUsed": 58487,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "confirmIntention_second",
+      "gasUsed": 139936,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "addInformation_second",
+      "gasUsed": 60141,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "pickupOrder_second",
+      "gasUsed": 68770,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "deliveryOrder_second",
+      "gasUsed": 1035781,
+      "noteLeafIndex": 33554401
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "rateOrder_client, second worker",
+      "gasUsed": 57957,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "leaving",
+      "run": 2,
+      "label": "rateOrder_restaurant, second worker",
+      "gasUsed": 57932,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "stealthAnnounce",
+      "gasUsed": 26245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "makeOrder",
+      "gasUsed": 1213293,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "prepareOrder",
+      "gasUsed": 137380,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "confirmIntention_first",
+      "gasUsed": 230245,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "addInformation_first",
+      "gasUsed": 60130,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "replacement (callSecondDeliveryman)",
+      "gasUsed": 83517,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "rateOrder_restaurant, replaced worker",
+      "gasUsed": 58487,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "confirmIntention_second",
+      "gasUsed": 139936,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "addInformation_second",
+      "gasUsed": 60141,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "pickupOrder_second",
+      "gasUsed": 68770,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "leave_afterPickup (second worker's cancelOrder in DISPATCHED)",
+      "gasUsed": 1040055,
+      "noteLeafIndex": 33554402
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "rateOrder_client, worker who left after pickup",
+      "gasUsed": 58512,
+      "noteLeafIndex": null
+    },
+    {
+      "path": "replacement",
+      "run": 2,
+      "label": "rateOrder_restaurant, worker who left after pickup",
+      "gasUsed": 58487,
+      "noteLeafIndex": null
+    }
+  ],
+  "cashouts": [
+    {
+      "name": "all unspent notes (the policy)",
+      "notes": "one note + dummy",
+      "gasUsed": 1138329,
+      "gasLimit": "1376666",
+      "proofMs": 1499.9281230000015,
+      "changeLeafIndex": 33554403,
+      "proofParts": {
+        "treeMs": 721.5314049999979,
+        "proveMs": 778.0621100000026
+      }
+    },
+    {
+      "name": "revenue notes only",
+      "notes": "two notes",
+      "gasUsed": 1158584,
+      "gasLimit": "1401162",
+      "proofMs": 2235.2725260000007,
+      "changeLeafIndex": 33554404,
+      "proofParts": {
+        "treeMs": 1441.8786160000018,
+        "proveMs": 793.0927909999991
+      }
+    }
+  ],
+  "noteLeaves": {
+    "beforeCycles": 33554369,
+    "afterCycles": 33554399
+  },
+  "noteIndices": [
+    {
+      "iteration": 1,
+      "operation": "poolDeposit",
+      "leafIndex": 33554369,
+      "gasUsed": 892804
+    },
+    {
+      "iteration": 1,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554370,
+      "gasUsed": 1156565
+    },
+    {
+      "iteration": 1,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554371,
+      "gasUsed": 1052898
+    },
+    {
+      "iteration": 2,
+      "operation": "poolDeposit",
+      "leafIndex": 33554372,
+      "gasUsed": 892804
+    },
+    {
+      "iteration": 2,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554373,
+      "gasUsed": 1158620
+    },
+    {
+      "iteration": 2,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554374,
+      "gasUsed": 1035798
+    },
+    {
+      "iteration": 3,
+      "operation": "poolDeposit",
+      "leafIndex": 33554375,
+      "gasUsed": 896962
+    },
+    {
+      "iteration": 3,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554376,
+      "gasUsed": 1156565
+    },
+    {
+      "iteration": 3,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554377,
+      "gasUsed": 1035798
+    },
+    {
+      "iteration": 4,
+      "operation": "poolDeposit",
+      "leafIndex": 33554378,
+      "gasUsed": 894883
+    },
+    {
+      "iteration": 4,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554379,
+      "gasUsed": 1160735
+    },
+    {
+      "iteration": 4,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554380,
+      "gasUsed": 1035786
+    },
+    {
+      "iteration": 5,
+      "operation": "poolDeposit",
+      "leafIndex": 33554381,
+      "gasUsed": 896962
+    },
+    {
+      "iteration": 5,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554382,
+      "gasUsed": 1160711
+    },
+    {
+      "iteration": 5,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554383,
+      "gasUsed": 1039939
+    },
+    {
+      "iteration": 6,
+      "operation": "poolDeposit",
+      "leafIndex": 33554384,
+      "gasUsed": 892804
+    },
+    {
+      "iteration": 6,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554385,
+      "gasUsed": 1158668
+    },
+    {
+      "iteration": 6,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554386,
+      "gasUsed": 1035798
+    },
+    {
+      "iteration": 7,
+      "operation": "poolDeposit",
+      "leafIndex": 33554387,
+      "gasUsed": 896962
+    },
+    {
+      "iteration": 7,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554388,
+      "gasUsed": 1158656
+    },
+    {
+      "iteration": 7,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554389,
+      "gasUsed": 1037860
+    },
+    {
+      "iteration": 8,
+      "operation": "poolDeposit",
+      "leafIndex": 33554390,
+      "gasUsed": 896962
+    },
+    {
+      "iteration": 8,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554391,
+      "gasUsed": 1162814
+    },
+    {
+      "iteration": 8,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554392,
+      "gasUsed": 1035786
+    },
+    {
+      "iteration": 9,
+      "operation": "poolDeposit",
+      "leafIndex": 33554393,
+      "gasUsed": 896962
+    },
+    {
+      "iteration": 9,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554394,
+      "gasUsed": 1160735
+    },
+    {
+      "iteration": 9,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554395,
+      "gasUsed": 1039927
+    },
+    {
+      "iteration": 10,
+      "operation": "poolDeposit",
+      "leafIndex": 33554396,
+      "gasUsed": 896962
+    },
+    {
+      "iteration": 10,
+      "operation": "poolWithdraw",
+      "leafIndex": 33554397,
+      "gasUsed": 1162802
+    },
+    {
+      "iteration": 10,
+      "operation": "deliveryOrder",
+      "leafIndex": 33554398,
+      "gasUsed": 1039956
+    }
+  ],
+  "proofParts": [
+    {
+      "iteration": 1,
+      "treeMs": 1310.4499690000002,
+      "proveMs": 1977.465201
+    },
+    {
+      "iteration": 2,
+      "treeMs": 1079.917931,
+      "proveMs": 761.9162369999995
+    },
+    {
+      "iteration": 3,
+      "treeMs": 1362.0919519999998,
+      "proveMs": 767.7732250000008
+    },
+    {
+      "iteration": 4,
+      "treeMs": 1076.2553720000014,
+      "proveMs": 816.5959389999989
+    },
+    {
+      "iteration": 5,
+      "treeMs": 1289.7404850000003,
+      "proveMs": 790.2066159999995
+    },
+    {
+      "iteration": 6,
+      "treeMs": 1451.7642329999999,
+      "proveMs": 813.0390270000007
+    },
+    {
+      "iteration": 7,
+      "treeMs": 1517.4555610000025,
+      "proveMs": 811.707355999999
+    },
+    {
+      "iteration": 8,
+      "treeMs": 1024.2357540000012,
+      "proveMs": 764.8247530000008
+    },
+    {
+      "iteration": 9,
+      "treeMs": 1157.381239000002,
+      "proveMs": 749.8384159999987
+    },
+    {
+      "iteration": 10,
+      "treeMs": 1224.9423370000004,
+      "proveMs": 776.1063549999999
+    }
+  ],
+  "host": {
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+    "threads": 16,
+    "node": "v20.20.2"
+  },
+  "warnings": []
+}

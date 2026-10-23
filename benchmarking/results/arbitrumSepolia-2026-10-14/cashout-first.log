@@ -1,0 +1,30 @@
+Pool cash-out on arbitrum-sepolia (chain 421614, https://sepolia-rollup.arbitrum.io)
+  deployment record <repository>/deployments/arbitrumSepolia-2026-10-14/deployment.json
+  pool (GlobalReputation) 0x8B3E3657fF45ED15Cb34475E938a8034501c0A9f, deploy block 319238543
+  secrets file ephemeral-wallets-privacy-run-arbitrum-sepolia-2026-10-14T23-31-58-911Z.json
+  recipient: the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7; sender (pays the gas): the establishment 0xEd2794006D72C83E42B5B7253144359E0947b9E7
+(node:3778608) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<repository>/customer-frontend/src/utils/poseidon.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <repository>/customer-frontend/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  note tree at block 319246963: 31 leaves, root equal to the contract's
+
+Notes of the file: 30
+  deposit  spent                      10 notes  0.01094697505 ETH
+  change   spent                       9 notes  0.0 ETH
+  change   unspent, zero value         1 notes  0.0 ETH
+  revenue  unspent, can be proved     10 notes  0.019517984 ETH
+Unspent notes that can be proved: 10, 0.019517984 ETH (19517984000000000 wei); the pool holds 0.019517984 ETH (19517984000000000 wei)
+
+Plan: 1 withdrawal(s) of 5 (--max 1), two notes each; 0.0039037024 ETH (3903702400000000 wei) to the establishment
+
+Sending 1 withdrawal(s) from the establishment, nonces 161 to 161; result file <repository>/benchmarking/results/arbitrumSepolia-2026-10-14/pool-cashout-arbitrum-sepolia-2026-10-15T00-09-11-533Z.json
+   1/1  leaves 3 + 6                   0.0039037024         ETH  0xb6f5644f19de5c69b224027d3ae4baa9e663f7e8b0e6662d967e2aaad63da78d  block 319247041  gas 1142468 (limit 1383243)  0.020106 gwei  fee 0.000022970461608 ETH  change note at leaf 31  proof 1191 ms
+
+Withdrawals mined: 1 of 1 in 9 s; gas 1,142,468; fees 0.000022970461608 ETH paid by the establishment; paid out 0.0039037024 ETH (3903702400000000 wei) to the establishment
+Balances before and at block 319247058:
+  pool                              19517984000000000 ->      15614281600000000 wei  (-3903702400000000)
+  establishment (sends and receives)    1415316092896792800 ->    1419196824835184800 wei  (+3880731938392000)
+  the pool is down by exactly what was paid out: yes; the accounts moved by exactly the payouts and the fees: yes
+Result written to <repository>/benchmarking/results/arbitrumSepolia-2026-10-14/pool-cashout-arbitrum-sepolia-2026-10-15T00-09-11-533Z.json
+exit=0

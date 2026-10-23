@@ -22,7 +22,6 @@ const validationSchema = Yup.object().shape({
   culinary: Yup.string().required('Cuisine is required'),
   latitude: Yup.number().required('Latitude is required'),
   longitude: Yup.number().required('Longitude is required'),
-  digital_address: Yup.string().required('Digital address is required'),
   public_key: Yup.string().required('Connect MetaMask to generate your encryption key'),
   spend_public_key: Yup.string().required('Spend key is required (auto-generated)'),
   view_public_key: Yup.string().required('View key is required (auto-generated)')
@@ -46,7 +45,8 @@ export default function CreateAccount({ history }) {
     }
   }
 
-  // Connect MetaMask and auto-fill digital_address + public_key + spend_public_key
+  // Connect MetaMask and auto-fill public_key + spend_public_key + view_public_key.
+  // The account itself is not sent: only keys are registered.
   async function connectWallet(setFieldValue, setFieldTouched) {
     if (!window.ethereum) {
       alert('MetaMask is not installed. Please install it to continue.');
@@ -55,9 +55,6 @@ export default function CreateAccount({ history }) {
     try {
       var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       var account = accounts[0];
-      setFieldValue('digital_address', account);
-      setFieldTouched('digital_address', true, false);
-
       var encryptionKey = await getEncryptionPublicKey(account);
       setFieldValue('public_key', encryptionKey);
       setFieldTouched('public_key', true, false);
@@ -69,7 +66,7 @@ export default function CreateAccount({ history }) {
       setFieldValue('view_public_key', spendKey.viewPublicKeyCompressed);
       setFieldTouched('view_public_key', true, false);
     } catch (err) {
-      console.error('Failed to connect wallet:', err);
+      console.error('Failed to connect wallet:', (err && err.message) || 'unknown error');
       alert('Failed to connect MetaMask. Please try again.');
     }
   }
@@ -98,7 +95,6 @@ export default function CreateAccount({ history }) {
                   culinary: "",
                   latitude: "",
                   longitude: "",
-                  digital_address: "",
                   public_key: "",
                   spend_public_key: "",
                   view_public_key: ""
@@ -231,15 +227,6 @@ export default function CreateAccount({ history }) {
                     >
                       Connect MetaMask
                     </Button>
-                    <Input
-                      type="text"
-                      name="digital_address"
-                      placeholder="Wallet address (connect MetaMask above)"
-                      onChange={handleChange}
-                      value={values.digital_address}
-                      readOnly
-                    />
-                    {errors.digital_address && touched.digital_address && <ErrorText>{errors.digital_address}</ErrorText>}
                     <Input
                       type="text"
                       name="public_key"

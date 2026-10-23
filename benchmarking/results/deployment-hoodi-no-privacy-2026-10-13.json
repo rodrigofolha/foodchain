@@ -1,0 +1,44 @@
+{
+  "kind": "no-privacy",
+  "network": "hoodi",
+  "chainId": 560048,
+  "deployer": "0x82fD55a5eDc8F4242480dde230fe3Aa492eB156d",
+  "startedAt": "2026-10-13T09:28:01.013Z",
+  "completedAt": "2026-10-13T09:28:21.818Z",
+  "atStart": {
+    "block": 3807608,
+    "gasPrice": "1104662282",
+    "baseFeePerGas": "1054479201",
+    "maxPriorityFeePerGas": "50183081"
+  },
+  "feeSettings": {
+    "maxFeePerGas": "3000000000",
+    "maxPriorityFeePerGas": "200000000"
+  },
+  "deployBlock": 3807610,
+  "contracts": {
+    "No_Util": "0x84cD987c148789D320d0F5119B284F299A105DB0",
+    "No_Chain": "0x5414B5f0F6E08609cac99a8dd5D96E8189d89Bd9",
+    "No_OrderImplementation": "0xEb96070F4Df1D40ba511F5d83D248cb505C3f81a"
+  },
+  "transactions": [
+    {
+      "name": "No_Util",
+      "hash": "0x53b57bedadd46f379e38869367ce91f91e2242e40f42354e8faf5f349ed30898",
+      "blockNumber": 3807609,
+      "gasUsed": 882183,
+      "effectiveGasPrice": "1143037244",
+      "contractAddress": "0x84cD987c148789D320d0F5119B284F299A105DB0"
+    },
+    {
+      "name": "No_Chain",
+      "hash": "0xcde4b728c213c1c90d8c74b4fde59a9aeec57dc51ee9ae903986ebb689fd982a",
+      "blockNumber": 3807610,
+      "gasUsed": 3660265,
+      "effectiveGasPrice": "1255008775",
+      "contractAddress": "0x5414B5f0F6E08609cac99a8dd5D96E8189d89Bd9"
+    }
+  ],
+  "totalGasUsed": 4542448,
+  "totalFeeWei": "5602032718849027"
+}

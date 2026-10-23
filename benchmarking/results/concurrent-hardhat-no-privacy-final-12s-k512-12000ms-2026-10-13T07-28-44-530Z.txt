@@ -1,0 +1,48 @@
+==============================================================================================================
+FoodChain — concurrent throughput (hardhat (in-process), no-privacy, block time 12000 ms)
+==============================================================================================================
+
+Experimental variables
+  Started at:          2026-10-13T07:22:17.102Z
+  Network:             hardhat (in-process) (chainId 31337)
+  Block timing:        12000 ms interval mining (12000 ms mirrors Sepolia)
+  Block gas limit:     60,000,000
+  Contracts:           Chain 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707, GlobalReputation 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+                       Storage 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9, StealthAnnouncer 0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6
+  Tree:                note tree depth 25; every past root stays valid (mapping, O(1)). Ratings: Chain.rateOrder, in the clear
+  Privacy:             none (No_Chain baseline)
+  Concurrency levels:  {8, 512} clients; units per client: makeOrder 6, cycle 2
+  Client model:        closed loop (next tx after the previous receipt), clients start together
+  Prover:              snarkjs 0.7.6 groth16.fullProve, 1 concurrent proofs on 16 CPUs (12th Gen Intel(R) Core(TM) i5-12500H)
+  Receipt polling:     25 ms
+  Host:                Node v20.20.2 on linux x64
+
+Definitions
+  window      wall clock from the level start to the last receipt of the level
+  units/s     completed units (orders or cycles) / window;  tx/s = mined transactions / window
+  unit lat.   one unit's wall clock (makeOrder: derivation + announce + makeOrder; cycle: all its steps)
+  incl. lat.  sendTransaction returned -> block containing the tx observed
+  blk/util    blocks spanned by the level / mean and max gasUsed/gasLimit over those blocks
+  root age    note-tree insertions between a withdrawal proof's snapshot and its on-chain check
+              (every past root stays valid: mapping, O(1)); stale = proofs regenerated because the dry run
+              reported their root as not known
+
+── Workload: makeOrder (6 orders per client) ────────────────────────────────────────
+|   k |  units ok | window s | units/s |  tx/s | makeOrder tx/s | unit lat. ms p50/p90/p99 | incl. lat. ms p50/p95/p99 | blk / util mean / max | max tx/blk | base fee gwei | root age max / stale |
+|-----|-----------|----------|---------|-------|----------------|--------------------------|---------------------------|-----------------------|------------|---------------|----------------------|
+|   8 |     48/48 |    72.00 |    0.67 |  0.67 |           0.67 |    11998 / 12010 / 12023 |     11973 / 11990 / 11999 |           6 / 5% / 5% |          8 | 0.1051-0.1909 |                    - |
+| 512 | 3072/3072 |   252.12 |   12.18 | 12.18 |          12.18 |    36259 / 47751 / 48182 |     35953 / 47718 / 47745 |        21 / 92% / 92% |        147 | 0.0714-0.5299 |                    - |
+
+| operation |    n | mean gasUsed | gas limit | latency ms p50/p95 (tx: inclusion) | tx prep or prove ms p50/p95 | prover wait ms p50/p95 |
+|-----------|------|--------------|-----------|------------------------------------|-----------------------------|------------------------|
+| makeOrder | 3120 |      376,118 | 5,000,000 |                      35949 / 47717 |                   13 / 1254 |                      - |
+
+  Gas-bound ceiling: 147 makeOrders per 60,000,000-gas block (each needs its 5,000,000 gas limit free) = 12.3 makeOrder/s at 12000 ms blocks.
+  Closed-loop bound: a client needs 2 blocks per order (announce, then makeOrder), so k clients offer at most k/(2 x 12 s) orders/s.
+
+Notes
+  - Fresh deployment per run; client wallets are reused across levels, so later levels see a larger note tree and couriers with a record.
+  - Contracts: the final ones of 2026-10-12 (ratings in the clear, orders as minimal proxies, the worker's ciphertexts in an event, the establishment paid by a note in the pool). Payloads: the dApps' late-release format.
+  - Warm-up: 1 unrecorded unit(s) by client 0 before each sweep.
+  - In-process network: clients, provers and the EVM share one Node process.
+  - In-process EDR guard (EDR_GUARD=1, see installEdrGuard): nonce queries, gas estimates and calls use the "latest" block instead of "pending" (3121 queries retagged; each sender has at most one transaction in flight, so the nonce is the same), eth_estimateGas and eth_call run one at a time (0 + 9), and a full GC runs every second. EDR allocator: MIMALLOC_PURGE_DELAY=0.
