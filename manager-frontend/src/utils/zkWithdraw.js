@@ -13,6 +13,7 @@
 import { poseidon2 } from '../utils/poseidon';
 import { computeZeros, buildLayers, getRoot, getMerklePath, computeRootFromPath, decodeLeafLog, orderLeaves } from './merkleTree';
 import { readDeployment, writeDeployment } from './deploymentStorage';
+import { getLogsChunked } from './chainLogs';
 
 const PAYMENT_NOTES_KEY = 'restaurantPaymentNotes';
 const MERGE_WITHDRAW_WASM = process.env.PUBLIC_URL + '/circuits/mergeWithdraw.wasm';
@@ -253,7 +254,7 @@ export async function fetchTreeState(logWeb3, reputationAddress, fromBlock) {
   var logs = null;
   for (var attempt = 0; attempt < 5; attempt++) {
     try {
-      logs = await logWeb3.eth.getPastLogs({
+      logs = await getLogsChunked(logWeb3, {
         address: reputationAddress,
         fromBlock: fromBlock,
         toBlock: 'latest',

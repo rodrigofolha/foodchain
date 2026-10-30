@@ -1,5 +1,8 @@
 // Reading orders and the customer's delivery details from event logs.
-// This file imports nothing: every function gets the web3 objects it needs.
+// Every function gets the web3 objects it needs. The queries go through getLogsChunked,
+// which splits a long range of blocks into the windows that public endpoints accept.
+
+import { getLogsChunked } from './chainLogs';
 
 // keccak256('OrderActors(address,address,address,address)'), emitted by each order
 export const ORDER_ACTORS_TOPIC = '0x3aab3448479337ae16f6a4a2ab87a664e7aad6b0c280f483bf1be0c16f888643';
@@ -81,7 +84,7 @@ export function workerCommitment(commitments, account) {
 }
 
 export async function findWorkerCommitment({ logWeb3, orderAddress, account, deployBlock }) {
-  const logs = await logWeb3.eth.getPastLogs({
+  const logs = await getLogsChunked(logWeb3, {
     address: orderAddress,
     fromBlock: deployBlock || 0,
     toBlock: 'latest',
@@ -101,7 +104,7 @@ export async function readWorkerInformation({ logWeb3, storageAddress, orderAddr
   if (!commitment) return { commitment: null, information: ['', ''] };
 
   const toTopic = (number) => logWeb3.utils.padLeft(logWeb3.utils.numberToHex(number), 64);
-  const logs = await logWeb3.eth.getPastLogs({
+  const logs = await getLogsChunked(logWeb3, {
     address: storageAddress,
     fromBlock: Math.max(commitment.blockNumber, deployBlock || 0),
     toBlock: 'latest',

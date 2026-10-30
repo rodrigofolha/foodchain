@@ -14,6 +14,7 @@
  */
 
 import { ethers } from 'ethers';
+import { getLogsChunked } from './chainLogs';
 
 var EC = require('elliptic').ec;
 var ec = new EC('secp256k1');
@@ -136,7 +137,14 @@ export function deriveStealthPrivateKey(spendPrivateKey, viewPrivateKey, ephemer
 export async function scanAnnouncements(stealthContract, spendPrivateKey, viewPrivateKey, fromBlock) {
   var schemeId = 1; // secp256k1 ECDH
   var filter = stealthContract.filters.Announcement(schemeId);
-  var events = await stealthContract.queryFilter(filter, fromBlock, 'latest');
+  // In the windows of getLogsChunked (chainLogs.js), each one read with the contract's
+  // queryFilter: the endpoint refuses a query over more than 50,000 blocks
+  var events = await getLogsChunked({
+    eth: {
+      getBlockNumber: function() { return stealthContract.provider.getBlockNumber(); },
+      getPastLogs: function(range) { return stealthContract.queryFilter(filter, range.fromBlock, range.toBlock); },
+    },
+  }, { fromBlock: fromBlock, toBlock: 'latest' });
 
   var matches = [];
 

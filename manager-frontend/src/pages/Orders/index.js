@@ -19,6 +19,7 @@ import { hasPendingGasReturns, reconcileGasReturns } from '../../utils/gasReturn
 import { hasPendingPoolDeposits, reconcilePoolDeposits } from '../../utils/poolDeposit';
 import { keepChainOrders } from '../../utils/orderCheck';
 import { candidateOrdersFromLogs } from '../../utils/orderLogs';
+import { chainOrderLogs } from '../../utils/chainLogs';
 
 
 export default function Orders() {
@@ -129,11 +130,10 @@ export default function Orders() {
 
                 var stealthAddrs = Object.keys(stealthMap);
                 if (stealthAddrs.length > 0) {
-                  // 2. Fetch ALL OrderActors events in one call
-                  var allLogs = await logWeb3.eth.getPastLogs({
-                    fromBlock: fromBlock, toBlock: 'latest',
-                    topics: [eventTopic]
-                  }).catch(function() { return []; });
+                  // 2. The OrderActors events of every order of Chain: the orders are named by
+                  // Chain's OrderZone events, and each query names the addresses it reads
+                  var allLogs = await chainOrderLogs(logWeb3, CHAIN_ADDRESS, fromBlock, [eventTopic])
+                    .catch(function() { return []; });
 
                   console.log('[Orders] Total OrderActors events:', allLogs.length);
 

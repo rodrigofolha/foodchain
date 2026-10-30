@@ -163,6 +163,21 @@ describe('commitmentsFromLogs', () => {
     await expect(readCommitments(logWeb3, ORDER_A, 9)).resolves.toEqual([{ worker: WORKER_1, position: 1, blockNumber: 12 }]);
     expect(asked).toEqual([{ address: ORDER_A, topics: [ORDER_ACTORS_TOPIC], fromBlock: 9, toBlock: 'latest' }]);
   });
+
+  it('readCommitments reads a range longer than one query may cover in windows', async () => {
+    const asked = [];
+    const logWeb3 = {
+      eth: {
+        getBlockNumber: async () => 9 + 50000,
+        getPastLogs: async (filter) => { asked.push(filter); return filter.fromBlock === 9 ? orderLogs(ORDER_A, [WORKER_1], 10) : []; },
+      },
+    };
+    await expect(readCommitments(logWeb3, ORDER_A, 9)).resolves.toEqual([{ worker: WORKER_1, position: 1, blockNumber: 12 }]);
+    expect(asked).toEqual([
+      { address: ORDER_A, topics: [ORDER_ACTORS_TOPIC], fromBlock: 9, toBlock: 9 + 44999 },
+      { address: ORDER_A, topics: [ORDER_ACTORS_TOPIC], fromBlock: 9 + 45000, toBlock: 'latest' },
+    ]);
+  });
 });
 
 describe('workersOfOrder / currentCommitment', () => {
@@ -278,6 +293,22 @@ describe('detailsSentTo', () => {
   it('lets a failed read reach the caller', async () => {
     const logWeb3 = { eth: { getPastLogs: async () => { throw new Error('rpc down'); } } };
     await expect(detailsSentTo(logWeb3, STORAGE, 7, 1, 0)).rejects.toThrow('rpc down');
+  });
+
+  it('reads a range longer than one query may cover in windows', async () => {
+    const asked = [];
+    const logWeb3 = {
+      eth: {
+        getBlockNumber: async () => 120 + 50000,
+        getPastLogs: async (filter) => { asked.push(filter); return filter.toBlock === 'latest' ? [{ address: STORAGE }] : []; },
+      },
+    };
+    await expect(detailsSentTo(logWeb3, STORAGE, '7', 2, 120)).resolves.toBe(true);
+    const topics = [INFORMATION_TOPIC, uintTopic(7), uintTopic(2)];
+    expect(asked).toEqual([
+      { address: STORAGE, topics: topics, fromBlock: 120, toBlock: 120 + 44999 },
+      { address: STORAGE, topics: topics, fromBlock: 120 + 45000, toBlock: 'latest' },
+    ]);
   });
 });
 

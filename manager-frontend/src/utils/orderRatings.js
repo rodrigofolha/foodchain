@@ -5,6 +5,7 @@
  * one-time address. GlobalReputation.orderRatings(order, worker) says what the order reported
  * about the worker and which scores were given.
  */
+import { getLogsChunked } from './chainLogs';
 
 // OrderActors(address indexed client, address indexed establishment, address indexed deliveryworker, address orderAddress)
 export const ORDER_ACTORS_TOPIC = '0x3aab3448479337ae16f6a4a2ab87a664e7aad6b0c280f483bf1be0c16f888643';
@@ -52,7 +53,7 @@ export function orderWorkers(commitments) {
  * Chain.isOrder), or the logs could be anything.
  */
 export async function fetchOrderCommitments(logWeb3, orderAddress, fromBlock) {
-  var logs = await logWeb3.eth.getPastLogs({
+  var logs = await getLogsChunked(logWeb3, {
     address: orderAddress,
     fromBlock: fromBlock || 0,
     toBlock: 'latest',

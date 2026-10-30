@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import User from './index';
+import { CHAIN_ADDRESS, DEPLOY_BLOCK } from '../../services/config';
 
 // Fakes of the wallet and the contracts. Plain functions instead of jest.fn(),
 // because CRA resets mock implementations before each test.
@@ -10,8 +11,15 @@ const mockRatings = {};
 let mockRecord = null;
 let mockLogs = [];
 const mockAsked = [];
+// the filter of each log query the page makes
+const mockQueries = [];
 
 jest.mock('../../services/getWeb3', () => {
+  const Web3 = require('web3');
+  const { CHAIN_ADDRESS, DEPLOY_BLOCK } = require('../../services/config');
+  const { ORDER_ACTORS_TOPIC, addressTopic } = require('../../utils/orderLogs');
+  const web3 = new Web3();
+  const zoneTopic = web3.utils.keccak256('OrderZone(address,string)');
   const contracts = {
     chain: {
       methods: {
@@ -24,7 +32,28 @@ jest.mock('../../services/getWeb3', () => {
         }),
       },
     },
-    logWeb3: { eth: { getPastLogs: () => Promise.resolve(mockLogs) } },
+    // The read-only node. It answers the OrderZone query of Chain with one event per
+    // order of Chain, and an OrderActors query that names orders with the logs of
+    // mockLogs, also those of contracts it was not asked about: what a node returns
+    // is not trusted. Like publicnode, it refuses any other query.
+    logWeb3: {
+      utils: web3.utils,
+      eth: {
+        getBlockNumber: () => Promise.resolve(DEPLOY_BLOCK + 1000),
+        getPastLogs: (filter) => {
+          mockQueries.push(filter);
+          if (filter.address === CHAIN_ADDRESS && filter.topics[0] === zoneTopic) {
+            return Promise.resolve(Object.keys(mockOrders).map((order) => ({
+              address: CHAIN_ADDRESS,
+              topics: [zoneTopic, addressTopic(order)],
+              data: web3.eth.abi.encodeParameter('string', 'Recife'),
+            })));
+          }
+          if (Array.isArray(filter.address) && filter.topics[0] === ORDER_ACTORS_TOPIC) return Promise.resolve(mockLogs);
+          return Promise.reject(new Error('Please specify an address in your request'));
+        },
+      },
+    },
     reputation: {
       methods: {
         workers: () => ({ call: () => Promise.resolve(mockRecord) }),
@@ -48,6 +77,9 @@ const LOOK_ALIKE = '0x00000000000000000000000000000000000000ff';
 const NEVER_TAKEN = '0x00000000000000000000000000000000000000a6';
 const CUSTOMER = '0x00000000000000000000000000000000000000d1';
 const SHOP = '0x00000000000000000000000000000000000000d2';
+// keccak256 of 'OrderActors(address,address,address,address)' and of 'OrderZone(address,string)'
+const ACTORS_TOPIC = '0x3aab3448479337ae16f6a4a2ab87a664e7aad6b0c280f483bf1be0c16f888643';
+const ZONE_TOPIC = '0x7ebe63c523646e66b7a4845a7ba5641c709ffccfda4c8ed3b9272207f6ac92f6';
 
 function view(id, status) {
   const empty = status === '';
@@ -72,6 +104,7 @@ beforeEach(() => {
   Object.keys(mockOrders).forEach((key) => delete mockOrders[key]);
   Object.keys(mockRatings).forEach((key) => delete mockRatings[key]);
   mockAsked.length = 0;
+  mockQueries.length = 0;
   mockRecord = { totalScore: '9', totalRatings: '2', completedOrders: '1', leftOrders: '3', ratingsAfterLeaving: '1' };
   mockOrders[ACTIVE] = view(1, 'WAITING');
   mockOrders[REOPENED] = view(2, 'PREPARATION');
@@ -152,5 +185,20 @@ describe('the worker\'s page', () => {
     render(<User />);
     await screen.findByText('No ratings yet');
     expect(screen.getByText('Orders you left: 0')).toBeTruthy();
+  });
+
+  it('reads the orders of Chain from its OrderZone events, then their OrderActors events by address', async () => {
+    render(<User />);
+    await screen.findByText('card of order 1 (WAITING)');
+    const topic = (account) => '0x' + '0'.repeat(24) + account.slice(2);
+    expect(mockQueries).toEqual([
+      { address: CHAIN_ADDRESS, fromBlock: DEPLOY_BLOCK, toBlock: 'latest', topics: [ZONE_TOPIC] },
+      {
+        address: [ACTIVE, REOPENED, TAKEN_BY_OTHER, CANCELLED_AFTER_PICKUP, CONCLUDED],
+        fromBlock: DEPLOY_BLOCK,
+        toBlock: 'latest',
+        topics: [ACTORS_TOPIC, null, null, topic(WORKER)],
+      },
+    ]);
   });
 });

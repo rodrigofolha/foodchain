@@ -13,12 +13,13 @@ import {
 
 import api from '../../services/api';
 import { useWeb3 } from '../../services/getWeb3';
-import { SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
+import { SEPOLIA_RPC_URL, DEPLOY_BLOCK, CHAIN_ADDRESS } from '../../services/config';
 import { decrypt } from '../../utils/crypto';
 import { adoptPendingOrder, orderRestaurantInfoFor } from '../../utils/orderSecrets';
 import { loadDeployment } from '../../utils/deploymentStorage';
 import { errorText } from '../../utils/contractErrors';
 import { orderAddressesFromLogs, keepChainOrders, commitmentsFromLogs, readCommitments } from '../../utils/orderWorkers';
+import { chainOrderLogs } from '../../utils/chainLogs';
 
 export default function Orders() {
   const [customer, setCustomer] = useState({});
@@ -54,15 +55,13 @@ export default function Orders() {
           // order contract -> the workers who committed to it, from its OrderActors logs
           const workersOf = {};
           if (SEPOLIA_RPC_URL) {
-            // Fast path: single eth_getLogs call via Infura/Alchemy
+            // Fast path, through the read-only endpoint: the orders that Chain created (its
+            // OrderZone logs), then the OrderActors logs of those orders that name this customer
             const eventTopic = logWeb3.utils.keccak256('OrderActors(address,address,address,address)');
             const clientTopic = '0x' + '000000000000000000000000' + accounts[0].slice(2).toLowerCase();
             const fromBlock = DEPLOY_BLOCK || 0;
-            const logs = await logWeb3.eth.getPastLogs({
-              fromBlock,
-              toBlock: 'latest',
-              topics: [eventTopic, clientTopic]
-            }).catch(err => { console.error('Could not read the order logs:', errorText(err)); return []; });
+            const logs = await chainOrderLogs(logWeb3, CHAIN_ADDRESS, fromBlock, [eventTopic, clientTopic])
+              .catch(err => { console.error('Could not read the order logs:', errorText(err)); return []; });
             // Collect unique order addresses, then batch getOrder calls.
             // Any contract can emit an event with this name: only the addresses
             // that Chain says are its orders are kept.

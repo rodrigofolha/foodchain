@@ -45,9 +45,10 @@ function informationLog(emitter, index, position, first, second, blockNumber, lo
 }
 
 // A log provider over a fixed list of logs, filtering as a node does:
-// by address, by block range and by each topic that is given.
-function fakeLogWeb3(allLogs, queries = []) {
-  return {
+// by address, by block range and by each topic that is given. With a head, it
+// also reports that block number as the chain's last block.
+function fakeLogWeb3(allLogs, queries = [], head) {
+  const provider = {
     utils: web3.utils,
     eth: {
       abi: web3.eth.abi,
@@ -56,10 +57,13 @@ function fakeLogWeb3(allLogs, queries = []) {
         return allLogs.filter((log) =>
           (!filter.address || log.address.toLowerCase() === filter.address.toLowerCase()) &&
           log.blockNumber >= filter.fromBlock &&
+          (filter.toBlock === undefined || filter.toBlock === 'latest' || log.blockNumber <= filter.toBlock) &&
           (filter.topics || []).every((topic, i) => topic === null || log.topics[i].toLowerCase() === topic.toLowerCase()));
       },
     },
   };
+  if (head !== undefined) provider.eth.getBlockNumber = async () => head;
+  return provider;
 }
 
 function read(allLogs, account, queries) {
@@ -273,5 +277,28 @@ describe('reading what the customer sent', () => {
     // the commitment itself is before block 500 here, so it is not found
     expect(queries).toHaveLength(1);
     expect(queries[0].fromBlock).toBe(500);
+  });
+
+  it('reads a long range of blocks in windows that a public endpoint accepts', async () => {
+    const queries = [];
+    // the commitment 60,000 blocks after the deployment, the post 100,000 blocks after it,
+    // and the chain's last block 120,000 blocks after it
+    const logs = [
+      actorsLog(ORDER, FIRST, DEPLOY_BLOCK + 60000),
+      informationLog(STORAGE, 7, 1, 'enc-address', 'enc-items', DEPLOY_BLOCK + 100000),
+    ];
+    const result = await readWorkerInformation({
+      logWeb3: fakeLogWeb3(logs, queries, DEPLOY_BLOCK + 120000), storageAddress: STORAGE, orderAddress: ORDER, orderIndex: 7, account: FIRST, deployBlock: DEPLOY_BLOCK,
+    });
+    expect(result).toEqual({ commitment: { position: 1, blockNumber: DEPLOY_BLOCK + 60000 }, information: ['enc-address', 'enc-items'] });
+    expect(queries.map((query) => [query.address, query.fromBlock, query.toBlock])).toEqual([
+      // the order's logs from the deployment block, in three windows
+      [ORDER, DEPLOY_BLOCK, DEPLOY_BLOCK + 44999],
+      [ORDER, DEPLOY_BLOCK + 45000, DEPLOY_BLOCK + 89999],
+      [ORDER, DEPLOY_BLOCK + 90000, 'latest'],
+      // Storage's logs from the commitment, in two
+      [STORAGE, DEPLOY_BLOCK + 60000, DEPLOY_BLOCK + 104999],
+      [STORAGE, DEPLOY_BLOCK + 105000, 'latest'],
+    ]);
   });
 });

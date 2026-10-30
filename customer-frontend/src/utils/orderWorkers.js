@@ -7,6 +7,7 @@
 // commitment of a worker.
 import { ethers } from 'ethers';
 import { ORDER_ACTORS_TOPIC, sameAddress as same } from './orderSecrets';
+import { getLogsChunked } from './chainLogs';
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
@@ -98,7 +99,7 @@ export function commitmentsFromLogs(logs, orderAddress) {
 // The commitments of one order, read from the node. Used when the page has no
 // logs of this order yet.
 export async function readCommitments(logWeb3, orderAddress, fromBlock) {
-  const logs = await logWeb3.eth.getPastLogs({
+  const logs = await getLogsChunked(logWeb3, {
     address: orderAddress,
     topics: [ORDER_ACTORS_TOPIC],
     fromBlock: fromBlock || 0,
@@ -164,7 +165,7 @@ export function outcomeText(outcome) {
 // of this order (an Information log of Storage). The filter has the Storage
 // address: another contract can emit a log with the same topics.
 export async function detailsSentTo(logWeb3, storageAddress, orderId, position, fromBlock) {
-  const logs = await logWeb3.eth.getPastLogs({
+  const logs = await getLogsChunked(logWeb3, {
     address: storageAddress,
     topics: [INFORMATION_TOPIC, uintTopic(orderId), uintTopic(position)],
     fromBlock: fromBlock || 0,

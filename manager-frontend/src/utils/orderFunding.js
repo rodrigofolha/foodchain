@@ -30,6 +30,7 @@
 // measurement on Sepolia.
 
 import { readDeployment, writeDeployment } from './deploymentStorage';
+import { getLogsChunked } from './chainLogs';
 
 export const ORDER_GAS_BUDGET = 3150000;
 // room for a rise of the gas price after the funding: 3/2
@@ -101,7 +102,7 @@ export function recordedFunding(address) {
  * @returns {Promise<BigInt>} wei; throws when the logs could not be read
  */
 export async function withdrawnTo(logWeb3, reputationAddress, address, fromBlock) {
-  var logs = await logWeb3.eth.getPastLogs({
+  var logs = await getLogsChunked(logWeb3, {
     address: reputationAddress,
     fromBlock: fromBlock,
     toBlock: 'latest',

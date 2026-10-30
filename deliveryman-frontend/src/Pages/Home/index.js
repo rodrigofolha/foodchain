@@ -19,6 +19,7 @@ import {
 import { useWeb3 } from '../../services/getWeb3';
 import { CHAIN_ADDRESS, REPUTATION_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
 import { ORDER_ACTORS_TOPIC, orderAddressesFromLogs, keepChainOrders } from '../../utils/orderLogs';
+import { getLogsChunked, logsOfOrders } from '../../utils/chainLogs';
 import { errorText } from '../../utils/contractErrors';
 
 export default function Home({ history }) {
@@ -51,13 +52,11 @@ export default function Home({ history }) {
         var eventTopic = ORDER_ACTORS_TOPIC;
         var zoneTopic = logWeb3.utils.keccak256('OrderZone(address,string)');
 
-        // Fetch OrderActors + OrderZone events in parallel (2 RPC calls instead of 3+)
-        var logResults = await Promise.all([
-          logWeb3.eth.getPastLogs({ fromBlock: fromBlock, toBlock: 'latest', topics: [eventTopic] }).catch(function() { return []; }),
-          logWeb3.eth.getPastLogs({ address: CHAIN_ADDRESS, fromBlock: fromBlock, toBlock: 'latest', topics: [zoneTopic] }).catch(function() { return []; })
-        ]);
-        var logs = logResults[0];
-        var zoneLogs = logResults[1];
+        // The OrderZone events of Chain (one per order with a zone) give the zones and
+        // the orders. The OrderActors events are then read by the orders' addresses: a
+        // public endpoint refuses a query without an address. Both queries are split
+        // into windows of blocks (utils/chainLogs.js).
+        var zoneLogs = await getLogsChunked(logWeb3, { address: CHAIN_ADDRESS, fromBlock: fromBlock, toBlock: 'latest', topics: [zoneTopic] }).catch(function() { return []; });
 
         // Build zone map from zone events
         var zoneMap = {};
@@ -65,6 +64,9 @@ export default function Home({ history }) {
           var zOrderAddr = '0x' + zoneLogs[z].topics[1].slice(26);
           zoneMap[zOrderAddr.toLowerCase()] = logWeb3.eth.abi.decodeParameter('string', zoneLogs[z].data);
         }
+
+        // The orders are the keys of the zone map: each order named by a zone event, once
+        var logs = await logsOfOrders(logWeb3, Object.keys(zoneMap), fromBlock, [eventTopic]).catch(function() { return []; });
 
         // Collect unique order addresses. Any contract can emit an event of this
         // name: only orders created by Chain are kept.

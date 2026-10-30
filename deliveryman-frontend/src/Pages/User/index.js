@@ -13,8 +13,9 @@ import {
 } from './styles';
 
 import { useWeb3 } from '../../services/getWeb3';
-import { SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
+import { CHAIN_ADDRESS, SEPOLIA_RPC_URL, DEPLOY_BLOCK } from '../../services/config';
 import { ORDER_ACTORS_TOPIC, addressTopic, orderAddressesFromLogs, keepChainOrders } from '../../utils/orderLogs';
+import { chainOrderLogs } from '../../utils/chainLogs';
 import { workerRecord, averageText } from '../../utils/workerRecord';
 import { isWorkerView, leftOrderText } from '../../utils/leaving';
 import { errorText } from '../../utils/contractErrors';
@@ -55,11 +56,11 @@ export default function Orders() {
           const eventTopic = ORDER_ACTORS_TOPIC;
           const workerTopic = addressTopic(account);
           const fromBlock = DEPLOY_BLOCK || 0;
-          const logs = await logWeb3.eth.getPastLogs({
-            fromBlock,
-            toBlock: 'latest',
-            topics: [eventTopic, null, null, workerTopic]
-          }).catch(err => { console.error('Could not read the order logs:', errorText(err)); return []; });
+          // The orders of Chain come from its OrderZone events; their OrderActors events
+          // are then read by the orders' addresses (a public endpoint refuses a query
+          // without an address).
+          const logs = await chainOrderLogs(logWeb3, CHAIN_ADDRESS, fromBlock, [eventTopic, null, null, workerTopic])
+            .catch(err => { console.error('Could not read the order logs:', errorText(err)); return []; });
           // Collect unique order addresses, then batch getOrder calls. Any contract can
           // emit an event of this name: only orders created by Chain are kept.
           var orderAddresses = await keepChainOrders(chain, orderAddressesFromLogs(logs));

@@ -1,4 +1,4 @@
-// The OrderActors logs of a query over every contract, as the orders page needs them.
+// The OrderActors logs of the orders of Chain, read by their addresses, as the orders page needs them.
 //
 // OrderActors(address indexed client, address indexed establishment, address indexed deliveryworker, address orderAddress)
 // is emitted by each order, which names itself in the data. Any contract can emit a log
