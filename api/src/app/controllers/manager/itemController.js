@@ -77,10 +77,15 @@ module.exports = {
       price
     } = req.body;
 
-    await Item.update(
+    // Only items of the signed-in restaurant can be changed.
+    const [updated] = await Item.update(
       {title, description, price, thumbnail_path: thumbnail.filename},
-      {where: { id } },
+      {where: { id, restaurant_id: req.userId } },
     );
+
+    if (!updated) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
 
     return res.status(204).json();
   },
@@ -88,10 +93,15 @@ module.exports = {
   async delete(req, res) {
     const { id } = req.params;
 
-    await Item.destroy({
-      where: { id },
+    // Only items of the signed-in restaurant can be deleted.
+    const deleted = await Item.destroy({
+      where: { id, restaurant_id: req.userId },
     });
-    
+
+    if (!deleted) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
     return res.status(204).json();
   }
 }
